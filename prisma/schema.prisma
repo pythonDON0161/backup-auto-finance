@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Application {
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  price       Int?
+  isNew       Boolean?
+  modelYear   Int?
+  downPayment Decimal?
+  firstName   String?
+  middleInit  String?
+  lastName    String?
+  dob         String?
+  tel         String?
+  employment  String?
+  totalIn     Int?
+  totalOut    Int?
+  creditGrade String?
+  userId      Int?
+  termLength  Int?
+  User        User?         @relation(fields: [userId], references: [id])
+  Coapplicant Coapplicant[]
+}
+
+model Bank {
+  bankId     Int      @unique @default(autoincrement())
+  createdAt  DateTime @default(now())
+  name       String   @unique
+  otherFees  Int
+  tdsrTarget Decimal
+  tdsrMax    Decimal
+  Term       Term[]
+}
+
+model Coapplicant {
+  id            Int          @id @default(autoincrement())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime
+  price         Int?
+  isNew         Boolean?
+  modelYear     Int?
+  downPayment   Decimal?
+  loanTerms     Int?
+  firstName     String?
+  middleInit    String?
+  lastName      String?
+  dob           String?
+  email         String?
+  tel           String?
+  employment    String?
+  totalIn       Int?
+  totalOut      Int?
+  creditGrade   String?
+  applicationId Int?
+  Application   Application? @relation(fields: [applicationId], references: [id])
+}
+
+model Session {
+  id                 Int       @id @default(autoincrement())
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime
+  expiresAt          DateTime?
+  handle             String    @unique
+  userId             Int?
+  hashedSessionToken String?
+  antiCSRFToken      String?
+  publicData         String?
+  privateData        String?
+  User               User?     @relation(fields: [userId], references: [id])
+}
+
+model Term {
+  id        Int      @unique @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  endDate   DateTime
+  isNew     Boolean
+  year      Int
+  rate      Decimal
+  deposit   Decimal
+  procFees  Decimal
+  months    Int
+  authorId  Int
+  length    Int
+  Bank      Bank     @relation(fields: [authorId], references: [bankId])
+}
+
+model User {
+  id             Int           @id @default(autoincrement())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime
+  name           String?
+  email          String        @unique
+  hashedPassword String?
+  role           String        @default("user")
+  Application    Application[]
+  Session        Session[]
+}
+
+model CalculatorTerm {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  newOrUsed String
+  year      String
+  deposit   Int
+  term      Int
+  rate      Decimal
+}
+
+enum Role {
+  USER
+  AGENT
+  ADMIN
+}

@@ -1,0 +1,60 @@
+{
+  "name": "finance",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@auth0/auth0-react": "^1.2.0",
+    "@chakra-ui/react": "^1.0.0",
+    "@craco/craco": "^5.8.0",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "@feedback-fish/react": "^1.2.1",
+    "@prisma/cli": "^2.12.0",
+    "@prisma/client": "3.1.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "autoprefixer": "^10.0.2",
+    "axios": "^0.21.1",
+    "confetti-js": "^0.0.18",
+    "framer-motion": "^2.9.4",
+    "little-state-machine": "^3.1.1",
+    "postcss": "^8.1.9",
+    "react": "^16.14.0",
+    "react-app-protect": "^1.0.7",
+    "react-dom": "^16.14.0",
+    "react-hook-form": "^6.11.3",
+    "react-icons": "^4.1.0",
+    "react-input-mask": "^2.0.4",
+    "react-number-format": "^4.4.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "tailwindcss": "^2.0.1"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "little-state-machine-devtools": "^1.0.0",
+    "prettier": "2.2.1",
+    "prisma": "^3.1.1"
+  }
+}
