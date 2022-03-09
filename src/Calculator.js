@@ -32,6 +32,18 @@ function Calculator(props) {
   const [results, setResults] = useState(false)
   var headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
+
+  // get next year for new car model
+  var currentDate= new Date();
+  var latestYear = currentDate.getFullYear() + 1;
+  var currentYear = currentDate.getFullYear()
+  
+  // generates array of years 8 years prior to current year
+  const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
+  var usedYears =  [ (range(currentYear, currentYear - 8, -1)) ]; 
+  console.log(usedYears)
+
+  //This data is used to calculate the deposit amount, length of loan and interest rate
   const calcData = [
     {
       id: 1,
@@ -366,6 +378,8 @@ function Calculator(props) {
             />
             {errors.price && <p className="error">Your input is required</p>}
           </label>
+
+          {/* user selects if they want new or used cars */}
           <label>
             New or Used:
             <Select
@@ -379,55 +393,40 @@ function Calculator(props) {
             </Select>
             {errors.carStatus && <p className="error">Please select an option</p>}
           </label>
+
+
+          {/* if car status is used */}
           {carStatus === "Used" && (
             <label>
               Model Year:
               <Select
                 name="modelYear"
-                options={[
-                  "2022",
-                  "2021",
-                  "2020",
-                  "2019",
-                  "2018",
-                  "2017",
-                  "2016",
-                  "2015",
-                  "2014",
-                  "2013",
-                  "2012",
-                ]}
+                
                 defaultValue={state.data.modelYear}
                 placeholder="Select option"
                 ref={register({ required: true })}
               >
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-                <option value="2014">2014</option>
-                <option value="2013">2013</option>
-                <option value="2012">2012</option>
+                 
+                 {usedYears[0].map(year => <option key={year} value={year}>{year}</option>)}
+
               </Select>
             </label>
           )}
+
+          {/* If car status is new get latest year using getFullYear() function */}
           {carStatus === "New" && (
             <label>
               Model Year:
               <Select
                 name="modelYear"
-                options={["2022", "2021", "2020"]}
+                options={[ latestYear, currentYear]}
                 defaultValue={state.data.modelYear}
                 placeholder="Select option"
                 ref={register({ required: true })}
               >
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
+                <option value={`${latestYear}`}>{`${latestYear}`}</option>
+                <option value={`${currentYear}`}>{`${currentYear}`}</option>
+                
               </Select>
               {errors.modelYear && (
                 <p className="error">Please select a model year</p>

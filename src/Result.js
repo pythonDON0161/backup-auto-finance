@@ -79,7 +79,8 @@ const Result = (props) => {
           </>
         )}
         {(state.data.estimatedExpenses / state.data.totalMonthly >= 0.4 &&
-          state.data.estimatedExpenses / state.data.totalMonthly <= 0.47) || (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
+          state.data.estimatedExpenses / state.data.totalMonthly <= 0.47) || (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || 
+          state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
             <div>
               <p>
                 Based on the information provided, ATL Auto believes that a car
