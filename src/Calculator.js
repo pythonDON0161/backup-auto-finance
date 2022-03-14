@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
 import updateAction from "./updateAction";
+
+
 import {
   Select,
   Slider,
@@ -41,10 +43,21 @@ function Calculator(props) {
   // generates array of years 8 years prior to current year
   const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
   var usedYears =  [ (range(currentYear, currentYear - 8, -1)) ]; 
-  console.log(usedYears)
+  
 
   //This data is used to calculate the deposit amount, length of loan and interest rate
+  // TODO Make calcdata objects generate dynamically using inputs from calculator instead of predefining them
+  
   const calcData = [
+    {
+      id: 1,
+      newOrUsed: "New",
+      year: "2023",
+      deposit: 0,
+      term: 120,
+      rate: 6.75,
+    },
+    
     {
       id: 1,
       newOrUsed: "New",
@@ -401,7 +414,6 @@ function Calculator(props) {
               Model Year:
               <Select
                 name="modelYear"
-                
                 defaultValue={state.data.modelYear}
                 placeholder="Select option"
                 ref={register({ required: true })}
@@ -424,6 +436,7 @@ function Calculator(props) {
                 placeholder="Select option"
                 ref={register({ required: true })}
               >
+
                 <option value={`${latestYear}`}>{`${latestYear}`}</option>
                 <option value={`${currentYear}`}>{`${currentYear}`}</option>
                 
@@ -811,6 +824,8 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
+                       
+
                     </Center>
                     <br />
                     <div>
@@ -821,6 +836,7 @@ function Calculator(props) {
                         >
                           Reset
                         </button>
+             
                         <button className="submit-button" onClick={handleEstimate2}>
                           Get Pre Qualified
                         </button>

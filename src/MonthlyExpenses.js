@@ -23,9 +23,12 @@ const MonthlyExpenses = (props) => {
         "mortgage": data.mortgage,
         "rent": data.rent,
         "creditCard": data.creditCard,
+        "existingCarLoan":data.existingCarLoan,
         "otherLoanPayments": data.otherLoans,
       }
+
     }
+    console.log(body)
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
       headers: headers,
     })
@@ -54,9 +57,12 @@ const MonthlyExpenses = (props) => {
         parseInt(getValues("rent"), 10) +
         parseInt(getValues("mortgage"), 10) +
         parseInt(getValues("creditCard"), 10) +
+        parseInt(getValues("existingCarLoan"), 10) +
          parseInt(getValues("otherLoans"), 10)
     );
   }
+
+  const totalExpenses = getValues("totalExpenses");
 
   const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
     const [price, setPrice] = useState(value);

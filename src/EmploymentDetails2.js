@@ -16,6 +16,7 @@ const EmploymentDetails2 = (props) => {
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
   const onSubmit = (data) => {
+
     action(data);
       const body = {
         "application": {
@@ -95,6 +96,7 @@ const EmploymentDetails2 = (props) => {
           </Select>
           {errors.outOfWork && <p className="error">Please select an option</p>}
         </label>
+     
         <Center>
           <button
             type="submit"

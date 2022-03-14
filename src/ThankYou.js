@@ -14,7 +14,7 @@ const ThankYou = (props) => {
     action(data);
     props.history.push("./");
   };
-
+//TODO clear state on exit
   return (
     <>
       <Header />

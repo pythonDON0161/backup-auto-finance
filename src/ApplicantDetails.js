@@ -8,6 +8,8 @@ import InputMask from "react-input-mask";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
+import PDFDOC from "./components/PDFMAKE";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const ApplicantDetails = (props) => {
   const { register, handleSubmit, errors, control } = useForm();
@@ -109,6 +111,7 @@ const ApplicantDetails = (props) => {
           )}
           </label>
           <label>
+          {/* TODO Integrate a calendar date picker so user doesn't have to input manually */}
         Date of Birth (MM/DD/YYYY):
         <Controller
           name="dateOfBirth"
@@ -134,6 +137,7 @@ const ApplicantDetails = (props) => {
         )}
         </label>
         <Center>
+     
           <button
             type="submit"
             className="submit-button"

@@ -90,6 +90,7 @@ const TradeIn2 = (props) => {
           <Heading>Trade In</Heading>
           {parseInt(state.data.currentCar) > parseInt(state.data.owed) && (
             <>
+            {/* If trade in value is positive */}
               <label htmlFor="price">
                 Based on the information you have provided, you should realize $
                 {(state.data.currentCar - state.data.owed).toLocaleString("en")}{" "}
@@ -105,9 +106,11 @@ const TradeIn2 = (props) => {
                   Enter $0 if you are seeking 100% financing, or to borrow the
                   maximum amount.
                 </Text>
+
                 <Controller
                   name="towardsPurchase"
                   ref={register}
+                  //TODO perhaps the max value prevents it from going negative
                   rules={{ required: true, max: {value: (state.data.currentCar - state.data.owed), message: 'error'} }}
                   as={CurrencyFormat}
                   control={control}
@@ -120,6 +123,7 @@ const TradeIn2 = (props) => {
               </label>
             </>
           )}
+          {/* If trade in value is negative */}
           {parseInt(state.data.owed) >= parseInt(state.data.currentCar) && (
             <Text>
               Based on the information you have provided, you owe more on your

@@ -67,6 +67,7 @@ createStore({
       otherMonthly: 0,
       caOtherMonthly: 0,
       bankPayments: [],
+      employmentRisk: "",
       cashDown: 0,
       currentMonthlyPayment: 0,
       towardsPurchase: 0,
@@ -76,7 +77,9 @@ createStore({
       calcDeposit: [ ],
       officerName: "",
       officerNumber: "",
-      officerEmail: ""
+      officerEmail: "",
+      totalBorrow: 0,
+      totalBorrowAmount: 0,
     },
   },
   {

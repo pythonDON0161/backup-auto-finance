@@ -1,0 +1,45 @@
+
+    {/* Estimated amount customer will payback to bank  */}
+    Estimated Total Payback:{" "} 
+    <strong>
+      {console.log("totalborrow"+ " "+ state.data.totalBorrow)}
+    {(state.data.totalBorrowAmount).toLocaleString(
+      "en-US",
+      {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }
+    )}</strong>{" "}
+
+    register({name: "totalBorrowAmount", type:"custom"});
+    setValue("totalBorrowAmount", finalee)
+     const  totalBorrowAmount = await getValues("totalBorrowAmount");
+    console.log("testing" + "$" + totalBorrowAmount);
+
+
+
+    const monthlyPayment = (Math.round(
+      ((totalBorrow -
+        totalBorrow * (state.data.calcDeposit / 100)) *
+        (state.data.calcRate / 100 / 12) *
+        Math.pow(
+          1 + state.data.calcRate / 100 / 12,
+          state.data.calcTerm
+        ))));
+    const finalee = monthlyPayment * 120; 
+    console.log("finalee"+ " "+ finalee)
+      {/* Estimated amount customer will pay in interest  */}
+      Total Loan Interest :{" "} 
+      <strong>
+        {console.log(state.data.totalBorrowAmount)}
+      {(state.data.totalBorrowAmount-state.data.totalBorrow).toLocaleString(
+        "en-US",
+        {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }
+      )}</strong>{" "}

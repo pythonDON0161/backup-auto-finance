@@ -91,23 +91,19 @@ const EmploymentDetails = (props) => {
       />
     );
   };
-
+  console.log(state.data.firstName)
   const watchStatus = watch("employmentStatus", state.data.employmentStatus);
 
   return (
     <>
       <Header />
-      {isAuthenticated && (
+      { isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Employment Details</Heading>
         <label>
           Employment Status:
-          <Select
-            name="employmentStatus"
-            defaultValue={state.data.employmentStatus}
-            placeholder="Select option"
-            ref={register({ required: true })}
-          >
+          <Select name="employmentStatus" defaultValue={state.data.employmentStatus}
+            placeholder="Select option"ref={register({ required: true })}>
             <option value="Full-time">Full-time</option>
             <option value="Part-time">Part-time</option>
             <option value="Contract">Contract</option>
@@ -151,10 +147,10 @@ const EmploymentDetails = (props) => {
                 currency: "USD",
               })}
         </label> */}
+         
+        
         <Center>
-          <button
-            type="submit"
-            onClick={handleTotal}
+          <button type="submit" onClick={handleTotal}
             className="submit-button"
             value="Save & Continue"
           >

@@ -18,13 +18,18 @@ import {
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 
+
+
+
+
 const CashDown = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
-  const { register, handleSubmit, control, errors } = useForm();
+  const { register,setValue,getValues, handleSubmit, control, errors } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
+
   const onSubmit = (data) => {
     action(data);
     const body = {
@@ -52,6 +57,11 @@ const CashDown = (props) => {
     });
     props.history.push("./borrow-summary");
   };
+
+ 
+
+  
+  
 
   const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
     const [cash, setCash] = useState(value);
@@ -144,8 +154,9 @@ const CashDown = (props) => {
             <Center>
               <Button
                 onClick={() =>
-                  loginWithRedirect({
-                    redirectUri: `${window.location.origin}/pre-qualification`,
+
+                 loginWithRedirect({
+                  redirectUri: `${window.location.origin}/pre-qualification`,
                   })
                 }
               >

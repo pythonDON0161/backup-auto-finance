@@ -1,9 +1,12 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { useAuth0 } from "@auth0/auth0-react";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
+
+
+
 import {
   Progress,
   Center,
@@ -17,7 +20,9 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import { parse } from "postcss";
 
+
 const BorrowSummary = (props) => {
+ // const [count, setCount] = useStateIfMounted(0)
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const {
     register,
@@ -29,13 +34,20 @@ const BorrowSummary = (props) => {
   const onSubmit = (data) => {
     action(data);
     props.history.push("./grade-your-credit");
+    
   };
+  
+ // register({ name: "totalBorrow", type: "custom" });
 
+  // FUNCTION STARTS HERE
   async function handleTotalBorrow() {
     register({ name: "totalBorrow", type: "custom" });
     setValue("totalBorrow", parseInt(state.data.price) - parseInt(state.data.towardsPurchase) - parseInt(state.data.cashDown));
     const totalBorrow = getValues("totalBorrow");
+    console.log(totalBorrow)
+
     //Recalculate estimated payment and add to total monthly expenses, based on new Total Borrow figure, factoring in trade-in & cash down
+    // TODO show estimated payment on borrow summary page 
     register({ name: "estimatedPayment", type: "custom" });
     setValue("estimatedPayment", (Math.round(
       ((totalBorrow -
@@ -48,26 +60,30 @@ const BorrowSummary = (props) => {
         (Math.pow(
           1 + state.data.calcRate / 100 / 12,
           state.data.calcTerm
-        ) -
-          1)
+        ) - 1)
     )));
+  
+
+
     const estimatedPayment = getValues("estimatedPayment");
+    //Create object estimatedExpenses and set the value
     register({ name: "estimatedExpenses", type: "custom" });
     setValue(
       "estimatedExpenses",
          parseInt(state.data.totalExpenses, 10) + 
          parseInt(estimatedPayment, 10)
     );
+
+    //TDSR
     register({ name: "ratio", type: "custom" });
     const estimatedExpenses = getValues("estimatedExpenses");
     setValue(
-      "ratio",
-         estimatedExpenses / parseInt(state.data.totalMonthly, 10)
+      "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10)
     );
     await new Promise((resolve, reject) => setTimeout(resolve, 100));
     props.history.push("./grade-your-credit");
   }
-
+    //console.log(count)
   return (
     <>
       <Header />
@@ -108,8 +124,11 @@ const BorrowSummary = (props) => {
               })}</strong>
               <br />
               <br />
+              {/* TODO if user first inputs positive trade in value then chnages to negative trade in value for car 
+                      the positive value is not overwritten  */}
               Less sale/trade-in from current car:{" "}
               <strong>
+                
               {(state.data.towardsPurchase - 0).toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -140,6 +159,8 @@ const BorrowSummary = (props) => {
               </>}
               </strong>  
               <br />
+              <br/>
+        
             </Text>
           ) : (
             <Text>
@@ -165,6 +186,7 @@ const BorrowSummary = (props) => {
               </strong>
               <br />
               <br />
+              
               Total borrow amount:{" "} 
               <strong>
               {(state.data.price - state.data.cashDown).toLocaleString(
@@ -176,7 +198,10 @@ const BorrowSummary = (props) => {
                   maximumFractionDigits: 0,
                 }
               )}</strong>{" "}
-              <br />
+
+              
+              <br/>
+              <br/>
             </Text>
           )}
           <Center>

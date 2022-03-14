@@ -122,7 +122,7 @@ const CAApplicantDetails = (props) => {
                     {...inputProps}
                     type="tel"
                     ref={register({ required: true })}
-                    disableUnderline
+                    disableunderline
                   />
                 )}
               </InputMask>

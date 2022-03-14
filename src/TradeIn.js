@@ -17,6 +17,9 @@ import {
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
+import PDFDOC from "./components/PDFMAKE";
+import { PDFDownloadLink,PDFViewer,PDFRenderer } from "@react-pdf/renderer";
+
 
 const TradeIn = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
@@ -32,6 +35,8 @@ const TradeIn = (props) => {
         "tradeIn": data.tradeIn,
         "estimateTradeValue": data.currentCar,
         "owedOnTrade": data.owed,
+        "finalAmount": data.finalAmount
+        
       }
     }
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
@@ -50,6 +55,7 @@ const TradeIn = (props) => {
     .then(json => {
       // Do something with object
       console.log(json.application);
+      
     });
     });
     if (watchTradeIn === "Yes") {
@@ -139,6 +145,9 @@ const TradeIn = (props) => {
                 />
                 {errors.owed && <p className="error">Your input is required</p>}
               </label>
+
+          
+
             </>
           )}
           {watchTradeIn === "No" && (
@@ -159,6 +168,9 @@ const TradeIn = (props) => {
             </label>
           )}
           <Center>
+          <PDFDownloadLink document={<PDFDOC data={state.data}/>} fileName="loan_results">
+                    {({blob,url,loading,error}) =>(loading ? 'Loading Document' : 'Download') }
+           </PDFDownloadLink>
             <button
               type="submit"
               className="submit-button"

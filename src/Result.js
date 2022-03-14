@@ -1,5 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useStateMachine } from "little-state-machine";
+import { useForm } from "react-hook-form";
 import updateAction from "./updateAction";
 import { Grid, GridItem, Center, Heading } from "@chakra-ui/react";
 import green from "./assets/green.png";
@@ -9,9 +10,32 @@ import { Link } from "react-router-dom";
 import ConfettiGenerator from "confetti-js";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
+import PDFDOC from "./components/PDFMAKE";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
+
+var employmentRisk
 const Result = (props) => {
   const { state } = useStateMachine(updateAction);
+  const {
+    register,
+    setValue,
+    getValues,
+  } = useForm();
+
+
+  // Handles employment risk
+
+  register({name: "employmentRisk", type:"custom"});
+  if  (state.data.workExperience == "Less than 1 year" || state.data.probationaryPeriod =="Yes"|| state.data.outOfWork == "Yes"  ){
+
+    employmentRisk = "yes"
+    setValue("employmentRisk","yes");
+    
+    console.log("employment risk:" + employmentRisk)
+          
+}
+
   useEffect(() => {
     const confettiSettings = {
       target: 'my-canvas',
@@ -22,8 +46,21 @@ const Result = (props) => {
       clock: 35,
       start_from_edge: true
     }; 
+
+    //calculate TDSR
+    var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
+  
+    console.log("This is user's TDSR:" + tdsr);
+
     const confetti = new ConfettiGenerator(confettiSettings);
-    if(state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit") {
+      // Show confetti if the following criteria are met
+    // TDSR is calculated by estimatedExpenses divided by total monthly income
+    console.log("Employment Risks"+ "" + ""+ state.data.workExperience,state.data.probationaryPeriod,state.data.outOfWork)
+
+
+    if(state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && 
+    state.data.employmentStatus !== "Retired" && employmentRisk !== "yes" && state.data.creditGrade !== "Below Average" 
+    && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit") {
     confetti.render();
     }
     return () => confetti.clear();
@@ -37,13 +74,20 @@ const Result = (props) => {
   const currentAge = Math.floor(diff/31557600000);
   // console.log(currentAge);
 
+  //TODO use a single traffic light based on switch statement
+
+
   return (
     <>
       <Header />
       <div className="result">
       <canvas id="my-canvas"></canvas>
+      
         {/* <pre>{JSON.stringify(state, null, 2)}</pre> */} 
-        {state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && (
+        {console.log(employmentRisk)}
+       { console.log("second"+" "+ employmentRisk) }
+
+        {state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && (
           <>
           <div>
             <Heading>Congratulations!</Heading>
@@ -78,9 +122,11 @@ const Result = (props) => {
           </div>
           </>
         )}
+
+        {/* YELLOW LIGHT LAON MAYBE */}
         {(state.data.estimatedExpenses / state.data.totalMonthly >= 0.4 &&
           state.data.estimatedExpenses / state.data.totalMonthly <= 0.47) || (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || 
-          state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
+          employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
             <div>
               <p>
                 Based on the information provided, ATL Auto believes that a car
@@ -116,9 +162,12 @@ const Result = (props) => {
                     {(state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired") && (
                     <li>Employment Status/Tenure</li>
                     )}
+                    {(employmentRisk === "yes" ) && ( <li> Employment</li>)
+                    }
                     {(state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit" ) && (
                     <li>Credit Score/History</li>
                     )}
+
                     </strong>
                   </ol>
                 </GridItem>
@@ -139,6 +188,8 @@ const Result = (props) => {
           :
           <br></br>
         }
+
+        {/* RED LIGHT LOAN DECLINED */}
         {state.data.estimatedExpenses / state.data.totalMonthly > 0.47 && (
           <div>
             <p>
@@ -170,6 +221,8 @@ const Result = (props) => {
                     {(state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired") && (
                     <li>Employment Status/Tenure</li>
                     )}
+                     {(employmentRisk === "yes" ) && ( <li> Employment</li>)
+                    }
                     {(state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit" ) && (
                     <li>Credit Score/History</li>
                     )}
@@ -187,6 +240,7 @@ const Result = (props) => {
               </GridItem>
             </Grid>
             <br />
+           
             <p className="finePrint">
               Note: Nothing herein constitutes an offer of finance. Final bank
               approval will require additional information – and its lending
@@ -208,6 +262,7 @@ const Result = (props) => {
             </Link>
           </Center>
         )} */}
+       
         <FeedbackFish projectId="01ebf0d6447158">
           <button className="feedback">Give us Feedback</button>
         </FeedbackFish>

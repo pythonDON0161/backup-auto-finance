@@ -128,7 +128,16 @@ function Recommendation(props) {
   }
 
   useEffect(() => {
-    fetchTDSR();
+    let unmounted = false;
+
+      if(!unmounted){
+       // fetchTDSR();
+      }
+      
+    return () => {
+      unmounted = true;
+    };
+    
   }, []);
 
   return (
