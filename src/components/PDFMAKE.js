@@ -11,7 +11,6 @@ Font.register({
 });
 
 
-
 // Create styles
 const styles = StyleSheet.create({
   pageNumber: {
@@ -109,8 +108,7 @@ const styles = StyleSheet.create({
              
                 <Text style={styles.sectionHeading}>Car Details</Text>
                   <View style={styles.table}> 
-
-                      <Text style={styles.columnLeft}>Vehicle Value: &nbsp; ${ (props.data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</Text>
+                      <Text style={styles.columnLeft}>Vehicle Value: &nbsp; ${props.data.price}</Text>
                       <Text style={styles.columnCenter}>Vehicle Status : &nbsp; {props.data.carStatus}</Text>
                       <Text style={styles.columnRight}>Vehicle Year : &nbsp; {props.data.modelYear}</Text>
                 </View>
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
                       <Text style={styles.columnRight}>Other Loans : &nbsp; ${props.data.otherLoanPayments}</Text>
                 </View>
                 <View style={styles.table}> 
-                      <Text style={styles.columnLeft}>Existing Car Loan: &nbsp; ${(props.data.existingCarLoan).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</Text>
+                      <Text style={styles.columnLeft}>Existing Car Loan: &nbsp; ${props.data.existingCarLoan}</Text>
                 </View>
 
                 <Text style={styles.sectionHeading}>Employment</Text>
