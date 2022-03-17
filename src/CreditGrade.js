@@ -42,13 +42,16 @@ const CreditGrade = (props) => {
     });
     props.history.push("./co-applicant");
   };
-
+console.log("testing" + "" + "" +state.data.estimatedExpenses)
   return (
     <>
+
       <Header />
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Which of the Following Best Applies to You?</Heading>
+     
+         
         <div className="mb-5">
           <Text fontSize="3xl">Excellent Credit</Text>
           <p>

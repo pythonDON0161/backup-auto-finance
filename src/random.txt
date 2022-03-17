@@ -1,0 +1,4 @@
+   
+          <PDFDownloadLink document={<PDFDOC data={state.data}/>} fileName="loan_results">
+          {({blob,url,loading,error}) =>(loading ? 'Loading Document' : 'Download') }
+ </PDFDownloadLink>

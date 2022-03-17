@@ -23,7 +23,7 @@ import { PDFDownloadLink,PDFViewer,PDFRenderer } from "@react-pdf/renderer";
 
 const TradeIn = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
-  const { register, handleSubmit, control, watch, errors } = useForm();
+  const { register, handleSubmit,control, setValue, watch, errors } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
@@ -47,7 +47,7 @@ const TradeIn = (props) => {
       // Do something with object
       const userID = json.applications[0].id;
       fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications/${userID}`, {
-      method: 'PUT',
+      method: 'PUT', 
       headers: headers,
       body: JSON.stringify(body)
     })
@@ -58,16 +58,25 @@ const TradeIn = (props) => {
       
     });
     });
+   
+
+    if(watchTradeIn  ==="No"){ 
+      state.data.totalExpenses =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
+       console.log("This is test expenses" + " "+state.data.totalExpenses)
+    }
+   
     if (watchTradeIn === "Yes") {
       props.history.push("./trade-in-2");
     }
+     
     if (watchTradeIn === "No") {
-      props.history.push("./cash-down");
+      props.history.push("./cash-down")
     }
     if (watchTradeIn === "N/A") {
       props.history.push("./cash-down");
     }
   };
+ 
 
   const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
     const [price, setPrice] = useState(value);
@@ -100,6 +109,7 @@ const TradeIn = (props) => {
           <Heading>Trade In</Heading>
           <label>
             Do You Plan to Trade-In or Sell Your Current Car?
+           
             <Select
               name="tradeIn"
               options={["Yes", "No", "N/A"]}
@@ -109,7 +119,9 @@ const TradeIn = (props) => {
             >
               <option value="Yes">Yes</option>
               <option value="No">No, I plan to keep my existing car</option>
-              <option value="N/A">I do not currently own a car</option>
+              {/* If user has an existing car loan don't show option that he doesn't own car  */}
+                {state.data.existingCarLoan === '0'|| ' ' || null ||'' ? <option value="N/A">I do not currently own a car</option> : null  }
+                 
             </Select>
             {errors.tradeIn && <p className="error">Please select an option</p>}
           </label>
@@ -145,9 +157,6 @@ const TradeIn = (props) => {
                 />
                 {errors.owed && <p className="error">Your input is required</p>}
               </label>
-
-          
-
             </>
           )}
           {watchTradeIn === "No" && (
@@ -168,9 +177,8 @@ const TradeIn = (props) => {
             </label>
           )}
           <Center>
-          <PDFDownloadLink document={<PDFDOC data={state.data}/>} fileName="loan_results">
-                    {({blob,url,loading,error}) =>(loading ? 'Loading Document' : 'Download') }
-           </PDFDownloadLink>
+         
+
             <button
               type="submit"
               className="submit-button"

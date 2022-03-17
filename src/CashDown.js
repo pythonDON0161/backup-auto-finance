@@ -59,10 +59,6 @@ const CashDown = (props) => {
   };
 
  
-
-  
-  
-
   const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
     const [cash, setCash] = useState(value);
     return (
@@ -84,6 +80,10 @@ const CashDown = (props) => {
     );
   };
 
+  if(state.data.tradeIn === "Yes"){
+   
+  }
+
   return (
     <>
       <Header />
@@ -91,6 +91,9 @@ const CashDown = (props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Heading>Cash Down</Heading>
           <>
+          
+          
+          {console.log(state.data.totalExpenses)}
             <label htmlFor="price">
               Do you intend to make a cash down payment to reduce the amount you
               need to borrow?

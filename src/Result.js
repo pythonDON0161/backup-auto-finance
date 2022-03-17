@@ -15,6 +15,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 
 var employmentRisk
+
 const Result = (props) => {
   const { state } = useStateMachine(updateAction);
   const {
@@ -22,6 +23,8 @@ const Result = (props) => {
     setValue,
     getValues,
   } = useForm();
+
+  var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
 
 
   // Handles employment risk
@@ -48,7 +51,7 @@ const Result = (props) => {
     }; 
 
     //calculate TDSR
-    var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
+   // var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
   
     console.log("This is user's TDSR:" + tdsr);
 
@@ -66,6 +69,8 @@ const Result = (props) => {
     return () => confetti.clear();
   })
 
+  console.log("This user is selling/trading in the vehicle"+"  "+state.data.tradeIn)
+
   const from = state.data.dateOfBirth.split("/");
   const birthdateTimeStamp = new Date(from[2], from[1] - 1, from[0]);
   const cur = new Date();
@@ -80,8 +85,16 @@ const Result = (props) => {
   return (
     <>
       <Header />
+
+
       <div className="result">
-      <canvas id="my-canvas"></canvas>
+        {/* TDSR OUTPUT IN HTML */}
+        <div className="TDSR">
+          <strong> This is user's TDSR:  </strong> <large>{tdsr}</large>
+          <strong> This is user's TDSR from ratio variable:  </strong> <large>{state.data.ratio}</large>
+        </div>
+
+      <canvas id="my-canvas">  </canvas>
       
         {/* <pre>{JSON.stringify(state, null, 2)}</pre> */} 
         {console.log(employmentRisk)}
@@ -192,6 +205,7 @@ const Result = (props) => {
         {/* RED LIGHT LOAN DECLINED */}
         {state.data.estimatedExpenses / state.data.totalMonthly > 0.47 && (
           <div>
+              
             <p>
               Based on the information provided, ATL Auto believes that a car
               loan application for{" "}

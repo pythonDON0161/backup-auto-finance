@@ -34,6 +34,7 @@ const BorrowSummary = (props) => {
   const onSubmit = (data) => {
     action(data);
     props.history.push("./grade-your-credit");
+    var test = 0;
     
   };
   
@@ -41,6 +42,8 @@ const BorrowSummary = (props) => {
 
   // FUNCTION STARTS HERE
   async function handleTotalBorrow() {
+    let testExpenses
+
     register({ name: "totalBorrow", type: "custom" });
     setValue("totalBorrow", parseInt(state.data.price) - parseInt(state.data.towardsPurchase) - parseInt(state.data.cashDown));
     const totalBorrow = getValues("totalBorrow");
@@ -62,19 +65,31 @@ const BorrowSummary = (props) => {
           state.data.calcTerm
         ) - 1)
     )));
-  
 
+          // if user plans to keep their current car and keep payig exsiting loan
+    
+
+          if(state.data.tradeIn ==="No"){ 
+           var test =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
+             console.log("This is test expenses" + " "+state.data.totalExpenses)
+          }
+
+          if(state.data.tradeIn ==="Yes"){ 
+            var test =  parseInt(state.data.totalExpenses,10);
+              console.log("This is test expenses" + " "+state.data.totalExpenses)
+           }
 
     const estimatedPayment = getValues("estimatedPayment");
     //Create object estimatedExpenses and set the value
+    // Estimated Expenses for the month
     register({ name: "estimatedExpenses", type: "custom" });
     setValue(
       "estimatedExpenses",
-         parseInt(state.data.totalExpenses, 10) + 
-         parseInt(estimatedPayment, 10)
+        // parseInt(state.data.totalExpenses, 10) + 
+         test + parseInt(estimatedPayment, 10)
     );
 
-    //TDSR
+    //Calculate TDSR and save to state as variable
     register({ name: "ratio", type: "custom" });
     const estimatedExpenses = getValues("estimatedExpenses");
     setValue(
@@ -90,6 +105,8 @@ const BorrowSummary = (props) => {
       {isAuthenticated && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Heading>Amount You Wish to Borrow</Heading>
+        
+          {/* IF user wishes to trade or sell vehicle show this */}
           {state.data.tradeIn === "Yes" ? (
             <Text fontSize="2xl">
               Based on your information, you would wish to borrow

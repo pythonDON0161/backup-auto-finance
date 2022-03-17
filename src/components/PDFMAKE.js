@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
   const PDFDOC = (props) => {
     
   const { action, state } = useStateMachine();
-  console.log(props.data)
-    console.log( (props.data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') );
+  //console.log(props.data)
+    //console.log( (props.data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') );
   
     return( 
         <Document>

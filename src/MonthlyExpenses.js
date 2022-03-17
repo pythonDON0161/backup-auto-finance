@@ -57,7 +57,7 @@ const MonthlyExpenses = (props) => {
         parseInt(getValues("rent"), 10) +
         parseInt(getValues("mortgage"), 10) +
         parseInt(getValues("creditCard"), 10) +
-        parseInt(getValues("existingCarLoan"), 10) +
+       // parseInt(getValues("existingCarLoan"), 10) +
          parseInt(getValues("otherLoans"), 10)
     );
   }
