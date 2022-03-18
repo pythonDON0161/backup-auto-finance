@@ -4,9 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
-
-
-
 import {
   Progress,
   Center,
@@ -71,12 +68,18 @@ const BorrowSummary = (props) => {
 
           if(state.data.tradeIn ==="No"){ 
            var test =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
-             console.log("This is test expenses" + " "+state.data.totalExpenses)
+            
           }
+
+          
+          if(state.data.tradeIn ==="N/A"){ 
+            var test =  parseInt(state.data.totalExpenses,10) ;
+              
+           }
 
           if(state.data.tradeIn ==="Yes"){ 
             var test =  parseInt(state.data.totalExpenses,10);
-              console.log("This is test expenses" + " "+state.data.totalExpenses)
+            
            }
 
     const estimatedPayment = getValues("estimatedPayment");
@@ -93,12 +96,15 @@ const BorrowSummary = (props) => {
     register({ name: "ratio", type: "custom" });
     const estimatedExpenses = getValues("estimatedExpenses");
     setValue(
+     
       "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10)
+
     );
+
     await new Promise((resolve, reject) => setTimeout(resolve, 100));
     props.history.push("./grade-your-credit");
   }
-    //console.log(count)
+   
   return (
     <>
       <Header />
@@ -122,7 +128,7 @@ const BorrowSummary = (props) => {
             <Text fontSize="3xl">
               Based on your information, you would wish to borrow{" "} 
               <strong>{(state.data.price) > 0 && <>
-               ${(state.data.price - 0).toLocaleString("en")}
+               ${(state.data.price - (state.data.towardsPurchase + state.data.cashDown)).toLocaleString("en")}
               </>}</strong>
               {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) < 0 && <>
                 0
@@ -131,6 +137,7 @@ const BorrowSummary = (props) => {
             </Text>
           )}
           <br />
+
           {state.data.tradeIn === "Yes" ? (
             <Text>
               Price of new car:{" "}
@@ -170,7 +177,9 @@ const BorrowSummary = (props) => {
               <strong>
                ${(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) > 0 && <>
                 {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown).toLocaleString("en")}
+                
               </>}
+              
               {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) < 0 && <>
                 0
               </>}
@@ -179,7 +188,9 @@ const BorrowSummary = (props) => {
               <br/>
         
             </Text>
-          ) : (
+          ) : 
+          
+          (
             <Text>
               Price of New Car/Budget:{" "}
               <strong>
@@ -204,7 +215,7 @@ const BorrowSummary = (props) => {
               <br />
               <br />
               
-              Total borrow amount:{" "} 
+              Cash Down Only - Total borrow amount:{" "} 
               <strong>
               {(state.data.price - state.data.cashDown).toLocaleString(
                 "en-US",
