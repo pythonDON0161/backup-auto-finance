@@ -14,7 +14,7 @@ import PDFDOC from "./components/PDFMAKE";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
 
-var employmentRisk
+var employmentRisk;
 
 const Result = (props) => {
   const { state } = useStateMachine(updateAction);
@@ -25,19 +25,28 @@ const Result = (props) => {
   } = useForm();
 
   var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
-
+  console.log(state.data.estimatedExpenses.toString())
 
   // Handles employment risk
 
   register({name: "employmentRisk", type:"custom"});
+
   if  (state.data.workExperience == "Less than 1 year" || state.data.probationaryPeriod =="Yes"|| state.data.outOfWork == "Yes"  ){
 
-    employmentRisk = "yes"
-    setValue("employmentRisk","yes");
-    
-    console.log("employment risk:" + employmentRisk)
-          
+        employmentRisk = "yes"
+        setValue("employmentRisk","yes");
 }
+
+register({ name: "caRatio", type: "custom" });
+const Expenses = state.data.caTotalExpenses;
+console.log(state.data.caTotalExpenses)
+setValue(
+ 
+  "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10)
+
+);
+
+console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
 
   useEffect(() => {
     const confettiSettings = {
@@ -60,7 +69,6 @@ const Result = (props) => {
     // TDSR is calculated by estimatedExpenses divided by total monthly income
     console.log("Employment Risks"+ "" + ""+ state.data.workExperience,state.data.probationaryPeriod,state.data.outOfWork)
 
-
     if(state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && 
     state.data.employmentStatus !== "Retired" && employmentRisk !== "yes" && state.data.creditGrade !== "Below Average" 
     && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit") {
@@ -79,6 +87,10 @@ const Result = (props) => {
   const currentAge = Math.floor(diff/31557600000);
   // console.log(currentAge);
 
+  //console.log(state.data.caRatio)
+
+  const combinedTDSR = (tdsr + state.data.caRatio) / 2
+
   //TODO use a single traffic light based on switch statement
 
 
@@ -86,12 +98,18 @@ const Result = (props) => {
     <>
       <Header />
 
-
       <div className="result">
         {/* TDSR OUTPUT IN HTML */}
         <div className="TDSR">
-          <strong> This is user's TDSR:  </strong> <large>{tdsr}</large>
-          <strong> This is user's TDSR from ratio variable:  </strong> <large>{state.data.ratio}</large>
+        <p>   <strong> This is single applicant's TDSR:  </strong> <large>{tdsr}</large> </p>
+          <br/>
+          
+          <p> {state.data.caRatio > 0 ? <strong>This is co-applicant's TDSR: {state.data.caRatio} </strong> : null} </p>
+
+          <br/>
+
+          <p> {combinedTDSR > 0 ? <strong>This is combined applicants TDSR from ratio variable:{combinedTDSR}</strong> : null } </p>         
+
         </div>
 
       <canvas id="my-canvas">  </canvas>
