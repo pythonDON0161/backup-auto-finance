@@ -64,9 +64,9 @@ const CAEmploymentDetails = (props) => {
   };
 
   function handleTotal() {
-    register({ name: "totalMonthly", type: "custom" });
+    register({ name: "caTotalMonthly", type: "custom" });
     setValue(
-      "totalMonthly",
+      "caTotalMonthly",
       parseInt(getValues("caGrossMonthly"), 10) +
         parseInt(getValues("caOtherMonthly"), 10)
     );

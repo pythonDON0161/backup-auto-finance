@@ -42,7 +42,7 @@ const CreditGrade = (props) => {
     });
     props.history.push("./co-applicant");
   };
-console.log("testing" + "" + "" +state.data.estimatedExpenses)
+
   return (
     <>
 

@@ -64,6 +64,7 @@ const EmploymentDetails = (props) => {
   };
 
   function handleTotal() {
+    
     register({ name: "totalMonthly", type: "custom" });
     setValue(
       "totalMonthly",
@@ -71,6 +72,7 @@ const EmploymentDetails = (props) => {
         parseInt(getValues("otherMonthly"), 10)
     );
   }
+
 
   const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
     const [price, setPrice] = useState(value);

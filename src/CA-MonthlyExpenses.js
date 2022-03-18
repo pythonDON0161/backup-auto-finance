@@ -9,6 +9,7 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 
+
 const CAMonthlyExpenses = (props) => {
   const { register, handleSubmit, control, setValue, getValues } = useForm();
   const { action, state } = useStateMachine(updateAction);
@@ -48,13 +49,26 @@ const CAMonthlyExpenses = (props) => {
   };
 
   function handleTotal() {
-    register({ name: "CAtotalExpenses", type: "custom" });
+    const estimatedPayment = state.data.estimatedPayment
+    console.log("Estimated payment on CA Page" + estimatedPayment)
+   
+    register({ name: "caTotalExpenses", type: "custom" });
     setValue(
-      "CAtotalExpenses",
+      "caTotalExpenses",
         parseInt(getValues("caRent"), 10) +
         parseInt(getValues("caMortgage"), 10) +
-        parseInt(getValues("caCreditCard"), 10) +
-         parseInt(getValues("caOtherLoans"), 10)
+       parseInt(getValues("caCreditCard"), 10) +
+        parseInt(getValues("caOtherLoans"), 10) +
+         parseInt(estimatedPayment,10)
+    );
+
+    console.log(state.data.caTotalExpenses)
+    
+    register({ name: "caRatio", type: "custom" });
+    const caExpenses = getValues("caTotalExpenses");
+    console.log(caExpenses)
+    setValue(
+      "caRatio", caExpenses / parseInt(state.data.caTotalMonthly, 10)
     );
   }
 

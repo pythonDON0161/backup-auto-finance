@@ -144,6 +144,7 @@ const MonthlyExpenses = (props) => {
               className="priceInput"
               defaultValue={state.data.existingCarLoan}
             />
+            
             (Please enter even if you plan on selling or trading in.)
           </label>
         <label>
