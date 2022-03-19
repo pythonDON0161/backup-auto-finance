@@ -64,7 +64,7 @@ createStore({
       mortgage: 0,
       otherMonthly: 0,
       grossMonthly: 0,
-      caMortgages: 0,
+      caMortgage: 0,
       caGrossMonthly: 0,
       caOtherMonthly: 0,
       caExistingCarLoan: 0,
