@@ -40,7 +40,7 @@ const CACreditGrade = (props) => {
       console.log(json.application);
     });
     });
-    props.history.push("./result");
+    props.history.push("./result2");
   };
 
   return (
