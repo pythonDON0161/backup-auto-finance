@@ -1,5 +1,8 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useStateMachine } from "little-state-machine";
+import updateAction from "./updateAction";
 import {
   SimpleGrid,
   Center,
@@ -10,6 +13,29 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 
 const CoApplicant = (props) => {
+  
+  const { action, state } = useStateMachine(updateAction);
+
+  //funciton to reset individual state variables
+  function resetCA(){
+    state.data.caFirstName =""
+    state.data.caMiddleInit=""
+    state.data.caLastName=""
+    state.data.caDateOfBirth=""
+    state.data.caCellNumber=""
+    state.data.caCreditGrade=""
+    state.data.caMortgage = 0
+    state.data.caGrossMonthly = 0
+    state.data.caTotalMonthly = 0
+    state.data.caTotalExpenses = 0
+    state.data.caOtherMonthly = 0
+    state.data.caExistingCarLoan = 0
+    state.data.caOtherLoans = 0
+    state.data.caCreditCard= 0
+    state.data.caRent = 0
+    state.data.caRatio = 0 
+    //window.alert("hello")
+  }
   return (
     <>
       <Header />
@@ -35,8 +61,8 @@ const CoApplicant = (props) => {
               <button className="inline-button" type="submit">
                 Yes
               </button>
-            </Link>
-            <Link to="/result">
+            </Link>``
+            <Link to="/result2" onClick={resetCA}>
               <button className="inline-button" type="submit">
                 No
               </button>
