@@ -23,6 +23,7 @@ import CASelfEmployed from "./CA-SelfEmployed";
 import CAMonthlyExpenses from "./CA-MonthlyExpenses";
 import BankSelection from "./BankSelection";
 import Result from "./Result";
+import Result2 from "./Result2";
 import Recommendation from "./Recommendation";
 import TradeIn from "./TradeIn";
 import TradeIn2 from "./TradeIn2";
@@ -131,6 +132,7 @@ function App() {
             <Route path="/ca-monthly-expenses" component={CAMonthlyExpenses} />
             <Route path="/ca-grade-your-credit" component={CACreditGrade} />
             <Route path="/result" component={Result} />
+            <Route path="/result2" component={Result2} />
             <Route path="/bank-selection" component={BankSelection} />
             <Route path="/disclaimer" component={SelectionDisclaimer} />
             <Route path="/recommendation" component={Recommendation} />
