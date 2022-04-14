@@ -58,12 +58,12 @@ const providerConfig = {
 
 createStore({
     data: {
-      creditCard: 0,
-      existingCarLoan: 0,
-      rent: 0,
-      otherLoans: 0,
-      mortgage: 0,
-      otherMonthly: 0,
+      creditCard: null,
+      existingCarLoan: null,
+      rent: null,
+      otherLoans: null,
+      mortgage: null,
+      otherMonthly: null,
       grossMonthly: 0,
       caMortgage: 0,
       caGrossMonthly: 0,

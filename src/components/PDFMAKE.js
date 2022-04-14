@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
       margin: 12,
       lineHeight: 2,
       flexGrow: 1,
-      fontFamily: 'Oswald'
+     // fontFamily: 'Oswald'
     },
 
     header: {
@@ -43,13 +43,13 @@ const styles = StyleSheet.create({
     title:{
       fontSize: 24,
       textAlign: 'center',
-      fontFamily: 'Oswald'
+     // fontFamily: 'Oswald'
     },
 
     subtitle: {
       fontSize: 14,
       margin: 12,
-      fontFamily: 'Oswald'
+      //fontFamily: 'Oswald'
     },
 
     body: {
@@ -66,27 +66,35 @@ const styles = StyleSheet.create({
     sectionHeading: {
       fontSize: 20,
       margin: 12,
-      fontFamily: 'Oswald',
+     // fontFamily: 'Oswald',
       textAlign: 'left',
       left: 0
     },
     columnLeft:{
-      margin:10,
+      flex: 1, 
       textAlign: 'left',
+      fontSize: 14,
+      marginBottom: 20
       
     },
     columnRight:{
-      margin:10,
-      textAlign: 'right'
+      marginRight:20,
+      marginBottom: 20,
+      flex: 1, 
+      textAlign: 'right',
+      fontSize: 14
     },
     columnCenter:{
-      margin:10,
-      textAlign: 'center'
+      flex: 1, 
+      marginLeft:20,
+      marginBottom: 20,
+      textAlign: 'center',
+      fontSize: 14
     },
     table:{
       flexDirection: 'row',
       background: '#d3d3d3',
-      fontFamily: 'Oswald'
+     // fontFamily: 'Oswald'
     
     }
 
@@ -107,37 +115,60 @@ const styles = StyleSheet.create({
                 <Text style={styles.title}>Phonenumber: {props.data.cellNumber} </Text>
              
                 <Text style={styles.sectionHeading}>Car Details</Text>
-                  <View style={styles.table}> 
+
+                  <View style={{display: "flex", flexDirection: "row"}}> 
                       <Text style={styles.columnLeft}>Vehicle Value: &nbsp; ${props.data.price}</Text>
+                      
                       <Text style={styles.columnCenter}>Vehicle Status : &nbsp; {props.data.carStatus}</Text>
+
                       <Text style={styles.columnRight}>Vehicle Year : &nbsp; {props.data.modelYear}</Text>
                 </View>
+              
 
                 <Text style={styles.sectionHeading}>Finances</Text>
-                  <View style={styles.table}> 
+                  <View style={{display: "flex", flexDirection: "row"}}> 
                       <Text style={styles.columnLeft}>Gross Salary : &nbsp; ${props.data.grossMonthly}</Text>
-                      <Text style={styles.columnCenter}>Other Income : &nbsp; $ {props.data.otherMonthly}</Text>
-                      <Text style={styles.columnRight}>Credit Card : &nbsp; {props.data.creditCard}</Text>
-                    </View>
-                    <View style={styles.table}> 
+                      <Text style={styles.columnCenter}>Other Income : </Text>
+                      <Text style={styles.columnRight}>Other Income : &nbsp; $ {props.data.otherMonthly}</Text>
+                  </View>
+
+                  <View style={{display: "flex", flexDirection: "row"}}> 
                       <Text style={styles.columnLeft}>Mortgage: &nbsp; ${props.data.mortgage}</Text>
-                      <Text style={styles.columnCenter}>Rent: &nbsp; ${props.data.rent}</Text>
-                      <Text style={styles.columnRight}>Other Loans : &nbsp; ${props.data.otherLoanPayments}</Text>
-                </View>
-                <View style={styles.table}> 
+                      <Text style={styles.columnCenter}>Credit Card : &nbsp; {props.data.creditCard}</Text> 
+                      <Text style={styles.columnRight}>Rent: &nbsp; ${props.data.rent}</Text>    
+                 </View>
+
+                <View style={{display: "flex", flexDirection: "row"}}> 
                       <Text style={styles.columnLeft}>Existing Car Loan: &nbsp; ${props.data.existingCarLoan}</Text>
+                      <Text style={styles.columnCenter}>Other Loans : &nbsp; ${props.data.otherLoanPayments}</Text>
+                        
+                </View>
+
+                <View style={{display: "flex", flexDirection: "row"}}> 
+                  
                 </View>
 
                 <Text style={styles.sectionHeading}>Employment</Text>
-                 
-                  <View style={styles.table}> 
+                  <View style={{display: "flex", flexDirection: "row"}}> 
                       <Text style={styles.columnLeft}>Employment Status: &nbsp;{props.data.employmentStatus}</Text>
                       <Text style={styles.columnCenter}>Work Experience: &nbsp; {props.data.workExperience}</Text>
-                      
+                      <Text style={styles.columnRight}>Been on Probation: &nbsp; {props.data.probation}</Text>
                     </View>
 
-                    <View style={styles.table}>
-                    <Text style={styles.columnRight}>Been on Probation: &nbsp; {props.data.probation}</Text>
+                <Text style={styles.sectionHeading}>Trade In</Text>
+                  <View style={{display: "flex", flexDirection: "row"}}> 
+                  
+                    <Text style={styles.columnLeft}> {props.data.tradeIn ? "Trade In Yes" : "Trade In No"}  </Text>
+
+                    <Text style={styles.columnCenter}>  Trade In Value: &nbsp; {props.data.currentCar} </Text>
+
+                    <Text style={styles.columnRight}> Owed On Car : &nbsp; {props.data.owed}  </Text>
+
+                  </View>
+
+
+                    <View style={{display: "flex", flexDirection: "row"}}>
+                    
                   </View>
 
                  <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) =>

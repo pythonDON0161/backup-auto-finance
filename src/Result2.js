@@ -196,19 +196,32 @@ var singleTDSR = state.data.ratio
                   These may be in relation to:
                   <ol>
                     <strong>
+                    
                     {(tdsr >= 0.4 && tdsr<= 0.47) && (  
                     <li>
                       Financial Ratios – a bank may ask you to pay down some existing debt, borrow a lower amount or include a Co-Applicant
                     </li>
                     )}
+                    
                     {(currentAge < 18 || currentAge > 65 || (currentAge + 6) > 65 ) && (
                     <li>Age of Applicant/Co-Applicant</li>
                     )}
+                    
                     {(state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired") && (
                     <li>Employment Status/Tenure</li>
                     )}
+
+                    {(state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired") && (
+                       <li>Employment Status/Tenure</li>
+                    )}
+                    
+                    {(state.data.caemploymentStatus === "Student" || state.data.caemploymentStatus === "Retired") && (
+                      <li>Co-applicant Employment Status/Tenure</li>
+                   )}
+
                     {(employmentRisk === "yes" ) && ( <li> Employment</li>)
                     }
+                    
                     {(state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit" ) && (
                     <li>Credit Score/History</li>
                     )}

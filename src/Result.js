@@ -89,6 +89,7 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
 
   //console.log(state.data.caRatio)
 
+  //if user opts to use a co-applicant
   const combinedTDSR = (tdsr + state.data.caRatio) / 2
 
   //TODO use a single traffic light based on switch statement

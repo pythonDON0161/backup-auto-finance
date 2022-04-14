@@ -52,6 +52,8 @@ const MonthlyExpenses = (props) => {
 
   function handleTotal() {
     register({ name: "totalExpenses", type: "custom" });
+    setValue()
+    register({ name: "totalExpenses", type: "custom" });
     setValue(
       "totalExpenses",
         parseInt(getValues("rent"), 10) +
@@ -75,12 +77,14 @@ const MonthlyExpenses = (props) => {
         thousandSeparator={true}
         allowNegative={false}
         decimalScale={0}
+        placeholder="$ 0"
         onValueChange={(target) => {
           setPrice(target.value);
           onChange(target.value);
         }}
-        prefix="$ "
         isNumericString
+        prefix="$ "
+       
       />
     );
   };
@@ -91,8 +95,10 @@ const MonthlyExpenses = (props) => {
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Monthly Expenses</Heading>
+
         <label>
           Mortgage
+
           <Controller
             name="mortgage"
             as={CurrencyFormat}
@@ -100,7 +106,9 @@ const MonthlyExpenses = (props) => {
             className="priceInput"
             defaultValue={state.data.mortgage}
           />
+          
         </label>
+
         <label>
           Rent
           <Controller

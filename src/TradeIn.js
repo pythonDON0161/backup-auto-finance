@@ -61,7 +61,7 @@ const TradeIn = (props) => {
    
 
     if(watchTradeIn  ==="No"){ 
-      state.data.totalExpenses =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
+      state.data.totalExpenses = parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
        console.log("This is test expenses" + " "+state.data.totalExpenses)
     }
    
@@ -89,7 +89,6 @@ const TradeIn = (props) => {
         allowNegative={false}
         decimalScale={0}
         placeholder="$ 0"
-        // defaultValue={0}
         onValueChange={(target) => {
           setPrice(target.value);
           onChange(target.value);
@@ -144,6 +143,7 @@ const TradeIn = (props) => {
                   <p className="error">Your input is required</p>
                 )}
               </label>
+
               <label htmlFor="price">
                 How much do you owe on your current car?
                 <Controller
@@ -177,8 +177,11 @@ const TradeIn = (props) => {
             </label>
           )}
           <Center>
-         
-
+            
+          <PDFDownloadLink document={<PDFDOC data={state.data}/>} fileName="loan_results">
+                {({blob,url,loading,error}) =>(loading ? 'Loading Document' : 'Download') }
+          </PDFDownloadLink>
+          
             <button
               type="submit"
               className="submit-button"
