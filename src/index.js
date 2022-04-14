@@ -33,6 +33,14 @@ import BorrowSummary from "./BorrowSummary";
 import SelfEmployed from "./SelfEmployed";
 import SelectionDisclaimer from "./SelectionDisclaimer";
 import AdditionalInfo from "./AdditionalInfo";
+import PromptRequest from "./Prompt-Request";
+import PersonalDetails from "./Personal-Details";
+import Identification from "./Identification";
+import AddressInformation from "./AddressInformation";
+import EmployerDetails from "./EmployerDetails";
+import CreditReportPrompt from "./CreditReportPrompt";
+import CreditReport from "./CreditReport";
+import DocumentUpload from "./DocumentUpload";
 import "./styles.css";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Authorization from "./Authorization";
@@ -41,6 +49,8 @@ import NextSteps from "./NextSteps";
 import ThankYou from "./ThankYou";
 import Protect from 'react-app-protect'
 import 'react-app-protect/dist/index.css'
+
+
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -58,12 +68,13 @@ const providerConfig = {
 
 createStore({
     data: {
-      creditCard: null,
-      existingCarLoan: null,
-      rent: null,
-      otherLoans: null,
-      mortgage: null,
-      otherMonthly: null,
+      
+      creditCard: 0,
+      existingCarLoan: 0,
+      rent: 0,
+      otherLoans: 0,
+      mortgage: 0,
+      otherMonthly: 0,
       grossMonthly: 0,
       caMortgage: 0,
       caGrossMonthly: 0,
@@ -86,6 +97,7 @@ createStore({
       officerEmail: "",
       totalBorrow: 0,
       totalBorrowAmount: 0,
+      dependents: 0
     },
   },
   {
@@ -137,6 +149,14 @@ function App() {
             <Route path="/disclaimer" component={SelectionDisclaimer} />
             <Route path="/recommendation" component={Recommendation} />
             <Route path="/additional-info" component={AdditionalInfo} />
+            <Route path="/prompt-request" component={PromptRequest} />
+            <Route path="/personal-details" component={PersonalDetails} />
+            <Route path="/identification" component={Identification} />
+            <Route path="/employer" component={EmployerDetails} />
+            <Route path="/address-information" component={AddressInformation} />
+            <Route path="/credit-prompt" component={CreditReportPrompt} />
+            <Route path="/credit-report" component={CreditReport} />
+            <Route path="/document-upload" component={DocumentUpload} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/authorization" component={Authorization} />
             <Route path="/preference" component={Communication} />

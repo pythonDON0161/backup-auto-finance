@@ -20,9 +20,7 @@ const EmploymentDetails = (props) => {
     watch,
   } = useForm();
   const { action, state } = useStateMachine(updateAction);
-  // const watchAllFields = watch();
-  // const watchGross = watch("grossMonthly", state.data.grossMonthly);
-  // const watchOther = watch("otherMonthly", state.data.otherMonthly);
+ 
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");

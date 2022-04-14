@@ -63,9 +63,7 @@ const BorrowSummary = (props) => {
         ) - 1)
     )));
 
-          // if user plans to keep their current car and keep payig exsiting loan
-    
-
+          // if user plans to keep their current car and keep paying exsiting loan
           if(state.data.tradeIn ==="No"){ 
            var test =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
             

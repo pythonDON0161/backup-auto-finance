@@ -1,6 +1,3 @@
-         
-         
-         
          <Controller
             name="mortgage"
             as={CurrencyFormat}

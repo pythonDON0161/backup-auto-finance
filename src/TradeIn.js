@@ -124,6 +124,7 @@ const TradeIn = (props) => {
             </Select>
             {errors.tradeIn && <p className="error">Please select an option</p>}
           </label>
+          
           {watchTradeIn === "Yes" && (
             <>
               <label htmlFor="price">

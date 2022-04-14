@@ -51,8 +51,7 @@ const MonthlyExpenses = (props) => {
   };
 
   function handleTotal() {
-    register({ name: "totalExpenses", type: "custom" });
-    setValue()
+
     register({ name: "totalExpenses", type: "custom" });
     setValue(
       "totalExpenses",
