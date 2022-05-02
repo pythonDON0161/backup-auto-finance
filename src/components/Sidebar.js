@@ -61,7 +61,7 @@ export default function Sidebar() {
                 />
                 {/*Wrap each Navitem in a Link Component and add a href to use it like anchor tag*/}
 
-                <Link href="/about" to="/ca-applicant-details">
+                <Link href="/" to="/ca-applicant-details">
                     <NavItem navSize={navSize} icon={FiHome} title="Home" description="This is the description for the dashboard." >
                    
                     </NavItem>
@@ -69,7 +69,7 @@ export default function Sidebar() {
 
                 </Link>
 
-                <Link href="/applicant-details" to="/calculator.js"> 
+                <Link href="/applicant-details" > 
                      <NavItem navSize={navSize} icon={FiCalendar} title="Personal Information"  />
                 </Link>
 

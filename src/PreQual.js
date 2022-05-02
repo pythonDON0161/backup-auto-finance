@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
+import Sidebar from "./components/Sidebar"
 
 
 
@@ -280,6 +281,15 @@ const PreQual = (props) => {
   }
   return (
     <>
+      <div> 
+
+      <div class="outer-container">
+        <div className="header-container">
+      
+      </div>
+      <div class="sidebar-container">   
+      <Sidebar></Sidebar>
+      </div>
       <Header />
       {isAuthenticated && (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -399,6 +409,9 @@ const PreQual = (props) => {
           </SimpleGrid>
         </Container>
       )}
+       </div>
+      </div>
+      
     </>
   );
 };
