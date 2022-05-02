@@ -1,0 +1,23 @@
+.main{
+position: fixed;
+left: 0px;
+top: 0px;
+bottom: 0px;
+width: 100%;
+transform: translateX(0%) translateY(0px) translateZ(0px)
+}
+
+.css-6e3h0h {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    outline: transparent solid 2px;
+    outline-offset: 2px;
+    z-index: var(--chakra-zIndices-modal);
+    max-height: 100vh;
+    background: var(--chakra-colors-white);
+    color: inherit;
+    box-shadow: var(--chakra-shadows-lg);
+    max-width: var(--chakra-sizes-xs);
+}

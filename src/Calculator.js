@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
 import updateAction from "./updateAction";
+import Sidebar from "./components/Sidebar"
 
 
 import {
@@ -13,10 +14,18 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
-  Center,
+  Center, Drawer,DrawerBody,Input,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton, useDisclosure, Button
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
+import { ChakraProvider } from '@chakra-ui/react';
+import theme from './theme'
+
 
 function Calculator(props) {
   const {
@@ -33,6 +42,8 @@ function Calculator(props) {
   const [term, setTerm] = useState();
   const [results, setResults] = useState(false)
   var headers = new Headers();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = React.useRef()
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
 
   // get next year for new car model
@@ -272,8 +283,7 @@ function Calculator(props) {
     props.history.push("./pre-qualification");
   }
 
-
-
+  
   const onSubmit = async data => {
     action(data);
     setResults(true);
@@ -373,12 +383,26 @@ function Calculator(props) {
   }
 
   return (
-    <div>
-      <Header />
+    <div> 
+ 
+    <div class="outer-container">
+      <div className="header-container">
+       
+      </div>
+      <div class="sidebar-container">   
+       <Sidebar></Sidebar>
+
+       </div>
+   
+      <div class="form-container"> 
+      <Header/>
       <form onSubmit={handleSubmit(onSubmit)}>
+  
         {results === false ? (
         <>
           <h1>Auto-Loan Calculator</h1>
+         
+
           <label>
             Price of Car or Budget:
             <Controller
@@ -391,6 +415,8 @@ function Calculator(props) {
             />
             {errors.price && <p className="error">Your input is required</p>}
           </label>
+  
+         
 
           {/* user selects if they want new or used cars */}
           <label>
@@ -850,9 +876,11 @@ function Calculator(props) {
           </>
         )}
       </form>
+      </div>
       <FeedbackFish projectId="01ebf0d6447158">
         <button className="feedback">Give us Feedback</button>
       </FeedbackFish>
+    </div>
     </div>
   );
 }

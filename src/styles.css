@@ -317,3 +317,15 @@ border-color: inherit;
 background: inherit;
 
 }
+
+.sidebar-container{
+  display: table-cell;
+	width: 15%;
+	vertical-align: top;
+}
+
+.outer-container{
+  display: table;
+	width: 100%;
+	height: 100%;
+}

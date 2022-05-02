@@ -48,6 +48,7 @@ import Communication from "./Communication"
 import NextSteps from "./NextSteps";
 import ThankYou from "./ThankYou";
 import Protect from 'react-app-protect'
+import theme from './theme'
 import 'react-app-protect/dist/index.css'
 
 
@@ -111,7 +112,7 @@ function App() {
     <Auth0Provider {...providerConfig}>
       <StateMachineProvider>
         {process.env.NODE_ENV !== "production" && <DevTool />}
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <Router>
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={Home} />

@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import PDFDOC from "./components/PDFMAKE";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import Sidebar from "./components/Sidebar"
 
 const ApplicantDetails = (props) => {
   const { register, handleSubmit, errors, control } = useForm();
@@ -51,7 +52,19 @@ const ApplicantDetails = (props) => {
   };
 
   return (
-    <>
+    
+    <div> 
+
+      <div class="outer-container">
+        <div className="header-container">
+       
+      </div>
+      <div class="sidebar-container">   
+       <Sidebar></Sidebar>
+
+       </div>
+   
+      <div class="form-container"> 
       <Header />
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -177,7 +190,10 @@ const ApplicantDetails = (props) => {
           </SimpleGrid>
         </Container>
       )}
-    </>
+     </div>
+     </div> 
+    </div>
+    
   );
 };
 
