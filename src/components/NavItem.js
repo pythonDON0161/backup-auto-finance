@@ -1,6 +1,8 @@
 import React from 'react'
 import {Flex,Text,Icon,Link,Menu,MenuButton,MenuList} from '@chakra-ui/react'
-import NavHoverBox from '../components/NavHoverBox'
+import '../assets/sidebar.css'
+
+
 
 export default function NavItem({ icon, title, description, active, navSize }) {
     return (
@@ -12,19 +14,18 @@ export default function NavItem({ icon, title, description, active, navSize }) {
         >
             <Menu placement="left">
                 <Link
-                   to="/"
+                    to="/"
                     p={3}
                     borderRadius={8}
                     background ={active ? "#e65323": "#00000" }
                     color = {active ? "#ffff": "#00000"}
-                    
                     _hover={{ textDecor: 'none', backgroundColor: "#e65323" }}
                     w={navSize == "large" && "100%"}
                 >
                     <MenuButton w="100%">
                         <Flex>
                             <Icon as={icon} fontSize="xl" color={active ? "#fff" : "gray.500"} />
-                            <Text ml={5} display={navSize == "small" ? "none" : "flex"}>{title}</Text>
+                            <Text ml={5} fontSize="sm" display={navSize == "small" ? "none" : "flex"}>{title}</Text>
                         </Flex>
                     </MenuButton>
                 </Link>
@@ -35,7 +36,7 @@ export default function NavItem({ icon, title, description, active, navSize }) {
                     h={200}
                     ml={5}
                 >
-                    <NavHoverBox title={title} icon={icon} description={description} />
+                   
                 </MenuList>
             </Menu>
         </Flex>

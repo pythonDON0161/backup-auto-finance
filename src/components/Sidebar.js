@@ -20,6 +20,7 @@ import {
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from '../components/NavItem'
 
+
 export default function Sidebar() {
     const [navSize, changeNavSize] = useState("large")
     return (

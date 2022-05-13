@@ -21,3 +21,7 @@ transform: translateX(0%) translateY(0px) translateZ(0px)
     box-shadow: var(--chakra-shadows-lg);
     max-width: var(--chakra-sizes-xs);
 }
+
+.chakra-menu__menu-button p{
+   font-size: 0.80rem ;
+}
