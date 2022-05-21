@@ -75,35 +75,19 @@ export default function Sidebar() {
                 </Link>
 
                 <Link href="/employment-details"> 
-                   <NavItem navSize={navSize} icon={FiCalendar} title="Employment" active />
-                </Link>
-                
-                <Link href="/employment-details-2"> 
-                   <NavItem navSize={navSize} icon={FiUser} title="Employment Details" />
+                   <NavItem navSize={navSize} icon={FiCalendar} title="Co-Applicant (Optional)" />
                 </Link>
 
                 <Link href="/monthly-expenses"> 
-                   <NavItem navSize={navSize} icon={IoPawOutline} title="Monthly Expenses" />
+                   <NavItem navSize={navSize} icon={FiDollarSign} title="Bank Selection" />
                 </Link>
 
                 <Link href="/trade-in"> 
-                   <NavItem navSize={navSize} icon={FiDollarSign} title="Trade In" />
-                </Link>
-
-                <Link href="/cash-down"> 
-                   <NavItem navSize={navSize} icon={FiBriefcase} title="Cash Down" />
-                </Link>
-
-                <Link href="/borrow-summary"> 
-                  <NavItem navSize={navSize} icon={FiSettings} title="Borrow Sumary" />
-                </Link>
-
-                <Link href="/grade-your-credit"> 
-                  <NavItem navSize={navSize} icon={FiSettings} title="Credit Grade" />
+                   <NavItem navSize={navSize} icon={FiBriefcase} title="Additional Information" />
                 </Link>
 
                 <Link href="/co-applicant"> 
-                  <NavItem navSize={navSize} icon={FiSettings} title="Co-Applicant" />
+                  <NavItem navSize={navSize} icon={FiSettings} title="Document Upload (Optional)" />
                 </Link>
 
             </Flex>

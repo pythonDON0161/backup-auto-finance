@@ -31,7 +31,7 @@ transform: translateX(0%) translateY(0px) translateZ(0px)
 @media only screen and (max-width: 600px) {
   
     .sidebar-container{
-        display: none;
+        display: none!important;
 
     }  
 }
