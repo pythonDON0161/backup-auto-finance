@@ -24,4 +24,14 @@ transform: translateX(0%) translateY(0px) translateZ(0px)
 
 .chakra-menu__menu-button p{
    font-size: 0.80rem ;
+   margin-left: 0.55rem;
+}
+
+
+@media only screen and (max-width: 600px) {
+  
+    .sidebar-container{
+        display: none;
+
+    }  
 }
