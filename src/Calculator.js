@@ -186,24 +186,16 @@ function Calculator(props) {
   async function handleEstimate() {
     register({ name: "estimatedPayment", type: "custom" });
     setValue("estimatedPayment", calcData
-    .filter(
-      (term) =>
-        term.newOrUsed === state.data.carStatus &&
-        term.year === state.data.modelYear
-    )
+    .filter( (term) => term.newOrUsed === state.data.carStatus && term.year === state.data.modelYear )
     .map((filteredTerm) => (Math.round(
-    ((state.data.price -
-      state.data.price * (filteredTerm.deposit / 100)) *
+    
+    ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
+      
       (filteredTerm.rate / 100 / 12) *
-      Math.pow(
-        1 + filteredTerm.rate / 100 / 12,
-        filteredTerm.term
-      )) /
-      (Math.pow(
-        1 + filteredTerm.rate / 100 / 12,
-        filteredTerm.term
-      ) -
-        1)
+      
+      Math.pow( 1 + filteredTerm.rate / 100 / 12, filteredTerm.term  )) /
+      
+      (Math.pow( 1 + filteredTerm.rate / 100 / 12,  filteredTerm.term) - 1)
     ))));
     register({ name: "calcTerm", type: "custom" });
     setValue("calcTerm", calcData
@@ -212,7 +204,7 @@ function Calculator(props) {
         term.newOrUsed === state.data.carStatus &&
         term.year === state.data.modelYear
     )
-    .map((filteredTerm) => filteredTerm.term - 0));
+    .map((filteredTerm) => filteredTerm.term *12 - 0));
     register({ name: "calcRate", type: "custom" });
     setValue("calcRate", calcData
     .filter(
@@ -262,7 +254,7 @@ function Calculator(props) {
         term.newOrUsed === state.data.carStatus &&
         term.year === state.data.modelYear
     )
-    .map((filteredTerm) => filteredTerm.term - 0));
+    .map((filteredTerm) => filteredTerm.term *12- 0));
     register({ name: "calcRate", type: "custom" });
     setValue("calcRate", calcData
     .filter(
@@ -341,24 +333,26 @@ function Calculator(props) {
       return newRate;
     },
     [state.data.rate, rate],
-    (state.data.rate = rate)
+    (state.data.rate = rate )
   );
 
   const handleTermChange = useCallback(
     (newTerm) => {
-      if (term === newTerm) return term;
+      if (term === newTerm) return (term);
       setTerm(newTerm);
     },
     [term]
   );
 
+  /* Multiplied term by 12 to get months */
   const handleTermChangeEnd = useCallback(
     (newTerm) => {
       state.data.terms = term;
       return newTerm;
     },
     [state.data.terms, term],
-    (state.data.terms = term)
+    
+    (state.data.terms = term  )
   );
 
 
@@ -555,10 +549,15 @@ function Calculator(props) {
                       </SliderTrack>
                       <SliderThumb />
                     </Slider>
-                    {state.data.terms >= 0 && <h1>{term} Months Loan Term</h1>}{" "}
-                    {state.data.terms == null && (
-                      <h1>{filteredTerm.term} Months Loan Term</h1>
-                    )}
+
+                    {console.log(term)}
+                    { state.data.terms == null ? <h1>{filteredTerm.term/12} TEST Years</h1> : <h1>{term} Real Years</h1>}{" "}
+                   
+
+                 
+
+                  
+
                     <Slider
                       value={term}
                       onChange={handleTermChange}
@@ -567,9 +566,11 @@ function Calculator(props) {
                       defaultValue={filteredTerm.term}
                       name="term"
                       ref={register}
-                      min={24}
-                      max={144}
+                      min={2}
+                      max={10}
+                      step={0.5}
                     >
+
                       <SliderTrack>
                         <SliderFilledTrack />
                       </SliderTrack>
@@ -577,56 +578,36 @@ function Calculator(props) {
                     </Slider>
                     <Center>
                       <h1>Estimated Monthly Payment:&nbsp;</h1>
-                      {state.data.deposit == null &&
-                      state.data.rate == null &&
-                      !state.data.terms ? (
+                      {state.data.deposit == null && state.data.rate == null && !state.data.terms ? (
                         <h1>
                           $
                           {Math.round(
-                            ((state.data.price -
-                              state.data.price * (filteredTerm.deposit / 100)) *
-                              (filteredTerm.rate / 100 / 12) *
-                              Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                filteredTerm.term
-                              )) /
-                              (Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                filteredTerm.term
-                              ) -
-                                1)
+                            ((state.data.price - state.data.price * (filteredTerm.deposit / 100))  *(filteredTerm.rate / 100 / 12)  *
+
+                              Math.pow( 1 + filteredTerm.rate / 100 / 12,  filteredTerm.term *12  ) ) /
+
+                              (Math.pow( 1 + filteredTerm.rate / 100 / 12, filteredTerm.term * 12) - 1)
+
                           ).toLocaleString("en")}
-                        </h1>
+                        </h1> 
                       ) : null}
-                      {state.data.deposit == null &&
-                      state.data.rate == null &&
+                      {state.data.deposit == null && state.data.rate == null &&
                       state.data.terms ? (
                         <h1>
-                          $
-                          {Math.round(
-                            ((state.data.price -
-                              state.data.price * (filteredTerm.deposit / 100)) *
+                          ${Math.round(
+                            ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
                               (filteredTerm.rate / 100 / 12) *
-                              Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                state.data.terms
-                              )) /
-                              (Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                state.data.terms
-                              ) -
-                                1)
+                                Math.pow( 1 + filteredTerm.rate / 100 / 12, state.data.terms *12  )) /
+                                
+                              (Math.pow( 1 + filteredTerm.rate / 100 / 12, state.data.terms * 12 ) - 1)
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit &&
-                      state.data.rate == null &&
-                      !state.data.terms ? (
+                      {state.data.deposit && state.data.rate == null && !state.data.terms ? (
                         <h1>
                           $
                           {Math.round(
-                            ((state.data.price -
-                              state.data.price * (state.data.deposit / 100)) *
+                            ((state.data.price - state.data.price * (state.data.deposit / 100)) *
                               (filteredTerm.rate / 100 / 12) *
                               Math.pow(
                                 1 + filteredTerm.rate / 100 / 12,
@@ -640,127 +621,83 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.rate &&
-                      !state.data.deposit &&
-                      !state.data.terms ? (
+                      {state.data.rate && !state.data.deposit && !state.data.terms ? (
                         <h1>
                           $
                           {Math.round(
-                            ((state.data.price -
-                              state.data.price * (filteredTerm.deposit / 100)) *
+                            ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
+                              (state.data.rate / 100 / 12) *
+                              
+                              Math.pow( 1 + state.data.rate / 100 / 12, filteredTerm.term *12   )) /
+                              
+                              (Math.pow(  1 + state.data.rate / 100 / 12, filteredTerm.term*12
+                              ) -
+                                1)
+                          ).toLocaleString("en")}
+                        </h1>
+                      ) : null}
+                      {state.data.terms && state.data.rate == null && !state.data.deposit == null ? (
+                        <h1>
+                          $
+                          {Math.round(
+                            ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
+                              (filteredTerm.rate / 100 / 12) * Math.pow( 1 + filteredTerm.rate / 100 / 12, state.data.terms *12
+                              )) /
+
+                              (Math.pow( 1 + filteredTerm.rate / 100 / 12, state.data.terms*12) - 1)
+                          ).toLocaleString("en")}
+                        </h1>
+                      ) : null}
+                      {state.data.deposit && state.data.rate && state.data.terms == null ? (
+                        <h1>
+                          $ {Math.round( ((state.data.price - state.data.price * (state.data.deposit / 100)) *
+                              (state.data.rate / 100 / 12) *
+                              Math.pow( 1 + state.data.rate / 100 / 12, filteredTerm.term *12)) /
+                              (Math.pow(
+                                1 + state.data.rate / 100 / 12, filteredTerm.term * 12 ) - 1)
+                          ).toLocaleString("en")}
+                        </h1>
+                      ) : null}
+
+                      {state.data.deposit && state.data.rate == null &&
+                       state.data.terms ? (
+                        <h1>
+                          $ {Math.round( ((state.data.price - state.data.price * (state.data.deposit / 100)) *
+                              (filteredTerm.rate / 100 / 12) *
+                               
+                              Math.pow( 1 + filteredTerm.rate / 100 / 12, state.data.terms * 12  )) /
+
+                              (Math.pow( 1 + filteredTerm.rate / 100 / 12, state.data.terms *12) -1)
+                          ).toLocaleString("en")}
+                        </h1>
+                      ) : null}
+
+                      {/*This should be correct calculation */}
+                      {!state.data.deposit && state.data.rate &&  state.data.terms ? (
+                        <h1>
+                          ${Math.round( ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
+                              (state.data.rate / 100 / 12) *
+                               
+                               Math.pow(1 + state.data.rate / 100 / 12, state.data.terms * 12 )) /
+                              
+                              (Math.pow(  1 + state.data.rate / 100 / 12, state.data.terms * 12) - 1)
+                            
+                            ).toLocaleString("en")}
+                        </h1>
+                      ) : null}
+
+                      {  state.data.deposit && state.data.rate &&
+                      state.data.terms ? (
+                        <h1>
+                          ${Math.round( ((state.data.price - state.data.price * (state.data.deposit / 100)) *
                               (state.data.rate / 100 / 12) *
                               Math.pow(
                                 1 + state.data.rate / 100 / 12,
-                                filteredTerm.term
+                                state.data.terms *12
                               )) /
                               (Math.pow(
                                 1 + state.data.rate / 100 / 12,
-                                filteredTerm.term
-                              ) -
-                                1)
-                          ).toLocaleString("en")}
-                        </h1>
-                      ) : null}
-                      {state.data.terms &&
-                      state.data.rate == null &&
-                      !state.data.deposit == null ? (
-                        <h1>
-                          $
-                          {Math.round(
-                            ((state.data.price -
-                              state.data.price * (filteredTerm.deposit / 100)) *
-                              (filteredTerm.rate / 100 / 12) *
-                              Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                state.data.terms
-                              )) /
-                              (Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                state.data.terms
-                              ) -
-                                1)
-                          ).toLocaleString("en")}
-                        </h1>
-                      ) : null}
-                      {state.data.deposit &&
-                      state.data.rate &&
-                      state.data.terms == null ? (
-                        <h1>
-                          $
-                          {Math.round(
-                            ((state.data.price -
-                              state.data.price * (state.data.deposit / 100)) *
-                              (state.data.rate / 100 / 12) *
-                              Math.pow(
-                                1 + state.data.rate / 100 / 12,
-                                filteredTerm.term
-                              )) /
-                              (Math.pow(
-                                1 + state.data.rate / 100 / 12,
-                                filteredTerm.term
-                              ) -
-                                1)
-                          ).toLocaleString("en")}
-                        </h1>
-                      ) : null}
-                      {state.data.deposit &&
-                      state.data.rate == null &&
-                      state.data.terms ? (
-                        <h1>
-                          $
-                          {Math.round(
-                            ((state.data.price -
-                              state.data.price * (state.data.deposit / 100)) *
-                              (filteredTerm.rate / 100 / 12) *
-                              Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                state.data.terms
-                              )) /
-                              (Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                state.data.terms
-                              ) -
-                                1)
-                          ).toLocaleString("en")}
-                        </h1>
-                      ) : null}
-                      {!state.data.deposit &&
-                      state.data.rate &&
-                      state.data.terms ? (
-                        <h1>
-                          $
-                          {Math.round(
-                            ((state.data.price -
-                              state.data.price * (filteredTerm.deposit / 100)) *
-                              (state.data.rate / 100 / 12) *
-                              Math.pow(
-                                1 + state.data.rate / 100 / 12,
-                                state.data.terms
-                              )) /
-                              (Math.pow(
-                                1 + state.data.rate / 100 / 12,
-                                state.data.terms
-                              ) -
-                                1)
-                          ).toLocaleString("en")}
-                        </h1>
-                      ) : null}
-                      {state.data.deposit &&
-                      state.data.rate &&
-                      state.data.terms ? (
-                        <h1>
-                          $
-                          {Math.round(
-                            ((state.data.price -
-                              state.data.price * (state.data.deposit / 100)) *
-                              (state.data.rate / 100 / 12) *
-                              Math.pow(
-                                1 + state.data.rate / 100 / 12,
-                                state.data.terms
-                              )) /
-                              (Math.pow(
-                                1 + state.data.rate / 100 / 12,
-                                state.data.terms
+                                state.data.terms *12
                               ) -
                                 1)
                           ).toLocaleString("en")}
@@ -821,37 +758,26 @@ function Calculator(props) {
                       state.data.terms ? (
                         <h1>
                           $
-                          {Math.round(
-                            state.data.price / state.data.terms
-                          ).toLocaleString("en")}
+                          {Math.round( state.data.price / state.data.terms ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit &&
-                      state.data.rate === 0 &&
+
+                      {state.data.deposit && state.data.rate === 0 &&
                       state.data.terms ? (
                         <h1>
-                          $
-                          {Math.round(
-                            (state.data.price -
-                              state.data.price * (state.data.deposit / 100)) /
-                              state.data.terms
+                          ${Math.round(
+                            (state.data.price - state.data.price * (state.data.deposit / 100)) / state.data.terms
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit &&
-                      state.data.rate === 0 &&
-                      !state.data.terms ? (
+
+                      {state.data.deposit && state.data.rate === 0 && !state.data.terms ? (
                         <h1>
-                          $
-                          {Math.round(
-                            (state.data.price -
-                              state.data.price * (state.data.deposit / 100)) /
-                              filteredTerm.term
-                          ).toLocaleString("en")}
+                          ${Math.round( (state.data.price - state.data.price * (state.data.deposit / 100)) /
+                              filteredTerm.term *12 ).toLocaleString("en")}
                         </h1>
                       ) : null}
                        
-
                     </Center>
                     <br />
                     <div>
@@ -864,7 +790,7 @@ function Calculator(props) {
                         </button>
              
                         <button className="submit-button" onClick={handleEstimate2}>
-                          Get Pre Qualified
+                          Request Bank Quotes
                         </button>
                       </Center>
                     </div>
