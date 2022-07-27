@@ -17,6 +17,8 @@ import {
     FiBriefcase,
     FiSettings
 } from 'react-icons/fi'
+
+
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from '../components/NavItem'
 
@@ -79,7 +81,7 @@ export default function Sidebar() {
                 </Link>
 
                 <Link href="/monthly-expenses"> 
-                   <NavItem navSize={navSize} icon={FiDollarSign} title="Bank Selection" />
+                    {/*<NavItem navSize={navSize} icon={AiFillBank} title="Bank Selection" />*/}   
                 </Link>
 
                 <Link href="/trade-in"> 

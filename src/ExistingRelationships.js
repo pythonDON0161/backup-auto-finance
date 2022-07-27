@@ -1,16 +1,21 @@
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm, Controller} from "react-hook-form";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
-import { Input, Progress, Center, Heading, Container, SimpleGrid, Text, Button, Textarea } from "@chakra-ui/react";
+import { Input, Progress, Center, Heading,
+   Container, SimpleGrid, 
+  Text,
+  Button, 
+  Textarea,
+  Select} from "@chakra-ui/react";
 import InputMask from "react-input-mask";
 import { FeedbackFish } from "@feedback-fish/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./components/Header";
 
 const AdditionalInfo = (props) => {
-  const { handleSubmit, register, errors, control } = useForm();
+  const { handleSubmit, register, errors, control,watch } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const headers = new Headers();
@@ -20,9 +25,11 @@ const AdditionalInfo = (props) => {
     action(data);
     const body = {
       "application": {
-        "officerName": data.officerName,
-        "officerNumber": data.officerNumber,
-        "officerEmail": data.officerEmail
+        "FirstOfficerName": data.officerName,
+        "secondOfficerName": data.secondOfficerName,
+        "firstBranchName": data.firstBranchName,
+        "secondBranchName": data.secondBranchName
+       
       }
     }
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
@@ -43,84 +50,105 @@ const AdditionalInfo = (props) => {
       console.log(json.application);
     });
     });
-    props.history.push("./authorization");
+    props.history.push("./prompt-request");
   };
+
+
+  const choice = watch('opti')
+  const choiceTwo = watch('optiTwo')
+
+  useEffect( () => { console.log (choice) }, [choice] )
 
   return (
     <>
       <Header />
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Heading>Additional information</Heading>
+
+        <Heading>Exisitng Relationships</Heading>
+
         {state.data.primaryBank !== "N/A" &&
-        <label>
-          If you have an existing loan officer at {state.data.primaryBank.toUpperCase()}:
-          <br /><br />
-          Name:
-          <Input
-            name="officerName"
-            ref={register}
-            defaultValue={state.data.officerName}
-          />
-          <br /><br />
-          Best Contact Number:
-          <Controller
-            name="officerNumber"
-            control={control}
-            defaultValue={state.data.officerNumber}
-            render={({ onChange, value }) => (
-              <InputMask mask="(999)-999-9999" placeholder="(876) 555-5555" value={value} onChange={onChange}>
-                {(inputProps) => (
-                  <Input
-                    {...inputProps}
-                    type="tel"
-                    disableUnderline
-                  />
-                )}
-              </InputMask>
-            )}
-          />
-          <br /><br />
-          Email Address:
-          <Input
-            name="officerEmail"
-            ref={register}
-            defaultValue={state.data.officerEmail}
-          />
-        </label>}
-        {/* <label>
-          If you have an existing loan officer at {state.data.bankSelection2}:
-          <br /><br />
-          Name:
-          <Input
-            name="officerTwoName"
-            // defaultValue={state.data.officerOneName}
-          />
-          <br /><br />
-          Best Contact Number:
-          <Controller
-            name="officerTwoNumber"
-            control={control}
-            // defaultValue={state.data.officerTwoNumber}
-            render={({ onChange, value }) => (
-              <InputMask mask="(999)-999-9999" placeholder="(876) 555-5555" value={value} onChange={onChange}>
-                {(inputProps) => (
-                  <Input
-                    {...inputProps}
-                    type="tel"
-                    disableUnderline
-                  />
-                )}
-              </InputMask>
-            )}
-          />
-          <br /><br />
-          Email Address:
-          <Input
-            name="officerTwoEmail"
-            // defaultValue={state.data.officerOneEmail}
-          />
-        </label> */}
+
+ 
+          <label> 
+              Please let us know if you have an existing relationship at {state.data.primaryBank.toUpperCase()}:
+          <Select 
+          name="opti"
+          placeholder="Please select an answer"  
+          defaultValue="null"
+          options= { [ "Yes" , "No" ] }
+          ref={register({ required: true })}
+          >
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </Select>
+
+          { choice === 'Yes' && ( <>  
+          
+          <br/>
+
+              Bank Branch:
+              <Input
+                name="firstBankBranch"
+                ref={register}
+              >
+              </Input>
+              
+              <br />
+              <br/>
+
+              Name Of Banking Officer:
+              <Input
+                name="firstOfficerName"
+                ref={register}
+                defaultValue={state.data.officerName}
+              />
+              <br />
+              <br />
+         
+          </> ) }
+
+          <br/>
+
+          Please let us know if you have an existing relationship at {state.data.primaryBank.toUpperCase()}:
+              <Select 
+              name="optiTwo"
+              placeholder="Please select an answer"  
+              defaultValue="null"
+              options= { [ "Yes" , "No" ] }
+              ref={register({ required: true })}
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </Select>
+
+              { choiceTwo === 'Yes' && ( <>  
+          
+          <br/>
+
+              Bank Branch:
+              <Input
+                name="secondBankBranch"
+                ref={register}
+                defaultValue={ state.data.secondBankBranch }
+              >
+              </Input>
+              <br />
+              <br/>
+                Name Of Banking Officer:
+                <Input
+                  name="firstOfficerName"
+                  ref={register}
+                  defaultValue={ state.data.firstOfficerName }
+                />
+              <br />
+              <br />
+         
+          </> ) }
+     
+     </label> }
+
+      {/* 
         <p>
           Please enter any additional information which you believe would assist
           a bank in finding the right loan for you, or which you believe would
@@ -133,6 +161,7 @@ const AdditionalInfo = (props) => {
             // defaultValue={state.data.additionalInfo}
           />
         </label>
+              */ }
         <div>
           <Center>
             <button

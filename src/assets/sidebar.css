@@ -23,7 +23,7 @@ transform: translateX(0%) translateY(0px) translateZ(0px)
 }
 
 .chakra-menu__menu-button p{
-   font-size: 0.80rem ;
+   font-size: 0.75rem ;
    margin-left: 0.55rem;
 }
 
@@ -32,6 +32,5 @@ transform: translateX(0%) translateY(0px) translateZ(0px)
   
     .sidebar-container{
         display: none!important;
-
     }  
 }

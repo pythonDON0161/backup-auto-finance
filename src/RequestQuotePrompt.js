@@ -12,7 +12,7 @@ import {
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 
-const CoApplicant = (props) => {
+const CreditReportPrompt = (props) => {
   
   const { action, state } = useStateMachine(updateAction);
 
@@ -22,31 +22,33 @@ const CoApplicant = (props) => {
       <div className="coapp">
         <SimpleGrid columns={1} spacing={10}>
           <Center>
-            <Heading>Completing Your Application</Heading>
+            <Heading>Your Credit Report</Heading>
           </Center>
           <Center>
             <p className="prompt-text">
-            The banks you have selected will need some additional Personal Details, including Employment and Address information and for your Credit Report in order to complete your application.
+            You are entitled to a Free Credit Report once per year from each of the credit bureaus in Jamaica.
              <br/>
-             You can upload this information online, or you can choose to provide this information to each of the banks directly.
+             You can request your Free Credit Report online, which will then be sent to you by email.
+
             </p>
           </Center>
           <Center>
-            
-            <Link to="/document-upload">
+           <Link to="/credit-report"> 
               <button className="wide-button" type="submit">
-                Yes - I would like to upload some or all of this information in order to speed up my application (Recommended)
+              Yes - I would like to request my Free Credit Report and then upload it so that the banks I have selected can access it (Recommended)
               </button>
-            </Link>``
+            </Link>
+      
            
           </Center>
 
           <Center>
-          <Link to="/thank-you" >
+            <Link to="/document-upload">
               <button className="wide-button" type="submit">
-                No - I will provide this information to the banks myself
+                No – I will authorize the banks I have selected to pull my credit report
               </button>
-             </Link>
+              </Link>
+            
          </Center>
 
           <br />
@@ -59,4 +61,4 @@ const CoApplicant = (props) => {
   );
 };
 
-export default withRouter(CoApplicant);
+export default withRouter(CreditReportPrompt);

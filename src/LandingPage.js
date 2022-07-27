@@ -67,12 +67,9 @@ function LandingPage() {
                   Get on the Road
                 </h2>
                 <h3 className="mt-6 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Compare auto loan offers in a few simple steps. You don't have
-                  to worry about the jargon or complicated numbers, just a
-                  simple and intuitive interface to guide you through all the
-                  steps. Giving you personalized loan options and a secure way
-                  to pre-qualify. In just minutes, you will be on your way to
-                  buying the car of your dreams.
+                Shop around
+                <br/> <br/>
+                Compare auto loan offers in a few simple steps
                   <br />
                   <br />
                   Get started by using the loan calculator to estimate your payment.
@@ -83,8 +80,7 @@ function LandingPage() {
                   </Link>
                 </div>
                 <h3 className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Get pre-qualified to start figuring out exactly what you may
-                  qualify for.
+                Compare loan offers to find the loan that is right for you
                 </h3>
                 <div className="mt-3 sm:mt-5 ">
                   <Link to="/pre-qualification">

@@ -24,8 +24,7 @@ const Result = (props) => {
     getValues,
   } = useForm();
 
-  var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
-  console.log(state.data.estimatedExpenses.toString())
+
 
   // Handles employment risk
 
@@ -39,14 +38,10 @@ const Result = (props) => {
 
 register({ name: "caRatio", type: "custom" });
 const Expenses = state.data.caTotalExpenses;
-console.log(state.data.caTotalExpenses)
-setValue(
- 
-  "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10)
+//console.log(state.data.caTotalExpenses)
+setValue( "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10) );
 
-);
-
-console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
+//console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
 
   useEffect(() => {
     const confettiSettings = {
@@ -62,12 +57,11 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
     //calculate TDSR
    // var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
   
-    console.log("This is user's TDSR:" + tdsr);
-
+   
     const confetti = new ConfettiGenerator(confettiSettings);
       // Show confetti if the following criteria are met
     // TDSR is calculated by estimatedExpenses divided by total monthly income
-    console.log("Employment Risks"+ "" + ""+ state.data.workExperience,state.data.probationaryPeriod,state.data.outOfWork)
+   
 
     if(state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && 
     state.data.employmentStatus !== "Retired" && employmentRisk !== "yes" && state.data.creditGrade !== "Below Average" 
@@ -77,7 +71,7 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
     return () => confetti.clear();
   })
 
-  console.log("This user is selling/trading in the vehicle"+"  "+state.data.tradeIn)
+ 
 
   const from = state.data.dateOfBirth.split("/");
   const birthdateTimeStamp = new Date(from[2], from[1] - 1, from[0]);
@@ -88,12 +82,15 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
   // console.log(currentAge);
 
   //console.log(state.data.caRatio)
+  var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
+  console.log("Estimated expenses:" + "$"+state.data.estimatedExpenses.toString())
+  console.log(state.data.totalMonthly)
 
   //if user opts to use a co-applicant
-  const combinedTDSR = (tdsr + state.data.caRatio) / 2
-
+  //const combinedTDSR = (tdsr + state.data.caRatio) / 2
+  
   //TODO use a single traffic light based on switch statement
-
+  
 
   return (
     <>
@@ -103,21 +100,21 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
         {/* TDSR OUTPUT IN HTML */}
         <div className="TDSR">
         <p>   <strong> This is single applicant's TDSR:  </strong> <large>{tdsr}</large> </p>
+        <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+        <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
+
           <br/>
           
           <p> {state.data.caRatio > 0 ? <strong>This is co-applicant's TDSR: {state.data.caRatio} </strong> : null} </p>
 
           <br/>
 
-          <p> {combinedTDSR > 0 ? <strong>This is combined applicants TDSR from ratio variable:{combinedTDSR}</strong> : null } </p>         
-
         </div>
 
       <canvas id="my-canvas">  </canvas>
       
         {/* <pre>{JSON.stringify(state, null, 2)}</pre> */} 
-        {console.log(employmentRisk)}
-       { console.log("second"+" "+ employmentRisk) }
+       
 
         {state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && (
           <>
@@ -155,7 +152,7 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
           </>
         )}
 
-        {/* YELLOW LIGHT LAON MAYBE */}
+        {/* YELLOW LIGHT LOAN MAYBE */}
         {(state.data.estimatedExpenses / state.data.totalMonthly >= 0.4 &&
           state.data.estimatedExpenses / state.data.totalMonthly <= 0.47) || (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || 
           employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
@@ -179,6 +176,7 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
                 <GridItem colSpan={1}>
                   <img src={amber} width={125} alt="Amber Light" />
                 </GridItem>
+
                 <GridItem colSpan={2}>
                   These may be in relation to:
                   <ol>
@@ -234,14 +232,18 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
               would be <strong>DECLINED.</strong>
             </p>
             <br />
+
             <Grid templateColumns="repeat(3, 1fr)">
+
               <GridItem colSpan={1}>
                 <img src={red} width={125} alt="Red Light" />
               </GridItem>
+
               <GridItem colSpan={2}>
                 The negative items likely to factor into a Bank’s decision
                 include:
                 <ol type="1">
+
                     <strong>
                     {state.data.estimatedExpenses / state.data.totalMonthly >= 0.47 && (  
                     <li>
@@ -260,8 +262,11 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
                     <li>Credit Score/History</li>
                     )}
                     </strong>
+
                   </ol>
                   <br />
+                 {/* <p>Based on the information you have provided, we estimate that you could be approved for
+                    a loan of up to {<strong> max loan variable</strong>} [assuming your current car loan is paid off].</p> */ }
                 We suggest you speak to your banker to discuss your options.
                 <br/>
                 <br />
@@ -273,7 +278,12 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
               </GridItem>
             </Grid>
             <br />
-           
+
+            <p>
+                Maximum Loan Amount: {tdsr }
+
+            </p>
+
             <p className="finePrint">
               Note: Nothing herein constitutes an offer of finance. Final bank
               approval will require additional information – and its lending
@@ -281,7 +291,7 @@ console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
             </p>
             <Center>
               <Link to="/thank-you">
-                <button className="submit-button">Exit</button>
+                <button className="submit-button">Save & Exit</button>
               </Link>
             </Center>
           </div>

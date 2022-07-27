@@ -32,7 +32,7 @@ import EmploymentDetails2 from "./EmploymentDetails2";
 import BorrowSummary from "./BorrowSummary";
 import SelfEmployed from "./SelfEmployed";
 import SelectionDisclaimer from "./SelectionDisclaimer";
-import AdditionalInfo from "./AdditionalInfo";
+import AdditionalInfo from "./ExistingRelationships";
 import PromptRequest from "./Prompt-Request";
 import PersonalDetails from "./Personal-Details";
 import Identification from "./Identification";
@@ -41,6 +41,7 @@ import EmployerDetails from "./EmployerDetails";
 import CreditReportPrompt from "./CreditReportPrompt";
 import CreditReport from "./CreditReport";
 import DocumentUpload from "./DocumentUpload";
+import UploadSection from "./UploadPage";
 import "./styles.css";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Authorization from "./Authorization";
@@ -49,7 +50,9 @@ import NextSteps from "./NextSteps";
 import ThankYou from "./ThankYou";
 import Protect from 'react-app-protect'
 import theme from './theme'
+import RequestQuotePrompt from "./RequestQuotePrompt";
 import 'react-app-protect/dist/index.css'
+import ExistingRelationships from "./ExistingRelationships";
 
 
 
@@ -117,6 +120,7 @@ function App() {
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={Home} />
             <Route path="/loan-calculator" component={Calculator} />
+            <Route path="/request-quote" component={RequestQuotePrompt} />
             <Route path="/pre-qualification" component={PreQual} />
             <Route path="/trade-in" component={TradeIn} />
             <Route path="/trade-in-2" component={TradeIn2} />
@@ -149,7 +153,7 @@ function App() {
             <Route path="/bank-selection" component={BankSelection} />
             <Route path="/disclaimer" component={SelectionDisclaimer} />
             <Route path="/recommendation" component={Recommendation} />
-            <Route path="/additional-info" component={AdditionalInfo} />
+            <Route path="/additional-info" component={ExistingRelationships} />
             <Route path="/prompt-request" component={PromptRequest} />
             <Route path="/personal-details" component={PersonalDetails} />
             <Route path="/identification" component={Identification} />
@@ -158,6 +162,8 @@ function App() {
             <Route path="/credit-prompt" component={CreditReportPrompt} />
             <Route path="/credit-report" component={CreditReport} />
             <Route path="/document-upload" component={DocumentUpload} />
+            <Route path="/upload-section" component={UploadSection} />
+            <Route path="/upload-pagge" component={DocumentUpload} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/authorization" component={Authorization} />
             <Route path="/preference" component={Communication} />

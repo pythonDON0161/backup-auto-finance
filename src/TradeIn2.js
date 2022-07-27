@@ -13,6 +13,8 @@ import {
   Text,
   Button,
   Heading,
+  NumberInput,
+  NumberInputField
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
@@ -59,28 +61,8 @@ const TradeIn2 = (props) => {
     return false;
   };
 
-  const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
-    const [price, setPrice] = useState(value);
-    return (
-      <NumberFormat
-        {...rest}
-        name={name}
-        value={price}
-        isAllowed={withValueCap}
-        thousandSeparator={true}
-        allowNegative={false}
-        decimalScale={0}
-        placeholder="$ 0"
-        // defaultValue={0}
-        onValueChange={(target) => {
-          setPrice(target.value);
-          onChange(target.value);
-        }}
-        isNumericString
-        prefix="$ "
-      />
-    );
-  };
+  const parse = (val) =>  val.replace(/^\$/, ""); 
+  const format = (val) => `$` + Number(val);
 
   return (
     <>
@@ -94,8 +76,10 @@ const TradeIn2 = (props) => {
               <label htmlFor="price">
                 Based on the information you have provided, you should realize $
                 {(state.data.currentCar - state.data.owed).toLocaleString("en")}{" "}
-                when you sell your current car{" "}
-                {state.data.owed && <>and pay off your existing loan.</>}
+                when you sell your current car 
+                
+                {" "}
+                {state.data.owed && <> [and pay off your existing loan.]</>}
                 <br />
                 <br />
                 How much of this would you like to apply towards the purchase of
@@ -112,10 +96,20 @@ const TradeIn2 = (props) => {
                   ref={register}
                   //TODO perhaps the max value prevents it from going negative
                   rules={{ required: true, max: {value: (state.data.currentCar - state.data.owed), message: 'error'} }}
-                  as={CurrencyFormat}
                   control={control}
-                  className="priceInput"
                   defaultValue={state.data.towardsPurchase}
+                  render={({ onChange, value }) => { 
+                    return (
+                     <NumberInput   
+                      onChange={(v) => onChange(parse(v))}
+                      value={format(value)}
+                       min={0}
+                       ref={register({
+                           min: 0
+                         })} >
+                     <NumberInputField/>
+                     </NumberInput>
+                       ) }}
                 />
                 {errors.towardsPurchase && (
                   <p className="error">Your input is required. Cannot enter a number greater than realized amount above.</p>

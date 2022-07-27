@@ -38,49 +38,47 @@ const BorrowSummary = (props) => {
  // register({ name: "totalBorrow", type: "custom" });
 
   // FUNCTION STARTS HERE
+
+  console.log( "Calc Term:" + state.data.calcTerm)  
+
+
   async function handleTotalBorrow() {
     let testExpenses
 
     register({ name: "totalBorrow", type: "custom" });
     setValue("totalBorrow", parseInt(state.data.price) - parseInt(state.data.towardsPurchase) - parseInt(state.data.cashDown));
     const totalBorrow = getValues("totalBorrow");
-    console.log(totalBorrow)
+    //console.log(totalBorrow)
 
     //Recalculate estimated payment and add to total monthly expenses, based on new Total Borrow figure, factoring in trade-in & cash down
     // TODO show estimated payment on borrow summary page 
+
     register({ name: "estimatedPayment", type: "custom" });
     setValue("estimatedPayment", (Math.round(
-      ((totalBorrow -
-        totalBorrow * (state.data.calcDeposit / 100)) *
-        (state.data.calcRate / 100 / 12) *
-        Math.pow(
-          1 + state.data.calcRate / 100 / 12,
+      ((totalBorrow - totalBorrow * (state.data.calcDeposit / 100)) 
+           *
+        (state.data.calcRate / 100 / 12) * Math.pow( 1 + state.data.calcRate / 100 / 12,
           state.data.calcTerm
         )) /
-        (Math.pow(
-          1 + state.data.calcRate / 100 / 12,
-          state.data.calcTerm
-        ) - 1)
-    )));
+
+        (Math.pow(1 + state.data.calcRate / 100 / 12, state.data.calcTerm ) - 1)
+       )));
 
           // if user plans to keep their current car and keep paying exsiting loan
           if(state.data.tradeIn ==="No"){ 
            var test =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
-            
           }
 
-          
           if(state.data.tradeIn ==="N/A"){ 
-            var test =  parseInt(state.data.totalExpenses,10) ;
-              
+            var test =  parseInt(state.data.totalExpenses,10) ;   
            }
 
           if(state.data.tradeIn ==="Yes"){ 
             var test =  parseInt(state.data.totalExpenses,10);
-            
            }
 
     const estimatedPayment = getValues("estimatedPayment");
+    console.log("This is Estimated Payment "+ estimatedPayment)
     //Create object estimatedExpenses and set the value
     // Estimated Expenses for the month
     register({ name: "estimatedExpenses", type: "custom" });
@@ -93,10 +91,9 @@ const BorrowSummary = (props) => {
     //Calculate TDSR and save to state as variable
     register({ name: "ratio", type: "custom" });
     const estimatedExpenses = getValues("estimatedExpenses");
-    setValue(
-     
-      "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10)
 
+    setValue( "ratio", estimatedExpenses 
+              / parseInt(state.data.totalMonthly, 10)
     );
 
     await new Promise((resolve, reject) => setTimeout(resolve, 100));
@@ -139,18 +136,19 @@ const BorrowSummary = (props) => {
           {state.data.tradeIn === "Yes" ? (
             <Text>
               Price of new car:{" "}
+
               <strong style={{textAlign: "right"}}>
               {(state.data.price - 0).toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
               })}</strong>
+
               <br />
               <br />
               {/* TODO if user first inputs positive trade in value then chnages to negative trade in value for car 
                       the positive value is not overwritten  */}
               Less sale/trade-in from current car:{" "}
               <strong>
-                
               {(state.data.towardsPurchase - 0).toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -158,6 +156,7 @@ const BorrowSummary = (props) => {
                 maximumFractionDigits: 0,
               })}
               </strong>
+
               <br />
               <br />
               Less additional cash down payment:{" "}
@@ -191,6 +190,7 @@ const BorrowSummary = (props) => {
           (
             <Text>
               Price of New Car/Budget:{" "}
+
               <strong>
               {(state.data.price - 0).toLocaleString("en-US", {
                 style: "currency",
@@ -199,6 +199,7 @@ const BorrowSummary = (props) => {
                 maximumFractionDigits: 0,
               })}
               </strong>
+
               <br />
               <br />
               Less additional cash down payment:{" "}
@@ -239,6 +240,7 @@ const BorrowSummary = (props) => {
             >
               Save & Continue
             </button>
+
           </Center>
           <br />
           <FeedbackFish projectId="01ebf0d6447158">

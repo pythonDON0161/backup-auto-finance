@@ -3,7 +3,13 @@ import { useForm, Controller } from "react-hook-form";
 import NumberFormat from "react-number-format";
 import { withRouter, Link } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
-import {  Grid, GridItem ,Select, Progress, Center, Heading, Container, SimpleGrid, Text, Button } from "@chakra-ui/react";
+import {  Grid, ListItem,
+  GridItem,
+  Select, 
+  Progress, 
+  Center, 
+  Heading, Container, SimpleGrid, 
+  Text, Button, UnorderedList} from "@chakra-ui/react";
 import updateAction from "./updateAction";
 
 import { FeedbackFish } from "@feedback-fish/react";
@@ -71,9 +77,8 @@ const First = () =>{
               <button className="wide-button" onClick={()=>{setStep(step+1)}} >
                 Yes - I would like to upload some or all of this information in order to speed up my application (Recommended)
               </button>
-         
-           
-          </Center>
+              </Center>
+       
 
           <Center>
           <Link to="/personal-details" >
@@ -101,52 +106,49 @@ const First = () =>{
         
             
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Heading>Documents To Be Uploaded</Heading>
-                
+                <Heading>Documents Summary </Heading>
+                <Text>Thank you for your application, based on your selections 
+                  here are a list of documents you will need to upload.</Text>
 
-                <SimpleGrid columns={2} spacing={10}>
-                <label>
-                  Last 3 Months Pay Slip
-                <input className="fileUpload" {...register("picture")} type="file"/>
-                </label>
+              <br></br>
 
-                <label>
-                  Job Letter
-                <input className="fileUpload" {...register("picture")} type="file"/>
-                </label>
+                <Text align='left' fontSize='2xl' >Personal Documents</Text>
+                <UnorderedList spacing={3}>
 
-                </SimpleGrid>
-                
-                <label>
-                Income verification for Self-Employed persons 
-                <input className="fileUpload" {...register("picture")} type="file"/>
-                </label>
-                 
-                <small id="selfEmployed">  (May include: Audited financial statements for past 3 years, Bank statements for past 12 months, Confirmation of salary from Chartered or Public Accountant) </small>
-                
-                <label>
-                Valid Govt Issued ID (Drivers License/Passport/National Voters ID) TRN
-                <input className="fileUpload" {...register("picture")} type="file"/>
-                </label>
+                    <ListItem>Driver’s License/Passport/Voter’s ID</ListItem>
+                    <ListItem>Tax Registration Number (TRN) Card</ListItem>
+                    <ListItem>NIS Card</ListItem>
 
-               
+                </UnorderedList>
 
-                
-                <label>
-                Pro Forma Invoice from Dealer
-                <input className="fileUpload" {...register("picture")} type="file"/>
-                </label>
+              <br></br>
 
-                
-                <label>
-                Valuation Report (For Used Vehicles)
-                <input className="fileUpload" {...register("picture")} type="file"/>
-                </label>
+              <Text align='left' fontSize='2xl' >Financial Documents</Text>
+                <UnorderedList spacing={3}>
+
+                    <ListItem>Last 3 Months Pay Slip</ListItem>
+                    <ListItem>Income Verification Letter</ListItem>
+                    <ListItem>Credit Authorization</ListItem>
+
+                </UnorderedList>
+
+              <br></br>
+
+              <Text align='left' fontSize='2xl' >Proof Of Identity</Text>
+                <UnorderedList spacing={1}>
+
+                    <ListItem>A self captured image of yourself holding up your photo verification.</ListItem>
+
+                </UnorderedList>
+
+              <br></br>
 
             <Center>
-                <button className="wide-button" onClick={()=>{setStep(step-1)}} >
-                  Previous
-                </button>  
+              <Link to="/upload-section">
+                <button className="wide-button"  >
+                  Continue
+                </button> 
+                </Link> 
             </Center>
   
             <Center>

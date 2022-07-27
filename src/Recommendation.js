@@ -42,7 +42,7 @@ function Recommendation(props) {
       console.log(json.application);
     });
     });
-    props.history.push("./prompt-request");
+    props.history.push("./additional-info");
   };
 
   const [isLoading, setIsLoading] = useState(true);

@@ -12,14 +12,17 @@ import {
   Select,
   Slider,
   SliderTrack,
+  Spacer,
   SliderFilledTrack,
   SliderThumb,
-  Center, Drawer,DrawerBody,Input,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton, useDisclosure, Button
+  Center,Flex, Grid, GridItem,Drawer,DrawerBody,Input,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton, useDisclosure, Button
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
@@ -65,7 +68,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2023",
       deposit: 0,
-      term: 120,
+      term: 12,
       rate: 6.75,
     },
     
@@ -74,7 +77,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2022",
       deposit: 0,
-      term: 120,
+      term: 12,
       rate: 6.75,
     },
     {
@@ -82,7 +85,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2021",
       deposit: 0,
-      term: 120,
+      term: 12,
       rate: 6.75,
     },
     {
@@ -90,7 +93,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2020",
       deposit: 0,
-      term: 120,
+      term: 12,
       rate: 6.99,
     },
     {
@@ -98,7 +101,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2022",
       deposit: 0,
-      term: 120,
+      term: 12,
       rate: 8.95,
     },
     {
@@ -106,7 +109,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2021",
       deposit: 0,
-      term: 120,
+      term: 12,
       rate: 8.95,
     },
     {
@@ -114,7 +117,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2020",
       deposit: 0,
-      term: 108,
+      term: 9,
       rate: 9.95,
     },
     {
@@ -122,7 +125,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2019",
       deposit: 0,
-      term: 96,
+      term: 8,
       rate: 10,
     },
     {
@@ -130,7 +133,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2018",
       deposit: 0,
-      term: 84,
+      term: 7,
       rate: 9.69,
     },
     {
@@ -138,7 +141,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2017",
       deposit: 0,
-      term: 72,
+      term: 6,
       rate: 9.69,
     },
     {
@@ -146,7 +149,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2016",
       deposit: 0,
-      term: 60,
+      term: 5,
       rate: 8.5,
     },
     {
@@ -154,7 +157,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2015",
       deposit: 0,
-      term: 48,
+      term: 4,
       rate: 9.69,
     },
     {
@@ -162,7 +165,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2014",
       deposit: 0,
-      term: 48,
+      term: 4,
       rate: 9.69,
     },
     {
@@ -170,7 +173,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2013",
       deposit: 15,
-      term: 30,
+      term: 2.5,
       rate: 8.5,
     },
     {
@@ -178,13 +181,14 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2012",
       deposit: 45,
-      term: 23,
+      term: 2,
       rate: 12,
     },
   ];
- 
   async function handleEstimate() {
-    register({ name: "estimatedPayment", type: "custom" });
+
+  register({ name: "estimatedPayment", type: "custom" });
+   console.log("this is first")
     setValue("estimatedPayment", calcData
     .filter( (term) => term.newOrUsed === state.data.carStatus && term.year === state.data.modelYear )
     .map((filteredTerm) => (Math.round(
@@ -197,6 +201,7 @@ function Calculator(props) {
       
       (Math.pow( 1 + filteredTerm.rate / 100 / 12,  filteredTerm.term) - 1)
     ))));
+
     register({ name: "calcTerm", type: "custom" });
     setValue("calcTerm", calcData
     .filter(
@@ -220,7 +225,11 @@ function Calculator(props) {
         term.newOrUsed === state.data.carStatus &&
         term.year === state.data.modelYear
     )
-    .map((filteredTerm) => filteredTerm.deposit - 0));
+    .map((filteredTerm) => filteredTerm.deposit - 0)); 
+   
+   
+    console.log(state.data.estimatedPayment)
+    
   }
 
   async function handleEstimate2() {
@@ -275,6 +284,7 @@ function Calculator(props) {
     props.history.push("./pre-qualification");
   }
 
+
   
   const onSubmit = async data => {
     action(data);
@@ -284,6 +294,7 @@ function Calculator(props) {
   const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
     const [price, setPrice] = useState(value);
     return (
+      
       <NumberFormat
         {...rest}
         name={name}
@@ -374,6 +385,52 @@ function Calculator(props) {
     setRate(filteredTerm.rate);
     setDeposit(filteredTerm.deposit);
     setResults(false)
+    onClose()
+  }
+
+  function clickBtn() {
+    document.getElementById("continue-btn").click();
+  }
+
+  function BasicUsage() {
+   
+    return (
+      <>
+        <Button colorScheme='e65323' className="centered-button" onClick={onOpen}>Save & Continue</Button>
+
+       
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Request For Personal Details</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+            Note: 
+            
+            We will now ask you for some personal details in order to better match you with the right Banks.
+            
+            Your information is safe. If you do not complete your request for us to send your information to Banks within 7 days, we will permanently delete your information.
+
+            </ModalBody>
+  
+            <ModalFooter>
+
+              <Spacer></Spacer>
+              
+              <Button  onClick={ () => { onClose(); clickBtn(); } }  colorScheme='blue' mr={3}>
+               Continue
+              </Button>
+
+              <Button onClick={onClose} variant='ghost'>Save & Exit</Button>
+              <Spacer> </Spacer>
+            
+              
+
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    )
   }
 
   return (
@@ -390,7 +447,7 @@ function Calculator(props) {
    
       <div class="form-container"> 
       <Header/>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="myform" onSubmit={handleSubmit(onSubmit)}>
   
         {results === false ? (
         <>
@@ -467,10 +524,18 @@ function Calculator(props) {
             </label>
           )}
           <Center>
-            <button onClick={handleEstimate} className="centered-button">
-              See Estimated Payment
-            </button>
+            
+          <BasicUsage ></BasicUsage>
+          <button  id="continue-btn" onClick={handleEstimate} style={{display:'none'}}> </button>
+            
+          <button  id="exit-btn" class="centered-button">
+                Home/Save & Exit
+          </button>
+            
+            
+            {/*When user press this button show prompt for request quotes*/}
           </Center>
+
         </>
         ):(
           <>
@@ -550,12 +615,8 @@ function Calculator(props) {
                       <SliderThumb />
                     </Slider>
 
-                    {console.log(term)}
-                    { state.data.terms == null ? <h1>{filteredTerm.term/12} TEST Years</h1> : <h1>{term} Real Years</h1>}{" "}
                    
-
-                 
-
+                    { state.data.terms == null ? <h1>{filteredTerm.term/12} Years</h1> : <h1>{term} Years</h1>}{" "}
                   
 
                     <Slider
@@ -780,19 +841,42 @@ function Calculator(props) {
                        
                     </Center>
                     <br />
+
                     <div>
-                      <Center>
-                        <button
-                          onClick={handleReset}
-                          className="submit-button pad"
-                        >
+                        <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+                            <GridItem>
+
+                            </GridItem>
+                        </Grid>
+                    </div>
+
+                    <div>
+
+                    <Flex w="100%"> 
+
+                      <Flex h="25%" justify="left" align="left">
+                        <button onClick={handleReset} className="submit-button ">
                           Reset
                         </button>
-             
+                      </Flex>
+                      
+                      <Spacer></Spacer>
+
+                      <Flex>
                         <button className="submit-button" onClick={handleEstimate2}>
                           Request Bank Quotes
                         </button>
-                      </Center>
+                        </Flex>
+
+
+                        <Spacer></Spacer>
+                        <Flex h="25%" justify="right" align="right">
+                        <button className="submit-button" onClick={handleEstimate2}>
+                          Home/Save & Exit
+                        </button>
+                      </Flex>
+
+                    </Flex>
                     </div>
                   </div>
                 ))}

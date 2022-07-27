@@ -58,7 +58,7 @@ const ApplicantDetails = (props) => {
       <div class="outer-container">
         <div className="header-container">
        
-      </div>
+          </div>
       <div class="sidebar-container">   
        <Sidebar></Sidebar>
 

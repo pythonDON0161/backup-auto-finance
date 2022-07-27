@@ -40,7 +40,7 @@ const CreditGrade = (props) => {
       console.log(json.application);
     });
     });
-    props.history.push("./co-applicant");
+    props.history.push("./result");
   };
 
   return (

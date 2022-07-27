@@ -35,6 +35,7 @@ const PreQual = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const { register, handleSubmit, control, watch, errors, setValue, getValues } = useForm();
   const { action, state } = useStateMachine(updateAction);
+  
   const calcData = [
     {
       id: 1,
@@ -158,6 +159,7 @@ const PreQual = (props) => {
       rate: 12,
     },
   ];
+  
   let carStatus = watch("carStatus");
   let modelYear = watch("modelYear");
   //getValues used instead of watch to avoid triggering re-render while entering price
@@ -283,7 +285,7 @@ const PreQual = (props) => {
     <>
       <div> 
 
-      <div class="outer-container">
+   <div class="outer-container">
         <div className="header-container">
       
       </div>

@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
-import { Select, Progress, Center, Heading, Container, SimpleGrid, Text, Button } from "@chakra-ui/react";
+import { Select, Progress, Center, Heading, Container, SimpleGrid, Text, 
+  Button,
+   NumberInput, 
+  NumberInputField } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 
+
 const MonthlyExpenses = (props) => {
-  const { register, handleSubmit, control, setValue, getValues } = useForm();
+  const { register, handleSubmit, control, setValue, getValues, watch } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const headers = new Headers();
@@ -50,43 +54,43 @@ const MonthlyExpenses = (props) => {
     props.history.push("./trade-in");
   };
 
-  function handleTotal() {
+  register({ name: "totalExpenses", type: "custom" });
 
-    register({ name: "totalExpenses", type: "custom" });
-    setValue(
-      "totalExpenses",
-        parseInt(getValues("rent"), 10) +
-        parseInt(getValues("mortgage"), 10) +
-        parseInt(getValues("creditCard"), 10) +
-       // parseInt(getValues("existingCarLoan"), 10) +
-         parseInt(getValues("otherLoans"), 10)
-    );
+  function handleTotal() {
+   
+    setValue( "totalExpenses",  finalExpenses );
   }
 
-  const totalExpenses = getValues("totalExpenses");
+  const parse = (val) =>  val.replace(/^\$/, ""); 
+  const format = (val) => `$` + Number(val);
 
-  const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
-    const [price, setPrice] = useState(value);
-    return (
-      <NumberFormat
-        {...rest}
-        // ref={register({ required: true })}
-        name={name}
-        value={price}
-        thousandSeparator={true}
-        allowNegative={false}
-        decimalScale={0}
-        placeholder="$ 0"
-        onValueChange={(target) => {
-          setPrice(target.value);
-          onChange(target.value);
-        }}
-        isNumericString
-        prefix="$ "
+  const totalExpenses = getValues("totalExpenses");
+  console.log(totalExpenses+" "+ "This is total expenses")
+
+  var mortgage = Number(watch("mortgage") )
+  const rent = Number(watch("rent"))
+  const creditCard = Number(watch("creditCard"))
+  const carLoan = Number(watch("existingCarLoan"))
+  const otherLoan = Number( watch("otherLoans") )
+  //mortgage = Number(mortgage)
+
+  //console.log(mortgage)
+  var test
+
+  useEffect( ()=> {
+
+    setValue ( "finalExpenses", ( parseInt(mortgage) + parseInt(rent) + 
+       parseInt(creditCard) + parseInt(carLoan) + parseInt(otherLoan)) )
+
+       test = parseInt(mortgage) + parseInt(rent) + 
        
-      />
-    );
-  };
+       parseInt(creditCard) + parseInt(carLoan) + parseInt(otherLoan) 
+  
+  }, [mortgage, rent, creditCard,carLoan,otherLoan] ) 
+
+  const finalExpenses = watch("finalExpenses")
+
+ 
 
   return (
     <>
@@ -97,13 +101,24 @@ const MonthlyExpenses = (props) => {
 
         <label>
           Mortgage
-
           <Controller
             name="mortgage"
-            as={CurrencyFormat}
+            //as={CurrencyFormat}
             control={control}
-            className="priceInput"
-            defaultValue={state.data.mortgage}
+            defaultValue={ state.data.mortgage == null? 0 :
+               state.data.mortgage }
+
+            render={({ onChange, value }) => {
+              return (
+                <NumberInput
+                  //placeholder="0"
+                  onChange={ (v) => onChange(parse(v)) }
+                  value={ format(value) }
+                >
+                  <NumberInputField />
+                </NumberInput>
+              );
+            }}
           />
           
         </label>
@@ -112,22 +127,55 @@ const MonthlyExpenses = (props) => {
           Rent
           <Controller
             name="rent"
-            as={CurrencyFormat}
+            //as={CurrencyFormat}
             control={control}
-            className="priceInput"
-            defaultValue={state.data.rent}
+            defaultValue={state.data.rent == null ? 0: state.data.rent}
+            render={({ onChange, value }) => {
+
+              return (
+                <NumberInput
+                  onChange={(v) => onChange(parse(v))}
+                  min={0}
+                  value={format(value)}
+                  ref={register({
+                    required: "Gross Monthly Income is required",
+                    min: 0,
+                  })}
+                >
+                  <NumberInputField />
+                </NumberInput>
+              );
+            }}
           />
         </label>
+
         <label>
           Credit Card Payments:
           <Controller
             name="creditCard"
-            as={CurrencyFormat}
+            //as={CurrencyFormat}
             control={control}
             className="priceInput"
-            defaultValue={state.data.creditCard}
+            defaultValue= {state.data.creditCard == null ? 0: state.data.creditCard}
+            render={({ onChange, value }) => { 
+
+              return (
+                <NumberInput
+                  onChange={(v) => onChange(parse(v))}
+                  min={0}
+                  value={format(value)}
+                  ref={register({
+                    required: "Gross Monthly Income is required",
+                    min: 0,
+                  })}
+                >
+                  <NumberInputField />
+                </NumberInput>
+              );
+            }}
           />
         </label>
+
         {/* <label>
         Do you intend on selling your existing car or paying off the existing loan? (if applicable)
         <Select
@@ -146,10 +194,24 @@ const MonthlyExpenses = (props) => {
             Existing Car Loan Payment:
             <Controller
               name="existingCarLoan"
-              as={CurrencyFormat}
+             // as={CurrencyFormat}
               control={control}
-              className="priceInput"
-              defaultValue={state.data.existingCarLoan}
+             //className="priceInput"
+              defaultValue = {state.data.existingCarLoan == null ? 0: state.data.existingCarLoan}
+              render={({ onChange, value }) => {
+                return (
+                  <NumberInput
+                    onChange={(v) => onChange(parse(v))}
+                    min={0}
+                    value={format(value)}
+                    ref={register({
+                      min: 0
+                    })}
+                  >
+                    <NumberInputField />
+                  </NumberInput>
+                );
+              }}
             />
             
             (Please enter even if you plan on selling or trading in.)
@@ -158,12 +220,32 @@ const MonthlyExpenses = (props) => {
           Other Loan Payments:
           <Controller
             name="otherLoans"
-            as={CurrencyFormat}
+           // as={CurrencyFormat}
             control={control}
-            className="priceInput"
-            defaultValue={state.data.otherLoans}
+            defaultValue= {state.data.otherLoans == null? 0: state.data.otherLoans }
+            render={({ onChange, value }) => {
+              return (
+                <NumberInput
+                  onChange={(v) => onChange(parse(v))}
+                  min={0}
+                  value={format(value)}
+                
+                >
+                  <NumberInputField />
+                </NumberInput>
+              );
+            }}
           />
         </label>
+
+        <Text>
+         Total Monthly Obligations:${!isNaN(finalExpenses) ? finalExpenses.toLocaleString() : finalExpenses }
+
+         </Text>
+
+        { register({name: "finalExpenses", type: "custom"})}
+
+
         <Center>
           <button
             type="submit"

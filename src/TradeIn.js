@@ -14,6 +14,8 @@ import {
   Text,
   Button,
   Heading,
+  NumberInput,
+  NumberInputField
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
@@ -99,6 +101,9 @@ const TradeIn = (props) => {
     );
   };
 
+  const parse = (val) =>  val.replace(/^\$/, ""); 
+  const format = (val) => `$` + Number(val);
+
   const watchTradeIn = watch("tradeIn", state.data.tradeIn);
   return (
     <>
@@ -135,27 +140,46 @@ const TradeIn = (props) => {
                 <Controller
                   name="currentCar"
                   ref={register({ required: true })}
-                  as={CurrencyFormat}
                   control={control}
-                  className="priceInput"
-                  defaultValue={state.data.currentCar}
+                  defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
+                  render={({ onChange, value }) => { 
+                    return (
+                     <NumberInput   
+                      onChange={(v) => onChange(parse(v))}
+                      value={format(value)}
+                       min={0}
+                       ref={register({
+                           min: 0
+                         })} >
+                     <NumberInputField/>
+                   </NumberInput>
+                       ) }}
                 />
                 {errors.currentCar && (
                   <p className="error">Your input is required</p>
                 )}
               </label>
 
-              <label htmlFor="price">
+              <label >
                 How much do you owe on your current car?
                 <Controller
-                  name="owed"
-                  ref={register}
-                  rules={{ required: true }}
-                  as={CurrencyFormat}
+                 name="owed"
                   control={control}
-                  className="priceInput"
-                  defaultValue={state.data.owed}
+                  defaultValue={state.data.owed  == null ? 0: state.data.owed}
+                  render={({ onChange, value }) => { 
+                 return (
+                  <NumberInput   
+                   onChange={(v) => onChange(parse(v))}
+                   value={format(value)}
+                    min={0}
+                    ref={register({
+                        min: 0
+                      })} >
+                  <NumberInputField/>
+                </NumberInput>
+                    ) }}
                 />
+
                 {errors.owed && <p className="error">Your input is required</p>}
               </label>
             </>
@@ -178,11 +202,11 @@ const TradeIn = (props) => {
             </label>
           )}
           <Center>
-            
+         { /*
           <PDFDownloadLink document={<PDFDOC data={state.data}/>} fileName="loan_results">
                 {({blob,url,loading,error}) =>(loading ? 'Loading Document' : 'Download') }
           </PDFDownloadLink>
-          
+          */}
             <button
               type="submit"
               className="submit-button"

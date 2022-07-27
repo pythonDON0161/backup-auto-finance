@@ -114,22 +114,26 @@ var singleTDSR = state.data.ratio
       <div className="result">
         {/* TDSR OUTPUT IN HTML */}
         <div className="TDSR">
-        <p>   <strong> This is single applicant's TDSR:  </strong> <large>{singleTDSR}</large> </p>
+        <p>   <strong> This is single applicant's TDSR:  </strong> <large> {state.data.ratio} </large> </p>
+
+        <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+
+        <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
+
           <br/>
           
           <p> {state.data.caRatio > 0 ? <strong>This is co-applicant's TDSR: {state.data.caRatio} </strong> : null} </p>
 
           <br/>
 
-          <p> {combinedTDSR > 0 ? <strong>This is combined applicants TDSR from ratio variable:{combinedTDSR}</strong> : null } </p>         
+        
 
         </div>
 
       <canvas id="my-canvas">  </canvas>
       
         {/* <pre>{JSON.stringify(state, null, 2)}</pre> */} 
-        {console.log(employmentRisk)}
-        { console.log("second"+" "+ employmentRisk) }
+       
 
         {tdsr< 0.4 && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && (
           <>
