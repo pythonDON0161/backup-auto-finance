@@ -620,7 +620,7 @@ function Calculator(props) {
                       name="term"
                       ref={register}
                       min={2}
-                      max={10}
+                      max={12}
                       step={0.5}
                     >
 
