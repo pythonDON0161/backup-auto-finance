@@ -185,6 +185,7 @@ function Calculator(props) {
       rate: 12,
     },
   ];
+
   async function handleEstimate() {
 
   register({ name: "estimatedPayment", type: "custom" });
@@ -283,7 +284,6 @@ function Calculator(props) {
     await new Promise((resolve, reject) => setTimeout(resolve, 50));
     props.history.push("./pre-qualification");
   }
-
 
   
   const onSubmit = async data => {
@@ -396,9 +396,7 @@ function Calculator(props) {
    
     return (
       <>
-        <Button colorScheme='e65323' className="centered-button" onClick={onOpen}>Save & Continue</Button>
-
-       
+        <Button colorScheme='e65323' className="centered-button" onClick={onOpen} >Save & Continue</Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
@@ -414,18 +412,13 @@ function Calculator(props) {
             </ModalBody>
   
             <ModalFooter>
-
               <Spacer></Spacer>
-              
-              <Button  onClick={ () => { onClose(); clickBtn(); } }  colorScheme='blue' mr={3}>
-               Continue
-              </Button>
-
+                <Button  onClick={ () => { onClose(); clickBtn(); } }  colorScheme='blue' mr={3}>
+                Continue
+                </Button>
               <Button onClick={onClose} variant='ghost'>Save & Exit</Button>
               <Spacer> </Spacer>
             
-              
-
             </ModalFooter>
           </ModalContent>
         </Modal>
@@ -452,8 +445,6 @@ function Calculator(props) {
         {results === false ? (
         <>
           <h1>Auto-Loan Calculator</h1>
-         
-
           <label>
             Price of Car or Budget:
             <Controller
@@ -466,8 +457,6 @@ function Calculator(props) {
             />
             {errors.price && <p className="error">Your input is required</p>}
           </label>
-  
-         
 
           {/* user selects if they want new or used cars */}
           <label>
@@ -525,8 +514,11 @@ function Calculator(props) {
           )}
           <Center>
             
-          <BasicUsage ></BasicUsage>
-          <button  id="continue-btn" onClick={handleEstimate} style={{display:'none'}}> </button>
+       
+          
+          <button> </button>
+          
+          <button  id="continue-btn" onClick={handleEstimate}  class="centered-button" > Save & Continue</button>
             
           <button  id="exit-btn" class="centered-button">
                 Home/Save & Exit
@@ -843,11 +835,13 @@ function Calculator(props) {
                     <br />
 
                     <div>
+
                         <Grid templateColumns='repeat(5, 1fr)' gap={6}>
                             <GridItem>
 
                             </GridItem>
                         </Grid>
+
                     </div>
 
                     <div>
@@ -862,14 +856,41 @@ function Calculator(props) {
                       
                       <Spacer></Spacer>
 
+                  <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>Request For Personal Details</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                    Note: 
+                    
+                    We will now ask you for some personal details in order to better match you with the right Banks.
+                    
+                    Your information is safe. If you do not complete your request for us to send your information to Banks within 7 days, we will permanently delete your information.
+
+                    </ModalBody>
+          
+                    <ModalFooter>
+                      <Spacer></Spacer>
+                        <Button  onClick={ () => { onClose(); handleEstimate2(); } }  colorScheme='blue' mr={3}>
+                        Continue
+                        </Button>
+                      <Button onClick={onClose} variant='ghost'>Save & Exit</Button>
+                      <Spacer> </Spacer>
+                    
+                    </ModalFooter>
+                  </ModalContent>
+                 </Modal>
+
                       <Flex>
-                        <button className="submit-button" onClick={handleEstimate2}>
+                        <button className="submit-button" onClick={onOpen}>
                           Request Bank Quotes
                         </button>
                         </Flex>
 
 
                         <Spacer></Spacer>
+
                         <Flex h="25%" justify="right" align="right">
                         <button className="submit-button" onClick={handleEstimate2}>
                           Home/Save & Exit
