@@ -608,7 +608,7 @@ function Calculator(props) {
                     </Slider>
 
                    
-                    { state.data.terms == null ? <h1>{filteredTerm.term/12} Years</h1> : <h1>{term} Years</h1>}{" "}
+                    { state.data.terms == null ? <h1>{filteredTerm.term} Years</h1> : <h1>{term} Years</h1>}{" "}
                   
 
                     <Slider
