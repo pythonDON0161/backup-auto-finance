@@ -67,7 +67,7 @@ const EmploymentDetails = (props) => {
  
   useEffect( () => {
       setValue("total", parseInt(grossIncome) +  parseInt(otherIncome) ) 
-      totalText = (parseInt(grossIncome) + parseInt(otherIncome)) 
+      //totalText = (parseInt(grossIncome) + parseInt(otherIncome)) 
       console.log(finale + "finale")
       //if( (grossIncome != "" && grossIncome != undefined) && (otherIncome !=""|| otherIncome !== undefined) )
       }, [grossIncome, otherIncome]
