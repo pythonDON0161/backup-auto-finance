@@ -17,8 +17,7 @@ import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./styles.css";
 import { Input } from "./components";
-
-
+import {CgAttachment} from 'react-icons/cg'
 
 
 const UploadPage = (props) => {
@@ -34,12 +33,15 @@ const UploadPage = (props) => {
     const { action, state } = useStateMachine(updateAction);
     const { isAuthenticated, loginWithRedirect, user } = useAuth0();
     const headers = new Headers();
+
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
+
   const onSubmit = (data) => {
     action(data)
 
   }
+
     const [step,setStep] = useState(0);
     const [hideButton,setHideButton] = useState(0);
     const step_form = step+1;
@@ -66,8 +68,8 @@ const UploadPage = (props) => {
                 <TabPanels id={"tabPanel"}>
                     <TabPanel>
 
-                        <label>Type Of ID</label>
-                        <Select
+                        <Text  mb='1' p='2'>Type Of ID</Text>
+                        <Select w='75'
                          name="idType"
                          options={ ["Yes","No"] }
                          placeholder="Select option"
@@ -80,16 +82,19 @@ const UploadPage = (props) => {
 
                           <br></br>
 
-                         <label> Upload Selected ID</label>
-                         <input  type="file" id="fileUp" name="file" />
-                         
-                         
+                          <Text mb='1' p='2'>Upload Selected ID</Text>
+
+                       <span> <i> <CgAttachment> </CgAttachment> </i>
+
+                          <input type="file" class="fileUp" name="file" />
+                        
+                       </span>
 
                          <label> TRN Card </label>
-                         <input  type="file" id="" name="trn" />
+                         <input  type="file" class="fileUp"  id="" name="trn" />
 
                          <label> NIS Card </label>
-                         <input  type="file" id="" name="nis" />
+                         <input  type="file" class="fileUp"  name="nis" />
 
                     </TabPanel>
 
@@ -122,8 +127,6 @@ const UploadPage = (props) => {
                             isRequired
                         >I confirm that I have read and agree to allow VMBS to apply for a
                              credit report on my behalf</Checkbox>
-
-
 
                     </TabPanel>
                     <TabPanel>
