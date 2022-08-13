@@ -83,6 +83,7 @@ const UploadPage = (props) => {
                           <br></br>
 
                           <Text mb='1' p='2'>Upload Selected ID</Text>
+                          <Text> Select your ID</Text>
 
                        <span> <i> <CgAttachment> </CgAttachment> </i>
 
