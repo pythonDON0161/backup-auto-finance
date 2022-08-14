@@ -116,7 +116,7 @@ function App() {
       <StateMachineProvider>
         {process.env.NODE_ENV !== "production" && <DevTool />}
         <ChakraProvider theme={theme}>
-          <Router>
+          <Router basename={process.env.PUBLIC_URL}>
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={Home} />
             <Route path="/loan-calculator" component={Calculator} />
