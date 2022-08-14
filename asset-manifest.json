@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/backup-auto-finance/static/css/main.a5d7b7d6.chunk.css",
+    "main.js": "/backup-auto-finance/static/js/main.254d81f8.chunk.js",
+    "main.js.map": "/backup-auto-finance/static/js/main.254d81f8.chunk.js.map",
+    "runtime-main.js": "/backup-auto-finance/static/js/runtime-main.e262cd8c.js",
+    "runtime-main.js.map": "/backup-auto-finance/static/js/runtime-main.e262cd8c.js.map",
+    "static/css/2.fae53d52.chunk.css": "/backup-auto-finance/static/css/2.fae53d52.chunk.css",
+    "static/js/2.69a1ab66.chunk.js": "/backup-auto-finance/static/js/2.69a1ab66.chunk.js",
+    "static/js/2.69a1ab66.chunk.js.map": "/backup-auto-finance/static/js/2.69a1ab66.chunk.js.map",
+    "index.html": "/backup-auto-finance/index.html",
+    "static/css/2.fae53d52.chunk.css.map": "/backup-auto-finance/static/css/2.fae53d52.chunk.css.map",
+    "static/css/main.a5d7b7d6.chunk.css.map": "/backup-auto-finance/static/css/main.a5d7b7d6.chunk.css.map",
+    "static/js/2.69a1ab66.chunk.js.LICENSE.txt": "/backup-auto-finance/static/js/2.69a1ab66.chunk.js.LICENSE.txt",
+    "static/media/amber.8b8870c8.png": "/backup-auto-finance/static/media/amber.8b8870c8.png",
+    "static/media/green.ec4855d3.png": "/backup-auto-finance/static/media/green.ec4855d3.png",
+    "static/media/highway.5272174e.jpg": "/backup-auto-finance/static/media/highway.5272174e.jpg",
+    "static/media/red.62de8982.png": "/backup-auto-finance/static/media/red.62de8982.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e262cd8c.js",
+    "static/css/2.fae53d52.chunk.css",
+    "static/js/2.69a1ab66.chunk.js",
+    "static/css/main.a5d7b7d6.chunk.css",
+    "static/js/main.254d81f8.chunk.js"
+  ]
+}

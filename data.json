@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "newOrUsed": "new",
+    "year": "2021",
+    "deposit": 0,
+    "term": 120,
+    "rate": 6.75
+  },
+  {
+    "id": 3,
+    "newOrUsed": "new",
+    "year": "2019",
+    "deposit": 5,
+    "term": 96,
+    "rate": 6.99
+  },
+  {
+    "id": 2,
+    "newOrUsed": "new",
+    "year": "2020",
+    "deposit": 0,
+    "term": 120,
+    "rate": 6.75
+  },
+  {
+    "id": 4,
+    "newOrUsed": "used",
+    "year": "2021",
+    "deposit": 0,
+    "term": 120,
+    "rate": 8.95
+  },
+  {
+    "id": 5,
+    "newOrUsed": "used",
+    "year": "2020",
+    "deposit": 0,
+    "term": 120,
+    "rate": 8.95
+  },
+  {
+    "id": 6,
+    "newOrUsed": "used",
+    "year": "2019",
+    "deposit": 0,
+    "term": 108,
+    "rate": 9.95
+  },
+  {
+    "id": 7,
+    "newOrUsed": "used",
+    "year": "2018",
+    "deposit": 0,
+    "term": 96,
+    "rate": 10
+  },
+  {
+    "id": 8,
+    "newOrUsed": "used",
+    "year": "2017",
+    "deposit": 0,
+    "term": 84,
+    "rate": 9.69
+  },
+  {
+    "id": 9,
+    "newOrUsed": "used",
+    "year": "2016",
+    "deposit": 0,
+    "term": 72,
+    "rate": 9.69
+  },
+  {
+    "id": 10,
+    "newOrUsed": "used",
+    "year": "2015",
+    "deposit": 0,
+    "term": 60,
+    "rate": 8.5
+  },
+  {
+    "id": 11,
+    "newOrUsed": "used",
+    "year": "2014",
+    "deposit": 0,
+    "term": 48,
+    "rate": 9.69
+  },
+  {
+    "id": 12,
+    "newOrUsed": "used",
+    "year": "2013",
+    "deposit": 0,
+    "term": 48,
+    "rate": 9.69
+  },
+  {
+    "id": 14,
+    "newOrUsed": "used",
+    "year": "2011",
+    "deposit": 45,
+    "term": 24,
+    "rate": 12
+  },
+  {
+    "id": 13,
+    "newOrUsed": "used",
+    "year": "2012",
+    "deposit": 15,
+    "term": 30,
+    "rate": 9.69
+  }
+]
