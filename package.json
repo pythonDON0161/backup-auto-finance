@@ -1,8 +1,8 @@
 {
   "name": "finance",
-  "homepage": "https://pythonDON0161.github.io/backup-auto-finance",
+  "homepage": "https://pythondon0161.github.io/backup-auto-finance",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@auth0/auth0-react": "^1.2.0",
     "@chakra-ui/react": "^1.0.0",
