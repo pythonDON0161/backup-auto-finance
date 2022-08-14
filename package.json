@@ -1,5 +1,6 @@
 {
   "name": "finance",
+  "homepage": "https://pythonDON0161.github.io/backup-auto-finance",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -25,6 +26,7 @@
     "express": "^4.17.3",
     "firebase": "^9.9.2",
     "framer-motion": "^2.9.4",
+    "gh-pages": "^4.0.0",
     "little-state-machine": "^3.1.1",
     "postcss": "^8.1.9",
     "react": "^16.14.0",
@@ -44,6 +46,8 @@
   },
   "scripts": {
     "start": "craco start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "concurrently \"craco start\" \"npm run server\"",
     "server": "cd backend & nodemon server.js",
     "build": "craco build",
