@@ -48,7 +48,7 @@ const ApplicantDetails = (props) => {
       console.log(json.application);
     });
     });
-    props.history.push("./employment-details");
+    props.history.push("./monthly-expenses");
   };
 
   return (
