@@ -35,7 +35,7 @@ const employementStatus = [
 ];
 
 const EmploymentDetails = (props) => {
-  const parse = (val) => val.replace(/^\$/+[,], "")
+  const parse = (val) => val.replace(/^\$/+ "")
   const format = (val) =>  `$` + Number(val) //wrapping val in Number replaces leading zero // { Number(val)}
 
   
