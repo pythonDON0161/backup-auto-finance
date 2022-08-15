@@ -215,7 +215,7 @@ const PreQual = (props) => {
     )
     .map((filteredTerm) => filteredTerm.deposit - 0));}
     await new Promise((resolve, reject) => setTimeout(resolve, 100));
-    props.history.push("./monthly-expenses");
+    props.history.push("./applicant-details");
   }
   const onSubmit = (data) => {
     action(data);
