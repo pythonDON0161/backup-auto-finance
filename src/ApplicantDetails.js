@@ -48,13 +48,12 @@ const ApplicantDetails = (props) => {
       console.log(json.application);
     });
     });
-    props.history.push("./monthly-expenses");
+    props.history.push("./calculator");
   };
 
   return (
     
     <div> 
-
       <div class="outer-container">
         <div className="header-container">
        
