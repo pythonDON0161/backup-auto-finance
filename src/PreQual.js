@@ -21,7 +21,6 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar"
 
 
-
   // get next year for new car model
   var currentDate= new Date();
   var latestYear = currentDate.getFullYear() + 1;
@@ -216,7 +215,7 @@ const PreQual = (props) => {
     )
     .map((filteredTerm) => filteredTerm.deposit - 0));}
     await new Promise((resolve, reject) => setTimeout(resolve, 100));
-    props.history.push("./applicant-details");
+    props.history.push("./monthly-expenses");
   }
   const onSubmit = (data) => {
     action(data);
