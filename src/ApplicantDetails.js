@@ -48,7 +48,7 @@ const ApplicantDetails = (props) => {
       console.log(json.application);
     });
     });
-    props.history.push("./calculator");
+    props.history.push("./employment-details");
   };
 
   return (
@@ -106,7 +106,8 @@ const ApplicantDetails = (props) => {
               defaultValue={state.data.cellNumber}
               rules={{ required: true }}
               render={({ onChange, value }) => (
-                <InputMask mask="(999)-999-9999" placeholder="(876) 555-5555" value={value} onChange={onChange}>
+                <InputMask mask="(999)-999-9999" placeholder="(876) 555-5555" defaultValue={state.data.cellNumber}
+                value={value} onChange={onChange}>
                   {(inputProps) => (
                     <Input
                       {...inputProps}
