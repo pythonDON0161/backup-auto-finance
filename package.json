@@ -1,6 +1,6 @@
 {
   "name": "finance",
-  "homepage": "",
+  "homepage": "/build",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
