@@ -82,25 +82,7 @@ const EmploymentDetails = (props) => {
      
   ); */
 
-  const CurrencyFormat = React.useCallback(
-    ({ onChange, value, ...rest }) => (
-      <NumberFormat
-        {...rest}
-        value={value}
-        allowNegative={false}
-        thousandSeparator={true}
-        decimalScale={2}
-        onValueChange={target => {
-          onChange(target);
-        }}
-        isNumericString
-        prefix="$"
-      />
-    ),
-    []
-  );
-
-
+ 
   const { action, state } = useStateMachine(updateAction);
 
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
@@ -207,12 +189,12 @@ const EmploymentDetails = (props) => {
                   Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
                   <br />
                   (Before taxes and deductions):
-
                   <Controller
                     name="grossMonthlyIncome"
                     control={control}
                     render={(props) => (
                       <NumberFormat
+                        className="priceInput"
                         thousandSeparator={true}
                         prefix={"$ "}
                         onValueChange={(v) => {
@@ -220,7 +202,36 @@ const EmploymentDetails = (props) => {
                           console.log(v.value);
                         }}
                         variant="outlined"
-                        defaultValue="20000"
+                        defaultValue = {state.data.grossMonthlyIncome == null?
+                          0: state.data.grossMonthlyIncome}
+                        {...props}
+                      />
+                    )}
+                  />
+                  
+                </label>
+
+                
+                <label>
+                  Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
+                  <br />
+                  (Before taxes and deductions):
+
+                  <Controller
+                    name="otherMonthlyIncome"
+                    control={control}
+                    render={(props) => (
+                      <NumberFormat
+                        className="priceInput"
+                        thousandSeparator={true}
+                        prefix={"$ "}
+                        onValueChange={(v) => {
+                          //value without dollar signe
+                          console.log(v.value);
+                        }}
+                        variant="outlined"
+                        defaultValue= {state.data.otherMonthlyIncome == null?
+                          "": state.data.otherMonthlyIncome}
                         {...props}
                       />
                     )}

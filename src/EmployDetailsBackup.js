@@ -191,10 +191,7 @@ const EmploymentDetails = (props) => {
                         <NumberInput
                         onChange={(v) => onChange(parse(v) )} 
                         min={0}
-                          //{...otherIncome !== "undefined" ?"defined":"undefined" }
-                       // onFocus={ (e) =>  e.target.value = setValue() }
                         value={format(value)}
-                   
                         ref={register({
                           required: "Other Monthly Income is required",
                           min: 0,
