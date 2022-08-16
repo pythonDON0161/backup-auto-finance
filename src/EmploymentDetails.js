@@ -23,7 +23,7 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from "./components/Sidebar";
-import NumberFormat from "react-number-format";
+
 
 const employementStatus = [
   "Full-time",
