@@ -298,7 +298,7 @@ const EmploymentDetails = (props) => {
                 <Center>
                   <button
                     type="submit"
-                    onClick={handleTotal}
+                    //onClick={handleTotal}
                     className="submit-button"
                     value="Save & Continue"
                   >
