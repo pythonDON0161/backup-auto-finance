@@ -138,9 +138,11 @@ const EmploymentDetails = (props) => {
     ) 
     
     {  props.history.push("./monthly-expenses"); }
+
+    */
   };
   
-  */
+  
 /*
   function handleTotal() {
     register({ name: "totalMonthly", type: "custom" });
