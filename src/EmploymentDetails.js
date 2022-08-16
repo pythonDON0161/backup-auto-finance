@@ -231,7 +231,7 @@ const EmploymentDetails = (props) => {
                         }}
                         variant="outlined"
                         defaultValue= {state.data.otherMonthlyIncome == null?
-                          "": state.data.otherMonthlyIncome}
+                          0: state.data.otherMonthlyIncome}
                         {...props}
                       />
                     )}
