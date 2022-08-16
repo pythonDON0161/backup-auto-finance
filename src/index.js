@@ -72,7 +72,6 @@ const providerConfig = {
 
 createStore({
     data: {
-      
       creditCard: 0,
       existingCarLoan: 0,
       rent: 0,

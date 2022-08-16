@@ -52,7 +52,7 @@ const EmploymentDetails = (props) => {
   } = useForm({
     defaultValues: {
       employementStatus: "",
-      grossMonthlyIncome: "",
+      grossMonthlyIncome: 0,
     //  otherMonthlyIncome: "",
       total: 0,
     },
@@ -209,11 +209,22 @@ const EmploymentDetails = (props) => {
                   (Before taxes and deductions):
 
                   <Controller
-                      name="grossMonthlyIncome"
-                      control={control}
-                      as={CurrencyFormat}
-                      defaultValue={state.data.grossMonthlyIncome == null? 0: state.data.grossMonthlyIncome}
-                    />
+                    name="grossMonthlyIncome"
+                    control={control}
+                    render={(props) => (
+                      <NumberFormat
+                        thousandSeparator={true}
+                        prefix={"$ "}
+                        onValueChange={(v) => {
+                          //value without dollar signe
+                          console.log(v.value);
+                        }}
+                        variant="outlined"
+                        defaultValue="20000"
+                        {...props}
+                      />
+                    )}
+                  />
                   
                  
                 </label>
