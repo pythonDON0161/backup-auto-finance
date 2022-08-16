@@ -123,9 +123,9 @@ const EmploymentDetails = (props) => {
           });
       });
     
-      /*
+      
     const watchStatus = watch("employmentStatus", state.data.employmentStatus);
-
+/*
       console.log("im here" + watchStatus)
     if (watchStatus === "Self Employed") {
 
@@ -163,7 +163,64 @@ const EmploymentDetails = (props) => {
           <div class="form-container">
             <Header />
             {isAuthenticated && (
-             <form></form>
+             <form onSubmit={handleSubmit(onSubmit)} >
+
+            <Heading>Employment Details</Heading>
+              <label>
+                  Employment Status:
+
+                  <Select name="employmentStatus" ref={register}>
+                    {employementStatus.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </Select>
+
+                  {errors.employementStatus && (
+                    <p className="error">Please select an option</p>
+                  )}
+
+                </label>
+
+                <label>
+                  Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
+                  <br />
+                  (Before taxes and deductions):
+                  <Controller
+                    control={control}
+                    
+                    name="grossMonthlyIncome"
+                   
+                    defaultValue = {state.data.grossMonthlyIncome == null?
+                       0: state.data.grossMonthlyIncome}
+                    render={({ onChange, value }) => {
+                      return (
+                        <NumberInput
+                        onChange={(v) => onChange(parse(v) )} 
+  
+                        min={0}
+                          //{...otherIncome !== "undefined" ?"defined":"undefined" }
+                       // onFocus={ (e) =>  e.target.value = setValue() }
+                        value={format(value)}
+                   
+                        ref={register({
+                          required: "Other Monthly Income is required",
+                          min: 0,
+                        })}
+                      >
+                        <NumberInputField />
+                      </NumberInput>
+                      );
+                    }}
+                  />
+                  {errors.grossMonthlyIncome && (
+                    <p className="error">{errors.grossMonthlyIncome.message}</p>
+                  )}
+                </label>
+
+             </form>
+
             )}
             {!isAuthenticated && (
               <Container centerContent className="pt-8">
