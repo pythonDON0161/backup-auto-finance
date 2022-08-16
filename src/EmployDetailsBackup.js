@@ -183,16 +183,13 @@ const EmploymentDetails = (props) => {
                   (Before taxes and deductions):
                   <Controller
                     control={control}
-                    
                     name="grossMonthlyIncome"
-                   
                     defaultValue = {state.data.grossMonthlyIncome == null?
                        0: state.data.grossMonthlyIncome}
                     render={({ onChange, value }) => {
                       return (
                         <NumberInput
                         onChange={(v) => onChange(parse(v) )} 
-  
                         min={0}
                           //{...otherIncome !== "undefined" ?"defined":"undefined" }
                        // onFocus={ (e) =>  e.target.value = setValue() }
