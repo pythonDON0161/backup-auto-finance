@@ -51,7 +51,7 @@ const EmploymentDetails = (props) => {
   } = useForm({
     defaultValues: {
       employementStatus: "",
-      //grossMonthlyIncome: "",
+      grossMonthlyIncome: "",
     //  otherMonthlyIncome: "",
       total: 0,
     },
@@ -189,9 +189,7 @@ const EmploymentDetails = (props) => {
                   (Before taxes and deductions):
                   <Controller
                     control={control}
-                    
                     name="grossMonthlyIncome"
-                   
                     defaultValue = {state.data.grossMonthlyIncome == null?
                        0: state.data.grossMonthlyIncome}
                     render={({ onChange, value }) => {
