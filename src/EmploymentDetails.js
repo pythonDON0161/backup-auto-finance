@@ -187,29 +187,7 @@ const EmploymentDetails = (props) => {
                   Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
                   <br />
                   (Before taxes and deductions):
-                  <Controller
-                    control={control}
-                    name="otherMonthlyIncome"
-                    defaultValue= {state.data.otherMonthlyIncome == null ?"": state.data.otherMonthlyIncome}
-                    render={({ onChange, value, onFocus }) => {
-                      return (
-                        <NumberInput
-                          onChange={(v) => onChange(parse(v) )} 
-                          min={0}
-                            //{...otherIncome !== "undefined" ?"defined":"undefined" }
-                         // onFocus={ (e) =>  e.target.value = setValue() }
-                          value={format(value)}
-                          defaultValue={state.data.otherMonthlyIncome}
-                          ref={register({
-                            required: "Other Monthly Income is required",
-                            min: 0,
-                          })}
-                        >
-                          <NumberInputField />
-                        </NumberInput>
-                      );
-                    }}
-                  />
+                  
                  
                 </label>
 
