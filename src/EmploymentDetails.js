@@ -23,6 +23,7 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from "./components/Sidebar";
+import NumberFormat from "react-number-format";
 
 const employementStatus = [
   "Full-time",
@@ -80,6 +81,25 @@ const EmploymentDetails = (props) => {
   }, [grossIncome, otherIncome]
      
   ); */
+
+  const CurrencyFormat = React.useCallback(
+    ({ onChange, value, ...rest }) => (
+      <NumberFormat
+        {...rest}
+        value={value}
+        allowNegative={false}
+        thousandSeparator={true}
+        decimalScale={2}
+        onValueChange={target => {
+          onChange(target);
+        }}
+        isNumericString
+        prefix="$"
+      />
+    ),
+    []
+  );
+
 
   const { action, state } = useStateMachine(updateAction);
 
@@ -187,6 +207,13 @@ const EmploymentDetails = (props) => {
                   Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
                   <br />
                   (Before taxes and deductions):
+
+                  <Controller
+                      name="grossMonthlyIncome"
+                      control={control}
+                      as={CurrencyFormat}
+                      defaultValue={state.data.grossMonthlyIncome == null? 0: state.data.grossMonthlyIncome}
+                    />
                   
                  
                 </label>
