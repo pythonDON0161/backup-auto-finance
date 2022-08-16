@@ -63,7 +63,7 @@ const EmploymentDetails = (props) => {
   const otherIncome = Number(watch("otherMonthlyIncome"));
   const finale = watch("total")
 
-  
+  /*
  
   useEffect( () => {
       setValue("total", parseInt(grossIncome) +  parseInt(otherIncome) ) 
@@ -72,7 +72,7 @@ const EmploymentDetails = (props) => {
       //if( (grossIncome != "" && grossIncome != undefined) && (otherIncome !=""|| otherIncome !== undefined) )
       }, [grossIncome, otherIncome]
   );
-
+*/
   /*
   useEffect(() => {
     
@@ -121,7 +121,9 @@ const EmploymentDetails = (props) => {
             console.log(json.application);
           });
       });
-      const watchStatus = watch("employmentStatus", state.data.employmentStatus);
+    
+      /*
+    const watchStatus = watch("employmentStatus", state.data.employmentStatus);
 
       console.log("im here" + watchStatus)
     if (watchStatus === "Self Employed") {
@@ -138,12 +140,13 @@ const EmploymentDetails = (props) => {
     {  props.history.push("./monthly-expenses"); }
   };
   
-
+  */
+/*
   function handleTotal() {
     register({ name: "totalMonthly", type: "custom" });
     setValue( "totalMonthly", Number(grossIncome) + Number(otherIncome) ) ;
   }
-
+*/
 
   return (
     <>
