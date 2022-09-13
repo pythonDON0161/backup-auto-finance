@@ -10,15 +10,23 @@ form,
   max-width: 1000px;
   margin: 0 auto;
   margin-top: 3rem;
- 
+  padding: 0vh 5vw 5vh 5vw;
   border-radius: 5px;
 }
 
+
+.upForm{
+
+  padding: 0vh 0vw 0vh 0vw!important;
+  margin-top: 0rem!important;
+
+}
 .myapp {
-  max-width: 1500px;
+  max-width: 1300px;
   margin: 0 auto;
   margin-top: 3rem;
-  padding: 0vh 10vw 10vh 10vw;
+  padding: 0vh 5vw 5vh 5vw;
+  
   border-radius: 5px;
 }
 
