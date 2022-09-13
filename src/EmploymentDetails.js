@@ -276,7 +276,8 @@ const EmploymentDetails = (props) => {
 
 
                 <Text>
-                  {console.log("this is finale"+finale)}
+                  {} 
+                  {console.log("hello")}
 
                 Total Monthly Income: $
                 
