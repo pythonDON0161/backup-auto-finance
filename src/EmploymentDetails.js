@@ -171,7 +171,7 @@ const EmploymentDetails = (props) => {
         console.log( "this is gross" +grossMonthlyIncome );
          setValue("total", parseInt(grossMonthlyIncome) + parseInt(otherMonthlyIncome));
        //  console.log(state.data.total)
-         
+           console.log()
       }, [grossMonthlyIncome,otherMonthlyIncome]);
 
     
