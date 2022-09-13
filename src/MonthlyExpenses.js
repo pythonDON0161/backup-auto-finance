@@ -64,11 +64,8 @@ const MonthlyExpenses = (props) => {
   const format = (val) => `$` + Number(val);
 
   //const totalExpenses = getValues("totalExpenses");
-<<<<<<< HEAD
  // console.log(totalExpenses+" "+ "This is total expenses")
-=======
-  //console.log(totalExpenses+" "+ "This is total expenses")
->>>>>>> 064753c4e5969605e3a46d09ff6d4cb594ad3917
+ 
 
   var mortgage = Number(watch("mortgage") )
   const rent = Number(watch("rent"))
