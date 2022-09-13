@@ -63,8 +63,8 @@ const MonthlyExpenses = (props) => {
   const parse = (val) =>  val.replace(/^\$/, ""); 
   const format = (val) => `$` + Number(val);
 
-  const totalExpenses = getValues("totalExpenses");
-  console.log(totalExpenses+" "+ "This is total expenses")
+  //const totalExpenses = getValues("totalExpenses");
+  //console.log(totalExpenses+" "+ "This is total expenses")
 
   var mortgage = Number(watch("mortgage") )
   const rent = Number(watch("rent"))
