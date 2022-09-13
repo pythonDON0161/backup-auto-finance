@@ -30,8 +30,10 @@ const TradeIn = (props) => {
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
+
   const onSubmit = (data) => {
     action(data);
+
     const body = {
       "application": {
         "tradeIn": data.tradeIn,
@@ -39,8 +41,8 @@ const TradeIn = (props) => {
         "owedOnTrade": data.owed,
         "finalAmount": data.finalAmount
         
-      }
-    }
+      } }
+
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
       headers: headers,
     })
@@ -90,7 +92,7 @@ const TradeIn = (props) => {
         thousandSeparator={true}
         allowNegative={false}
         decimalScale={0}
-        placeholder="$ 0"
+        placeholder="$0"
         onValueChange={(target) => {
           setPrice(target.value);
           onChange(target.value);
@@ -117,17 +119,17 @@ const TradeIn = (props) => {
             <Select
               name="tradeIn"
               options={["Yes", "No", "N/A"]}
-              defaultValue={state.data.tradeIn}
+              defaultValue={ state.data.tradeIn }
               placeholder="Select option"
               ref={register({ required: true })}
             >
               <option value="Yes">Yes</option>
               <option value="No">No, I plan to keep my existing car</option>
               {/* If user has an existing car loan don't show option that he doesn't own car  */}
-                {state.data.existingCarLoan === '0'|| ' ' || null ||'' ? <option value="N/A">I do not currently own a car</option> : null  }
+                { state.data.existingCarLoan === '0'|| ' ' || null || 0 && <option value="N/A">I do not currently own a car</option>  }
                  
             </Select>
-            {errors.tradeIn && <p className="error">Please select an option</p>}
+            { errors.tradeIn && <p className="error">Please select an option</p> }
           </label>
           
           {watchTradeIn === "Yes" && (
@@ -155,9 +157,11 @@ const TradeIn = (props) => {
                    </NumberInput>
                        ) }}
                 />
+
                 {errors.currentCar && (
                   <p className="error">Your input is required</p>
                 )}
+                
               </label>
 
               <label >
@@ -201,12 +205,9 @@ const TradeIn = (props) => {
               )}
             </label>
           )}
+
           <Center>
-         { /*
-          <PDFDownloadLink document={<PDFDOC data={state.data}/>} fileName="loan_results">
-                {({blob,url,loading,error}) =>(loading ? 'Loading Document' : 'Download') }
-          </PDFDownloadLink>
-          */}
+         
             <button
               type="submit"
               className="submit-button"
@@ -215,6 +216,8 @@ const TradeIn = (props) => {
               Save & Continue
             </button>
           </Center>
+
+
           <br />
           <Progress value={55} />
           <Center>Step 5 of 9</Center>

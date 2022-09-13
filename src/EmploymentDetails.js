@@ -36,10 +36,7 @@ const employementStatus = [
 ];
 
 const EmploymentDetails = (props) => {
-  const parse = (val) => val.replace(/^\$/+[,], "")
-  const format = (val) =>  `$` + Number(val) //wrapping val in Number replaces leading zero // { Number(val)}
-
-  
+ 
   const {
     register,
     control,
@@ -53,43 +50,25 @@ const EmploymentDetails = (props) => {
     defaultValues: {
       employementStatus: "",
       grossMonthlyIncome: 0,
-    //  otherMonthlyIncome: "",
+      otherMonthlyIncome: 0,
       total: 0,
     },
   });
   
   var totalText
 
-  const grossIncome = Number(watch("grossMonthlyIncome"));
-  const otherIncome = Number(watch("otherMonthlyIncome"));
-  const finale = watch("total")
-
-  /*
- 
-  useEffect( () => {
-      setValue("total", parseInt(grossIncome) +  parseInt(otherIncome) ) 
-      //totalText = (parseInt(grossIncome) + parseInt(otherIncome)) 
-      console.log(finale + "finale")
-      //if( (grossIncome != "" && grossIncome != undefined) && (otherIncome !=""|| otherIncome !== undefined) )
-      }, [grossIncome, otherIncome]
-  );
-*/
-  /*
-  useEffect(() => {
-    
-    setValue("total", parseInt(grossIncome) + parseInt(otherIncome));
-  }, [grossIncome, otherIncome]
-     
-  ); */
-
- 
+  
+  const parse = (val) => val.replace("$", "").replaceAll(",", "");
+  const format = (val) =>  `$` + Number(val) 
+  
   const { action, state } = useStateMachine(updateAction);
 
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
-  console.log(user+" "+user.email)
+
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
+
 
   const onSubmit = (data) => {
     action(data);
@@ -124,9 +103,14 @@ const EmploymentDetails = (props) => {
             console.log(json.application);
           });
       });
+       props.history.push("./monthly-expenses");
+      //console.log( state.data.otherMonthly , state.data.grossMonthly )
+
+    };
     
-      
+
     const watchStatus = watch("employmentStatus", state.data.employmentStatus);
+
 /*
       console.log("im here" + watchStatus)
     if (watchStatus === "Self Employed") {
@@ -143,15 +127,55 @@ const EmploymentDetails = (props) => {
     {  props.history.push("./monthly-expenses"); }
 
     */
-  };
   
-  
-/*
   function handleTotal() {
+    setValue("grossMonthly", grossMonthlyIncome);
+    setValue("otherMonthly", otherMonthlyIncome);
     register({ name: "totalMonthly", type: "custom" });
-    setValue( "totalMonthly", Number(grossIncome) + Number(otherIncome) ) ;
+    setValue( "totalMonthly", Number(grossMonthlyIncome) + Number(otherMonthlyIncome) ) ;
   }
-*/
+
+  register({name: "total",type: "custom"})
+  const grossIncome = state.data.grossIncome //watch("grossMonthlyIncome");
+  const otherIncome = watch("otherMonthlyIncome");
+  const price = watch("price")
+  const test =watch("test") 
+  const finale = watch("total")
+
+
+      const [grossMonthlyIncome, setGrossMonthlyIncome] = useState(state.data.grossMonthly);
+      const [otherMonthlyIncome, setOtherMonthlyIncome] = useState(state.data.otherMonthly)
+
+      
+
+
+      function getData(val) {
+        setGrossMonthlyIncome(
+          val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
+        );
+        
+      }
+
+      function otherMIncome(val) {
+        setOtherMonthlyIncome(
+          val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
+        );
+        setValue("otherMonthly", val.target.value);
+        
+      }
+    
+
+
+      useEffect( () => {
+        //console.log("watching for value", grossMonthlyIncome); //this will not log anything
+        console.log( "this is gross" +grossMonthlyIncome );
+         setValue("total", parseInt(grossMonthlyIncome) + parseInt(otherMonthlyIncome));
+         console.log(state.data.total)
+         
+      }, [grossMonthlyIncome,otherMonthlyIncome]);
+
+    
+  
 
   return (
     <>
@@ -165,9 +189,10 @@ const EmploymentDetails = (props) => {
           <div class="form-container">
             <Header />
             {isAuthenticated && (
-             <form onSubmit={handleSubmit(onSubmit)} >
+             <form onSubmit={ handleSubmit(onSubmit) } >
 
             <Heading>Employment Details</Heading>
+
               <label>
                   Employment Status:
 
@@ -182,63 +207,103 @@ const EmploymentDetails = (props) => {
                   {errors.employementStatus && (
                     <p className="error">Please select an option</p>
                   )}
-
                 </label>
+
 
                 <label>
-                  Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
-                  <br />
-                  (Before taxes and deductions):
+                  Gross Monthly Income
                   <Controller
-                    name="grossMonthlyIncome"
-                    control={control}
-                    render={(props) => (
-                      <NumberFormat
-                        className="priceInput"
-                        thousandSeparator={true}
-                        prefix={"$ "}
-                        onValueChange={(v) => {
-                          //value without dollar signe
-                          console.log(v.value);
-                        }}
-                        variant="outlined"
-                        defaultValue = {state.data.grossMonthlyIncome == null?
-                          0: state.data.grossMonthlyIncome}
-                        {...props}
-                      />
-                    )}
-                  />
-                  
+                name="grossMonthlyui"
+                control={control}
+               // defaultValue={state.data.grossMonthly}
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="grossMonthly"
+                      ref={register({
+                        required: "Your Gross Income Is Required",
+                        min:0
+                      })}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      defaultValue={state.data.grossMonthly}
+                      // onChange={getData}
+                      onChange={ getData} 
+                    />
+                  );
+                }}
+              />
+              {errors.grossMonthly && (
+                    <p className="error"></p>
+                  )}
                 </label>
 
+              
+                <label>
+                  Other Monthly Income
+                  <Controller
+                name="otherMonthlyui"
+                control={control}
+               // defaultValue={state.data.otherMonthly}
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="otherMonthly"
+                      ref={register({
+                        required: "Other Monthly Income Is Required",
+                        min:0
+                      })}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      defaultValue={state.data.otherMonthly}
+                      // onChange={getData}
+                      onChange={otherMIncome} 
+                    />
+                  );
+                }}
+              />
+                  {errors.otherMonthly && (
+                    <p className="error">Please select an option</p>
+                  )}
+                </label>
+
+
+
+                <Text>
+                  {console.log("this is finale"+finale)}
+
+                Total Monthly Income: $
                 
-                <label>
-                  Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
-                  <br />
-                  (Before taxes and deductions):
+                { !isNaN(finale)  ? finale.toLocaleString(undefined, {minimumFractionDigits: 2}): 
+                <>
+                  { isNaN(parseInt(grossMonthlyIncome)) ? 0: parseInt(grossMonthlyIncome).toLocaleString(undefined, {minimumFractionDigits: 2}) }
+                </> } 
 
-                  <Controller
-                    name="otherMonthlyIncome"
-                    control={control}
-                    render={(props) => (
-                      <NumberFormat
-                        className="priceInput"
-                        thousandSeparator={true}
-                        prefix={"$ "}
-                        onValueChange={(v) => {
-                          //value without dollar signe
-                          console.log(v.value);
-                        }}
-                        variant="outlined"
-                        defaultValue= {state.data.otherMonthlyIncome == null?
-                          0: state.data.otherMonthlyIncome}
-                        {...props}
-                      />
-                    )}
-                  />
-                  
-                 
-                </label>
+                </Text>
+                
+
+                <Center>
+                  <button
+                    type="submit"
+                    onClick={handleTotal}
+                    className="submit-button"
+                    value="Save & Continue"
+                  >
+                    Save & Continue
+                  </button>
+                </Center>
+                <br />
+                <Progress value={33} />
+                <Center>Step 3 of 9</Center>
+                <FeedbackFish projectId="01ebf0d6447158">
+                  <button className="feedback">Give us Feedback</button>
+                </FeedbackFish>
 
              </form>
 

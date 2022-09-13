@@ -16,6 +16,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const MonthlyExpenses = (props) => {
   const { register, handleSubmit, control, setValue, getValues, watch } = useForm();
   const { action, state } = useStateMachine(updateAction);
+  
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
@@ -29,9 +30,7 @@ const MonthlyExpenses = (props) => {
         "creditCard": data.creditCard,
         "existingCarLoan":data.existingCarLoan,
         "otherLoanPayments": data.otherLoans,
-      }
-
-    }
+      } }
     console.log(body)
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
       headers: headers,

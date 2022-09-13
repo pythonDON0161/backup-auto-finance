@@ -36,7 +36,7 @@ const employementStatus = [
 
 const EmploymentDetails = (props) => {
   const parse = (val) => val.replace(/^\$/+[,], "")
-  const format = (val) =>  `$` + Number(val) //wrapping val in Number replaces leading zero // { Number(val)}
+  const format = (val) =>  Number(val) //wrapping val in Number replaces leading zero // { Number(val)}
 
   
   const {
@@ -62,8 +62,6 @@ const EmploymentDetails = (props) => {
   const grossIncome = Number(watch("grossMonthlyIncome"));
   const otherIncome = Number(watch("otherMonthlyIncome"));
   const finale = watch("total")
-
-  /*
  
   useEffect( () => {
       setValue("total", parseInt(grossIncome) +  parseInt(otherIncome) ) 
@@ -72,14 +70,14 @@ const EmploymentDetails = (props) => {
       //if( (grossIncome != "" && grossIncome != undefined) && (otherIncome !=""|| otherIncome !== undefined) )
       }, [grossIncome, otherIncome]
   );
-*/
-  /*
+
+  
   useEffect(() => {
     
     setValue("total", parseInt(grossIncome) + parseInt(otherIncome));
   }, [grossIncome, otherIncome]
      
-  ); */
+  ); 
 
   const { action, state } = useStateMachine(updateAction);
 
@@ -121,6 +119,8 @@ const EmploymentDetails = (props) => {
             console.log(json.application);
           });
       });
+      
+    
     
       /*
     const watchStatus = watch("employmentStatus", state.data.employmentStatus);
@@ -184,12 +184,13 @@ const EmploymentDetails = (props) => {
                   <Controller
                     control={control}
                     name="grossMonthlyIncome"
-                    defaultValue = {state.data.grossMonthlyIncome == null?
-                       0: state.data.grossMonthlyIncome}
+                    defaultValue = {state.data.grossMonthly == null?
+                       0: state.data.grossMonthly}
                     render={({ onChange, value }) => {
                       return (
+
                         <NumberInput
-                        onChange={(v) => onChange(parse(v) )} 
+                        onChange={ (v) => onChange(parse(v) ) } 
                         min={0}
                         value={format(value)}
                         ref={register({
@@ -197,35 +198,65 @@ const EmploymentDetails = (props) => {
                           min: 0,
                         })}
                       >
-                        <NumberInputField />
+                      <NumberInputField />
                       </NumberInput>
+
                       );
                     }}
                   />
+                  
                   {errors.grossMonthlyIncome && (
                     <p className="error">{errors.grossMonthlyIncome.message}</p>
                   )}
+
                 </label>
 
+                { /*
+                <label>
+                  Gross Monthly Salary/Commissions/Self-Employment Earnings{" "}
+                  <br />
+                  (Before taxes and deductions):
+                  <Controller
+                    control={control}
+                    name="grossMonthlyIncome"
+                    defaultValue = {"0"}
+                    render={ ({ onChange, value, name })=> {
+                      return(
+                      <NumberFormat
+                        onChange={onChange }
+                        className="priceInput"
+                        value={ String(value) }
+                        thousandSeparator={true}
+                        prefix={"$"}
+                        variant="outlined"
+                        ref={register({
+                          required: "Gross Monthly Income is required",
+                          min: 0,
+                          })}
+                       
+                        />
+                     ); } }
+                  />
+                </label>
+
+                        */ }
 
                 <label>
                   Other Monthly Income (Rental Income/Investment Income etc.): 
                   <Controller
                     control={control}
-                    
                     name="otherMonthlyIncome"
                     defaultValue= {state.data.otherMonthlyIncome == null?
                        "": state.data.otherMonthlyIncome}
                     render={({ onChange, value, onFocus }) => {
                       return (
                         <NumberInput
-                          onChange={(v) => onChange(parse(v) )} 
-    
+                          onChange={ (v) => onChange(parse(v) ) } 
                           min={0}
-                            //{...otherIncome !== "undefined" ?"defined":"undefined" }
-                         // onFocus={ (e) =>  e.target.value = setValue() }
+                           //{...otherIncome !== "undefined" ?"defined":"undefined" }
+                           // onFocus={ (e) =>  e.target.value = setValue() }
                           value={format(value)}
-                          defaultValue={state.data.otherMonthlyIncome}
+                          defaultValue={state.data.state.data.otherMonthly}
                           ref={register({
                             required: "Other Monthly Income is required",
                             min: 0,

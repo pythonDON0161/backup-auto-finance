@@ -19,6 +19,7 @@ const ApplicantDetails = (props) => {
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
+  
   const onSubmit = (data) => {
     action(data);
     const body = {

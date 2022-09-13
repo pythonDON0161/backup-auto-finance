@@ -25,10 +25,10 @@ const AdditionalInfo = (props) => {
     action(data);
     const body = {
       "application": {
-        "FirstOfficerName": data.officerName,
+        "firstOfficerName": data.firstOfficerName,
         "secondOfficerName": data.secondOfficerName,
         "firstBranchName": data.firstBranchName,
-        "secondBranchName": data.secondBranchName
+        "secondBranchName": data.secondBranchName,
        
       }
     }
@@ -71,7 +71,7 @@ const AdditionalInfo = (props) => {
 
  
           <label> 
-              Please let us know if you have an existing relationship at {state.data.primaryBank.toUpperCase()}:
+              Please let us know if you have an existing relationship at {state.data.bankSelection1.toUpperCase()}:
           <Select 
           name="opti"
           placeholder="Please select an answer"  
@@ -91,17 +91,17 @@ const AdditionalInfo = (props) => {
               <Input
                 name="firstBankBranch"
                 ref={register}
+                defaultValue ={state.data.firstBranchName}
               >
               </Input>
               
               <br />
               <br/>
-
               Name Of Banking Officer:
               <Input
                 name="firstOfficerName"
                 ref={register}
-                defaultValue={state.data.officerName}
+                defaultValue={state.data.firstOfficerName}
               />
               <br />
               <br />
@@ -110,7 +110,7 @@ const AdditionalInfo = (props) => {
 
           <br/>
 
-          Please let us know if you have an existing relationship at {state.data.primaryBank.toUpperCase()}:
+          Please let us know if you have an existing relationship at {state.data.bankSelection2.toUpperCase()}:
               <Select 
               name="optiTwo"
               placeholder="Please select an answer"  
@@ -137,9 +137,9 @@ const AdditionalInfo = (props) => {
               <br/>
                 Name Of Banking Officer:
                 <Input
-                  name="firstOfficerName"
+                  name="secondOfficerName"
                   ref={register}
-                  defaultValue={ state.data.firstOfficerName }
+                  defaultValue={ state.data.secondOfficerName }
                 />
               <br />
               <br />

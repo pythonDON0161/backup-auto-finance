@@ -845,15 +845,13 @@ function Calculator(props) {
                     </div>
 
                     <div>
-
                     <Flex w="100%"> 
-
                       <Flex h="25%" justify="left" align="left">
                         <button onClick={handleReset} className="submit-button ">
                           Reset
                         </button>
                       </Flex>
-                      
+          
                       <Spacer></Spacer>
 
                   <Modal isOpen={isOpen} onClose={onClose}>

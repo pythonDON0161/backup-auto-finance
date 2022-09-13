@@ -1,0 +1,273 @@
+<TabPanel id="financialInfo">
+
+
+<label style={{ padding: 2 }} > Last 3 Payslips </label>
+
+<Controller
+  name="payslipOne"
+  control={control}
+  render={({ onChange, value }) => {
+    return (
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          children={<Icon as={FiFile} />}
+        />
+        <input type='file' accept={acceptedFileTypes} name={name}
+          ref={inputRef} inputRef={ref} style={{ display: 'none' }}></input>
+        <Input
+          placeholder={"Upload payslip #1"}
+          onChange={console.log(value)}
+          onClick={() => inputRef.current.click()}
+          readOnly={true}
+          value={value && value.name || ''}
+        />
+      </InputGroup>
+    )
+  }}
+/>
+
+<br></br>
+
+<Controller
+  name="payslipTwo"
+  control={control}
+  render={({ onChange, name, value }) => {
+    return (
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          children={<Icon as={FiFile} />}
+        />
+        <input name={name} onChange={(e) => onChange(e.target.files[0])}
+          type='file' accept={acceptedFileTypes} ref={inputRef} style={{ display: 'none' }}></input>
+
+        <Input
+          placeholder={"Upload payslip #2"}
+          onChange={console.log(value)}
+          onClick={() => inputRef.current.click()}
+          readOnly={true}
+          value={value && value.name || ''}
+        />
+
+      </InputGroup>
+    )
+  }}
+/>
+
+<br></br>
+
+<Controller
+  name="paySlipThree"
+  control={control}
+  render={({ onChange, name, value }) => {
+    return (
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          children={<Icon as={FiFile} />}
+        />
+        <input onChange={(e) => onChange(e.target.files[0])}
+          type='file' accept={acceptedFileTypes} name={name} ref={inputRef} style={{ display: 'none' }}></input>
+
+        <Input
+          placeholder={"Upload Payslip three "}
+          name={name}
+          onChange={console.log(value)}
+          onClick={() => inputRef.current.click()}
+          readOnly={true}
+          value={value && value.name || ''}
+        />
+
+      </InputGroup>
+    )
+  }}
+/>
+
+<Text fontSize='xs' color='grey'>  File format : pdf, jpg, jpeg, png</Text>
+
+
+
+<Text fontSize='xs' color='grey'>  File format : pdf, jpg, jpeg, png</Text>
+
+
+<br></br>
+
+
+<ButtonGroup spacing={4}>
+  <Button loadingText="Submitting" variantColor="teal" type="submit">
+    Save Progress
+  </Button>
+  <Button
+    variantColor="teal"
+    variant="outline"
+  >
+    Next
+  </Button>
+</ButtonGroup>
+
+</TabPanel>
+
+
+import React, { useState, useRef } from "react";
+import { useForm, useController, Controller } from "react-hook-form";
+import NumberFormat from "react-number-format";
+import { withRouter, Link } from "react-router-dom";
+import { useStateMachine } from "little-state-machine";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Heading,
+  FormControl,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Tab,
+  Input,
+  Select,
+  Text,
+  Center,
+  InputGroup,
+  InputLeftElement,
+  Icon
+} from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import updateAction from "./updateAction";
+import { FeedbackFish } from "@feedback-fish/react";
+import { useAuth0 } from "@auth0/auth0-react";
+import "./styles.css";
+import { CgAttachment } from "react-icons/cg";
+import { FiFile } from "react-icons/fi";
+
+const UploadPage = ({
+  name,
+  placeholder,
+  acceptedFileTypes,
+  control,
+  children,
+  isRequired = false
+}) => {
+  const inputRef = useRef();
+
+  const {
+    field: { ref, onChange, value, ...inputProps },
+    fieldState: { invalid, isTouched, isDirty }
+  } = useController({
+    name,
+    control,
+    rules: { required: isRequired }
+  });
+
+  const { action, state } = useStateMachine(updateAction);
+  const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+  const headers = new Headers();
+
+  headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
+  headers.append("Content-Type", "application/json");
+
+  return (
+    <>
+      <Box p={1} m="10px auto">
+        <Heading as="h1" size="xl" textAlign="center">
+          Upload Section
+        </Heading>
+
+        <FormControl isInvalid={invalid} isRequired>
+          <Tabs
+            p={1}
+            borderWidth="1px"
+            borderRadius="lg"
+            boxShadow="1px 1px 3px rgba(0,0,0,0.3)"
+            isFitted
+            variant="line"
+          >
+            <TabList>
+              <Tab>Personal Documents</Tab>
+              <Tab>Financial Documents</Tab>
+              <Tab>Proof Of Identity</Tab>
+            </TabList>
+
+            <TabPanels>
+              <TabPanel id="personalInfo">
+                <label style={{ padding: 2 }}> Type Of ID </label>
+                <Box w="75%">
+                  <Select
+                    name="idType"
+                    options={["Yes", "No"]}
+                    placeholder="Select option"
+                  >
+                    {" "}
+                    ID Type
+                    <option value="Driver's License">Driver's License</option>
+                    <option value="Passport">Passport</option>
+                    <option value="Voter's ID">Voter's ID</option>
+                  </Select>
+                </Box>
+                <br></br>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<Icon as={FiFile} />}
+                  />
+                   <input type='file' accept={acceptedFileTypes} name={name} ref={inputRef}
+                    {...inputProps} inputRef={ref} style={{ display: 'none' }}></input>
+                  <Input
+                    placeholder={"Upload Copy Of Selected ID "}
+                    onChange={console.log(value)}
+                    onClick={() => inputRef.current.click()}
+                    readOnly={true}
+                    value={(value && value.name) || ""}
+                  />
+                </InputGroup>
+                );
+                <Text fontSize="xs" color="grey">
+                  {" "}
+                  File format : pdf, jpg, jpeg, png
+                </Text>
+                <br></br>
+                <ButtonGroup spacing={4}>
+                  <Button
+                    loadingText="Submitting"
+                    variantColor="teal"
+                    type="submit"
+                  >
+                    Save Progress
+                  </Button>
+
+                  <Button variantColor="teal" variant="outline">
+                    Next
+                  </Button>
+                </ButtonGroup>
+              </TabPanel>
+
+              <TabPanel id="personalInfo"></TabPanel>
+
+              {/* <ButtonGroup spacing={4}>
+              <Button loadingText="Submitting" variantColor="teal" type="submit">
+                Submit
+              </Button>
+              <Button
+                variantColor="teal"
+                variant="outline"  
+              >
+                Reset
+              </Button>
+            </ButtonGroup> */}
+
+              <Box as="pre" my={10}></Box>
+            </TabPanels>
+          </Tabs>
+        </FormControl>
+      </Box>
+    </>
+  );
+};
+
+UploadPage.defaultProps = {
+  acceptedFileTypes: "",
+  allowMultipleFiles: false
+};
+
+export default UploadPage;
