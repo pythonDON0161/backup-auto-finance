@@ -90,7 +90,8 @@ function sendEmail() {
     carPrice: state.data.price,
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
-    employment: state.data.employmentStatus
+    employment: state.data.employmentStatus,
+    tdsr : state.data.tdsr
   };
  
   emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
@@ -412,6 +413,13 @@ function sendEmail() {
 
                         </Checkbox>
 
+                        <Center>
+                          <button  className="uploadBtn" >
+                                  Save & Continue
+                            </button>
+                        
+                          </Center>
+
                         </form>
 
                   </TabPanel>
@@ -487,6 +495,12 @@ function sendEmail() {
                                 <Text paddingLeft='5px' fontSize='xs' fontWeight='200' color='grey'>  File format : pdf, jpg, jpeg, png</Text>
                             </label>
                      </div>
+                     <Center>
+                          <button  className="uploadBtn" >
+                                  Save & Continue
+                            </button>
+                        
+                          </Center>
                      </form>
                      </TabPanel>
                   </TabPanels>
