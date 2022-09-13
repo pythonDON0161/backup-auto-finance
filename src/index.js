@@ -113,7 +113,8 @@ function App() {
     <Protect sha512='d5b12dc83a569c16969fa52c90329b6390217c0b414a82c307039e8b9b0af6c6e70c3c50d30c9765586c11807474ce03aecf292dead870737cdd72fd40b3af1a'>
     <Auth0Provider {...providerConfig}>
       <StateMachineProvider>
-        {process.env.NODE_ENV !== "production" && <DevTool />}
+        { <DevTool />}
+        { process.env.NODE_ENV !== "development" && <DevTool />}
         <ChakraProvider theme={theme}>
           <Router>
             <Route exact path="/" component={LandingPage} />
