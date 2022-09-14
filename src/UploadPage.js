@@ -5,8 +5,9 @@ import {Input,FormControl,FormLabel,InputGroup,InputLeftElement,Tabs,
   ButtonGroup,Icon,Button,Checkbox,Text,Select,Center,
    SimpleGrid, Heading, Textarea, Link, Flex, Spacer,Container
 } from "@chakra-ui/react";
+import { withRouter, useHistory} from "react-router-dom";
 import { FiFile } from "react-icons/fi";
-import { useController, useForm, Controller } from "react-hook-form";
+import { useController, useForm, Controller} from "react-hook-form";
 import UploadUnit from "./UploadUnit";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
@@ -16,9 +17,11 @@ import emailjs from '@emailjs/browser';
 import "./styles.css";
 
 
-export const FileUpload = ({name, placeholder, acceptedFileTypes,}) => {
+export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
   
   const { register,handleSubmit,errors,getValues,setValue,watch,control,ref, } = useForm();
+
+
 
   const {
     control: control1,
@@ -141,6 +144,7 @@ function sendEmail() {
     console.log(data)
     let financialDocs = []
     financialDocs.push(data.slipOne,data.slipTwo,data.slipThree, data.jobLetter)
+    console.log(financialDocs)
     const storageRef = storage;
     var keyNames = Object.keys(data);
     
@@ -156,23 +160,30 @@ function sendEmail() {
 
   };
 
-  const onSubmitThree = (data1,event) => {
+  let history = useHistory();
+  //let navigate = useNavigate()
+
+
+  const onSubmitThree = (data3,event) => {
 
     event.preventDefault();
-    console.log(data1)
-    let personalDocs = []
-    personalDocs.push(data1.trn,data1.nis,data1.id)
-    const storageRef = storage;
-    var keyNames = Object.keys(data1);
-    
+    history.push("./authorization")
+
+    //
+    //console.log(data3)
+    //let vehicleDocs = []
+   // vehicleDocs.push(data3.trn,data1.nis,data1.id)
+    //const storageRef = storage;
+    //var keyNames = Object.keys(data3);
+    /*
     for ( let x=1; x < keyNames.length && x <2; x++ ){
         let i = 1 //start at 1 to avoid firstName key
-        personalDocs.forEach( (file,) =>{
+        vehicleDocs.forEach( (file,) =>{
         storageRef.child( ` ${state.data.firstName}/${keyNames[i]}/${file[0].name} `)
          .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
-    } 
+    } */
   };
 
   const [tabIndex, setTabIndex] = React.useState(0);
@@ -180,7 +191,6 @@ function sendEmail() {
   return (
     <>
    <Header/>
-    
         <SimpleGrid columns={1} spacing={10}>
           <Center>
             <Heading> Document Upload</Heading>
@@ -474,7 +484,7 @@ function sendEmail() {
 
                   <TabPanel> 
 
-                  <form className="upForm" onSubmit={ handleSubmit() }> 
+                  <form className="upForm" onSubmit={ handleSubmit(onSubmitThree) }> 
                   <div> 
                         <label>  Vehicle Valuation Report(Used Vehicles Only)
                             <Controller name="valuation" control={control2} defaultValue=""
@@ -544,10 +554,11 @@ function sendEmail() {
                             </label>
                      </div>
                      <Center>
+                      
                           <button  className="uploadBtn" >
-                                  Save & Continue
+                                 Upload Documents
                             </button>
-                        
+                     
                           </Center>
                      </form>
                      </TabPanel>
@@ -557,7 +568,7 @@ function sendEmail() {
 
                   <div>
 
-                  <Center>
+                <Center>
             
                 
                 
@@ -571,11 +582,7 @@ function sendEmail() {
                     </button>
                   </Link>
          </Center>
-                    
-                   
-                  </div>
-                    
-       
+            </div>
         </Tabs>
         <br />
 
@@ -593,4 +600,4 @@ function sendEmail() {
   );
 };
 
-export default FileUpload;
+export default withRouter(FileUpload);

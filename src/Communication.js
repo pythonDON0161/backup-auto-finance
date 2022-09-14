@@ -40,7 +40,8 @@ const Communication = (props) => {
       console.log(json.application);
     });
     });
-    props.history.push("./next-steps");
+    props.history.push("./thank-you");
+    
   };
 
   return (
