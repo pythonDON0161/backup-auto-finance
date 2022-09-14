@@ -46,7 +46,7 @@ const EmploymentDetails = (props) => {
     reset,
     handleSubmit,
     errors,
-  } = useForm({
+  } = useForm( {
     defaultValues: {
       employementStatus: "",
       grossMonthlyIncome: 0,
@@ -212,7 +212,7 @@ const EmploymentDetails = (props) => {
 
                 <label>
                   Gross Monthly Income
-                  <Controller
+              <Controller
                 name="grossMonthlyui"
                 control={control}
                // defaultValue={state.data.grossMonthly}
@@ -281,7 +281,7 @@ const EmploymentDetails = (props) => {
 
                 Total Monthly Income: $
                 
-                { !isNaN(finale)  ? finale.toLocaleString(undefined, {minimumFractionDigits: 2}): 
+                { !isNaN(finale) ? finale.toLocaleString(undefined, {minimumFractionDigits: 2}): 
                 <>
                   { isNaN(parseInt(grossMonthlyIncome)) ? 0: parseInt(grossMonthlyIncome).toLocaleString(undefined, {minimumFractionDigits: 2}) }
                 </> } 

@@ -5,16 +5,26 @@ import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Select, Progress, Center, Heading, Container, SimpleGrid, Text, 
-  Button,
-   NumberInput, 
-  NumberInputField } from "@chakra-ui/react";
+  Button,NumberInput, NumberInputField } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
+import CurrencyInput from 'react-currency-input-field';
 
 
 const MonthlyExpenses = (props) => {
-  const { register, handleSubmit, control, setValue, getValues, watch } = useForm();
+  const { register, handleSubmit, control, setValue, getValues, watch } = 
+  
+  useForm( {
+    defaultValues: {
+      mortgage: 0,
+      rent: 0,
+      creditCard: 0,
+      existingCarLoan: 0,
+      otherLoans:0
+    },}
+  );
+
   const { action, state } = useStateMachine(updateAction);
   
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
@@ -52,20 +62,13 @@ const MonthlyExpenses = (props) => {
     });
     props.history.push("./trade-in");
   };
+  
+  
+  { register({name: "finalExpenses", type: "custom"})}
 
   register({ name: "totalExpenses", type: "custom" });
 
-  function handleTotal() {
-   
-    setValue( "totalExpenses",  finalExpenses );
-  }
 
-  const parse = (val) =>  val.replace(/^\$/, ""); 
-  const format = (val) => `$` + Number(val);
-
-  //const totalExpenses = getValues("totalExpenses");
- // console.log(totalExpenses+" "+ "This is total expenses")
- 
 
   var mortgage = Number(watch("mortgage") )
   const rent = Number(watch("rent"))
@@ -74,23 +77,34 @@ const MonthlyExpenses = (props) => {
   const otherLoan = Number( watch("otherLoans") )
   //mortgage = Number(mortgage)
 
-  //console.log(mortgage)
-  var test
 
-  useEffect( ()=> {
+  const [input_values, set_inputvalues] = useState ({
+    mortgage: 0,
+    rent: 0,
+    creditCard: 0,
+    existingCarLoan: 0,
+    otherLoans: 0
+  });
 
-    setValue ( "finalExpenses", ( parseInt(mortgage) + parseInt(rent) + 
-       parseInt(creditCard) + parseInt(carLoan) + parseInt(otherLoan)) )
+  const [totalExp, set_total] = useState(0);
 
-       test = parseInt(mortgage) + parseInt(rent) + 
-       
-       parseInt(creditCard) + parseInt(carLoan) + parseInt(otherLoan) 
+  useEffect(() => {
+    const arrValues = Object.values(input_values);
+    const inputTotals = arrValues.reduce((accum, curr) => (accum += curr), 0);
+    set_total(parseInt(inputTotals).toLocaleString());
+    setValue( "totalExpenses", parseInt(inputTotals) )
+  }, [input_values]);
   
-  }, [mortgage, rent, creditCard,carLoan,otherLoan] ) 
 
-  const finalExpenses = watch("finalExpenses")
+  //var expTot = watch()
+  
+  const changeValues = ({ name, value }) => {
+    set_inputvalues({ ...input_values, [name]: parseInt(value
+      .replaceAll(/[^0-9]/gi, "")
+      .replace(/^\$/, "")
+      .replaceAll(",", "")) });
+  };
 
- 
 
   return (
     <>
@@ -102,154 +116,134 @@ const MonthlyExpenses = (props) => {
         <label>
           Mortgage
           <Controller
-            name="mortgage"
-            //as={CurrencyFormat}
-            control={control}
-            defaultValue={ state.data.mortgage == null? 0 :
-               state.data.mortgage }
-
-            render={({ onChange, value }) => {
-              return (
-                <NumberInput
-                  //placeholder="0"
-                  onChange={ (v) => onChange(parse(v)) }
-                  value={ format(value) }
-                >
-                  <NumberInputField />
-                </NumberInput>
-              );
-            }}
-          />
-          
+                name="mortgage"
+                control={control}
+               
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="mortgage"
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      defaultValue={state.data.mortgage}
+                      maxLength={7}
+                      decimalsLimit={2}
+                      onChange={({ target }) => changeValues(target)}
+                      onValueChange={onChange}
+                    />
+                  );
+                }}
+              />
         </label>
 
         <label>
           Rent
           <Controller
-            name="rent"
-            //as={CurrencyFormat}
-            control={control}
-            defaultValue={state.data.rent == null ? 0: state.data.rent}
-            render={({ onChange, value }) => {
-
-              return (
-                <NumberInput
-                  onChange={(v) => onChange(parse(v))}
-                  min={0}
-                  value={format(value)}
-                  ref={register({
-                    required: "Gross Monthly Income is required",
-                    min: 0,
-                  })}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              );
-            }}
-          />
+                name="rent"
+                control={control}
+                defaultValue={state.data.rent}
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="rent"
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      defaultValue={state.data.rent}
+                      maxLength={7}
+                      decimalsLimit={2}
+                      //defaultValue={state.data.rent}
+                     onChange={({ target }) => changeValues(target)}
+                     onValueChange={onChange}
+                    />
+                  );
+                }}
+              />
         </label>
 
         <label>
           Credit Card Payments:
           <Controller
-            name="creditCard"
-            //as={CurrencyFormat}
-            control={control}
-            className="priceInput"
-            defaultValue= {state.data.creditCard == null ? 0: state.data.creditCard}
-            render={({ onChange, value }) => { 
-
-              return (
-                <NumberInput
-                  onChange={(v) => onChange(parse(v))}
-                  min={0}
-                  value={format(value)}
-                  ref={register({
-                    required: "Gross Monthly Income is required",
-                    min: 0,
-                  })}
-                >
-                  <NumberInputField />
-                </NumberInput>
-              );
-            }}
-          />
+                name="creditCard"
+                control={control}
+                
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="creditCard"
+                      defaultValue={state.data.creditCard}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      //defaultValue={state.data.rent}
+                     onChange={({ target }) => changeValues(target)}
+                     onValueChange={onChange}
+                    />
+                  );
+                }}
+              />
         </label>
-
-        {/* <label>
-        Do you intend on selling your existing car or paying off the existing loan? (if applicable)
-        <Select
-          name="intent"
-          ref={register}
-          defaultValue={state.data.intent}
-          placeholder="Select option"
-        >
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </Select>
-      </label>      
-      {watchIntent === 'No' ? */}
 
           <label>
             Existing Car Loan Payment:
             <Controller
-              name="existingCarLoan"
-             // as={CurrencyFormat}
-              control={control}
-             //className="priceInput"
-              defaultValue = {state.data.existingCarLoan == null ? 0: state.data.existingCarLoan}
-              render={({ onChange, value }) => {
-                return (
-                  <NumberInput
-                    onChange={(v) => onChange(parse(v))}
-                    min={0}
-                    value={format(value)}
-                    ref={register({
-                      min: 0
-                    })}
-                  >
-                    <NumberInputField />
-                  </NumberInput>
-                );
-              }}
-            />
+                name="existingCarLoan"
+                control={control}
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="existingCarLoan"
+                      defaultValue={state.data.existingCarLoan}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      //defaultValue={state.data.rent}
+                     onChange={({ target }) => changeValues(target)}
+                    />
+                  );
+                }}
+              />
             
             (Please enter even if you plan on selling or trading in.)
           </label>
         <label>
+
           Other Loan Payments:
           <Controller
-            name="otherLoans"
-           // as={CurrencyFormat}
-            control={control}
-            defaultValue= {state.data.otherLoans == null? 0: state.data.otherLoans }
-            render={({ onChange, value }) => {
-              return (
-                <NumberInput
-                  onChange={(v) => onChange(parse(v))}
-                  min={0}
-                  value={format(value)}
-                
-                >
-                  <NumberInputField />
-                </NumberInput>
-              );
-            }}
-          />
+                name="otherLoans"
+                control={control}
+              
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="otherLoans"
+                       defaultValue={state.data.otherLoans}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      //defaultValue={state.data.rent}
+                     onChange={({ target }) => changeValues(target)}
+                    />
+                  );
+                }}
+              />
         </label>
 
         <Text>
-         Total Monthly Obligations:${!isNaN(finalExpenses) ? finalExpenses.toLocaleString() : finalExpenses }
-
+         Total Monthly Obligations:${totalExp}
          </Text>
-
-        { register({name: "finalExpenses", type: "custom"})}
 
 
         <Center>
           <button
             type="submit"
-            onClick={handleTotal}
             className="submit-button"
             value="Save & Continue"
           >
