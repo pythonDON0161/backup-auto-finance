@@ -46,6 +46,8 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,}) => {
   let inputRefEight = HTMLInputElement | null;
   let inputRefNine = HTMLInputElement | null;
   let inputRefTen = HTMLInputElement | null;
+  let inputRefEle = HTMLInputElement | null;
+  let inputRefTwe = HTMLInputElement | null;
 
   const onClicker = () => {
     console.log('INPUT VALUE: ', inputRef);
@@ -57,21 +59,24 @@ const { action, state } = useStateMachine(updateAction);
 const onSubmitOne = (data,event) => {
 
   event.preventDefault();
-  sendEmail()
+  //sendEmail();
+
+
   let personalDocs = []
+
   personalDocs.push(data.trn,data.nis,data.photo)
+
   const storageRef = storage;
   var keyNames = Object.keys(data);
-
+/*
   for (let x=1; x < keyNames.length && x <2; x++){
       let i = 1 //start at 1 to avoid firstName key
-
       personalDocs.forEach( (file,) =>{
       storageRef.child( ` ${data.firstName}/${keyNames[i]}/${file[0].name} `)
        .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
        i++
      } )
-  }
+  } */
 };
 
 
@@ -106,13 +111,16 @@ function sendEmail() {
   
   const onSubmitTwo = (data,event) => {
     event.preventDefault();
-    sendEmail()
+   // sendEmail()
+   
+    inputRefTwe.click()
     console.log(data)
     let personalDocs = []
     personalDocs.push(data.trn,data.nis,data.id)
     const storageRef = storage;
     var keyNames = Object.keys(data);
     
+    /*
     for (let x=1; x < keyNames.length && x <2; x++){
         let i = 1 //start at 1 to avoid firstName key
         personalDocs.forEach( (file,) =>{
@@ -120,7 +128,8 @@ function sendEmail() {
          .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
-    } 
+    } */
+
   };
 
   const onSubmitThree = (data1,event) => {
@@ -132,7 +141,7 @@ function sendEmail() {
     const storageRef = storage;
     var keyNames = Object.keys(data1);
     
-    for (let x=1; x < keyNames.length && x <2; x++){
+    for ( let x=1; x < keyNames.length && x <2; x++ ){
         let i = 1 //start at 1 to avoid firstName key
         personalDocs.forEach( (file,) =>{
         storageRef.child( ` ${state.data.firstName}/${keyNames[i]}/${file[0].name} `)
@@ -142,7 +151,7 @@ function sendEmail() {
     } 
   };
 
-
+  const [tabIndex, setTabIndex] = React.useState(0);
 
   return (
     <>
@@ -156,11 +165,11 @@ function sendEmail() {
 
 <div className="myapp"> 
    
-      <Tabs isFitted >
+      <Tabs onChange={index => setTabIndex(index)} isFitted >
                 <TabList>
-                    <Tab _selected={{ color: 'white', bg: '#e65323' }}>Personal Documents</Tab>
-                    <Tab _selected={{ color: 'white', bg: '#e65323' }}>Financial Documents</Tab>
-                    <Tab _selected={{ color: 'white', bg: '#e65323' }}>Vehicle Documents</Tab>
+                    <Tab _selected={{ color: 'white', bg: '#e65323' }} active >Personal Documents</Tab>
+                    <Tab _selected={{ color: 'white', bg: '#e65323' }} ref={node => { inputRefEle = node; }}>Financial Documents</Tab>
+                    <Tab _selected={{ color: 'white', bg: '#e65323' }} ref={node => { inputRefTwe = node; }}>Vehicle Documents</Tab>
                 </TabList>
                 <TabPanels id={"Personal"}>
 
@@ -282,9 +291,9 @@ function sendEmail() {
 
     </TabPanel>
 
-        <TabPanel>
+        <TabPanel id="financial-tab">
           
-          <form  key={2} className="upForm" onSubmit={ handleSubmit2() }> 
+          <form key={2} id="financialForm" className=" upForm" onSubmit={ handleSubmit2(onSubmitTwo) }> 
 
                   <label> Last 3 Months Payslip</label>
 
@@ -358,10 +367,11 @@ function sendEmail() {
                                     <input name={name} type="file" onChange={(e) => onChange(e.target.files)} 
                                       accept={acceptedFileTypes} 
                                       ref={(node,name,event) => { inputRefSix = node }}
+                                    //  {...register2({ required: true })}
                                       style={{ display: "none" }}
                                     />
                                     <Input name= { name } placeholder= { placeholder || "Upload pay-slip #3" } onClick= { (e) => inputRefSix.click(e) }
-                                      
+                                      // {...register2({ required: true })}
                                       //value={ (value && value[0].name ) || "" }
                                       value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload pay-slip #3"}
                                     />
@@ -382,10 +392,14 @@ function sendEmail() {
                                     <InputLeftElement pointerEvents="none">
                                       <Icon as={FiFile} />
                                     </InputLeftElement>
-                                    <input name={name} type="file" onChange={(e) => onChange(e.target.files)} accept={acceptedFileTypes} 
-                                            ref={(node,name,event) => { inputRefSeven = node }} style={{ display: "none" }}
+                                    <input name={name} type="file" onChange={(e) => onChange(e.target.files)}
+                                     accept={acceptedFileTypes} 
+                                            ref={ ( node,name,event  ) => { inputRefSeven = node }} 
+                                            style={{ display: "none" }}
+                                           // {...register2( { required: true })}  
+                                            aria-invalid={errors.name ? "true" : "false"}
                                     />
-                                    <Input name= { name } placeholder= { placeholder || "Upload Income Verification Letter" } onClick= { (e) => inputRefSeven.click(e) }
+                                    <Input  name= { name }  required placeholder= { placeholder || "Upload Income Verification Letter" } onClick= { (e) => inputRefSeven.click(e) }
                                       value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload Income Verification Letter"}
                                     />
                                   </InputGroup>
@@ -407,18 +421,22 @@ function sendEmail() {
                         <p>
                         </p>
 
-                        <Checkbox name="permission" value="True"  ref={register2({ required: true })}>
+                        <Checkbox name="permission">
 
-                          I confirm that I have read and agree to allow VMBS to apply for a credit report on my behalf.
+                          I confirm that I have read and agree to allow Auto Finance to apply for a credit report on my behalf.
 
                         </Checkbox>
 
                         <Center>
-                          <button  className="uploadBtn" >
+                          <button type="submit" className="uploadBtn" >
                                   Save & Continue
                             </button>
                         
                           </Center>
+                            {/* use role="alert" to announce the error message */}
+                              {errors.name && errors.name.type === "required" && (
+                                <span role="alert">This is required</span>
+                              )}
 
                         </form>
 
@@ -485,7 +503,7 @@ function sendEmail() {
                                     <input name={name} type="file" onChange={(e) => onChange(e.target.files)} accept={acceptedFileTypes} 
                                           ref={node => { inputRefTen = node; }} style={{ display: "none" }}
                                     />
-                                    <Input name= { name } placeholder= { placeholder || "Upload Fitness" } onClick= { (e) => inputRefTen.click(e) }
+                                    <Input name= { name }  placeholder= { placeholder || "Upload Fitness" } onClick= { (e) => inputRefTen.click(e) }
                                       readOnly= { true } value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload Fitness"}
                                     />
                                   </InputGroup>
