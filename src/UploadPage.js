@@ -115,7 +115,7 @@ function sendEmail() {
   
   const onSubmit = (data,event) => {
     event.preventDefault();
-   // sendEmail()
+   sendEmail()
    
     inputRefEle.click()
     console.log(data)
