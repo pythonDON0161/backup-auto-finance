@@ -77,6 +77,7 @@ createStore({
       rent: 0,
       otherLoans: 0,
       mortgage: 0,
+      totalExpenses:0,
       otherMonthly: 0,
       grossMonthly: 0,
       caMortgage: 0,

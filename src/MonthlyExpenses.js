@@ -17,11 +17,12 @@ const MonthlyExpenses = (props) => {
   
   useForm( {
     defaultValues: {
-      mortgage: 0,
-      rent: 0,
-      creditCard: 0,
-      existingCarLoan: 0,
-      otherLoans:0
+      //mortgage: 0,
+      //rent: 0,
+      //creditCard: 0,
+      //existingCarLoan: 0,
+      //otherLoans:0
+      
     },}
   );
 
@@ -63,19 +64,22 @@ const MonthlyExpenses = (props) => {
     props.history.push("./trade-in");
   };
   
-  
+
+  { register({name: "totalExpenses", type: "custom"})}
   { register({name: "finalExpenses", type: "custom"})}
 
-  register({ name: "totalExpenses", type: "custom" });
 
-
-
-  var mortgage = Number(watch("mortgage") )
+  const mortgage = Number(watch("mortgage") )
   const rent = Number(watch("rent"))
   const creditCard = Number(watch("creditCard"))
   const carLoan = Number(watch("existingCarLoan"))
   const otherLoan = Number( watch("otherLoans") )
   //mortgage = Number(mortgage)
+  
+
+  function handleTotal(){
+    
+  }
 
 
   const [input_values, set_inputvalues] = useState ({
@@ -86,17 +90,27 @@ const MonthlyExpenses = (props) => {
     otherLoans: 0
   });
 
-  const [totalExp, set_total] = useState(0);
+  const [total, set_total] = useState(0);
 
   useEffect(() => {
     const arrValues = Object.values(input_values);
     const inputTotals = arrValues.reduce((accum, curr) => (accum += curr), 0);
+
     set_total(parseInt(inputTotals).toLocaleString());
-    setValue( "totalExpenses", parseInt(inputTotals) )
+
+    setValue( "totalExpenses", parseInt(mortgage) + parseInt(rent) + parseInt(creditCard + parseInt(carLoan + parseInt(otherLoan))) )
+
+   
   }, [input_values]);
+
+  useEffect( ( ) => {
+
+    
+
+  }, [])
   
 
-  //var expTot = watch()
+  var expTot = watch("totalExpenses")
   
   const changeValues = ({ name, value }) => {
     set_inputvalues({ ...input_values, [name]: parseInt(value
@@ -118,7 +132,7 @@ const MonthlyExpenses = (props) => {
           <Controller
                 name="mortgage"
                 control={control}
-               
+                defaultValue={state.data.mortgage}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
@@ -167,7 +181,7 @@ const MonthlyExpenses = (props) => {
           <Controller
                 name="creditCard"
                 control={control}
-                
+                defaultValue={state.data.creditCard}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
@@ -179,8 +193,8 @@ const MonthlyExpenses = (props) => {
                       maxLength={7}
                       decimalsLimit={2}
                       //defaultValue={state.data.rent}
-                     onChange={({ target }) => changeValues(target)}
-                     onValueChange={onChange}
+                      onChange={({ target }) => changeValues(target)}
+                      onValueChange={onChange}
                     />
                   );
                 }}
@@ -192,6 +206,7 @@ const MonthlyExpenses = (props) => {
             <Controller
                 name="existingCarLoan"
                 control={control}
+                defaultValue={state.data.existingCarLoan}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
@@ -202,8 +217,8 @@ const MonthlyExpenses = (props) => {
                       prefix="$"
                       maxLength={7}
                       decimalsLimit={2}
-                      //defaultValue={state.data.rent}
-                     onChange={({ target }) => changeValues(target)}
+                      onChange={({ target }) => changeValues(target)}
+                      onValueChange={onChange}
                     />
                   );
                 }}
@@ -217,19 +232,19 @@ const MonthlyExpenses = (props) => {
           <Controller
                 name="otherLoans"
                 control={control}
-              
+                defaultValue={state.data.otherLoans}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
                       name="otherLoans"
-                       defaultValue={state.data.otherLoans}
+                      defaultValue={state.data.otherLoans}
                       className="priceInput"
                       placeholder="Please enter a number"
                       prefix="$"
                       maxLength={7}
                       decimalsLimit={2}
-                      //defaultValue={state.data.rent}
-                     onChange={({ target }) => changeValues(target)}
+                      onChange={({ target }) => changeValues(target)}
+                      onValueChange={onChange}
                     />
                   );
                 }}
@@ -237,7 +252,10 @@ const MonthlyExpenses = (props) => {
         </label>
 
         <Text>
-         Total Monthly Obligations:${totalExp}
+         Total Monthly Obligations:$ { !isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 2})
+         : getValues('mortgage')
+         
+         }
          </Text>
 
 

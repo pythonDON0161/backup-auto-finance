@@ -111,22 +111,6 @@ const EmploymentDetails = (props) => {
 
     const watchStatus = watch("employmentStatus", state.data.employmentStatus);
 
-/*
-      console.log("im here" + watchStatus)
-    if (watchStatus === "Self Employed") {
-
-      props.history.push("./self-employed");
-    } 
-    else if ( watchStatus === "Full-time" || watchStatus === "Contract" || watchStatus === "Part-time" ) 
-
-    {  props.history.push("./monthly-expenses");  } 
-
-    else if ( watchStatus === "Retired" || watchStatus === "Student" || watchStatus === "Unemployed"
-    ) 
-    
-    {  props.history.push("./monthly-expenses"); }
-
-    */
   
   function handleTotal() {
     setValue("grossMonthly", grossMonthlyIncome);
