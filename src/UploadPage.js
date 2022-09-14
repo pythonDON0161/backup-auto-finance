@@ -33,7 +33,7 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,}) => {
     register: register3,
     formState: { errors: errors3 },
     handleSubmit: handleSubmit3,
-
+    data:data2
   } = useForm();
   
   let inputRef = HTMLInputElement | null;
@@ -109,11 +109,11 @@ function sendEmail() {
     }
  
   
-  const onSubmitTwo = (data,event) => {
+  const onSubmit = (data,event) => {
     event.preventDefault();
    // sendEmail()
    
-    inputRefTwe.click()
+    inputRefEle.click()
     console.log(data)
     let personalDocs = []
     personalDocs.push(data.trn,data.nis,data.id)
@@ -124,7 +124,31 @@ function sendEmail() {
     for (let x=1; x < keyNames.length && x <2; x++){
         let i = 1 //start at 1 to avoid firstName key
         personalDocs.forEach( (file,) =>{
-        storageRef.child( ` ${state.data.firstName}/${keyNames[i]}/${file[0].name} `)
+        storageRef.child( ` ${state.data.firstName}/personal/${keyNames[i]}/${file[0].name} `)
+         .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
+         i++
+       } )
+    } */
+
+  };
+
+    
+  const onSubmitTwo = (data,event) => {
+    event.preventDefault();
+   // sendEmail()
+   
+    inputRefTwe.click()
+    console.log(data)
+    let financialDocs = []
+    financialDocs.push(data.slipOne,data.slipTwo,data.slipThree, data.jobLetter)
+    const storageRef = storage;
+    var keyNames = Object.keys(data);
+    
+    /*
+    for (let x=1; x < keyNames.length && x <2; x++){
+        let i = 1 //start at 1 to avoid firstName key
+        financialDocs.forEach( (file,) =>{
+        storageRef.child( ` ${state.data.firstName}/financial/${keyNames[i]}/${file[0].name} `)
          .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
@@ -176,7 +200,7 @@ function sendEmail() {
                     <TabPanel>
                   
                   <FormControl> 
-                    <form className="upForm" onSubmit={ handleSubmit(onSubmitTwo) } >
+                    <form className="upForm" onSubmit={ handleSubmit(onSubmit) } >
                       <div>
                       <Text  mb='1' p='2'>Type Of ID</Text>
                         <Select w='60'
@@ -206,20 +230,24 @@ function sendEmail() {
                                 <Icon as={FiFile} />
                               </InputLeftElement>
                                 <input name={name} type="file" onChange={(e) => onChange(e.target.files)} accept={acceptedFileTypes} 
-                                  ref={node => { inputRef = node; }}
+                                  ref={ node => { inputRef = node; register(name, { required: true } ) } }
                                   style={{ display: "none" }}
                                 />
                               <Input name= { name } fontWeight='200' placeholder= { placeholder || "Upload copy of Selected ID" } 
                                 onClick= { (e) => inputRef.click(e) } readOnly= { true }
-                             
                                 value= { value ?  (value[0] && value[0].name  || ""  ): placeholder || "Upload copy of Selected ID" }
                               />
+                            
                             </InputGroup>
                           );
                         }}
                       />
+                      
                        <Text paddingLeft='7px' fontSize='xs' fontWeight='200' color='grey'>  File format : pdf, jpg, jpeg, png</Text>
                       </label>
+                      {errors.id && 
+                                <p className="error">Please upload your ID</p>
+                               }
                     
                     </div>
             
@@ -238,7 +266,8 @@ function sendEmail() {
                   ref={node => { inputRefTwo = node; }}
                   style={{ display: "none" }}
                 />
-                <Input name= { name } fontWeight='200' placeholder= { placeholder || "Upload copy of your TRN"} onClick= { (e) => inputRefTwo.click(e) } readOnly= { true }
+                <Input name= { name } fontWeight='200' placeholder= { placeholder || "Upload copy of your TRN"} 
+                onClick= { (e) => inputRefTwo.click(e) } readOnly= { true }
                   //value={ (value && value[0].name ) || "" }
                   value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload copy of your TRN" }
                 />
@@ -266,7 +295,8 @@ function sendEmail() {
                   ref={node => { inputRefThree = node; }}
                   style={{ display: "none" }}
                 />
-                <Input name= { name } fontWeight='200' placeholder= { placeholder || "Upload copy of your NIS" } onClick= { (e) => inputRefThree.click(e) } readOnly= { true }
+                <Input name= { name } fontWeight='200' placeholder= { placeholder || "Upload copy of your NIS" } 
+                onClick= { (e) => inputRefThree.click(e) } readOnly= { true }
                   //value={ (value && value[0].name ) || "" }
                   value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload copy of your NIS"}
                 />
@@ -310,7 +340,7 @@ function sendEmail() {
                             </InputLeftElement>
                             <input name={name} type="file" onChange={(e) => onChange(e.target.files)} 
                               accept={acceptedFileTypes} 
-                              ref={(node,name,event) => { inputRefFour = node; register2(event,name) }}
+                              ref={(node,name,event) => { inputRefFour = node;  }}
                               style={{ display: "none" }}
                             />
 
