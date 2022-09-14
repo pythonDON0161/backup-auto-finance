@@ -114,7 +114,7 @@ function sendEmail() {
   
   const onSubmit = (data,event) => {
     event.preventDefault();
-   // sendEmail()
+   sendEmail()
    
     inputRefEle.click()
     console.log(data)
@@ -123,7 +123,7 @@ function sendEmail() {
     const storageRef = storage;
     var keyNames = Object.keys(data);
     
-    /*
+    
     for (let x=1; x < keyNames.length && x <2; x++){
         let i = 1 //start at 1 to avoid firstName key
         personalDocs.forEach( (file,) =>{
@@ -131,7 +131,7 @@ function sendEmail() {
          .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
-    } */
+    } 
 
   };
 
