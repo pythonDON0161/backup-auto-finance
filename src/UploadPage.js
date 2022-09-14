@@ -14,6 +14,7 @@ import updateAction from "./updateAction";
 import storage from "./fireBaseConfig.js"
 import Header from "./components/Header";
 import emailjs from '@emailjs/browser';
+import { getStorage, getDownloadURL } from "firebase/storage"; 
 import "./styles.css";
 
 
@@ -123,7 +124,7 @@ function sendEmail() {
     const storageRef = storage;
     var keyNames = Object.keys(data);
     
-    /*
+    
     for (let x=1; x < keyNames.length && x <2; x++){
         let i = 1 //start at 1 to avoid firstName key
         personalDocs.forEach( (file,) =>{
@@ -131,7 +132,7 @@ function sendEmail() {
          .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
-    } */
+    } 
 
   };
 
@@ -148,15 +149,15 @@ function sendEmail() {
     const storageRef = storage;
     var keyNames = Object.keys(data);
     
-    /*
+    
     for (let x=1; x < keyNames.length && x <2; x++){
-        let i = 1 //start at 1 to avoid firstName key
+        let i = 0 //start at 1 to avoid firstName key
         financialDocs.forEach( (file,) =>{
         storageRef.child( ` ${state.data.firstName}/financial/${keyNames[i]}/${file[0].name} `)
          .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
-    } */
+    }
 
   };
 
@@ -164,7 +165,7 @@ function sendEmail() {
   //let navigate = useNavigate()
 
 
-  const onSubmitThree = (data3,event) => {
+  const onSubmitThree = (data,event) => {
 
     event.preventDefault();
     history.push("./authorization")
@@ -410,7 +411,8 @@ function sendEmail() {
                                     //  {...register2({ required: true })}
                                       style={{ display: "none" }}
                                     />
-                                    <Input name= { name } placeholder= { placeholder || "Upload pay-slip #3" } onClick= { (e) => inputRefSix.click(e) }
+                                    <Input name= { name } placeholder= { placeholder || "Upload pay-slip #3" } 
+                                      onClick= { (e) => inputRefSix.click(e) }  readOnly= { true }
                                       // {...register2({ required: true })}
                                       //value={ (value && value[0].name ) || "" }
                                       value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload pay-slip #3"}
