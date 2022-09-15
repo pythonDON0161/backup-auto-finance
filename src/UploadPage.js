@@ -115,76 +115,93 @@ function sendEmail() {
   
   const onSubmit = (data,event) => {
     event.preventDefault();
-   sendEmail()
+  // sendEmail()
    
     inputRefEle.click()
-    console.log(data)
+    //console.log(data)
     let personalDocs = []
+    let urlArr = []
     personalDocs.push(data.trn,data.nis,data.id)
     const storageRef = storage;
-    var keyNames = Object.keys(data);
-    
-    
-    for (let x=1; x < keyNames.length && x <2; x++){
-        let i = 1 //start at 1 to avoid firstName key
-        personalDocs.forEach( (file,) =>{
-        storageRef.child( ` ${state.data.firstName}/personal/${keyNames[i]}/${file[0].name} `)
-         .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
-         i++
-       } )
-    } 
-
-  };
+    var keyNames = [ 'trn', 'nis', 'id']// Object.keys(data);
 
     
+   for(let i=0; i<3;i++){
+        
+        if(personalDocs[i].length){ 
+
+          let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `)
+          
+          storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `)
+
+          .put(personalDocs[i][0]).then( () => link.getDownloadURL().then((url) => { 
+         
+              urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
+              
+          }) ) 
+      } 
+       
+      } }
+
+      
+
   const onSubmitTwo = (data,event) => {
     event.preventDefault();
    // sendEmail()
    
     inputRefTwe.click()
-    console.log(data)
+   // console.log(data)
     let financialDocs = []
+    let urlArr = []
     financialDocs.push(data.slipOne,data.slipTwo,data.slipThree, data.jobLetter)
-    console.log(financialDocs)
     const storageRef = storage;
-    var keyNames = Object.keys(data);
-    
-    
-    for (let x=1; x < keyNames.length && x <2; x++){
-        let i = 0 //start at 1 to avoid firstName key
-        financialDocs.forEach( (file,) =>{
-        storageRef.child( ` ${state.data.firstName}/financial/${keyNames[i]}/${file[0].name} `)
-         .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
-         i++
-       } )
-    }
+    var keyNames =['slipOne','slipTwo','slipThree','jobLetter']
+
+    for(let i=0; i<4;i++){
+        
+      if(financialDocs[i].length){ 
+
+        let link = (` ${state.data.firstName+" "+state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `)
+        console.log(link)
+        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `)
+          
+        /*
+        .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
+            urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
+            
+        }) ) */
+    }  } 
 
   };
 
-  let history = useHistory();
-  //let navigate = useNavigate()
 
+  let history = useHistory();
 
   const onSubmitThree = (data,event) => {
 
     event.preventDefault();
     history.push("./authorization")
+    let vehicleDocs = []
+    vehicleDocs.push(data.valuation,data.registration,data.fitness)
+    const storageRef = storage;
+    var keyNames = ['valuation','registration','fitness']
 
-    //
-    //console.log(data3)
-    //let vehicleDocs = []
-   // vehicleDocs.push(data3.trn,data1.nis,data1.id)
-    //const storageRef = storage;
-    //var keyNames = Object.keys(data3);
-    /*
-    for ( let x=1; x < keyNames.length && x <2; x++ ){
-        let i = 1 //start at 1 to avoid firstName key
-        vehicleDocs.forEach( (file,) =>{
-        storageRef.child( ` ${state.data.firstName}/${keyNames[i]}/${file[0].name} `)
-         .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
-         i++
-       } )
-    } */
+    for(let i=0; i<4;i++){
+        
+      if(vehicleDocs[i].length){ 
+
+        let link = (` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
+        console.log(link)
+        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
+          
+        /*
+        .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
+            urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
+            
+        }) ) */
+    }  } 
+    
+
   };
 
   const [tabIndex, setTabIndex] = React.useState(0);
