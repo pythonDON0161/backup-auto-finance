@@ -21,6 +21,7 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import PDFDOC from "./components/PDFMAKE";
 import { PDFDownloadLink,PDFViewer,PDFRenderer } from "@react-pdf/renderer";
+import CurrencyInput from 'react-currency-input-field';
 
 
 const TradeIn = (props) => {
@@ -103,8 +104,6 @@ const TradeIn = (props) => {
     );
   };
 
-  const parse = (val) =>  val.replace(/^\$/, ""); 
-  const format = (val) => `$` + Number(val);
 
   const watchTradeIn = watch("tradeIn", state.data.tradeIn);
   return (
@@ -141,22 +140,24 @@ const TradeIn = (props) => {
                 (If you have a recent valuation, use a figure close to Forced
                 Sale Value)
                 <Controller
-                  name="currentCar"
-                  control={control}
+                name="currentCar"
+                control={control}
                   defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
-                  render={({ onChange, value }) => { 
-                    return (
-                     <NumberInput   
-                      onChange={(v) => onChange(parse(v))}
-                      value={format(value)}
-                       min={0}
-                       ref={register({
-                           min: 0
-                         })} >
-                     <NumberInputField/>
-                   </NumberInput>
-                       ) }}
-                />
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="currentCar"
+                         defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      
+                    />
+                  );
+                }}
+              />
 
                 {errors.currentCar && (
                   <p className="error">Your input is required</p>
@@ -164,25 +165,28 @@ const TradeIn = (props) => {
                 
               </label>
 
+
               <label >
                 How much do you owe on your current car?
                 <Controller
-                 name="owed"
-                  control={control}
-                  defaultValue={state.data.owed  == null ? 0: state.data.owed}
-                  render={({ onChange, value }) => { 
-                 return (
-                  <NumberInput   
-                   onChange={(v) => onChange(parse(v))}
-                   value={format(value)}
-                    min={0}
-                    ref={register({
-                        min: 0
-                      })} >
-                  <NumberInputField/>
-                </NumberInput>
-                    ) }}
-                />
+                name="owed"
+                control={control}
+                defaultValue={state.data.owed == null? 0: state.data.owed}
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="owed"
+                         defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                     
+                    />
+                  );
+                }}
+              />
 
                 {errors.owed && <p className="error">Your input is required</p>}
               </label>
