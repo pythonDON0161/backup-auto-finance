@@ -130,8 +130,6 @@ const EmploymentDetails = (props) => {
       const [grossMonthlyIncome, setGrossMonthlyIncome] = useState(state.data.grossMonthly);
       const [otherMonthlyIncome, setOtherMonthlyIncome] = useState(state.data.otherMonthly)
 
-      
-
 
       function getData(val) {
         setGrossMonthlyIncome(

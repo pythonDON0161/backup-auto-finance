@@ -128,7 +128,6 @@ setValue( "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10) );
               would be <strong>APPROVED.</strong>
             </p>
             <br />
-            
             <Grid templateColumns="repeat(3, 1fr)">
               <GridItem colSpan={1}>
                 <img src={green} width={125} alt="Green Light" />
@@ -149,7 +148,6 @@ setValue( "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10) );
             </Link>
           </Center>
           </div>
-
           </>
         )}
 
@@ -173,8 +171,6 @@ setValue( "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10) );
                   off/remains outstanding].
                 </p>
               )} */}
-
-
               <Grid templateColumns="repeat(3, 1fr)">
                 <GridItem colSpan={1}>
                   <img src={amber} width={125} alt="Amber Light" />
