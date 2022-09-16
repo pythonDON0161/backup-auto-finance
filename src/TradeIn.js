@@ -126,6 +126,7 @@ const TradeIn = (props) => {
               <option value="Yes">Yes</option>
               <option value="No">No, I plan to keep my existing car</option>
               {/* If user has an existing car loan don't show option that he doesn't own car  */}
+              { state.data.existingCarLoan <=0 && <option value="N/A">I do not currently own a car</option> }
                 { state.data.existingCarLoan === '0'|| ' ' || null || 0 && <option value="N/A">I do not currently own a car</option>  }
                  
             </Select>
@@ -141,7 +142,6 @@ const TradeIn = (props) => {
                 Sale Value)
                 <Controller
                   name="currentCar"
-                  ref={register({ required: true })}
                   control={control}
                   defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
                   render={({ onChange, value }) => { 
@@ -193,7 +193,6 @@ const TradeIn = (props) => {
               Your previously stated current monthly payment:
               <Controller
                 name="currentMonthlyPayment"
-                ref={register({ required: true })}
                 as={CurrencyFormat}
                 control={control}
                 disabled={true}
