@@ -186,6 +186,14 @@ function Calculator(props) {
     },
   ];
 
+
+      let calcDeposit; 
+      let calcRate;
+      let calcTerm;
+
+
+  {/* On Initial Page Load The Function Starts Here */}
+
   async function handleEstimate() {
 
   register({ name: "estimatedPayment", type: "custom" });
@@ -211,6 +219,7 @@ function Calculator(props) {
         term.year === state.data.modelYear
     )
     .map((filteredTerm) => filteredTerm.term *12 - 0));
+    
     register({ name: "calcRate", type: "custom" });
     setValue("calcRate", calcData
     .filter(
@@ -219,6 +228,7 @@ function Calculator(props) {
         term.year === state.data.modelYear
     )
     .map((filteredTerm) => filteredTerm.rate - 0));
+
     register({ name: "calcDeposit", type: "custom" });
     setValue("calcDeposit", calcData
     .filter(
@@ -227,9 +237,51 @@ function Calculator(props) {
         term.year === state.data.modelYear
     )
     .map((filteredTerm) => filteredTerm.deposit - 0)); 
-   
-   
-    console.log(state.data.estimatedPayment)
+
+     
+      
+      register({ name: "deposit", type: "custom" });
+      setValue("deposit",  calcData
+      .filter(
+        (term) =>
+          term.newOrUsed === state.data.carStatus &&
+          term.year === state.data.modelYear
+      )
+      .map((filteredTerm) => filteredTerm.deposit- 0)); 
+
+
+      register({ name: "term", type: "custom" });
+      setValue("term",  calcData
+      .filter(
+        (term) =>
+          term.newOrUsed === state.data.carStatus &&
+          term.year === state.data.modelYear
+      )
+      .map((filteredTerm) => filteredTerm.term *12 - 0));
+        
+      register({ name: "terms", type: "custom" });
+      setValue("terms",  calcData
+      .filter(
+        (term) =>
+          term.newOrUsed === state.data.carStatus &&
+          term.year === state.data.modelYear
+      )
+      .map((filteredTerm) => filteredTerm.term *12 - 0));
+
+      register({ name: "rate", type: "custom" });
+      setValue("rate",  calcData
+      .filter(
+        (term) =>
+          term.newOrUsed === state.data.carStatus &&
+          term.year === state.data.modelYear
+      )
+      .map((filteredTerm) => filteredTerm.rate - 0));
+
+
+      //setValue("rate", state.data.calcRate );
+      //setValue("deposit", state.data.calcDeposit);
+      //setValue("terms", calcTerm)
+      //console.log(state.data.estimatedPayment)
     
   }
 
@@ -369,6 +421,7 @@ function Calculator(props) {
 
   let carStatus = watch("carStatus", state.data.carStatus);
   let modelYear = watch("modelYear");
+  let myDeposit = watch("deposit")
 
   function handleReset(filteredTerm) {
     state.data.modelYear = null;
@@ -426,20 +479,26 @@ function Calculator(props) {
     )
   }
 
-  return (
-    <div> 
- 
-    <div class="outer-container">
-      <div className="header-container">
-       
-      </div>
-      <div class="sidebar-container">   
-       <Sidebar></Sidebar>
 
-       </div>
-   
+  let monInt = (watch("rate")/1200);
+  let months = watch("term")
+
+
+
+  
+
+  return (
+  
+    <div> 
+    <div class="">
+
+      <div className="header-container">
+     
+      </div>
+     
       <div class="form-container"> 
-      <Header/>
+         <Header/>
+    
       <form id="myform" onSubmit={handleSubmit(onSubmit)}>
   
         {results === false ? (
@@ -513,18 +572,11 @@ function Calculator(props) {
             </label>
           )}
           <Center>
-            
-       
           
-          <button> </button>
-          
-          <button  id="continue-btn" onClick={handleEstimate}  class="centered-button" > Save & Continue</button>
-            
-          <button  id="exit-btn" class="centered-button">
-                Home/Save & Exit
+          <button  id="continue-btn" onClick={handleEstimate}  class="centered-button" > 
+              Save & Continue
           </button>
-            
-            
+          
             {/*When user press this button show prompt for request quotes*/}
           </Center>
 
@@ -631,8 +683,8 @@ function Calculator(props) {
                     </Slider>
                     <Center>
                       <h1>Estimated Monthly Payment:&nbsp;</h1>
-                      {state.data.deposit == null && state.data.rate == null && !state.data.terms ? (
-                        <h1>
+                      {state.data.deposit == null && state.data.rate == null && !state.data.terms ?  (
+                        <h1> 
                           $
                           {Math.round(
                             ((state.data.price - state.data.price * (filteredTerm.deposit / 100))  *(filteredTerm.rate / 100 / 12)  *
@@ -644,9 +696,11 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1> 
                       ) : null}
-                      {state.data.deposit == null && state.data.rate == null &&
-                      state.data.terms ? (
+
+
+                      { state.data.deposit == null && state.data.rate == null && state.data.terms ?  (
                         <h1>
+                          
                           ${Math.round(
                             ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
                               (filteredTerm.rate / 100 / 12) *
@@ -656,25 +710,23 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit && state.data.rate == null && !state.data.terms ? (
+
+
+                      { state.data.deposit && state.data.rate == null && !state.data.terms ? (
+                        
                         <h1>
-                          $
-                          {Math.round(
-                            ((state.data.price - state.data.price * (state.data.deposit / 100)) *
-                              (filteredTerm.rate / 100 / 12) *
-                              Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                filteredTerm.term
-                              )) /
-                              (Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                filteredTerm.term
-                              ) -
-                                1)
-                          ).toLocaleString("en")}
+                          $ 
+                          { Math.round(
+                            ((monInt + (monInt / ( Math.pow( (1 + monInt), months * 12) -1)) ) * 
+
+                            (state.data.price - (Math.round( state.data.price * ( myDeposit / 100 ) ) || 0)) )
+                            
+                            ).toLocaleString("en")
+                           }
                         </h1>
                       ) : null}
-                      {state.data.rate && !state.data.deposit && !state.data.terms ? (
+
+                      {state.data.rate && !state.data.deposit && !state.data.terms ?  (
                         <h1>
                           $
                           {Math.round(
@@ -689,6 +741,8 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
+
+
                       {state.data.terms && state.data.rate == null && !state.data.deposit == null ? (
                         <h1>
                           $
@@ -701,7 +755,9 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit && state.data.rate && state.data.terms == null ? (
+
+
+                      { state.data.deposit && state.data.rate && state.data.terms == null ?  (
                         <h1>
                           $ {Math.round( ((state.data.price - state.data.price * (state.data.deposit / 100)) *
                               (state.data.rate / 100 / 12) *
@@ -710,11 +766,12 @@ function Calculator(props) {
                                 1 + state.data.rate / 100 / 12, filteredTerm.term * 12 ) - 1)
                           ).toLocaleString("en")}
                         </h1>
-                      ) : null}
+                      ) : null }
 
-                      {state.data.deposit && state.data.rate == null &&
-                       state.data.terms ? (
+
+                      {state.data.deposit && state.data.rate == null && state.data.terms ? (
                         <h1>
+                          hiiiiiii
                           $ {Math.round( ((state.data.price - state.data.price * (state.data.deposit / 100)) *
                               (filteredTerm.rate / 100 / 12) *
                                
@@ -725,9 +782,14 @@ function Calculator(props) {
                         </h1>
                       ) : null}
 
+
                       {/*This should be correct calculation */}
-                      {!state.data.deposit && state.data.rate &&  state.data.terms ? (
+                      
+
+                      { !state.data.deposit && state.data.rate &&  state.data.terms ?  (                          
+                          
                         <h1>
+                            this one
                           ${Math.round( ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
                               (state.data.rate / 100 / 12) *
                                
@@ -737,11 +799,12 @@ function Calculator(props) {
                             
                             ).toLocaleString("en")}
                         </h1>
-                      ) : null}
+                      ) : null }
+
 
                       {  state.data.deposit && state.data.rate &&
-                      state.data.terms ? (
-                        <h1>
+                        state.data.terms ? (
+                        <h1> ALL DEFINED
                           ${Math.round( ((state.data.price - state.data.price * (state.data.deposit / 100)) *
                               (state.data.rate / 100 / 12) *
                               Math.pow(
@@ -756,26 +819,22 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit === 0 &&
-                      state.data.rate == null &&
-                      !state.data.terms ? (
-                        <h1>
-                          $
-                          {Math.round(
-                            (state.data.price *
-                              (filteredTerm.rate / 100 / 12) *
-                              Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                filteredTerm.term
-                              )) /
-                              (Math.pow(
-                                1 + filteredTerm.rate / 100 / 12,
-                                filteredTerm.term
-                              ) -
-                                1)
+
+
+                      {state.data.deposit === 0 && state.data.rate == null & !state.data.terms ? (
+                        <h1> deposit in here
+
+                          $ {Math.round( (state.data.price * (state.data.calcRate / 100 / 12) *
+                              Math.pow( 1 + state.data.calcRate / 100 / 12, state.data.calcTerm)) 
+                                 /
+                              (Math.pow( 1 + state.data.calcRate / 100 / 12, state.data.calcTerm ) - 1)
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
+
+                    
+
+
                       {state.data.deposit === 0 &&
                       state.data.rate === 0 &&
                       !state.data.terms ? (
@@ -786,6 +845,8 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
+
+
                       {state.data.deposit === 0 &&
                       state.data.rate === 0 &&
                       state.data.terms ? (
@@ -796,9 +857,10 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit == null &&
-                      state.data.rate === 0 &&
-                      state.data.terms == null ? (
+
+                    
+
+                      { state.data.deposit == null && state.data.rate === 0 && state.data.terms == null ? (
                         <h1>
                           $
                           {Math.round(
@@ -806,14 +868,15 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
-                      {state.data.deposit == null &&
-                      state.data.rate === 0 &&
-                      state.data.terms ? (
+
+
+                      { state.data.deposit == null && state.data.rate === 0 &&  state.data.terms ? (
                         <h1>
                           $
                           {Math.round( state.data.price / state.data.terms ).toLocaleString("en")}
                         </h1>
                       ) : null}
+
 
                       {state.data.deposit && state.data.rate === 0 &&
                       state.data.terms ? (
@@ -823,6 +886,7 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
+
 
                       {state.data.deposit && state.data.rate === 0 && !state.data.terms ? (
                         <h1>
@@ -844,60 +908,57 @@ function Calculator(props) {
 
                     </div>
 
-                    <div>
-                    <Flex w="100%"> 
-                      <Flex h="25%" justify="left" align="left">
-                        <button onClick={handleReset} className="submit-button ">
-                          Reset
+                  <div>
+                    <Center>
+                    <button  id="continue-btn" onClick={onOpen}  class="centered-button" > 
+                        Save & Continue
+                    </button>
+
+                    </Center>
+                    <Center> 
+                      <button  id="exit-btn" class="centered-button">
+                              Home/Save & Exit
                         </button>
-                      </Flex>
+                      </Center>
+                  </div>
+              
+        
+            {/*When user press this button show prompt for request quotes*/}
           
-                      <Spacer></Spacer>
 
-                  <Modal isOpen={isOpen} onClose={onClose}>
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Request For Personal Details</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                    Note: 
-                    
-                    We will now ask you for some personal details in order to better match you with the right Banks.
-                    
-                    Your information is safe. If you do not complete your request for us to send your information to Banks within 7 days, we will permanently delete your information.
+                     
+                          <Flex>
+                              <Modal isOpen={isOpen} onClose={onClose}>
+                              <ModalOverlay />
+                              <ModalContent>
+                                <ModalHeader>Request For Personal Details</ModalHeader>
+                                <ModalCloseButton />
+                                <ModalBody>
+                                Note: 
+                                
+                                We will now ask you for some personal details in order to better match you with the right Banks.
+                                
+                                Your information is safe. If you do not complete your request for us to send your information to Banks within 7 days, we will permanently delete your information.
 
-                    </ModalBody>
-          
-                    <ModalFooter>
-                      <Spacer></Spacer>
-                        <Button  onClick={ () => { onClose(); handleEstimate2(); } }  colorScheme='blue' mr={3}>
-                        Continue
-                        </Button>
-                      <Button onClick={onClose} variant='ghost'>Save & Exit</Button>
-                      <Spacer> </Spacer>
-                    
-                    </ModalFooter>
-                  </ModalContent>
-                 </Modal>
+                                </ModalBody>
+                      
+                                <ModalFooter>
+                                  <Spacer></Spacer>
+                                    <Button  onClick={ () => { onClose(); handleEstimate2(); } }  colorScheme='blue' mr={3}>
+                                    Continue
+                                    </Button>
+                                  <Button onClick={onClose} variant='ghost'>Save & Exit</Button>
+                                  <Spacer> </Spacer>
+                                
+                                </ModalFooter>
+                              </ModalContent>
+                            </Modal>
 
-                      <Flex>
-                        <button className="submit-button" onClick={onOpen}>
-                          Request Bank Quotes
-                        </button>
-                        </Flex>
-
-
-                        <Spacer></Spacer>
-
-                        <Flex h="25%" justify="right" align="right">
-                        <button className="submit-button" onClick={handleEstimate2}>
-                          Home/Save & Exit
-                        </button>
-                      </Flex>
+                     
 
                     </Flex>
                     </div>
-                  </div>
+                  
                 ))}
             </div>
             <br />
@@ -911,6 +972,7 @@ function Calculator(props) {
       </FeedbackFish>
     </div>
     </div>
+   
   );
 }
 
