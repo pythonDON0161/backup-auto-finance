@@ -25,26 +25,28 @@ const CoApplicant = (props) => {
             <Heading>Completing Your Application</Heading>
           </Center>
           <Center>
+
             <p className="prompt-text">
-            The banks you have selected will need some additional Personal Details, including Employment and Address information and for your Credit Report in order to complete your application.
+            The banks you have selected will require certain documents in order to process your application. 
              <br/>
-             You can upload this information online, or you can choose to provide this information to each of the banks directly.
+             You can upload your documents to speed up your application
             </p>
+
           </Center>
           <Center>
             
             <Link to="/document-upload">
               <button className="wide-button" type="submit">
-                Yes - I would like to upload some or all of this information in order to speed up my application (Recommended)
+              Yes, I would like to upload my documents (Recommended)
               </button>
-            </Link>``
+            </Link>
            
           </Center>
 
           <Center>
           <Link to="/thank-you" >
               <button className="wide-button" type="submit">
-                No - I will provide this information to the banks myself
+              No, I will provide my documents to the banks directly
               </button>
              </Link>
          </Center>

@@ -44,7 +44,7 @@ const DocumentUpload = (props) => {
         if(step==0){
         
         return (
-        <First /> );
+        <Second /> );
         
         }else if(step==1){
         
@@ -55,50 +55,6 @@ const DocumentUpload = (props) => {
         }
  
 
-const First = () =>{
-  return (
-    <>
-      <Header />
-      <div className="coapp">
-        <SimpleGrid columns={1} spacing={10}>
-          <Center>
-            <Heading>Document Upload</Heading>
-          </Center>
-          <Center>
-            <p className="prompt-text">
-            The banks you have selected will require certain documents in order to  give you a conditional loan decision.
-
-             <br/>
-             You can upload this information online, or you can choose to provide this information to each of the banks directly.
-            </p>
-          </Center>
-          <Center>
-           
-              <button className="wide-button" onClick={()=>{setStep(step+1)}} >
-                Yes - I would like to upload some or all of this information in order to speed up my application (Recommended)
-              </button>
-              </Center>
-       
-
-          <Center>
-          <Link to="/personal-details" >
-              <button className="wide-button" type="submit">
-              No – I will provide this information to the banks myself
-
-              </button>
-             </Link>
-         </Center>
-
-          <br />
-        </SimpleGrid>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
-      </div>
-    </>
-  )
-  }
-
   const Second = () =>{ 
     return (
         <>
@@ -106,7 +62,7 @@ const First = () =>{
         
             
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Heading>Documents Summary </Heading>
+                <Heading>Documents Upload </Heading>
                 <Text>Thank you for your application, based on your selections 
                   here are a list of documents you will need to upload.</Text>
 
@@ -115,9 +71,9 @@ const First = () =>{
                 <Text align='left' fontSize='2xl' >Personal Documents</Text>
                 <UnorderedList spacing={3}>
 
-                    <ListItem>Driver’s License/Passport/Voter’s ID</ListItem>
-                    <ListItem>Tax Registration Number (TRN) Card</ListItem>
-                    <ListItem>NIS Card</ListItem>
+                    <ListItem> Identification (Drivers License, Passport Picture Page or Voters ID)  </ListItem>
+                    <ListItem> Self-capture image of yourself holding up your ID  </ListItem>
+                    
 
                 </UnorderedList>
 
@@ -127,7 +83,7 @@ const First = () =>{
                 <UnorderedList spacing={3}>
 
                     <ListItem>Last 3 Months Pay Slip</ListItem>
-                    <ListItem>Income Verification Letter</ListItem>
+                    <ListItem>Income Verification Letter From Your Employer</ListItem>
                     <ListItem>Credit Authorization</ListItem>
 
                 </UnorderedList>
