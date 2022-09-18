@@ -80,30 +80,30 @@ const TradeIn = (props) => {
     if (watchTradeIn === "N/A") {
       props.history.push("./cash-down");
     }
+    
+
+
   };
  
 
-  const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
-    const [price, setPrice] = useState(value);
-    return (
-      <NumberFormat
-        {...rest}
-        name={name}
-        value={price}
-        thousandSeparator={true}
-        allowNegative={false}
-        decimalScale={0}
-        placeholder="$0"
-        onValueChange={(target) => {
-          setPrice(target.value);
-          onChange(target.value);
-        }}
-        isNumericString
-        prefix="$ "
-      />
-    );
-  };
+  const [currentCar, setcurrentCar] = useState(state.data.currentCar);
+  const [owed, setOwed] = useState(state.data.owed);
 
+  function filterData(val) {
+    setcurrentCar(
+      val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
+      
+    );  }
+
+    function filterDataTwo(val) {
+      setOwed(
+        val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
+      );}
+  
+      function setcarVals(){
+        setValue("currentCar", currentCar)
+        setValue("owed", owed)
+      }
 
   const watchTradeIn = watch("tradeIn", state.data.tradeIn);
   return (
@@ -132,6 +132,7 @@ const TradeIn = (props) => {
             { errors.tradeIn && <p className="error">Please select an option</p> }
           </label>
           
+      
           {watchTradeIn === "Yes" && (
             <>
               <label htmlFor="price">
@@ -140,19 +141,24 @@ const TradeIn = (props) => {
                 (If you have a recent valuation, use a figure close to Forced
                 Sale Value)
                 <Controller
-                name="currentCar"
-                control={control}
-                  defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
-                render={({ onChange, value }) => {
-                  return (
-                    <CurrencyInput
-                      name="currentCar"
-                         defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
-                      className="priceInput"
-                      placeholder="Please enter a number"
-                      prefix="$"
-                      maxLength={7}
-                      decimalsLimit={2}
+                  name="cuCar"
+                  control={control}
+                  defaultValue={state.data.currentCar }
+                  render={({ onChange, value }) => {
+                    return (
+                      <CurrencyInput
+                        name="currentCar"
+                        ref={register({
+                          required: "Your Gross Income Is Required",
+                          min:0
+                        })}
+                        className="priceInput"
+                        placeholder="Please enter a number"
+                        prefix="$"
+                        maxLength={7}
+                        decimalsLimit={2}
+                        defaultValue={state.data.currentCar }
+                        onChange={filterData}
                       
                     />
                   );
@@ -169,19 +175,24 @@ const TradeIn = (props) => {
               <label >
                 How much do you owe on your current car?
                 <Controller
-                name="owed"
+                name="ow"
                 control={control}
                 defaultValue={state.data.owed == null? 0: state.data.owed}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
                       name="owed"
-                         defaultValue={state.data.currentCar == null? 0: state.data.currentCar}
+                      defaultValue={state.data.owed == null? 0: state.data.owed}
+                      ref={register({
+                          required: "Your Gross Income Is Required",
+                          min:0
+                        })}
                       className="priceInput"
                       placeholder="Please enter a number"
                       prefix="$"
                       maxLength={7}
                       decimalsLimit={2}
+                      onChange={filterDataTwo}
                      
                     />
                   );
@@ -192,12 +203,12 @@ const TradeIn = (props) => {
               </label>
             </>
           )}
+          
           {watchTradeIn === "No" && (
             <label htmlFor="price">
               Your previously stated current monthly payment:
-              <Controller
+              <CurrencyInput
                 name="currentMonthlyPayment"
-                as={CurrencyFormat}
                 control={control}
                 disabled={true}
                 className="priceInput"
@@ -212,6 +223,7 @@ const TradeIn = (props) => {
           <Center>
          
             <button
+              onClick={setcarVals}
               type="submit"
               className="submit-button"
               value="Save & Continue"

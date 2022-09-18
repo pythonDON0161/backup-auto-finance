@@ -18,10 +18,11 @@ import {
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
+import CurrencyInput from 'react-currency-input-field';
 
 const TradeIn2 = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
-  const { register, handleSubmit, control, errors } = useForm();
+  const { register, handleSubmit, control, errors, setValue } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
@@ -54,7 +55,7 @@ const TradeIn2 = (props) => {
     props.history.push("./cash-down");
   };
 
-  const MAX_VAL = (state.data.currentCar - state.data.owed);
+  const MAX_VAL = (parseInt(state.data.currentCar) - parseInt(state.data.owed) );
   const withValueCap = (inputObj) => {
     const { value } = inputObj;
     if (value <= MAX_VAL) return true;
@@ -63,6 +64,18 @@ const TradeIn2 = (props) => {
 
   const parse = (val) =>  val.replace(/^\$/, ""); 
   const format = (val) => `$` + Number(val);
+
+  const [towardsPurchase, settowardsPurchase] = useState(state.data.towardsPurchase);
+
+  function filterData(val) {
+    settowardsPurchase(
+      val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
+      
+    );  }
+
+  function setVals(){
+    setValue("towardsPurchase", towardsPurchase)
+  }
 
   return (
     <>
@@ -75,7 +88,7 @@ const TradeIn2 = (props) => {
             {/* If trade in value is positive */}
               <label htmlFor="price">
                 Based on the information you have provided, you should realize $
-                {(state.data.currentCar - state.data.owed).toLocaleString("en")}{" "}
+                {( parseInt(state.data.currentCar) - parseInt(state.data.owed) ).toLocaleString("en")}{" "}
                 when you sell your current car 
                 
                 {" "}
@@ -91,25 +104,28 @@ const TradeIn2 = (props) => {
                   maximum amount.
                 </Text>
 
+
                 <Controller
-                  name="towardsPurchase"
-                  ref={register}
+                  name="towPurchase"
                   //TODO perhaps the max value prevents it from going negative
                   rules={{ required: true, max: {value: (state.data.currentCar - state.data.owed), message: 'error'} }}
                   control={control}
                   defaultValue={state.data.towardsPurchase}
                   render={({ onChange, value }) => { 
                     return (
-                     <NumberInput   
-                      onChange={(v) => onChange(parse(v))}
-                      value={format(value)}
-                       min={0}
-                       ref={register({
-                           min: 0
-                         })} >
-                     <NumberInputField/>
-                     </NumberInput>
-                       ) }}
+                      <CurrencyInput
+                      name="towardsPurchase"
+                      className="priceInput"
+                      defaultValue={state.data.towardsPurchase}
+                      ref={register({
+                        min: 0
+                      })}
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      onChange={filterData}
+                      
+                    />)}}
                 />
                 {errors.towardsPurchase && (
                   <p className="error">Your input is required. Cannot enter a number greater than realized amount above.</p>
@@ -128,6 +144,7 @@ const TradeIn2 = (props) => {
           )}
           <Center>
             <button
+              onClick={setVals}
               type="submit"
               className="submit-button"
               value="Save & Continue"
