@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo } from "react";
+import React, { useState, useRef, useEffect, memo } from "react";
 import {Input,FormControl,FormLabel,InputGroup,InputLeftElement,Tabs, 
   TabList, TabPanels, Tab, TabPanel,
   FormErrorMessage, 
@@ -20,9 +20,8 @@ import "./styles.css";
 
 export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
   
-  const { register,handleSubmit,errors,getValues,setValue,watch,control,ref, } = useForm();
-
-
+  const { register,handleSubmit,errors,getValues,
+    setValue,watch,control,ref, } = useForm();
 
   const {
     control: control1,
@@ -40,6 +39,55 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
     data:data2
   } = useForm();
   
+
+
+  const onClicker = () => {
+    console.log('INPUT VALUE: ', inputRef);
+}
+
+const { action, state } = useStateMachine(updateAction);
+
+let urlArr = []  //store firebase download URLs
+
+
+
+function sendEmail(urlArr) {
+
+  let totalIncome = parseInt(state.data.grossIncome + state.data.otherMonthlyIncome);
+  console.log(totalIncome)
+  console.log(state.data.TDSR)
+  console.log(urlArr)
+
+
+  var templateParams = {
+    email: state.data.email, 
+    name: state.data.firstName, 
+    lastName: state.data.lastName, 
+    employment: state.data.employmentStatus,
+    income: totalIncome, 
+    dob: state.data.dateOfBirth, 
+    cell: state.data.cellNumber,
+    carPrice: state.data.price,
+    status: state.data.carStatus,
+    modelYear: state.data.modelYear,
+    tdsr : state.data.TDSR
+  };
+
+  /*
+ 
+  emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
+      .then(function(response) {
+
+        console.log('SUCCESS!', response.status, response.text);
+        urlArr = []
+
+      }, function(error) {
+        console.log('FAILED...', error);
+      });
+    */
+    }
+
+   
   let inputRef = HTMLInputElement | null;
   let inputRefTwo = HTMLInputElement | null;
   let inputRefThree = HTMLInputElement | null;
@@ -50,129 +98,101 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
   let inputRefEight = HTMLInputElement | null;
   let inputRefNine = HTMLInputElement | null;
   let inputRefTen = HTMLInputElement | null;
-  let inputRefEle = HTMLInputElement | null;
+  let inputRefEle =  HTMLInputElement | null ;
   let inputRefTwe = HTMLInputElement | null;
 
-  const onClicker = () => {
-    console.log('INPUT VALUE: ', inputRef);
-}
-
-const { action, state } = useStateMachine(updateAction);
-
-
-const onSubmitOne = (data,event) => {
-
-  event.preventDefault();
-  //sendEmail();
+  useEffect(() => {
+    //const el2 = document.getElementById("tabs-6--tab-1")
+   // console.log(el2)
+    //inputRefEle = el2   // 👈️ element here
+  }, []);
 
 
-  let personalDocs = []
-
-  personalDocs.push(data.trn,data.nis,data.photo)
-
-  const storageRef = storage;
-  var keyNames = Object.keys(data);
-/*
-  for (let x=1; x < keyNames.length && x <2; x++){
-      let i = 1 //start at 1 to avoid firstName key
-      personalDocs.forEach( (file,) =>{
-      storageRef.child( ` ${data.firstName}/${keyNames[i]}/${file[0].name} `)
-       .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
-       i++
-     } )
-  } */
-};
-
-
-
-function sendEmail() {
-
-  console.log("im in here")
-
-  var templateParams = {
-    email: state.data.email, 
-    name: state.data.firstName, 
-    lastName: state.data.lastName, 
-    income:state.data.grossMonthly, 
-    dob: state.data.dateOfBirth, 
-    cell: state.data.cellNumber,
-    carPrice: state.data.price,
-    status: state.data.carStatus,
-    modelYear: state.data.modelYear,
-    employment: state.data.employmentStatus,
-    tdsr : state.data.tdsr
-  };
- 
-  emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
-      .then(function(response) {
-        console.log('SUCCESS!', response.status, response.text);
-      }, function(error) {
-        console.log('FAILED...', error);
-      });
-
-    }
- 
-  
   const onSubmit = (data,event) => {
-    event.preventDefault();
-  // sendEmail()
-   
-    inputRefEle.click()
-    //console.log(data)
-    let personalDocs = []
-    let urlArr = []
-    personalDocs.push(data.trn,data.nis,data.id)
-    const storageRef = storage;
-    var keyNames = [ 'trn', 'nis', 'id']// Object.keys(data);
-
+    const el2 = document.getElementById("tabs-6--tab-1")
+    inputRefEle = el2   // 👈️ element here
+    //event.preventDefault();
+    inputRefEle.click();
+    //sendEmail();
     
-   for(let i=0; i<3;i++){
-        
-        if(personalDocs[i].length){ 
+    let personalDocs = [];
 
-          let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `)
+       if ( data.id && data.id.length >0 ) {
+           console.log ( data.id ) 
+           personalDocs.push(data.id) } //only push to personalDocs if not undefined
+           
+           if (data.identity && data.identity.length >0 ) {
+            console.log ( data.identity ) 
+            personalDocs.push(data.identity) } //only push to personalDocs if not undefined
+
+    //let urlArr = []
+    console.log(personalDocs)
+    const storageRef = storage;
+    var keyNames = [ 'id', 'identity'] // Object.keys(data);
+ 
+      for( let i=0; i<2;i++ ) {
           
-          storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `)
+        if( personalDocs[i] && personalDocs[i] !== undefined){ 
+              console.log("im in here")
+            let link = storageRef.child(` ${state.data.firstName+" " +
+                state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `);
+            
+            storageRef.child( `${state.data.firstName + " " +
+                 state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `)
 
-          .put(personalDocs[i][0]).then( () => link.getDownloadURL().then((url) => { 
-         
-              urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
-              
-          }) ) 
-      } 
-       
-      } }
+              .put(personalDocs[i][0]).then( () => link.getDownloadURL().then((url) => { 
+            
+                 urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
+                  
+              } ) ) 
+          } 
+      //sendEmail(urlArr)
+    
+    } }
 
       
-
   const onSubmitTwo = (data,event) => {
     event.preventDefault();
-   // sendEmail()
-   
+    const el2 = document.getElementById("tabs-6--tab-2");
+    inputRefTwe = el2;
+    //sendEmail()
     inputRefTwe.click()
-   // console.log(data)
     let financialDocs = []
-    let urlArr = []
-    financialDocs.push(data.slipOne,data.slipTwo,data.slipThree, data.jobLetter)
+    //let urlArr = []
+    //financialDocs.push(data.slipOne,data.slipTwo,data.slipThree, data.jobLetter)
     const storageRef = storage;
     var keyNames =['slipOne','slipTwo','slipThree','jobLetter']
 
+        if ( data.slipOne && data.slipOne.length >0 ) {
+          console.log ( data.slipOne ) 
+          financialDocs.push(data.slipOne) 
+            } //only push to personalDocs if not undefined
+        
+        if (data.slipTwo && data.slipTwo.length >0 ) {
+        console.log ( data.slipTwo ) 
+        financialDocs.push(data.slipTwo) 
+            } //only push to financialDocs if not undefined
+        
+        if (data.slipThree && data.slipThree.length >0 ) {
+          console.log ( data.slipThree ) 
+          financialDocs.push(data.slipThree) } 
+
+        if (data.jobLetter && data.jobLetter.length >0 ) {
+            console.log ( data.jobLetter ) 
+            financialDocs.push(data.jobLetter) } 
+
     for(let i=0; i<4;i++){
         
-      if(financialDocs[i].length){ 
+      if(financialDocs[i] && financialDocs[i] !== undefined){ 
 
-        let link = (` ${state.data.firstName+" "+state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `)
-        console.log(link)
-        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `)
-          
-        /*
-        .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
+        let link = storageRef.child(` ${state.data.firstName+" "+
+        state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `);
+        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `) 
+       /* .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
             urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
             
         }) ) */
-    }  } 
-
-  };
+    }  }  };
 
 
   let history = useHistory();
@@ -180,27 +200,48 @@ function sendEmail() {
   const onSubmitThree = (data,event) => {
 
     event.preventDefault();
-    history.push("./authorization")
+  
     let vehicleDocs = []
+   // console.log(data)
+   // let urlArr = []
     vehicleDocs.push(data.valuation,data.registration,data.fitness)
     const storageRef = storage;
     var keyNames = ['valuation','registration','fitness']
 
-    for(let i=0; i<4;i++){
+    if ( data.valuation && data.valuation.length >0 ) {
+      console.log ( data.valuation ) 
+      vehicleDocs.push(data.valuation) } //only push to personalDocs if not undefined
+    
+    if (data.registration && data.registration >0 ) {
+    console.log ( data.registration ) 
+    vehicleDocs.push(data.registration ) } //only push to financialDocs if not undefined
+    
+    if (data.fitness && data.fitness >0 ) {
+      console.log ( data.fitness ) 
+      vehicleDocs.push(data.fitness) } 
+
+ 
+ 
+    const def = async (urlArr) => {
+    for(let i=0; i<3;i++){
         
       if(vehicleDocs[i].length){ 
 
-        let link = (` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
-        console.log(link)
-        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
-          
-        /*
-        .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
-            urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
+        let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
+       // console.log(link)
+       const test =  await storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
+      
+        .put(vehicleDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
+           urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
             
-        }) ) */
-    }  } 
+           // console.log(urlArr)
+            
+        }) ) 
+    }  } }
     
+    //history.push("./authorization")
+    console.log(urlArr)
+   // sendEmail()
 
   };
 
@@ -219,13 +260,18 @@ function sendEmail() {
    
       <Tabs onChange={index => setTabIndex(index)} isFitted >
                 <TabList>
-                    <Tab _selected={{ color: 'white', bg: '#e65323' }} active >Personal Documents</Tab>
-                    <Tab _selected={{ color: 'white', bg: '#e65323' }} ref={node => { inputRefEle = node; }}>Financial Documents</Tab>
-                    <Tab _selected={{ color: 'white', bg: '#e65323' }} ref={node => { inputRefTwe = node; }}>Vehicle Documents</Tab>
+                    <Tab _selected={{ color: 'white', bg: '#e65323' }}  >Personal Documents</Tab>
+
+                    <Tab ref={node => { inputRefEle = node; }} _selected={{ color: 'white', bg: '#e65323' }} id="financialDocs" 
+                    >Financial Documents</Tab>
+
+                    <Tab _selected={{ color: 'white', bg: '#e65323' }} id="vehicleDocs" 
+                    ref={node => { inputRefTwe = node; }}>Vehicle Documents</Tab>
+
                 </TabList>
                 <TabPanels id={"Personal"}>
 
-                    <TabPanel>
+              <TabPanel>
                   
                   <FormControl> 
                     <form className="upForm" onSubmit={ handleSubmit(onSubmit) } >
@@ -235,32 +281,30 @@ function sendEmail() {
                          name="idType"
                          options={ ["Yes","No"] }
                          placeholder="Select option"
-                         ref={register({ required: true })}
+                         ref={register()}
                           > ID Type
                             <option value="Driver's License">Driver's License</option>
                             <option value="Passport">Passport</option>
                             <option value="Voter's ID">Voter's ID</option>
                           </Select>
-                          {errors.idType&& (
-                           <p className="error">Please select your ID Type</p>
-                               )}
-
                       </div>
-
                     <div>
 
                     <label> 
-                      <Controller name="id" control={control} defaultValue=""
+                      <Controller 
+                      name="id" 
+                      control={control} 
+                      defaultValue=""
                         render={({ onChange, name, value, onBlur}) => {
                           return (
                             <InputGroup>
                               <InputLeftElement pointerEvents="none">
                                 <Icon as={FiFile} />
                               </InputLeftElement>
-                                <input name={name} type="file" onChange={(e) => onChange(e.target.files)} accept={acceptedFileTypes} 
-                                  ref={ node => { inputRef = node; register(name, { required: true } ) } }
-                                  style={{ display: "none" }}
-                                />
+                                  <input name={name} type="file" onChange={(e) => onChange(e.target.files)} accept={acceptedFileTypes} 
+                                    ref={ node => { inputRef = node; register(name) } }
+                                    style={{ display: "none" }}
+                                  />
                               <Input name= { name } fontWeight='200' placeholder= { placeholder || "Upload copy of Selected ID" } 
                                 onClick= { (e) => inputRef.click(e) } readOnly= { true }
                                 value= { value ?  (value[0] && value[0].name  || ""  ): placeholder || "Upload copy of Selected ID" }
@@ -273,13 +317,11 @@ function sendEmail() {
                       
                        <Text paddingLeft='7px' fontSize='xs' fontWeight='200' color='grey'>  File format : pdf, jpg, jpeg, png</Text>
                       </label>
-                      {errors.id && 
-                                <p className="error">Please upload your ID</p>
-                               }
+                      { errors.id &&  <p className="error">Please upload your ID</p> }
                     
                     </div>
             
-
+{ /*
     <div>
           <label> 
           TRN Card
@@ -306,13 +348,12 @@ function sendEmail() {
            <Text paddingLeft='7px' fontSize='xs' fontWeight='200' color='grey'> File format : pdf, jpg, jpeg, png</Text>
    </label>
   </div>
+        */}
 
-
-          
     <div>
           <label> 
-            NIS Card
-        <Controller name="nis" control={control} defaultValue=""
+          Proof of Identity
+        <Controller name="identity" control={control} defaultValue=""
           render={({ onChange, name, value, onBlur}) => {
             return (
               <InputGroup>
@@ -320,38 +361,38 @@ function sendEmail() {
                   <Icon as={FiFile} />
                 </InputLeftElement>
                 <input name={name} type="file" onChange={(e) => onChange(e.target.files)} accept={acceptedFileTypes} 
-                  ref={node => { inputRefThree = node; }}
-                  style={{ display: "none" }}
+                  ref={node => { inputRefThree = node; }} style={{ display: "none" }}
                 />
-                <Input name= { name } fontWeight='200' placeholder= { placeholder || "Upload copy of your NIS" } 
-                onClick= { (e) => inputRefThree.click(e) } readOnly= { true }
+                <Input name= {name} fontWeight='200' placeholder= { placeholder || "Upload proof of identity" } 
+                   onClick= { (e) => inputRefThree.click(e) } readOnly= { true }
                   //value={ (value && value[0].name ) || "" }
-                  value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload copy of your NIS"}
+                  value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload proof of identity"}
                 />
               </InputGroup>
             );
           }}
         />
+         <Text paddingLeft='7px' fontSize='sm' fontWeight='200' color='black'>  
+              Please upload a self-captured photo (selfie) of yourself holding up your photo 
+              identification next to your face by either taking a Live Photo or Photo Upload
+          </Text>
          <Text paddingLeft='7px' fontSize='xs' fontWeight='200' color='grey'>  File format : pdf, jpg, jpeg, png</Text>
-   </label>
+    </label>
 
   </div>
                    <Center>
-                   <button  className="uploadBtn" type="submit">
-                          Save & Continue
+                    <button  className="uploadBtn" type="submit">
+                            Save & Continue
                     </button>
-                
-                  </Center>
-                    
-                  
-  </form>
+                  </Center>              
+     </form>
   </FormControl>
 
     </TabPanel>
 
         <TabPanel id="financial-tab">
           
-          <form key={2} id="financialForm" className=" upForm" onSubmit={ handleSubmit2(onSubmitTwo) }> 
+          <form key={2} id="financialForm" className="upForm" onSubmit={ handleSubmit2(onSubmitTwo) }> 
 
                   <label> Last 3 Months Payslip</label>
 
@@ -364,14 +405,12 @@ function sendEmail() {
                           <InputGroup>
                             <InputLeftElement pointerEvents="none">
                               <Icon as={FiFile} />
-
                             </InputLeftElement>
                             <input name={name} type="file" onChange={(e) => onChange(e.target.files)} 
                               accept={acceptedFileTypes} 
                               ref={(node,name,event) => { inputRefFour = node;  }}
                               style={{ display: "none" }}
                             />
-
                             <Input name= { name } placeholder= { placeholder || "Upload pay-slip #1"} onClick= { (e) => inputRefFour.click(e) }
                               readOnly= { true }
                               //value={ (value && value[0].name ) || "" }
@@ -425,13 +464,12 @@ function sendEmail() {
                                     <input name={name} type="file" onChange={(e) => onChange(e.target.files)} 
                                       accept={acceptedFileTypes} 
                                       ref={(node,name,event) => { inputRefSix = node }}
-                                    //  {...register2({ required: true })}
+                                   
                                       style={{ display: "none" }}
                                     />
                                     <Input name= { name } placeholder= { placeholder || "Upload pay-slip #3" } 
                                       onClick= { (e) => inputRefSix.click(e) }  readOnly= { true }
-                                      // {...register2({ required: true })}
-                                      //value={ (value && value[0].name ) || "" }
+                                   
                                       value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload pay-slip #3"}
                                     />
                                   </InputGroup>
@@ -455,10 +493,10 @@ function sendEmail() {
                                      accept={acceptedFileTypes} 
                                             ref={ ( node,name,event  ) => { inputRefSeven = node }} 
                                             style={{ display: "none" }}
-                                           // {...register2( { required: true })}  
+                                       
                                             aria-invalid={errors.name ? "true" : "false"}
                                     />
-                                    <Input  name= { name }  required placeholder= { placeholder || "Upload Income Verification Letter" } onClick= { (e) => inputRefSeven.click(e) }
+                                    <Input  name= { name } placeholder= { placeholder || "Upload Income Verification Letter" } onClick= { (e) => inputRefSeven.click(e) }
                                       value= { value ? (value[0] && value[0].name  || ""  ): placeholder || "Upload Income Verification Letter"}
                                     />
                                   </InputGroup>
@@ -492,10 +530,7 @@ function sendEmail() {
                             </button>
                         
                           </Center>
-                            {/* use role="alert" to announce the error message */}
-                              {errors.name && errors.name.type === "required" && (
-                                <span role="alert">This is required</span>
-                              )}
+                        
 
                         </form>
 
@@ -503,7 +538,7 @@ function sendEmail() {
 
                   <TabPanel> 
 
-                  <form className="upForm" onSubmit={ handleSubmit(onSubmitThree) }> 
+                  <form className="upForm" onSubmit={ handleSubmit3(onSubmitThree) }> 
                   <div> 
                         <label>  Vehicle Valuation Report(Used Vehicles Only)
                             <Controller name="valuation" control={control2} defaultValue=""
@@ -574,7 +609,7 @@ function sendEmail() {
                      </div>
                      <Center>
                       
-                          <button  className="uploadBtn" >
+                          <button type="submit"  className="uploadBtn" >
                                  Upload Documents
                             </button>
                      
@@ -595,7 +630,7 @@ function sendEmail() {
 
                 <Center>
                 <Link  >
-                    <button className="wide-button" type="submit">
+                    <button className="wide-button">
                               Home/Save & Exit
                       
                     </button>

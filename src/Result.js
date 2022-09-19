@@ -167,6 +167,7 @@ setValue( "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10) );
                 may be APPROVED SUBJECT TO CONDITIONS.
               </p>
               <br />
+              
               {/* {state.data.existingCarLoan > 0 && (
                 <p>
                   The above assumes that your existing car loan of $x [is paid
@@ -283,7 +284,7 @@ setValue( "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10) );
             <br />
 
             <p>
-                Maximum Loan Amount: {tdsr }
+               {/* Maximum Loan Amount: tdsr */}
 
             </p>
 

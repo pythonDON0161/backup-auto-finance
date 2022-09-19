@@ -82,10 +82,7 @@ const BorrowSummary = (props) => {
     //Create object estimatedExpenses and set the value
     // Estimated Expenses for the month
     register({ name: "estimatedExpenses", type: "custom" });
-    setValue(
-      "estimatedExpenses",
-        // parseInt(state.data.totalExpenses, 10) + 
-         test + parseInt(estimatedPayment, 10)
+    setValue("estimatedExpenses", test+ parseInt(estimatedPayment, 10)
     );
 
     //Calculate TDSR and save to state as variable

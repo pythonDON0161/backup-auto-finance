@@ -255,11 +255,9 @@ const EmploymentDetails = (props) => {
                   )}
                 </label>
 
-
-
                 <Text>
-                  {} 
-                  {console.log("hello")}
+                  
+                 {console.log("hello")}
 
                 Total Monthly Income: $
                 

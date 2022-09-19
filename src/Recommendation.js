@@ -72,7 +72,6 @@ function Recommendation(props) {
     async function calculateLowestMonthly() {
       for (let j = 0; j < approvedBanks.length; j++) {
         const thisBank = approvedBanks[j].item.banks.toLowerCase();
-        console.log("Im in function to calculate lowest monthly payment")
         const response = await fetch(
           `https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/${thisBank}a?filter[year]=${state.data.modelYear}&filter[new/used]=${state.data.carStatus}`,
           {
