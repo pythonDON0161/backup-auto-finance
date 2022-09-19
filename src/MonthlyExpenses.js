@@ -60,7 +60,10 @@ const MonthlyExpenses = (props) => {
       // Do something with object
       console.log(json.application);
     });
-    });
+    });   
+    
+   
+
     props.history.push("./trade-in");
   };
   
@@ -69,6 +72,8 @@ const MonthlyExpenses = (props) => {
   { register({name: "finalExpenses", type: "custom"})}
 
 
+  //const myValues = getValues(["mortgage", "rent","creditCard","existingCarLoan","otherLoans"]);
+
   const mortgage = Number(watch("mortgage") )
   const rent = Number(watch("rent"))
   const creditCard = Number(watch("creditCard"))
@@ -76,11 +81,6 @@ const MonthlyExpenses = (props) => {
   const otherLoan = Number( watch("otherLoans") )
   //mortgage = Number(mortgage)
   
-
-  function handleTotal(){
-    
-  }
-
 
   const [input_values, set_inputvalues] = useState ({
     mortgage: 0,
@@ -97,19 +97,15 @@ const MonthlyExpenses = (props) => {
     const inputTotals = arrValues.reduce((accum, curr) => (accum += curr), 0);
 
     set_total(parseInt(inputTotals).toLocaleString());
+    
 
-    setValue( "totalExpenses", parseInt(mortgage) + parseInt(rent) + parseInt(creditCard + parseInt(carLoan + parseInt(otherLoan))) )
+    setValue( "totalExpenses",// parseInt(inputTotals)
+       parseInt(mortgage) + parseInt(rent) + parseInt(creditCard) + parseInt(carLoan) + parseInt(otherLoan)  ) 
 
    
   }, [input_values]);
 
-  useEffect( ( ) => {
-
-    
-
-  }, [])
-  
-
+ 
   var expTot = watch("totalExpenses")
   
   const changeValues = ({ name, value }) => {
@@ -118,6 +114,25 @@ const MonthlyExpenses = (props) => {
       .replace(/^\$/, "")
       .replaceAll(",", "")) });
   };
+
+   function sumVals (obj) {
+   
+   return Object.keys(obj).reduce((sum,key)=>sum+parseFloat(obj[key]||0),0);
+      
+  }
+
+  let tExpenses
+
+ function handleTotal(){
+    const dVals =  getValues(["mortgage", "rent","creditCard","existingCarLoan","otherLoans"]);
+
+    tExpenses =  parseInt(sumVals(dVals) )
+
+    setValue( "totalExpenses", tExpenses)
+
+    return tExpenses;
+   
+  }
 
 
   return (
@@ -250,10 +265,10 @@ const MonthlyExpenses = (props) => {
                 }}
               />
         </label>
-
+                  {console.log(total,expTot )}
         <Text>
          Total Monthly Obligations:$ { !isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 2})
-         : getValues('mortgage')
+         : handleTotal()
          
          }
          </Text>
@@ -262,6 +277,7 @@ const MonthlyExpenses = (props) => {
         <Center>
           <button
             type="submit"
+            onClick={handleTotal}
             className="submit-button"
             value="Save & Continue"
           >
