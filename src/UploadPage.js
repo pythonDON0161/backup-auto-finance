@@ -117,8 +117,10 @@ function sendEmail() {
 
   const onSubmit = (data,event) => {
     event.preventDefault();
-    //const el2 = document.getElementById("tabs-6--tab-1") //will not work in production
-   // inputRefEle = el2   // 👈️ element here
+ 
+    const el3 = document.getElementsByClassName("ftab")
+    console.log(el3[0])
+    inputRefEle = el3[0] 
     inputRefEle.click();
     
     let personalDocs = []
@@ -146,7 +148,7 @@ function sendEmail() {
           personalItems[`${keyNames[i]}`] = url 
               
         }) ) } 
-          urlArr.push(...personalItems)
+          urlArr.push(personalItems)
           console.log(urlArr)
     } }
 
@@ -155,7 +157,11 @@ function sendEmail() {
     event.preventDefault();
    // const el2 = document.getElementById("tabs-6--tab-2"); //will not work in production
     //inputRefTwe = el2;
-    inputRefTwe.click()
+    const el3 = document.getElementsByClassName("vtab")
+    console.log(el3[0])
+    inputRefTwe = el3[0] 
+    inputRefTwe.click();
+    
     let financialDocs = []
     
     const storageRef = storage;
@@ -265,11 +271,11 @@ function sendEmail() {
                 <TabList>
                     <Tab _selected={{ color: 'white', bg: '#e65323' }}  >Personal Documents</Tab>
 
-                    <Tab ref={node => { inputRefEle = node; }} _selected={{ color: 'white', bg: '#e65323' }} id="financialDocs" 
+                    <Tab ref={node => { inputRefEle = node; }} className="ftab" id="fTab"_selected={{ color: 'white', bg: '#e65323' }}  
                     >Financial Documents</Tab>
 
-                    <Tab _selected={{ color: 'white', bg: '#e65323' }} id="vehicleDocs" 
-                    ref={node => { inputRefTwe = node; }}>Vehicle Documents</Tab>
+                    <Tab _selected={{ color: 'white', bg: '#e65323' }} className="vtab" id="vehicleDocs" 
+                    ref={node => { inputRefTwe = node; }} >Vehicle Documents</Tab>
 
                 </TabList>
                 <TabPanels id={"Personal"}>
