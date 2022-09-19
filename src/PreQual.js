@@ -168,6 +168,7 @@ const PreQual = (props) => {
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
   async function handleEstimate() {
+
     if (!state.data.estimatedPayment || isNaN(state.data.estimatedPayment)) {
     register({ name: "estimatedPayment" });
     setValue("estimatedPayment", calcData
@@ -214,7 +215,7 @@ const PreQual = (props) => {
         term.year === modelYear
     )
     .map((filteredTerm) => filteredTerm.deposit - 0));}
-    await new Promise((resolve, reject) => setTimeout(resolve, 100));
+    await new Promise((resolve, reject) => setTimeout(resolve, 300));
     props.history.push("./applicant-details");
   }
   const onSubmit = (data) => {
