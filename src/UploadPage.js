@@ -47,17 +47,21 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
 
 const { action, state } = useStateMachine(updateAction);
 
-let urlArr = []  //store firebase download URLs
+const urlArr = []  //store firebase download URLs
+const finArr = []
+const vehArr = []
 
 
-
-function sendEmail(urlArr) {
-
+function sendEmail() {
+  
+  console.log("im in here")
+  //console.log(urlArr, finArr, vehArr)
   let totalIncome = parseInt(state.data.grossIncome + state.data.otherMonthlyIncome);
-  console.log(totalIncome)
-  console.log(state.data.TDSR)
-  console.log(urlArr)
+  //console.log(totalIncome)
+  // console.log(state.data.TDSR)
+  //console.log(urlArr)
 
+  console.log(urlArr[0], urlArr[1])
 
   var templateParams = {
     email: state.data.email, 
@@ -70,10 +74,13 @@ function sendEmail(urlArr) {
     carPrice: state.data.price,
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
-    tdsr : state.data.TDSR
+    tdsr : state.data.TDSR,
+    personalDocs: urlArr,
+    financialDocs: finArr,
+    vehicleDocs: vehArr
   };
 
-  /*
+  
  
   emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
       .then(function(response) {
@@ -84,7 +91,7 @@ function sendEmail(urlArr) {
       }, function(error) {
         console.log('FAILED...', error);
       });
-    */
+    
     }
 
    
@@ -109,45 +116,39 @@ function sendEmail(urlArr) {
 
 
   const onSubmit = (data,event) => {
+    console.log("first url arr", urlArr)
+    event.preventDefault();
     const el2 = document.getElementById("tabs-6--tab-1")
     inputRefEle = el2   // 👈️ element here
-    //event.preventDefault();
     inputRefEle.click();
-    //sendEmail();
     
-    let personalDocs = [];
-
-       if ( data.id && data.id.length >0 ) {
-           console.log ( data.id ) 
-           personalDocs.push(data.id) } //only push to personalDocs if not undefined
-           
-           if (data.identity && data.identity.length >0 ) {
-            console.log ( data.identity ) 
-            personalDocs.push(data.identity) } //only push to personalDocs if not undefined
-
-    //let urlArr = []
-    console.log(personalDocs)
+    let personalDocs = []
     const storageRef = storage;
     var keyNames = [ 'id', 'identity'] // Object.keys(data);
  
-      for( let i=0; i<2;i++ ) {
+    if ( data.id && data.id.length >0 ) {
           
-        if( personalDocs[i] && personalDocs[i] !== undefined){ 
-              console.log("im in here")
-            let link = storageRef.child(` ${state.data.firstName+" " +
-                state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `);
-            
-            storageRef.child( `${state.data.firstName + " " +
-                 state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `)
+      personalDocs.push(data.id) } //only push to personalDocs if not undefined
+      
+      if (data.identity && data.identity.length >0 ) {
+      
+       personalDocs.push(data.identity) } //only push to personalDocs if not undefined
+       
+      for( let i=0; i<2;i++ ) {
+        let personalItems = {}
 
-              .put(personalDocs[i][0]).then( () => link.getDownloadURL().then((url) => { 
+        if( personalDocs[i] && personalDocs[i] !== undefined){ 
+          let link = storageRef.child(` ${state.data.firstName+" "+
+          state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `);
+
+        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `) 
+        .put(personalDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
             
-                 urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
-                  
-              } ) ) 
-          } 
-      //sendEmail(urlArr)
-    
+          personalItems[`${keyNames[i]}`] = url 
+              
+        }) ) } 
+          urlArr.push(...personalItems)
+          console.log(urlArr)
     } }
 
       
@@ -155,44 +156,49 @@ function sendEmail(urlArr) {
     event.preventDefault();
     const el2 = document.getElementById("tabs-6--tab-2");
     inputRefTwe = el2;
-    //sendEmail()
     inputRefTwe.click()
     let financialDocs = []
-    //let urlArr = []
-    //financialDocs.push(data.slipOne,data.slipTwo,data.slipThree, data.jobLetter)
+    
     const storageRef = storage;
     var keyNames =['slipOne','slipTwo','slipThree','jobLetter']
 
         if ( data.slipOne && data.slipOne.length >0 ) {
-          console.log ( data.slipOne ) 
+          
           financialDocs.push(data.slipOne) 
             } //only push to personalDocs if not undefined
         
         if (data.slipTwo && data.slipTwo.length >0 ) {
-        console.log ( data.slipTwo ) 
+        
         financialDocs.push(data.slipTwo) 
             } //only push to financialDocs if not undefined
         
         if (data.slipThree && data.slipThree.length >0 ) {
-          console.log ( data.slipThree ) 
+          
           financialDocs.push(data.slipThree) } 
 
         if (data.jobLetter && data.jobLetter.length >0 ) {
-            console.log ( data.jobLetter ) 
+           
             financialDocs.push(data.jobLetter) } 
 
     for(let i=0; i<4;i++){
-        
+        let financialItems={}
       if(financialDocs[i] && financialDocs[i] !== undefined){ 
 
         let link = storageRef.child(` ${state.data.firstName+" "+
         state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `);
+
         storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `) 
-       /* .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
-            urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
-            
-        }) ) */
-    }  }  };
+        .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
+            financialItems[`${keyNames[i]}`] = url 
+              
+        }) ) 
+    }  
+
+      finArr.push(financialItems)
+      
+  }
+  
+  };
 
 
   let history = useHistory();
@@ -200,48 +206,46 @@ function sendEmail(urlArr) {
   const onSubmitThree = (data,event) => {
 
     event.preventDefault();
-  
     let vehicleDocs = []
-   // console.log(data)
-   // let urlArr = []
     vehicleDocs.push(data.valuation,data.registration,data.fitness)
     const storageRef = storage;
     var keyNames = ['valuation','registration','fitness']
 
     if ( data.valuation && data.valuation.length >0 ) {
-      console.log ( data.valuation ) 
+      
       vehicleDocs.push(data.valuation) } //only push to personalDocs if not undefined
     
     if (data.registration && data.registration >0 ) {
-    console.log ( data.registration ) 
+    
     vehicleDocs.push(data.registration ) } //only push to financialDocs if not undefined
     
     if (data.fitness && data.fitness >0 ) {
-      console.log ( data.fitness ) 
+      
       vehicleDocs.push(data.fitness) } 
 
- 
- 
-    const def = async (urlArr) => {
-    for(let i=0; i<3;i++){
-        
-      if(vehicleDocs[i].length){ 
+      for(let i=0; i<4;i++){
 
-        let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
-       // console.log(link)
-       const test =  await storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `)
-      
+        let vehItems={}
+
+      if(vehicleDocs[i] && vehicleDocs[i] !== undefined){ 
+
+        let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `);
+
+        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `) 
         .put(vehicleDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
-           urlArr.push ( {name: `${keyNames[i]}`, url: url } ) 
             
-           // console.log(urlArr)
-            
+           vehItems[`${keyNames[i]}`] = url 
+              
         }) ) 
-    }  } }
-    
-    //history.push("./authorization")
-    console.log(urlArr)
-   // sendEmail()
+    }  
+
+      vehArr.push(vehItems)
+     // console.log(vehArr) 
+  }
+   
+     
+     sendEmail()
+    history.push("./authorization")
 
   };
 
