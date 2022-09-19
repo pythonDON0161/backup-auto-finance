@@ -116,10 +116,9 @@ function sendEmail() {
 
 
   const onSubmit = (data,event) => {
-    console.log("first url arr", urlArr)
     event.preventDefault();
-    const el2 = document.getElementById("tabs-6--tab-1")
-    inputRefEle = el2   // 👈️ element here
+    //const el2 = document.getElementById("tabs-6--tab-1") //will not work in production
+   // inputRefEle = el2   // 👈️ element here
     inputRefEle.click();
     
     let personalDocs = []
@@ -154,8 +153,8 @@ function sendEmail() {
       
   const onSubmitTwo = (data,event) => {
     event.preventDefault();
-    const el2 = document.getElementById("tabs-6--tab-2");
-    inputRefTwe = el2;
+   // const el2 = document.getElementById("tabs-6--tab-2"); //will not work in production
+    //inputRefTwe = el2;
     inputRefTwe.click()
     let financialDocs = []
     
