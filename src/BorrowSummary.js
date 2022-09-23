@@ -28,9 +28,10 @@ const BorrowSummary = (props) => {
     getValues,
   } = useForm();
   const { action, state } = useStateMachine(updateAction);
+  
   const onSubmit = (data) => {
     action(data);
-    props.history.push("./grade-your-credit");
+    props.history.push("/co-applicant");
     var test = 0;
     
   };
@@ -40,6 +41,8 @@ const BorrowSummary = (props) => {
   // FUNCTION STARTS HERE
 
   console.log( "Calc Term:" + state.data.calcTerm)  
+
+  //console.log( "Calc Term:" + state.data.calcTerm)  
 
 
   async function handleTotalBorrow() {
@@ -93,8 +96,8 @@ const BorrowSummary = (props) => {
               / parseInt(state.data.totalMonthly, 10)
     );
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 100));
-    props.history.push("./grade-your-credit");
+    //await new Promise((resolve, reject) => setTimeout(resolve, 100));
+  // props.history.push("./grade-your-credit");
   }
    
   return (
