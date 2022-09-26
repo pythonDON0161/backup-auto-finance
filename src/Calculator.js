@@ -411,8 +411,6 @@ function Calculator(props) {
   const handleTermChangeEnd = useCallback(
     (newTerm) => {
     state.data.terms = term;
-        console.log(state.data.terms)
-      //setValue("terms", term)
       
       return newTerm;
     },
