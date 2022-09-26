@@ -113,33 +113,11 @@ if( caTDSR > 0 ){
   //TODO use a single traffic light based on switch statement
   
 
-  return (
-    <>
-      <Header />
-      <div className="result">
-        {/* TDSR OUTPUT IN HTML */}
-        <div className="TDSR">
+  const GreenLight = () =>{ 
+    return (
+        <>
 
-            <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-            <p> {state.data.caTDSR > 0 ? <strong>
-                  This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                  This is combined TDSR: {combinedTDSR} 
-                      </strong> : null} </p>
-            <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
-            <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
-
-            <br/>
-            <br/>
-
-        </div>
-
-      <canvas id="my-canvas">  </canvas>
-      
-        {/* <pre>{JSON.stringify(state, null, 2)}</pre> */} 
-       
-        {tdsr< 0.4 && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && (
-          <>
-          <div>
+         <div>
             <Heading>Congratulations!</Heading>
             <p>
               Based on the information provided, ATL Auto believes that a car
@@ -171,16 +149,15 @@ if( caTDSR > 0 ){
             </Link>
           </Center>
           </div>
+        
+        </>
 
-          </>
-        )}
+    )}
 
-        {/* YELLOW LIGHT LOAN MAYBE */}
-        {( tdsr >= 0.4 &&
-           tdsr <= 0.50) || 
-          (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || 
-          employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
-            <div>
+    const YellowLight = () =>{ 
+      return (
+          <>
+                     <div>
               <p>
                 Based on the information provided, ATL Auto believes that a car
                 loan application for{" "}
@@ -197,7 +174,6 @@ if( caTDSR > 0 ){
                   off/remains outstanding].
                 </p>
               )} */}
-
 
               <Grid templateColumns="repeat(3, 1fr)">
                 <GridItem colSpan={1}>
@@ -242,14 +218,16 @@ if( caTDSR > 0 ){
             </Link>
           </Center>
             </div>
-          :
-          <br></br>
-        }
+          </>
+  
+      )}
 
-        {/* RED LIGHT LOAN DECLINED */}
-        { tdsr > 0.47 && (
-          <div>
-              
+
+      const RedLight = () =>{ 
+        return (
+            <>
+
+        <div>
             <p>
               Based on the information provided, ATL Auto believes that a car
               loan application for{" "}
@@ -322,23 +300,133 @@ if( caTDSR > 0 ){
               </Link>
             </Center>
           </div>
-        )}
-        <br />
-        <br />
-        {/* {state.data.estimatedExpenses / state.data.totalMonthly < 0.47 && (
-          <Center>
-            <Link to="/bank-selection">
-              <button className="submit-button">Bank Selection</button>
-            </Link>
-          </Center>
-        )} */}
+            </>
+            ) 
+
+        }
+if( tdsr> 0.5){
+  return (
+    <>
+<Header />
+    <div className="result">
+      {/* TDSR OUTPUT IN HTML */}
+      <div className="TDSR">
+
+          <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
+          <p> {state.data.caTDSR > 0 ? <strong>
+                This is co-applicant's TDSR: {state.data.caTDSR} <br/>
+                This is combined TDSR: {combinedTDSR} 
+                    </strong> : null} </p>
+          <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+          <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
+           <br/>
+          <br/>
+
+      </div>
+
+    <canvas id="my-canvas">  </canvas>
+     <RedLight></RedLight>
+
+    </div>
+    </>
+    
+    )
+
+}
+
+else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && 
+   state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit"){
+
+  return (
+    <>
+      <Header />
+      <div className="result">
+        {/* TDSR OUTPUT IN HTML */}
+        <div className="TDSR">
+
+            <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
+            <p> {state.data.caTDSR > 0 ? <strong>
+                  This is co-applicant's TDSR: {state.data.caTDSR} <br/>
+                  This is combined TDSR: {combinedTDSR} 
+                      </strong> : null} </p>
+            <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+            <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
+             <br/>
+            <br/>
+
+        </div>
+
+      <canvas id="my-canvas">  </canvas>
        
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+       <GreenLight></GreenLight>
+             
+
       </div>
     </>
-  );
+
+   ) } 
+   
+   else if( (tdsr>= 0.4 &&
+    tdsr<= 0.50) || (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || 
+    employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" 
+    || state.data.creditGrade === "No Credit") )
+    {
+      return (
+        <>
+          <Header />
+          <div className="result">
+            {/* TDSR OUTPUT IN HTML */}
+            <div className="TDSR">
+    
+                <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
+                <p> {state.data.caTDSR > 0 ? <strong>
+                      This is co-applicant's TDSR: {state.data.caTDSR} <br/>
+                      This is combined TDSR: {combinedTDSR} 
+                          </strong> : null} </p>
+                <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+                <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
+                 <br/>
+                <br/>
+    
+            </div>
+    
+          <canvas id="my-canvas">  </canvas>
+           <YellowLight></YellowLight>
+          </div>
+        </>)
+    }
+      else{
+        
+        return (
+          <>
+      <Header />
+          <div className="result">
+            {/* TDSR OUTPUT IN HTML */}
+            <div className="TDSR">
+    
+                <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
+                <p> {state.data.caTDSR > 0 ? <strong>
+                      This is co-applicant's TDSR: {state.data.caTDSR} <br/>
+                      This is combined TDSR: {combinedTDSR} 
+                          </strong> : null} </p>
+                <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+                <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
+                 <br/>
+                <br/>
+    
+            </div>
+    
+          <canvas id="my-canvas">  </canvas>
+           <RedLight></RedLight>
+
+          </div>
+          </>
+          
+          )
+      
+
+      }
+
 };
 
 export default Result;
