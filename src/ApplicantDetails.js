@@ -73,6 +73,8 @@ const ApplicantDetails = (props) => {
           First Name:
           <Input
             name="firstName"
+            className="firstName"
+            id="tester"
             ref={register({ required: true })}
             defaultValue={state.data.firstName}
           />

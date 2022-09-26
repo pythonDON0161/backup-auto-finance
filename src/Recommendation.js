@@ -141,7 +141,7 @@ function Recommendation(props) {
   }, []);
 
   return (
-    <div>
+    <div class="coApp">
       <Header />
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>

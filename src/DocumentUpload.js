@@ -62,9 +62,8 @@ const DocumentUpload = (props) => {
         
             
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Heading>Documents Upload </Heading>
-                <Text>Thank you for your application, based on your selections 
-                  here are a list of documents you will need to upload.</Text>
+                <Heading>Documents</Heading>
+                <Text>You may upload some or all of the following:</Text>
 
               <br></br>
 
@@ -73,7 +72,6 @@ const DocumentUpload = (props) => {
 
                     <ListItem> Identification (Drivers License, Passport Picture Page or Voters ID)  </ListItem>
                     <ListItem> Self-capture image of yourself holding up your ID  </ListItem>
-                    
 
                 </UnorderedList>
 
@@ -84,19 +82,21 @@ const DocumentUpload = (props) => {
 
                     <ListItem>Last 3 Months Pay Slip</ListItem>
                     <ListItem>Income Verification Letter From Your Employer</ListItem>
-                    <ListItem>Credit Authorization</ListItem>
+                    <ListItem> Credit Bureau Authorization </ListItem>
 
                 </UnorderedList>
 
               <br></br>
 
-              <Text align='left' fontSize='2xl' >Proof Of Identity</Text>
-                <UnorderedList spacing={1}>
-
-                    <ListItem>A self captured image of yourself holding up your photo verification.</ListItem>
-
+              <Text align='left' fontSize='2xl'> Vehicle Documents (For Used Cars) </Text>
+              
+                <UnorderedList spacing={3}>
+                    <ListItem> Motor Vehcile Valuation  </ListItem>
+                    <ListItem> Motor Vehicle Fitness </ListItem>
+                    <ListItem> Motor Vehicle Registration </ListItem>
                 </UnorderedList>
 
+           
               <br></br>
 
             <Center>

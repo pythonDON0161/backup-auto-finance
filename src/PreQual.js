@@ -278,9 +278,12 @@ const PreQual = (props) => {
       />
     );
   };
+
   if (state.data.carStatus) {
     carStatus = state.data.carStatus;
   }
+
+
   return (
     <>
       <div> 
@@ -295,7 +298,7 @@ const PreQual = (props) => {
       <Header />
       {isAuthenticated && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Heading>Pre-Qualification</Heading>
+          <Heading>Vehicle Details</Heading>
           <Input
             name="email"
             className="hidden-field"

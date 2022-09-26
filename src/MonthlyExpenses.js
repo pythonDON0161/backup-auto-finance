@@ -192,7 +192,7 @@ const MonthlyExpenses = (props) => {
         </label>
 
         <label>
-          Credit Card Payments:
+        Credit Card Minimum Payments:
           <Controller
                 name="creditCard"
                 control={control}
@@ -242,7 +242,6 @@ const MonthlyExpenses = (props) => {
             (Please enter even if you plan on selling or trading in.)
           </label>
         <label>
-
           Other Loan Payments:
           <Controller
                 name="otherLoans"
@@ -266,7 +265,7 @@ const MonthlyExpenses = (props) => {
               />
         </label>
                   {console.log(total,expTot )}
-        <Text>
+        <Text fontWeight="bold">
          Total Monthly Obligations:$ { !isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 2})
          : handleTotal()
          

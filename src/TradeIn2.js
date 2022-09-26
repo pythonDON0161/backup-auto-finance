@@ -62,8 +62,7 @@ const TradeIn2 = (props) => {
     return false;
   };
 
-  const parse = (val) =>  val.replace(/^\$/, ""); 
-  const format = (val) => `$` + Number(val);
+
 
   const [towardsPurchase, settowardsPurchase] = useState(state.data.towardsPurchase);
 
@@ -106,7 +105,7 @@ const TradeIn2 = (props) => {
 
 
                 <Controller
-                  name="towPurchase"
+                  name="towardsPurchase"
                   //TODO perhaps the max value prevents it from going negative
                   rules={{ required: true, max: {value: (state.data.currentCar - state.data.owed), message: 'error'} }}
                   control={control}
@@ -124,6 +123,7 @@ const TradeIn2 = (props) => {
                       maxLength={7}
                       decimalsLimit={2}
                       onChange={filterData}
+                      onValueChange={onChange}
                       
                     />)}}
                 />

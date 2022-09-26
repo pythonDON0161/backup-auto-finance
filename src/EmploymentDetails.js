@@ -120,12 +120,7 @@ const EmploymentDetails = (props) => {
   }
 
   register({name: "total",type: "custom"})
-  const grossIncome = state.data.grossIncome //watch("grossMonthlyIncome");
-  const otherIncome = watch("otherMonthlyIncome");
-  const price = watch("price")
-  const test =watch("test") 
-  const finale = watch("total")
-
+     const finale = watch("total")
 
       const [grossMonthlyIncome, setGrossMonthlyIncome] = useState(state.data.grossMonthly);
       const [otherMonthlyIncome, setOtherMonthlyIncome] = useState(state.data.otherMonthly)
@@ -135,7 +130,6 @@ const EmploymentDetails = (props) => {
         setGrossMonthlyIncome(
           val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
         );
-        
       }
 
       function otherMIncome(val) {
@@ -143,21 +137,15 @@ const EmploymentDetails = (props) => {
           val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
         );
         setValue("otherMonthly", val.target.value);
-        
       }
-    
-
 
       useEffect( () => {
-        //console.log("watching for value", grossMonthlyIncome); //this will not log anything
-        console.log( "this is gross" +grossMonthlyIncome );
+         //console.log("watching for value", grossMonthlyIncome); //this will not log anything
+         console.log( "this is gross" +grossMonthlyIncome );
          setValue("total", parseInt(grossMonthlyIncome) + parseInt(otherMonthlyIncome));
          console.log(state.data.total)
          
       }, [grossMonthlyIncome,otherMonthlyIncome]);
-
-    
-  
 
   return (
     <>
@@ -193,11 +181,10 @@ const EmploymentDetails = (props) => {
 
 
                 <label>
-                  Gross Monthly Income
+                Gross Monthly Salary (before any tax or salary deductions)
                   <Controller
                 name="grossMonthlyui"
                 control={control}
-               // defaultValue={state.data.grossMonthly}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
@@ -255,9 +242,8 @@ const EmploymentDetails = (props) => {
                   )}
                 </label>
 
-                <Text>
+                <Text fontWeight="bold">
                   
-                 {console.log("hello")}
 
                 Total Monthly Income: $
                 

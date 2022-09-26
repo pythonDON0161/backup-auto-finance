@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./components/Header";
 
 const BankSelection = (props) => {
-  const { register, handleSubmit, errors, setValue } = useForm();
+  const { register, handleSubmit, errors, setValue, getValues } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const totalCost = state.data.totalExpenses;
@@ -17,11 +17,12 @@ const BankSelection = (props) => {
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
+  
   const onSubmit = (data) => {
     action(data);
     const body = {
       "application": {
-        "ratio": Math.round((totalCost / totalEarned) * 100) / 100,
+        "ratio": combinedTDSR ,// Math.round((totalCost / totalEarned) * 100) / 100,
         "primaryBank": data.primaryBank,
         "criteria": data.criteria
       }
@@ -47,10 +48,30 @@ const BankSelection = (props) => {
     props.history.push("./disclaimer");
   };
 
+  let combinedTDSR; // define a variable for combined TDSR
+
+  //If co-applicant is used set TDSR to combined TDSR
+
   function handleTDSR() {
-    register({ name: "TDSR", type: "custom" });
-    setValue("TDSR", Math.round((totalCost / totalEarned) * 100) / 100);
+
+    const caTDSR = state.data.caTDSR //getValues("caTDSR") // get co-appliant TDSR
+
+    console.log(caTDSR) // co-applicant TDSR
+
+    register({ name: "TDSR", type: "custom" }); // register TDSR value in React Hook Form
+    
+    combinedTDSR = caTDSR + Math.round( (totalCost / totalEarned) * 100) / 100; // sum co-applicant and single applicant TDSR
+
+    console.log( "combinedTDSR", combinedTDSR) // Log value of combined TDSR
+
+    if (caTDSR > 0) {
+
+      setValue("TDSR", combinedTDSR )
+
+    } else { setValue( "TDSR", Math.round( (totalCost / totalEarned) * 100) / 100 );  }
+
   }
+
   return (
     <div>
       <Header />

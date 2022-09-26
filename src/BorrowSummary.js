@@ -83,21 +83,25 @@ const BorrowSummary = (props) => {
     const estimatedPayment = getValues("estimatedPayment");
     console.log("This is Estimated Payment "+ estimatedPayment)
     //Create object estimatedExpenses and set the value
+
     // Estimated Expenses for the month
     register({ name: "estimatedExpenses", type: "custom" });
-    setValue("estimatedExpenses", test+ parseInt(estimatedPayment, 10)
+      setValue("estimatedExpenses", test+ parseInt(estimatedPayment, 10)
     );
 
     //Calculate TDSR and save to state as variable
     register({ name: "ratio", type: "custom" });
+
     const estimatedExpenses = getValues("estimatedExpenses");
 
-    setValue( "ratio", estimatedExpenses 
-              / parseInt(state.data.totalMonthly, 10)
-    );
+    setValue( "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10) );
+
+      
+    register({ name: "finalTDSR", type: "custom" });
+    
 
     //await new Promise((resolve, reject) => setTimeout(resolve, 100));
-  // props.history.push("./grade-your-credit");
+   // props.history.push("./grade-your-credit");
   }
    
   return (

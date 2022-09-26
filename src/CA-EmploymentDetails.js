@@ -70,11 +70,12 @@ const EmploymentDetails = (props) => {
     action(data);
     const body = {
       application: {
-        employmentStatus: data.caEmploymentStatus,
+        caEmploymentStatus: data.caEmploymentStatus,
         caGrossMonthlyIncome: data.caGrossMonthly,
         caOtherMonthlyIncome: data.caOtherMonthly,
       },
     };
+    
     fetch(
       `https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`,
       {
@@ -99,57 +100,70 @@ const EmploymentDetails = (props) => {
             console.log(json.application);
           });
       });
-       props.history.push("./monthly-expenses");
+     // handleTotal()
+       props.history.push("./ca-monthly-expenses");
       //console.log( state.data.caOtherMonthly , state.data.caGrossMonthly )
-
+        
     };
     
 
   const watchStatus = watch("employmentStatus", state.data.employmentStatus);
 
   
-  function handleTotal() {
-    setValue("caGrossMonthly", caGrossMonthlyIncome);
-    setValue("caOtherMonthly", caOtherMonthlyIncome);
-    register({ name: "caTotalMonthly", type: "custom" });
-    setValue( "caTotalMonthly", Number(caGrossMonthlyIncome) + Number(caOtherMonthlyIncome) ) ;
-  }
-
-  register({name: "caTotalMonthly",type: "custom"}) 
-  const finale = watch("caTotalMonthly")
+  //const finale = watch("caTotalMonthly")
+  //const caGrossIncome = Number(watch("caGrossMonthly") )
+  //const caOtherIncome = Number(watch("caOtherMonthly"))
 
 
-      const [caGrossMonthlyIncome, setcaGrossMonthlyIncome] = useState(state.data.caGrossMonthly);
-      const [caOtherMonthlyIncome, setcaOtherMonthlyIncome] = useState(state.data.caOtherMonthly);
+  { register({name: "caTotalMonthly", type: "custom"})}
+
+  const [input_values, set_inputvalues] = useState ({
+    caGrossMonthly: 0,
+    caOtherMonthly: 0,
+  });
 
 
-      function getData(val) {
-        setcaGrossMonthlyIncome(
-          val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
-        );
-        setValue("caGrossMonthly", val.target.value);
-      }
+  const [caTotal, set_caTotal] = useState(0);
 
-      function otherMIncome(val) {
-        setcaOtherMonthlyIncome(
-          val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "")
-        );
-        setValue("caOtherMonthly", val.target.value);
-      }
+  useEffect(() => {
+
+    const arrValues = Object.values( input_values );
+    const inputTotals = arrValues.reduce( (accum, curr) => (accum += curr), 0 );
+    set_caTotal( parseInt(inputTotals).toLocaleString() );
+    //console.log( "inputTotals", inputTotals );
+    //parseInt( caGrossIncome) + parseInt(caOtherIncome) ) 
+
+  }, [input_values]);
+
+  var expTot = watch("totalExpenses")
+
+  const changeValues = ({ name, value }) => {
+    set_inputvalues({ ...input_values, [name]: parseInt(value
+      .replaceAll(/[^0-9]/gi, "")
+      .replace(/^\$/, "")
+      .replaceAll(",", "")) });
+  };
+
+  function sumVals (obj) {
+        return Object.keys(obj).reduce((sum,key)=>sum+parseFloat(obj[key]||0),0);
+       }
     
+ 
+ let tIncome
 
+ function handleTotal(){
 
-      useEffect( () => {
-        //console.log("watching for value", caGrossMonthlyIncome); //this will not log anything
-        console.log( "this is gross" + caGrossMonthlyIncome );
-        console.log( "this is other" + caOtherMonthlyIncome );
-         setValue("caTotalMonthly", parseInt(caGrossMonthlyIncome) + parseInt(caOtherMonthlyIncome));
-         console.log(state.data.caTotalMonthly)
-         
-      }, [caGrossMonthlyIncome,caOtherMonthlyIncome]);
+  const dVals =  getValues( ["caGrossMonthly", "caOtherMonthly"] );
+  //console.log( "dVals", dVals );
+  tIncome =  parseInt( sumVals( dVals ) );
+  //console.log("tIncome is",tIncome);
+  setValue( "caTotalMonthly", tIncome);
+  //return tIncome;
 
-    
-  
+  return tIncome;
+ 
+}
+
 
   return (
     <>
@@ -165,7 +179,7 @@ const EmploymentDetails = (props) => {
             {isAuthenticated && (
              <form onSubmit={ handleSubmit(onSubmit) } >
 
-            <Heading>Employment Details</Heading>
+            <Heading>Co-Applicant Employment Details</Heading>
 
               <label>
                   Employment Status:
@@ -183,36 +197,30 @@ const EmploymentDetails = (props) => {
                   )}
                 </label>
 
-
                 <label>
                 Gross Monthly Salary (before any tax or salary deductions)
                   <Controller
                 name="caGrossMonthly"
                 control={control}
-               // defaultValue={state.data.caGrossMonthly}
+                defaultValue={state.data.caGrossMonthly}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
-                      name="caGrossMonthlyui"
-                      ref={register({
-                        required: "Your Gross Income Is Required",
-                        min:0
-                      })}
+                      name="caGrossMonthly"
                       className="priceInput"
                       placeholder="Please enter a number"
                       prefix="$"
                       maxLength={7}
                       decimalsLimit={2}
                       defaultValue={state.data.caGrossMonthly}
-                      // onChange={getData}
-                      onChange={ getData} 
+                      onChange={({ target }) => changeValues(target)}
                       onValueChange={onChange}
                     />
                   );
                 }}
               />
               {errors.caGrossMonthly && (
-                    <p className="error"></p>
+                    <p className="error">Please enter your Gross Monthly Salary</p>
                   )}
                 </label>
 
@@ -220,27 +228,23 @@ const EmploymentDetails = (props) => {
                 <label>
                   Other Monthly Income
                   <Controller
-                name="caOtherMonthlyui"
+                name="caOtherMonthly"
                 control={control}
-               // defaultValue={state.data.caOtherMonthly}
+                defaultValue={state.data.caOtherMonthly}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
                       name="caOtherMonthly"
-                      ref={register({
-                        required: "Other Monthly Income Is Required",
-                        min:0
-                      })}
                       className="priceInput"
                       placeholder="Please enter a number"
                       prefix="$"
                       maxLength={7}
                       decimalsLimit={2}
                       defaultValue={state.data.caOtherMonthly}
-                      // onChange={getData}
-                      onChange={otherMIncome}
+                      onChange={({ target }) => changeValues(target)}
                       onValueChange={onChange}
-                                         />
+                            />
+
                   );
                 }}
               />
@@ -250,17 +254,10 @@ const EmploymentDetails = (props) => {
                 </label>
 
                 <Text fontWeight="bold">
-                  
-
-                Total Monthly Income: $
+                 {/*Total Monthly Income:$ { !isNaN(expTot) ? expTot.toLocaleString(undefined, {minimumFractionDigits: 2}); */}
+                 Total Monthly Income:${ handleTotal().toLocaleString() }
                 
-                { !isNaN(finale) ? finale.toLocaleString(undefined, {minimumFractionDigits: 2}): 
-                <>
-                  { isNaN(parseInt(caGrossMonthlyIncome)) ? 0: 
-                  parseInt(caGrossMonthlyIncome).toLocaleString(undefined, {minimumFractionDigits: 2}) }
-                </> } 
-
-                </Text>
+         </Text>
                 
 
                 <Center>

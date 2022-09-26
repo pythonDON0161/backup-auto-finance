@@ -87,6 +87,9 @@ createStore({
       caOtherLoans: 0,
       caCreditCard: 0,
       caRent: 0,
+      owed: 0,
+      currentCar: 0,
+    
       bankPayments: [],
       employmentRisk: "",
       cashDown: 0,
@@ -128,15 +131,14 @@ function App() {
             <Route path="/borrow-summary" component={BorrowSummary} />
             <Route path="/applicant-details" component={ApplicantDetails} />
             <Route path="/employment-details" component={EmploymentDetails} />
-            <Route
-              path="/employment-details-2"
-              component={EmploymentDetails2}
+            <Route path="/employment-details-2" component={EmploymentDetails2}
             />
             <Route path="/self-employed" component={SelfEmployed} />
             <Route path="/monthly-expenses" component={MonthlyExpenses} />
             <Route path="/grade-your-credit" component={CreditGrade} />
             <Route path="/co-applicant" component={CoApplicant} />
             <Route path="/ca-applicant-details" component={CAAplicantDetails} />
+           
             <Route
               path="/ca-employment-details"
               component={CAEmploymentDetails}

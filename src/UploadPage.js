@@ -40,28 +40,43 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
   } = useForm();
   
 
-
   const onClicker = () => {
     console.log('INPUT VALUE: ', inputRef);
 }
 
 const { action, state } = useStateMachine(updateAction);
 
-const urlArr = []  //store firebase download URLs
-const finArr = []
-const vehArr = []
+const urlArr = new Array() // [];  //store firebase download URLs
+let finArr = new Array() //[];
+let vehArr = new Array() //[];
+
+
+const [fArr, setfArr] = useState([]);
+const [vArr, setvArr] = useState([]);
+const [uArr, setuArr] = useState([]);
+
+function getARR(){
+
+  const storageRef = storage;
+
+}
 
 
 function sendEmail() {
   
-  console.log("im in here")
   //console.log(urlArr, finArr, vehArr)
   let totalIncome = parseInt(state.data.grossIncome + state.data.otherMonthlyIncome);
   //console.log(totalIncome)
-  // console.log(state.data.TDSR)
+  //console.log(state.data.TDSR)
   //console.log(urlArr)
 
-  console.log(urlArr[0], urlArr[1])
+  //console.log(urlArr[0], urlArr[1])
+
+  console.log("Fin Docs", finArr);
+
+  console.log("Veh Docs", vehArr);
+
+  console.log("Url Arr", urlArr);
 
   var templateParams = {
     email: state.data.email, 
@@ -80,7 +95,7 @@ function sendEmail() {
     vehicleDocs: vehArr
   };
 
-  
+  /*
  
   emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
       .then(function(response) {
@@ -92,7 +107,9 @@ function sendEmail() {
         console.log('FAILED...', error);
       });
     
-    }
+    } */
+
+  }
 
    
   let inputRef = HTMLInputElement | null;
@@ -107,22 +124,22 @@ function sendEmail() {
   let inputRefTen = HTMLInputElement | null;
   let inputRefEle =  HTMLInputElement | null ;
   let inputRefTwe = HTMLInputElement | null;
-
+/*
   useEffect(() => {
     //const el2 = document.getElementById("tabs-6--tab-1")
    // console.log(el2)
     //inputRefEle = el2   // 👈️ element here
   }, []);
+*/
 
 
   const onSubmit = (data,event) => {
     event.preventDefault();
  
     const el3 = document.getElementsByClassName("ftab")
-    console.log(el3[0])
+   // console.log(el3[0])
     inputRefEle = el3[0] 
     inputRefEle.click();
-    
     let personalDocs = []
     const storageRef = storage;
     var keyNames = [ 'id', 'identity'] // Object.keys(data);
@@ -134,31 +151,32 @@ function sendEmail() {
       if (data.identity && data.identity.length >0 ) {
       
        personalDocs.push(data.identity) } //only push to personalDocs if not undefined
-       
-      for( let i=0; i<2;i++ ) {
-        let personalItems = {}
+       let personalItems = {}
 
+      for( let i=0; i<2;i++ ) {
+      
         if( personalDocs[i] && personalDocs[i] !== undefined){ 
           let link = storageRef.child(` ${state.data.firstName+" "+
           state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `);
 
         storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `) 
-        .put(personalDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
+        .put(personalDocs[i][0]).then( async () => await link.getDownloadURL().then((url) => {
             
-          personalItems[`${keyNames[i]}`] = url 
+          personalItems[`${keyNames[i]}`] = url;
+
+         // setuArr( uArr => uArr.concat(url) );
               
-        }) ) } 
-          urlArr.push(personalItems)
-          console.log(urlArr)
-    } }
+        }) ) }  
+
+       urlArr.push(personalItems)
+    } console.log(urlArr) }
 
       
-  const onSubmitTwo = (data,event) => {
+  const onSubmitTwo =  (data,event) => {
     event.preventDefault();
    // const el2 = document.getElementById("tabs-6--tab-2"); //will not work in production
     //inputRefTwe = el2;
     const el3 = document.getElementsByClassName("vtab")
-    console.log(el3[0])
     inputRefTwe = el3[0] 
     inputRefTwe.click();
     
@@ -187,26 +205,32 @@ function sendEmail() {
 
     for(let i=0; i<4;i++){
         let financialItems={}
+
       if(financialDocs[i] && financialDocs[i] !== undefined){ 
 
         let link = storageRef.child(` ${state.data.firstName+" "+
         state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `);
 
         storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/financial/${keyNames[i]}/${financialDocs[i][0].name} `) 
-        .put(financialDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
-            financialItems[`${keyNames[i]}`] = url 
-              
-        }) ) 
-    }  
+        .put(financialDocs[i][0]).then( async () => await link.getDownloadURL().then((url) => {
+           
+          financialItems[`${keyNames[i]}`] = url;
 
-      finArr.push(financialItems)
-      
-  }
-  
-  };
+         // setfArr( fArr => fArr.concat(url) );
+              
+        }  ).then(financialItems =>{ /* finArr.push(financialItems); */ } ) ) 
+    }  
+   
+     // console.log(financialItems)
+     finArr.concat(financialItems)
+       
+  }  //sendEmail(); 
+  console.log(urlArr) 
+};
 
 
   let history = useHistory();
+
 
   const onSubmitThree = (data,event) => {
 
@@ -222,7 +246,7 @@ function sendEmail() {
     
     if (data.registration && data.registration >0 ) {
     
-    vehicleDocs.push(data.registration ) } //only push to financialDocs if not undefined
+      vehicleDocs.push(data.registration ) } //only push to financialDocs if not undefined
     
     if (data.fitness && data.fitness >0 ) {
       
@@ -237,20 +261,20 @@ function sendEmail() {
         let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `);
 
         storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `) 
-        .put(vehicleDocs[i][0]).then( () => link.getDownloadURL().then((url) => {
+        .put(vehicleDocs[i][0]).then( async () => await link.getDownloadURL().then((url) => {
             
-           vehItems[`${keyNames[i]}`] = url 
-              
-        }) ) 
+           vehItems[`${keyNames[i]}`] = url;
+
+           //setVArr( fArr => fArr.concat(url) );
+
+        }).then(vehItems =>{  vehArr.push(vehItems) } ) ) 
     }  
 
-      vehArr.push(vehItems)
+     vehArr.push(vehItems)
      // console.log(vehArr) 
   }
-   
-     
-     sendEmail()
-    history.push("./authorization")
+     sendEmail();
+  //  history.push("./authorization")
 
   };
 
@@ -261,11 +285,11 @@ function sendEmail() {
    <Header/>
         <SimpleGrid columns={1} spacing={10}>
           <Center>
-            <Heading> Document Upload</Heading>
+            <Heading> Document Upload </Heading>
           </Center>
         </SimpleGrid>
 
-<div className="myapp"> 
+   <div className="myapp"> 
    
       <Tabs onChange={index => setTabIndex(index)} isFitted >
                 <TabList>
@@ -516,21 +540,19 @@ function sendEmail() {
                             </label>
                      </div>
 
-                        <label>Credit Authorization</label>
+                        <label>Credit Bureau Authorization</label>
 
-                        <Textarea
-                          isReadOnly
-                          value= 'The loan for which you are applying involves various disclosures, records, and documents (“Loan Documents”) including this eDisclosure Agreement. The purpose of this eDisclosure Agreement is to obtain Your consent to receive certain Loan Documents from us in electronic form rather than in paper form. With Your consent, You will also be able to sign an authorize these Loan Documents electronically, rather than on paper.'
+                  <Textarea
+                    isReadOnly
+                    value= {`I, ${state.data.firstName} ${state.data.lastName}, Date Of Birth: ${state.data.dateOfBirth} with TRN [xxx-xxx-xxx] , hereby consent to Credit Bureau in Jamaica, authorizing disclosure to ${state.data.bankSelection1} and ${state.data.bankSelection2} of such credit information which it may have in regard to me`}
                         >
-               
-                        </Textarea>
+                  </Textarea>
+
                         <p>
                         </p>
 
                         <Checkbox name="permission">
-
                           I confirm that I have read and agree to allow Auto Finance to apply for a credit report on my behalf.
-
                         </Checkbox>
 
                         <Center>
@@ -549,7 +571,7 @@ function sendEmail() {
 
                   <form className="upForm" onSubmit={ handleSubmit3(onSubmitThree) }> 
                   <div> 
-                        <label>  Vehicle Valuation Report(Used Vehicles Only)
+                        <label> Vehicle Valuation Report (Used Vehicles Only)
                             <Controller name="valuation" control={control2} defaultValue=""
                               render={({ onChange, name, value, onBlur}) => {
                                 return (

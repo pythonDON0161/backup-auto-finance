@@ -149,7 +149,7 @@ const TradeIn = (props) => {
                       <CurrencyInput
                         name="currentCar"
                         ref={register({
-                          required: "Your Gross Income Is Required",
+                          required: "Enter your current car's valuation",
                           min:0
                         })}
                         className="priceInput"
@@ -171,29 +171,27 @@ const TradeIn = (props) => {
                 
               </label>
 
-
               <label >
                 How much do you owe on your current car?
                 <Controller
                 name="ow"
                 control={control}
-                defaultValue={state.data.owed == null? 0: state.data.owed}
+                defaultValue={state.data.owed}
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput
                       name="owed"
-                      defaultValue={state.data.owed == null? 0: state.data.owed}
-                      ref={register({
-                          required: "Your Gross Income Is Required",
-                          min:0
-                        })}
+                      defaultValue={state.data.owed}
                       className="priceInput"
                       placeholder="Please enter a number"
                       prefix="$"
                       maxLength={7}
                       decimalsLimit={2}
+                      ref={register({
+                        min:0
+                      })}
                       onChange={filterDataTwo}
-                     
+                      onValueChange={onChange}
                     />
                   );
                 }}

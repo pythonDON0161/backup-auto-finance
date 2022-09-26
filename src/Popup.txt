@@ -1,0 +1,30 @@
+<Flex>
+<Modal isOpen={isOpen} onClose={onClose}>
+<ModalOverlay />
+<ModalContent>
+  <ModalHeader>Request For Personal Details</ModalHeader>
+  <ModalCloseButton />
+  <ModalBody>
+  Note: 
+  
+  We will now ask you for some personal details in order to better match you with the right Banks.
+  
+  Your information is safe. If you do not complete your request for us to send your information to Banks within 7 days, we will permanently delete your information.
+
+  </ModalBody>
+
+  <ModalFooter>
+    <Spacer></Spacer>
+      <Button  onClick={ () => { onClose(); handleEstimate2(); } }  colorScheme='blue' mr={3}>
+      Continue
+      </Button>
+    <Button onClick={onClose} variant='ghost'>Save & Exit</Button>
+    <Spacer> </Spacer>
+  
+  </ModalFooter>
+</ModalContent>
+</Modal>
+
+
+
+</Flex>

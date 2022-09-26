@@ -39,11 +39,14 @@ const CoApplicant = (props) => {
   return (
     <>
       <Header />
-      <div className="coapp">
+      
         <SimpleGrid columns={1} spacing={10}>
           <Center>
-            <Heading>Do You Have a Co-Applicant?</Heading>
+            <Heading >Do You Have a Co-Applicant?</Heading>
           </Center>
+         
+          </SimpleGrid>
+          <div className="coapp">
           <Center>
             <p>
               Having a well qualified coapplicant can significantly boost your
@@ -58,18 +61,20 @@ const CoApplicant = (props) => {
           </Center>
           <Center>
             <Link to="/ca-applicant-details">
-              <button className="inline-button" type="submit">
+              <button className="submit-button" type="submit">
                 Yes
               </button>
-            </Link>``
+            </Link>
+            </Center>
+            <Center>
             <Link to="/result2" onClick={resetCA}>
-              <button className="inline-button" type="submit">
+              <button className="submit-button" type="submit">
                 No
               </button>
             </Link>
           </Center>
           <br />
-        </SimpleGrid>
+       
         <FeedbackFish projectId="01ebf0d6447158">
           <button className="feedback">Give us Feedback</button>
         </FeedbackFish>

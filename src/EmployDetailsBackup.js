@@ -272,9 +272,9 @@ const EmploymentDetails = (props) => {
                   )}
                 </label>
 
-                <Text>
+                <Text fontWeight="medium">
 
-                Total Monthly Income: $
+                <strong>Total Monthly Income: $ </strong>
                  
 
                 { !isNaN(finale)  ? finale.toLocaleString(undefined, {minimumFractionDigits: 2}): 
