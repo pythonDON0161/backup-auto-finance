@@ -410,7 +410,10 @@ function Calculator(props) {
   /* Multiplied term by 12 to get months */
   const handleTermChangeEnd = useCallback(
     (newTerm) => {
-      state.data.terms = term;
+    state.data.terms = term;
+        console.log(state.data.terms)
+      //setValue("terms", term)
+      
       return newTerm;
     },
     [state.data.terms, term],
@@ -441,12 +444,12 @@ function Calculator(props) {
     onClose()
   }
 
-  
 
 
   let monInt = (watch("rate")/1200);
   let months = watch("term")
 
+  //console.log( filteredTerm.deposit)
 
   return (
   
@@ -750,7 +753,7 @@ function Calculator(props) {
                       { !state.data.deposit && state.data.rate &&  state.data.terms ?  (                          
                           
                         <h1>
-                            { console.log(" Deposit is 0, Rate defined, terms defined ") }
+                            
                           ${Math.round( ((state.data.price - state.data.price * (filteredTerm.deposit / 100)) *
                               (state.data.rate / 100 / 12) *
                                
@@ -785,7 +788,7 @@ function Calculator(props) {
 
                     {state.data.deposit === 0 && state.data.rate == null & !state.data.terms ?  (
                    
-                        <h1> 
+                        <h1>
                             
                           $ {Math.round( (state.data.price * (state.data.calcRate / 100 / 12) *
                               Math.pow( 1 + state.data.calcRate / 100 / 12, state.data.calcTerm)) 
@@ -794,6 +797,19 @@ function Calculator(props) {
                           ).toLocaleString("en")}
                         </h1>
                       ) : null}
+
+                 {state.data.deposit === 0 && !state.data.rate && state.data.terms ?  (
+                   
+                   <h1> 
+                       
+                     $ {Math.round( (state.data.price * (state.data.calcRate / 100 / 12) *
+                         Math.pow( 1 + state.data.calcRate / 100 / 12, (state.data.terms*12) )) 
+                            /
+                         (Math.pow( 1 + state.data.calcRate / 100 / 12, (state.data.terms*12) ) - 1)
+                     ).toLocaleString("en")}
+                   
+                   </h1>
+                 ) : null}
 
                       {state.data.deposit === 0 &&
                       state.data.rate === 0 &&
