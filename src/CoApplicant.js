@@ -34,6 +34,7 @@ const CoApplicant = (props) => {
     state.data.caCreditCard= 0
     state.data.caRent = 0
     state.data.caRatio = 0 
+    state.data.caTDSR = 0
     //window.alert("hello")
   }
   return (
@@ -67,7 +68,7 @@ const CoApplicant = (props) => {
             </Link>
             </Center>
             <Center>
-            <Link to="/result2" onClick={resetCA}>
+            <Link to="/grade-your-credit" onClick={resetCA}>
               <button className="submit-button" type="submit">
                 No
               </button>
