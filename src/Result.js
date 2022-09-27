@@ -295,8 +295,8 @@ if( caTDSR > 0 ){
               decision will be based on your credit score and other factors.
             </p>
             <Center>
-              <Link to="/thank-you">
-                <button className="submit-button">Save & Exit</button>
+              <Link to="/">
+                <button className="submit-button">Home</button>
               </Link>
             </Center>
           </div>
