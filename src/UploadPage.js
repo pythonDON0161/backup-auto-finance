@@ -17,10 +17,20 @@ import emailjs from '@emailjs/browser';
 import { getStorage, getDownloadURL } from "firebase/storage"; 
 import "./styles.css";
 
+const urlArr = new Array()
+const finArr = new Array() //[];
+const vehArr = new Array() //[];
 
-export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
+
+
+
+export const FileUpload = ({name, 
   
-  const { register,handleSubmit,errors,getValues,
+  placeholder, 
+  acceptedFileTypes,
+  props}) => {
+  
+  const { register, handleSubmit, errors, getValues,
     setValue,watch,control,ref, } = useForm();
 
   const {
@@ -46,20 +56,10 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
 
 const { action, state } = useStateMachine(updateAction);
 
-const urlArr = new Array() // [];  //store firebase download URLs
-let finArr = new Array() //[];
-let vehArr = new Array() //[];
 
+ 
 
-const [fArr, setfArr] = useState([]);
-const [vArr, setvArr] = useState([]);
-const [uArr, setuArr] = useState([]);
-
-function getARR(){
-
-  const storageRef = storage;
-
-}
+function getARR(){  const storageRef = storage;  }
 
 
 function sendEmail() {
@@ -67,16 +67,12 @@ function sendEmail() {
   //console.log(urlArr, finArr, vehArr)
   let totalIncome = parseInt(state.data.grossIncome + state.data.otherMonthlyIncome);
   //console.log(totalIncome)
-  //console.log(state.data.TDSR)
-  //console.log(urlArr)
 
-  //console.log(urlArr[0], urlArr[1])
+  //urlArr.forEach( url => console.log("in here",url) )
+ // vehArr.forEach(url => console.log(url) )
 
-  console.log("Fin Docs", finArr);
-
-  console.log("Veh Docs", vehArr);
-
-  console.log("Url Arr", urlArr);
+ console.log( vehArr )
+ 
 
   var templateParams = {
     email: state.data.email, 
@@ -90,25 +86,57 @@ function sendEmail() {
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
     tdsr : state.data.TDSR,
-    personalDocs: urlArr,
-    financialDocs: finArr,
-    vehicleDocs: vehArr
+
+    totalBorrow: state.data.totalBorrow,
+    bank1Name: state.data.bankPayments[0].thisBank,
+    bank1Payments: state.data.bankPayments[0].payment,
+    bank1Rate: state.data.bankPayments[0].rate,
+    bank1Deposit: state.data.bankPayments[0].deposit,
+    bank1Fees: state.data.bankPayments[0].fees,
+    bank1Terms: state.data.bankPayments[0].term, //Bank 2 Next --->
+    bank2Name: state.data.bankPayments[1].thisBank,
+    bank2Payments: state.data.bankPayments[1].payment,
+    bank2Rate: state.data.bankPayments[1].rate,
+    bank2Deposit: state.data.bankPayments[1].deposit,
+    bank2Fees: state.data.bankPayments[1].fees,
+    bank2Terms: state.data.bankPayments[1].term,
+    bank3Name: state.data.bankPayments[2].thisBank,
+    bank3Payments: state.data.bankPayments[2].payment,
+    bank3Rate: state.data.bankPayments[2].rate,
+    bank3Deposit: state.data.bankPayments[2].deposit,
+    bank3Fees: state.data.bankPayments[2].fees,
+    bank3Terms: state.data.bankPayments[2].term,
+
+    personalDocs:(JSON.stringify(urlArr)).replaceAll(",", "\n").replace(/[[\]]/g, "")
+    .replace(/[{}]/g, "").replace(/\"/g, ""),
+
+    financialDocs:(JSON.stringify(finArr)).replaceAll(",", "\n").replace(/[[\]]/g, "")
+    .replace(/[{}]/g, "").replace(/\"/g, ""),
+
+    vehicleDocs: (JSON.stringify(vehArr)).replaceAll(",", "\n").replace(/[[\]]/g, "")
+    .replace(/[{}]/g, "").replace(/\"/g, "") 
   };
 
-  /*
- 
+  //templateParams.push(urlArr)
+  
+  console.log(templateParams)
+/*
   emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
       .then(function(response) {
-
         console.log('SUCCESS!', response.status, response.text);
-        urlArr = []
+      }, function(error) { console.log('FAILED...', error); });
+      */
 
-      }, function(error) {
-        console.log('FAILED...', error);
-      });
+      //CUSTOMER EMAIL BELOW
     
-    } */
+  emailjs.send('auto_finance', ' template_wltw9za', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
+      .then(function(response) {
 
+         console.log('SUCCESS!', response.status, response.text);
+
+      }, function(error) { console.log('FAILED...', error); });
+
+      //template_wltw9z
   }
 
    
@@ -132,6 +160,61 @@ function sendEmail() {
   }, []);
 */
 
+/*
+let mtHtml = `
+<html><table><tbody><tr><th>Bank</th><th>Monthly Payment</th><th>Interest Rate</th><th>Deposit</th><th>Estimated Fees</th><th>Term</th></tr><tr><td>{bank1Name.toUpperCase()}</td><td>${bank1Payments.toLocaleString("`en`")}</td><td>${Math.round(bank1Rate * 100 * 100) / 100}%</td>
+<td>${(Math.round(bank1Deposit * totalBorrow * 100 ) / 100).toLocaleString("en")}</td>
+<td>
+                    ${bank1Fees.toLocaleString("en")}
+                  </td>
+                  <td>{bank1Payments} months</td>
+             
+                </tr>
+                <tr>
+                  <td>{bank2Name.toUpperCase()}</td>
+                  <td>
+                    ${bank2Payments.toLocaleString("en")}
+                  </td>
+                  <td>
+                    {Math.round(bank2Rate * 100 * 100) / 100} %
+                  </td>
+                  <td>
+                    ${(Math.round(bank2Deposit * totalBorrow * 100 ) / 100).toLocaleString("en")}
+                  </td>
+                  <td>
+                    ${bank2Fees.toLocaleString("en")}
+                  </td>
+                  <td>{bank2Term} months</td>
+                </tr>
+                <tr>
+                  <td>{bank3Name.toUpperCase()}</td>
+                  <td>
+                    ${bank3Payments.toLocaleString("en")}
+                  </td>
+                  <td>
+                    {Math.round(bank3Rate * 100 * 100) /
+                      100}
+                    %
+                  </td>
+                  <td>
+                    ${(Math.round(bank3Deposit * totalBorrow * 100) / 100).toLocaleString("en")}
+                  </td>
+                  <td>
+                    ${bank3Fees.toLocaleString("en")}
+                  </td>
+                  <td>{bank3Term} months</td>
+                 
+                          />
+                        )}
+                      />
+                    </Center>
+                  </td> 
+                </tr>
+              </tbody>
+            </table></html>`
+
+*/
+
 
   const onSubmit = (data,event) => {
     event.preventDefault();
@@ -151,6 +234,7 @@ function sendEmail() {
       if (data.identity && data.identity.length >0 ) {
       
        personalDocs.push(data.identity) } //only push to personalDocs if not undefined
+
        let personalItems = {}
 
       for( let i=0; i<2;i++ ) {
@@ -168,14 +252,12 @@ function sendEmail() {
               
         }) ) }  
 
-       urlArr.push(personalItems)
-    } console.log(urlArr) }
+   
+    } urlArr.push(personalItems); }
 
       
-  const onSubmitTwo =  (data,event) => {
+    const onSubmitTwo =  ( data,event) => {
     event.preventDefault();
-   // const el2 = document.getElementById("tabs-6--tab-2"); //will not work in production
-    //inputRefTwe = el2;
     const el3 = document.getElementsByClassName("vtab")
     inputRefTwe = el3[0] 
     inputRefTwe.click();
@@ -203,7 +285,7 @@ function sendEmail() {
            
             financialDocs.push(data.jobLetter) } 
 
-    for(let i=0; i<4;i++){
+    for (let i=0; i<4;i++) {
         let financialItems={}
 
       if(financialDocs[i] && financialDocs[i] !== undefined){ 
@@ -220,12 +302,10 @@ function sendEmail() {
               
         }  ).then(financialItems =>{ /* finArr.push(financialItems); */ } ) ) 
     }  
-   
-     // console.log(financialItems)
-     finArr.concat(financialItems)
+     finArr.push(financialItems)
        
   }  //sendEmail(); 
-  console.log(urlArr) 
+
 };
 
 
@@ -252,30 +332,26 @@ function sendEmail() {
       
       vehicleDocs.push(data.fitness) } 
 
-      for(let i=0; i<4;i++){
+    for(let i=0; i<3;i++){
+         let vehItems={}
 
-        let vehItems={}
+          if(vehicleDocs[i] && vehicleDocs[i] !== undefined){ 
 
-      if(vehicleDocs[i] && vehicleDocs[i] !== undefined){ 
+          let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `);
 
-        let link = storageRef.child(` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `);
+          storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `) 
+          .put(vehicleDocs[i][0]).then( async () => await link.getDownloadURL().then((url) => {
+              
+              vehItems[`${keyNames[i]}`] = url;
+              //setVArr( fArr => fArr.concat(url) );
+          }) ) }  
 
-        storageRef.child( ` ${state.data.firstName+" "+state.data.lastName}/vehicle/${keyNames[i]}/${vehicleDocs[i][0].name} `) 
-        .put(vehicleDocs[i][0]).then( async () => await link.getDownloadURL().then((url) => {
-            
-           vehItems[`${keyNames[i]}`] = url;
+          //console.log(vehArr) 
+          vehArr.push(vehItems);
 
-           //setVArr( fArr => fArr.concat(url) );
-
-        }).then(vehItems =>{  vehArr.push(vehItems) } ) ) 
-    }  
-
-     vehArr.push(vehItems)
-     // console.log(vehArr) 
-  }
-     sendEmail();
-  //  history.push("./authorization")
-
+     } console.log("final", vehArr) ; sendEmail() 
+  
+      //history.push("./authorization")
   };
 
   const [tabIndex, setTabIndex] = React.useState(0);
