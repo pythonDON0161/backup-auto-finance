@@ -143,9 +143,10 @@ const EmploymentDetails = (props) => {
          //console.log("watching for value", grossMonthlyIncome); //this will not log anything
          console.log( "this is gross" +grossMonthlyIncome );
          setValue("total", parseInt(grossMonthlyIncome) + parseInt(otherMonthlyIncome));
-         console.log(state.data.total)
+         //console.log(state.data.total)
          
       }, [grossMonthlyIncome,otherMonthlyIncome]);
+
 
   return (
     <>
@@ -254,17 +255,17 @@ const EmploymentDetails = (props) => {
 
                 </Text>
                 
-
                 <Center>
                   <button
                     type="submit"
-                    onClick={handleTotal}
+                    onClick={ handleTotal }
                     className="submit-button"
                     value="Save & Continue"
                   >
                     Save & Continue
                   </button>
                 </Center>
+
                 <br />
                 <Progress value={33} />
                 <Center>Step 3 of 9</Center>
@@ -289,9 +290,9 @@ const EmploymentDetails = (props) => {
                   </Center>
                   <Center>
                     <Button
-                      onClick={() =>
+                      onClick={() => 
                         loginWithRedirect({
-                          redirectUri: `${window.location.origin}/applicant-details`,
+                          redirectUri: `${window.location.origin}/employment-details`,
                         })
                       }
                     >

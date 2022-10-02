@@ -130,7 +130,7 @@ const CreditGrade = (props) => {
               <Button
                 onClick={() =>
                   loginWithRedirect({
-                    redirectUri: `${window.location.origin}/pre-qualification`,
+                    redirectUri: `${window.location.origin}/grade-your-credit`,
                   })
                 }
               >

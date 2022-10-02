@@ -4,18 +4,13 @@ import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
-import {
-  Select,
-  Progress,
-  Center,
-  Heading,
-  Container,
-  SimpleGrid,
+import {Select,Progress,Center,Heading,Container,SimpleGrid,
   Text,
   Button,
   Input,
   NumberInputField,
-  NumberInput,
+  NumberInput, Modal,ModalOverlay,ModalContent,ModalHeader, ModalFooter,ModalBody,
+  ModalCloseButton, useDisclosure
 } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
 import CurrencyInput from 'react-currency-input-field';
@@ -60,6 +55,9 @@ const EmploymentDetails = (props) => {
   const { action, state } = useStateMachine(updateAction);
 
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+  
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
 
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
@@ -101,7 +99,7 @@ const EmploymentDetails = (props) => {
           });
       });
      // handleTotal()
-       props.history.push("./ca-monthly-expenses");
+       //props.history.push("./ca-monthly-expenses");
       //console.log( state.data.caOtherMonthly , state.data.caGrossMonthly )
         
     };
@@ -158,10 +156,14 @@ const EmploymentDetails = (props) => {
   tIncome =  parseInt( sumVals( dVals ) );
   //console.log("tIncome is",tIncome);
   setValue( "caTotalMonthly", tIncome);
+  onOpen()
+
   //return tIncome;
 
   return tIncome;
- 
+  
+
+
 }
 
 
@@ -258,8 +260,7 @@ const EmploymentDetails = (props) => {
                  Total Monthly Income:${ handleTotal().toLocaleString() }
                 
          </Text>
-                
-
+              
                 <Center>
                   <button
                     type="submit"
@@ -270,6 +271,24 @@ const EmploymentDetails = (props) => {
                     Save & Continue
                   </button>
                 </Center>
+
+                <Button onClick={onOpen}>Trigger modal</Button>
+
+          <Modal onClose={onClose} isOpen={isOpen} isCentered>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Modal Title</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Text>For joint applicants who are married or living in the same household,
+ any joint expenses, eg. rent/mortgage may be shown under either of the applicants – 
+or split between the two applicants</Text>
+              </ModalBody>
+              <ModalFooter>
+                <Button onClick={onClose}>Continue</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
                 <br />
                 <Progress value={33} />
                 <Center>Step 3 of 9</Center>
@@ -296,7 +315,7 @@ const EmploymentDetails = (props) => {
                     <Button
                       onClick={() =>
                         loginWithRedirect({
-                          redirectUri: `${window.location.origin}/applicant-details`,
+                          redirectUri: `${window.location.origin}/ca-employment-details`,
                         })
                       }
                     >

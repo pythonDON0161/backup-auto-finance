@@ -262,7 +262,7 @@ const TradeIn = (props) => {
               <Button
                 onClick={() =>
                   loginWithRedirect({
-                    redirectUri: `${window.location.origin}/pre-qualification`,
+                    redirectUri: `${window.location.origin}/trade-in`,
                   })
                 }
               >

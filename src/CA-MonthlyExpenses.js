@@ -316,7 +316,7 @@ const MonthlyExpenses = (props) => {
               <Button
                 onClick={() =>
                   loginWithRedirect({
-                    redirectUri: `${window.location.origin}/applicant-details`,
+                    redirectUri: `${window.location.origin}/ca-monthly-expenses`,
                   })
                 }
               >

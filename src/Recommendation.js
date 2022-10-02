@@ -189,43 +189,7 @@ function Recommendation(props) {
                     ${state.data.bankPayments[0].fees.toLocaleString("en")}
                   </td>
                   <td>{state.data.bankPayments[0].term} months</td>
-                  {/* <td>
-                    <Center>
-                      {state.data.primaryBank !== "npa" ? (
-                        <Controller
-                          name="chosenBank"
-                          control={control}
-                          // defaultValue={state.data.chosenBank[0]}
-                          rules={{ required: false }}
-                          render={({ field }) => (
-                            <Checkbox
-                              isChecked={checkedItems[0]}
-                              onChange={(e) =>
-                                setCheckedItems([e.target.checked])
-                              }
-                              {...field}
-                            />
-                          )}
-                        />
-                      ) : (
-                        <Controller
-                          name="chosenBank"
-                          control={control}
-                          // defaultValue={state.data.chosenBank[1]}
-                          rules={{ required: false }}
-                          render={({ field }) => (
-                            <Checkbox
-                              isChecked={checkedItems[1]}
-                              onChange={(e) =>
-                                setCheckedItems([e.target.checked])
-                              }
-                              {...field}
-                            />
-                          )}
-                        />
-                      )}
-                    </Center>
-                  </td> */}
+             
                 </tr>
                 <tr>
                   <td>{state.data.bankPayments[1].thisBank.toUpperCase()}</td>
@@ -246,25 +210,6 @@ function Recommendation(props) {
                     ${state.data.bankPayments[1].fees.toLocaleString("en")}
                   </td>
                   <td>{state.data.bankPayments[1].term} months</td>
-                  {/* <td>
-                    <Center>
-                      <Controller
-                        name="chosenBank"
-                        control={control}
-                        // defaultValue={state.data.chosenBank[2]}
-                        rules={{ required: false }}
-                        render={({ field }) => (
-                          <Checkbox
-                            isChecked={checkedItems[1]}
-                            onChange={(e) =>
-                              setCheckedItems([e.target.checked])
-                            }
-                            {...field}
-                          />
-                        )}
-                      />
-                    </Center>
-                  </td> */}
                 </tr>
                 <tr>
                   <td>{state.data.bankPayments[2].thisBank.toUpperCase()}</td>
