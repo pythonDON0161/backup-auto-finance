@@ -17,13 +17,15 @@ import {
     FiBriefcase,
     FiSettings
 } from 'react-icons/fi'
-
-
+import { useStateMachine } from "little-state-machine";
+import updateAction from "../updateAction";
 import { IoPawOutline } from 'react-icons/io5'
 import NavItem from '../components/NavItem'
 
 
 export default function Sidebar() {
+
+    const { action, state } = useStateMachine(updateAction);
     const [navSize, changeNavSize] = useState("large")
     return (
         <Flex
@@ -76,20 +78,16 @@ export default function Sidebar() {
                      <NavItem navSize={navSize} icon={FiCalendar} title="Personal Information"  />
                 </Link>
 
-                <Link href="/employment-details"> 
-                   <NavItem navSize={navSize} icon={FiCalendar} title="Co-Applicant (Optional)" />
-                </Link>
-
-                <Link href="/monthly-expenses"> 
-                    {/*<NavItem navSize={navSize} icon={AiFillBank} title="Bank Selection" />*/}   
-                </Link>
-
-                <Link href="/trade-in"> 
-                   <NavItem navSize={navSize} icon={FiBriefcase} title="Additional Information" />
-                </Link>
-
                 <Link href="/co-applicant"> 
-                  <NavItem navSize={navSize} icon={FiSettings} title="Document Upload (Optional)" />
+                   <NavItem navSize={navSize} icon={FiCalendar} title="Co-Applicant" />
+                </Link>
+
+                <Link href="/bank-selection"> 
+                   <NavItem navSize={navSize} icon={FiBriefcase} title="Bank Selection" />
+                </Link>
+
+                <Link href="/document-upload"> 
+                  <NavItem navSize={navSize} icon={FiSettings} title="Document Upload" />
                 </Link>
 
             </Flex>
@@ -106,7 +104,7 @@ export default function Sidebar() {
                     <Avatar size="sm" src="avatar-1.jpg" />
                     <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
                         <Heading as="h3" size="sm"></Heading>
-                        <Text color="gray">Admin</Text>
+                        <Text color="gray">{state.data.firstName}</Text>
                     </Flex>
                 </Flex>
             </Flex>
