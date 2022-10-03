@@ -99,8 +99,8 @@ const EmploymentDetails = (props) => {
           });
       });
      // handleTotal()
-       //props.history.push("./ca-monthly-expenses");
-      //console.log( state.data.caOtherMonthly , state.data.caGrossMonthly )
+       props.history.push("./ca-monthly-expenses");
+      console.log( state.data.caOtherMonthly , state.data.caGrossMonthly )
         
     };
     
@@ -156,7 +156,7 @@ const EmploymentDetails = (props) => {
   tIncome =  parseInt( sumVals( dVals ) );
   //console.log("tIncome is",tIncome);
   setValue( "caTotalMonthly", tIncome);
-  onOpen()
+ // onOpen()
 
   //return tIncome;
 
@@ -257,7 +257,7 @@ const EmploymentDetails = (props) => {
 
                 <Text fontWeight="bold">
                  {/*Total Monthly Income:$ { !isNaN(expTot) ? expTot.toLocaleString(undefined, {minimumFractionDigits: 2}); */}
-                 Total Monthly Income:${ handleTotal().toLocaleString() }
+                 Total Monthly Income:${ (handleTotal()).toLocaleString() }
                 
          </Text>
               
@@ -271,30 +271,6 @@ const EmploymentDetails = (props) => {
                     Save & Continue
                   </button>
                 </Center>
-
-                <Button onClick={onOpen}>Trigger modal</Button>
-
-          <Modal onClose={onClose} isOpen={isOpen} isCentered>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Modal Title</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <Text>For joint applicants who are married or living in the same household,
- any joint expenses, eg. rent/mortgage may be shown under either of the applicants – 
-or split between the two applicants</Text>
-              </ModalBody>
-              <ModalFooter>
-                <Button onClick={onClose}>Continue</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-                <br />
-                <Progress value={33} />
-                <Center>Step 3 of 9</Center>
-                <FeedbackFish projectId="01ebf0d6447158">
-                  <button className="feedback">Give us Feedback</button>
-                </FeedbackFish>
 
              </form>
 
