@@ -68,7 +68,7 @@ const CoApplicant = (props) => {
             </Link>
             </Center>
             <Center>
-            <Link to="/grade-your-credit" onClick={resetCA}>
+            <Link to="/result" onClick={resetCA}>
               <button className="submit-button" type="submit">
                 No
               </button>

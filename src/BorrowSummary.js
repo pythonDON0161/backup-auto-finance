@@ -31,7 +31,7 @@ const BorrowSummary = (props) => {
   
   const onSubmit = (data) => {
     action(data);
-    props.history.push("/co-applicant");
+    props.history.push("/grade-your-credit");
     var test = 0;
     
   };
