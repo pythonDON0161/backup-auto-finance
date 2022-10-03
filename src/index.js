@@ -15,6 +15,7 @@ import EmploymentDetails from "./EmploymentDetails";
 import MonthlyExpenses from "./MonthlyExpenses.js";
 import CreditGrade from "./CreditGrade";
 import CoApplicant from "./CoApplicant";
+import CoApplicantDisclaimer from "./CoApplicantDisclaimer";
 import CAAplicantDetails from "./CA-ApplicantDetails";
 import CACreditGrade from "./CA-CreditGrade";
 import CAEmploymentDetails from "./CA-EmploymentDetails";
@@ -137,6 +138,7 @@ function App() {
             <Route path="/monthly-expenses" component={MonthlyExpenses} />
             <Route path="/grade-your-credit" component={CreditGrade} />
             <Route path="/co-applicant" component={CoApplicant} />
+            <Route path="/co-app-disclaimer" component={CoApplicantDisclaimer} />
             <Route path="/ca-applicant-details" component={CAAplicantDetails} />
            
             <Route

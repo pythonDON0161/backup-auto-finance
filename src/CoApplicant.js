@@ -61,7 +61,7 @@ const CoApplicant = (props) => {
             </p>
           </Center>
           <Center>
-            <Link to="/ca-applicant-details">
+            <Link to="/co-app-disclaimer">
               <button className="submit-button" type="submit">
                 Yes
               </button>
