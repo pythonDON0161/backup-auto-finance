@@ -159,7 +159,8 @@ const PreQual = (props) => {
     },
   ];
   
-  let carStatus = watch("carStatus");
+  //let carStatus = watch("carStatus");
+
   let modelYear = watch("modelYear");
   //getValues used instead of watch to avoid triggering re-render while entering price
   let price = getValues("price");
@@ -278,14 +279,24 @@ const PreQual = (props) => {
       />
     );
   };
-
+/*
   if (state.data.carStatus) {
     carStatus = state.data.carStatus;
   }
+*/
+let carStatus = watch("carStatus");
+
+if(!carStatus ){
+  
+  carStatus = state.data.carStatus; 
+         
+
+  } 
 
 
   return (
     <>
+   
       <div> 
 
    <div class="outer-container">
