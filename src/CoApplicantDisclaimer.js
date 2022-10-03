@@ -18,14 +18,14 @@ const CoApplicantDisclaimer = (props) => {
 
   //funciton to reset individual state variables
 
-  
+
   return (
     <>
       <Header />
       
         <SimpleGrid columns={1} spacing={10}>
           <Center>
-            <Heading >Do You Have a Co-Applicant?</Heading>
+            <Heading>Co-Applciant Disclaimer</Heading>
           </Center>
          
           </SimpleGrid>
