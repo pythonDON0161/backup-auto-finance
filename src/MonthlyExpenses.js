@@ -272,7 +272,6 @@ const MonthlyExpenses = (props) => {
          }
          </Text>
 
-
         <Center>
           <button
             type="submit"
@@ -283,6 +282,7 @@ const MonthlyExpenses = (props) => {
             Save & Continue
           </button>
         </Center>
+
         <br />
         <Progress value={44} />
         <Center>Step 4 of 9</Center>
@@ -302,7 +302,7 @@ const MonthlyExpenses = (props) => {
                 Please Log in or Sign Up below to access this page and find out
                 what you might qualify for.
               </Text>
-            </Center>
+            </Center> 
             <Center>
               <Button
                 onClick={() =>

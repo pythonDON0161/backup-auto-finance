@@ -24,7 +24,8 @@ const Result = (props) => {
     getValues,
   } = useForm();
 
-
+  
+  //register({ name: "finalTDSR", type: "custom" });
   // Handles employment risk
 
   register({name: "employmentRisk", type:"custom"});
@@ -42,6 +43,35 @@ const Result = (props) => {
 
 //console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
 
+
+var singleTDSR = state.data.estimatedExpenses / state.data.totalMonthly ;
+//setValue("tdsr", singleTDSR);
+
+   var tdsr;
+
+  //if user opts to use a co-applicant
+
+  let combinedTDSR;
+ 
+  const caTDSR = state.data.caTDSR; // co-applicant TDSR
+
+  combinedTDSR = (singleTDSR + caTDSR) / 2;
+
+  //setValue("finalTDSR", caTDSR)
+
+if( caTDSR > 0 ){
+
+  tdsr = combinedTDSR;
+
+  console.log("Combined TDSR", combinedTDSR)
+ 
+  //console.log("This is FINAL TDSR", state.data.finalTDSR)
+
+} else{ tdsr = state.data.estimatedExpenses 
+         / state.data.totalMonthly  }
+
+
+
   useEffect(() => {
     const confettiSettings = {
       target: 'my-canvas',
@@ -58,7 +88,7 @@ const Result = (props) => {
     // TDSR is calculated by estimatedExpenses divided by total monthly income
    
 
-    if(state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && 
+    if(tdsr < 0.4 && state.data.employmentStatus !== "Student" && 
     state.data.employmentStatus !== "Retired" && employmentRisk !== "yes" && state.data.creditGrade !== "Below Average" 
     && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit") {
     confetti.render();
@@ -74,37 +104,135 @@ const Result = (props) => {
   // This is the difference in milliseconds
   const currentAge = Math.floor(diff/31557600000);
   
-  var singleTDSR = state.data.estimatedExpenses / state.data.totalMonthly ;
-  var tdsr;
-
-    //if user opts to use a co-applicant
-    let combinedTDSR;
-    const caTDSR = state.data.caTDSR;
-    console.log("caTDSR "+state.data.caTDSR);
-    combinedTDSR = (singleTDSR + caTDSR) / 2;
-
-    //console.log(state.data.caRatio)
-  
-
-  if( caTDSR > 0 ){
-
-    tdsr = combinedTDSR;
-
-  } else{
-
-    tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
-
-  }
-  
-  console.log("final TDSR is:", tdsr)
+ 
   //console.log("Estimated expenses:" + "$"+state.data.estimatedExpenses.toString())
   //console.log(state.data.totalMonthly)
-
 
 
   //const combinedTDSR = (tdsr + state.data.caRatio) / 2
   //TODO use a single traffic light based on switch statement
   
+
+  const greenLight = () =>{ 
+    return (
+        <>
+
+         <div>
+            <Heading>Congratulations!</Heading>
+            <p>
+              Based on the information provided, ATL Auto believes that a car
+              loan application for{" "}
+              <strong>
+                ${Math.round(state.data.totalBorrow).toLocaleString("en")}
+              </strong>{" "}
+              would be <strong>APPROVED.</strong>
+            </p>
+            <br />
+            
+            <Grid templateColumns="repeat(3, 1fr)">
+              <GridItem colSpan={1}>
+                <img src={green} width={125} alt="Green Light" />
+              </GridItem>
+              <GridItem colSpan={2}>
+                <p className="finePrint">
+                  Note: Nothing herein constitutes an offer of finance. Final
+                  bank approval will require additional information – and its
+                  lending decision will be based on your credit score and other
+                  factors.
+                </p>
+              </GridItem>
+            </Grid>
+            <br />
+            <Center>
+            <Link to="/bank-selection">
+              <button className="submit-button">Bank Selection</button>
+            </Link>
+          </Center>
+          </div>
+        
+        </>
+
+    )}
+
+    const yellowLight = () =>{ 
+      return (
+          <>
+                     <div>
+              <p>
+                Based on the information provided, ATL Auto believes that a car
+                loan application for{" "}
+                <strong>
+                  ${Math.round(state.data.totalBorrow).toLocaleString("en")}
+                </strong>{" "}
+                may be APPROVED SUBJECT TO CONDITIONS.
+              </p>
+              <br />
+              
+              {/* {state.data.existingCarLoan > 0 && (
+                <p>
+                  The above assumes that your existing car loan of $x [is paid
+                  off/remains outstanding].
+                </p>
+              )} */}
+
+              <Grid templateColumns="repeat(3, 1fr)">
+                <GridItem colSpan={1}>
+                  <img src={amber} width={125} alt="Amber Light" />
+                </GridItem>
+
+                <GridItem colSpan={2}>
+                  These may be in relation to:
+                  <ol>
+                    <strong>
+                    {(state.data.estimatedExpenses / state.data.totalMonthly >= 0.4 && state.data.estimatedExpenses / state.data.totalMonthly <= 0.47) && (  
+                    <li>
+                      Financial Ratios – a bank may ask you to pay down some existing debt, borrow a lower amount or include a Co-Applicant
+                    </li>
+                    )}
+                    {(currentAge < 18 || currentAge > 65 || (currentAge + 6) > 65 ) && (
+                    <li>Age of Applicant/Co-Applicant</li>
+                    )}
+                    {(state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired") && (
+                    <li>Employment Status/Tenure</li>
+                    )}
+                    {(employmentRisk === "yes" ) && ( <li> Employment</li>)
+                    }
+                    {(state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit" ) && (
+                    <li>Credit Score/History</li>
+                    )}
+
+                    </strong>
+                  </ol>
+                </GridItem>
+              </Grid>
+              <br />
+              <p className="finePrint">
+                Note: Nothing herein constitutes an offer of finance. Final bank
+                approval will require additional information – and its lending
+                decision will be based on your credit score and other factors.
+              </p>
+              <br />
+            <Center>
+            <Link to="/bank-selection">
+              <button className="submit-button">Bank Selection</button>
+            </Link>
+          </Center>
+            </div>
+          </>
+  
+      )}
+
+
+      const redLight = () =>{ 
+        return (
+            <>
+
+
+            </>
+            
+            ) 
+
+        }
 
   return (
     <>
@@ -112,18 +240,17 @@ const Result = (props) => {
       <div className="result">
         {/* TDSR OUTPUT IN HTML */}
         <div className="TDSR">
-        <p>   <strong> This is single applicant's TDSR:  </strong> <large>{tdsr}</large> </p>
-        <p> {state.data.caTDSR > 0 ? <strong>
-              This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-              This is combined TDSR: {combinedTDSR} 
-                  
-                  </strong> : null} </p>
-        <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
-        <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
 
-          <br/>
+            <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
+            <p> {state.data.caTDSR > 0 ? <strong>
+                  This is co-applicant's TDSR: {state.data.caTDSR} <br/>
+                  This is combined TDSR: {combinedTDSR} 
+                      </strong> : null} </p>
+            <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+            <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
 
-          <br/>
+            <br/>
+            <br/>
 
         </div>
 
@@ -131,7 +258,9 @@ const Result = (props) => {
       
         {/* <pre>{JSON.stringify(state, null, 2)}</pre> */} 
        
-        {state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && (
+        {tdsr< 0.4 && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" 
+        
+          && state.data.creditGrade !== "Below Average" && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && (
           <>
           <div>
             <Heading>Congratulations!</Heading>
@@ -170,8 +299,8 @@ const Result = (props) => {
         )}
 
         {/* YELLOW LIGHT LOAN MAYBE */}
-        {(state.data.estimatedExpenses / state.data.totalMonthly >= 0.4 &&
-          state.data.estimatedExpenses / state.data.totalMonthly <= 0.50) || 
+        {( tdsr >= 0.4 &&
+           tdsr <= 0.50) || 
           (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || 
           employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
             <div>
@@ -191,7 +320,6 @@ const Result = (props) => {
                   off/remains outstanding].
                 </p>
               )} */}
-
 
               <Grid templateColumns="repeat(3, 1fr)">
                 <GridItem colSpan={1}>
@@ -241,7 +369,7 @@ const Result = (props) => {
         }
 
         {/* RED LIGHT LOAN DECLINED */}
-        {state.data.estimatedExpenses / state.data.totalMonthly > 0.47 && (
+        { tdsr > 0.47 && (
           <div>
               
             <p>

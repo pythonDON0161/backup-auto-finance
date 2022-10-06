@@ -68,25 +68,23 @@ const BorrowSummary = (props) => {
        )));
 
           // if user plans to keep their current car and keep paying exsiting loan
-          if(state.data.tradeIn ==="No"){ 
-           var test =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
-          }
+          if(state.data.tradeIn ==="No"){ var test =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10); }
 
-          if(state.data.tradeIn ==="N/A"){ 
-            var test =  parseInt(state.data.totalExpenses,10) ;   
-           }
+          if(state.data.tradeIn ==="N/A") { var test =  parseInt(state.data.totalExpenses,10) -  parseInt( state.data.existingCarLoan,10) ; }
 
-          if(state.data.tradeIn ==="Yes"){ 
-            var test =  parseInt(state.data.totalExpenses,10);
-           }
+          if(state.data.tradeIn ==="Yes") { var test =  parseInt(state.data.totalExpenses,10) -  parseInt( state.data.existingCarLoan,10); }
 
     const estimatedPayment = getValues("estimatedPayment");
-    console.log("This is Estimated Payment "+ estimatedPayment)
+
+    console.log("this is test variable", test)
+
+    console.log ( " This is Estimated Payment "+ estimatedPayment )
+
     //Create object estimatedExpenses and set the value
 
     // Estimated Expenses for the month
     register({ name: "estimatedExpenses", type: "custom" });
-      setValue("estimatedExpenses", test+ parseInt(estimatedPayment, 10)
+      setValue ("estimatedExpenses", test + parseInt(estimatedPayment, 10)
     );
 
     //Calculate TDSR and save to state as variable
@@ -98,6 +96,8 @@ const BorrowSummary = (props) => {
 
       
     register({ name: "finalTDSR", type: "custom" });
+    
+    console.log("this is ratio", state.data.ratio)
     
 
     //await new Promise((resolve, reject) => setTimeout(resolve, 100));
