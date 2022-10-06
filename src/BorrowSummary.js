@@ -68,7 +68,7 @@ const BorrowSummary = (props) => {
        )));
 
           // if user plans to keep their current car and keep paying exsiting loan
-          if(state.data.tradeIn ==="No"){ var test =  parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10); }
+          if(state.data.tradeIn ==="No"){ var test =  parseInt(state.data.totalExpenses,10) }
 
           if(state.data.tradeIn ==="N/A") { var test =  parseInt(state.data.totalExpenses,10) -  parseInt( state.data.existingCarLoan,10) ; }
 
@@ -92,9 +92,10 @@ const BorrowSummary = (props) => {
 
     const estimatedExpenses = getValues("estimatedExpenses");
 
+    console.log("this is estimated expenses", estimatedExpenses)
+
     setValue( "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10) );
 
-      
     register({ name: "finalTDSR", type: "custom" });
     
     console.log("this is ratio", state.data.ratio)

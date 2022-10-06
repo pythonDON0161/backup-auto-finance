@@ -44,7 +44,7 @@ const Result = (props) => {
 //console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
 
 
-var singleTDSR = state.data.estimatedExpenses / state.data.totalMonthly ;
+var singleTDSR = state.data.ratio
 //setValue("tdsr", singleTDSR);
 
    var tdsr;
@@ -52,24 +52,16 @@ var singleTDSR = state.data.estimatedExpenses / state.data.totalMonthly ;
   //if user opts to use a co-applicant
 
   let combinedTDSR;
- 
+
   const caTDSR = state.data.caTDSR; // co-applicant TDSR
-
   combinedTDSR = (singleTDSR + caTDSR) / 2;
-
   //setValue("finalTDSR", caTDSR)
 
 if( caTDSR > 0 ){
-
   tdsr = combinedTDSR;
-
   console.log("Combined TDSR", combinedTDSR)
- 
   //console.log("This is FINAL TDSR", state.data.finalTDSR)
-
-} else{ tdsr = state.data.estimatedExpenses 
-         / state.data.totalMonthly  }
-
+} else{ tdsr = singleTDSR  }
 
 
   useEffect(() => {
@@ -88,7 +80,7 @@ if( caTDSR > 0 ){
     // TDSR is calculated by estimatedExpenses divided by total monthly income
    
 
-    if(tdsr < 0.4 && state.data.employmentStatus !== "Student" && 
+    if(tdsr < 0.4 && ( currentAge >=  18 && (currentAge - 6) < 65 ) && state.data.employmentStatus !== "Student" && state.data.employmentStatus !== "Unemployed" && 
     state.data.employmentStatus !== "Retired" && employmentRisk !== "yes" && state.data.creditGrade !== "Below Average" 
     && state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit") {
     confetti.render();
@@ -103,7 +95,25 @@ if( caTDSR > 0 ){
   const diff = cur - birthdateTimeStamp;
   // This is the difference in milliseconds
   const currentAge = Math.floor(diff/31557600000);
+
+  let coAppFrom
+  let cobirthdate 
+  let coAppCur
+  let coAppdiff 
+  let coAppAge
+
+
+  if( caTDSR > 0 ){
+    coAppFrom = state.data.caDateOfBirth.split("/");
+    cobirthdate = new Date( coAppFrom[2], coAppFrom[1] - 1, coAppFrom[0] );
+    coAppCur = new Date();
+    coAppdiff = coAppCur - cobirthdate;
+    // This is the difference in milliseconds
+    coAppAge = Math.floor(coAppdiff/31557600000);
+
+  }
   
+  console.log(currentAge)
  
   //console.log("Estimated expenses:" + "$"+state.data.estimatedExpenses.toString())
   //console.log(state.data.totalMonthly)
@@ -157,7 +167,7 @@ if( caTDSR > 0 ){
     const YellowLight = () =>{ 
       return (
           <>
-                     <div>
+            <div>
               <p>
                 Based on the information provided, ATL Auto believes that a car
                 loan application for{" "}
@@ -196,6 +206,9 @@ if( caTDSR > 0 ){
                     <li>Employment Status/Tenure</li>
                     )}
                     {(employmentRisk === "yes" ) && ( <li> Employment</li>)
+                    }
+                     
+                      {(state.data.employmentStatus === "Unemployed" ) && ( <li> Employment</li>)
                     }
                     {(state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit" ) && (
                     <li>Credit Score/History</li>
@@ -256,13 +269,20 @@ if( caTDSR > 0 ){
                     </li>
                     )}
                     {(currentAge < 18 || currentAge > 65 || (currentAge + 6) > 65 ) && (
-                    <li>Age of Applicant/Co-Applicant</li>
+                    <li>Age of Applicant</li>
+                    )}
+                    {( coAppAge < 18 || coAppAge > 65 || (coAppAge + 6) > 65 ) && (
+                       <li>Age of Co-Applicant</li>
+
                     )}
                     {(state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired") && (
                     <li>Employment Status/Tenure</li>
                     )}
                      {(employmentRisk === "yes" ) && ( <li> Employment</li>)
                     }
+                      {(state.data.employmentStatus === "Unemployed" ) && ( <li> Employment</li>)
+                    }
+
                     {(state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit" ) && (
                     <li>Credit Score/History</li>
                     )}
@@ -304,6 +324,7 @@ if( caTDSR > 0 ){
             ) 
 
         }
+
 if( tdsr> 0.5){
   return (
     <>
@@ -334,8 +355,11 @@ if( tdsr> 0.5){
 
 }
 
-else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && state.data.creditGrade !== "Below Average" && 
-   state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit"){
+else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentRisk !=="yes" && state.data.employmentStatus !== "Retired" && 
+   state.data.creditGrade !== "Below Average" && state.data.employmentStatus !=="Unemployed" && 
+  
+   state.data.creditGrade !== "Overseas" && state.data.creditGrade !== "No Credit" && 
+   ( currentAge >=  18 && (currentAge - 6) < 65 )  )   {
 
   return (
     <>
@@ -360,24 +384,25 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
        
        <GreenLight></GreenLight>
              
-
       </div>
     </>
 
    ) } 
    
-   else if( (tdsr>= 0.4 &&
-    tdsr<= 0.50) || (state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" || 
-    employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" 
-    || state.data.creditGrade === "No Credit") )
-    {
+   else if( (tdsr>= 0.4 && tdsr<= 0.50) || 
+   ( state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" ||  
+     state.data.employmentStatus === "Unemployed" || employmentRisk === "yes" || state.data.creditGrade === "Below Average" ||  
+     state.data.creditGrade === "Overseas" || (currentAge < 18 || currentAge > 65 || (currentAge + 6) > 65 ) ||
+     state.data.creditGrade === "No Credit" )  
+     
+     ) {
       return (
         <>
           <Header />
           <div className="result">
             {/* TDSR OUTPUT IN HTML */}
             <div className="TDSR">
-    
+               
                 <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
                 <p> {state.data.caTDSR > 0 ? <strong>
                       This is co-applicant's TDSR: {state.data.caTDSR} <br/>
@@ -392,8 +417,44 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
     
           <canvas id="my-canvas">  </canvas>
            <YellowLight></YellowLight>
+      
           </div>
         </>)
+    } 
+
+
+    else if(tdsr<0.4 && ( state.data.employmentStatus === "Student" || state.data.employmentStatus === "Retired" ||  
+    state.data.employmentStatus === "Unemployed" || employmentRisk === "yes" || state.data.creditGrade === "Below Average" ||  
+    state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit"))
+    {
+      return (
+        <>
+          <Header />
+          <div className="result">
+            {/* TDSR OUTPUT IN HTML */}
+            <div className="TDSR">
+
+                <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
+                <h2>hyyy</h2>
+                <p> {state.data.caTDSR > 0 ? <strong>
+                      This is co-applicant's TDSR: {state.data.caTDSR} <br/>
+                      This is combined TDSR: {combinedTDSR} 
+                          </strong> : null} </p>
+                <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
+                <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
+                 <br/>
+                <br/>
+    
+            </div>
+                  
+          <canvas id="my-canvas">  
+             <YellowLight></YellowLight>
+           </canvas>
+      
+          </div>
+        </>
+        
+        )
     }
       else{
         
