@@ -48,6 +48,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import Authorization from "./Authorization";
 import Communication from "./Communication"
 import NextSteps from "./NextSteps";
+import Navigation from "./Navigation"
 import ThankYou from "./ThankYou";
 import Protect from 'react-app-protect'
 import theme from './theme'
@@ -90,7 +91,6 @@ createStore({
       caRent: 0,
       owed: 0,
       currentCar: 0,
-    
       bankPayments: [],
       employmentRisk: "",
       cashDown: 0,
@@ -123,6 +123,9 @@ function App() {
           <Router>
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={Home} />
+
+            <Route path="/navigation" component={Navigation} />
+
             <Route path="/loan-calculator" component={Calculator} />
             <Route path="/request-quote" component={RequestQuotePrompt} />
             <Route path="/pre-qualification" component={PreQual} />
@@ -167,7 +170,7 @@ function App() {
             <Route path="/credit-report" component={CreditReport} />
             <Route path="/document-upload" component={DocumentUpload} />
             <Route path="/upload-section" component={UploadSection} />
-            <Route path="/upload-pagge" component={DocumentUpload} />
+            <Route path="/upload-page" component={DocumentUpload} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/authorization" component={Authorization} />
             <Route path="/preference" component={Communication} />

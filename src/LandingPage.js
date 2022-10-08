@@ -83,7 +83,7 @@ function LandingPage() {
                 Compare loan offers to find the loan that is right for you
                 </h3>
                 <div className="mt-3 sm:mt-5 ">
-                  <Link to="/pre-qualification">
+                  <Link to="/navigation">
                     <Button className="mr-5 mb-5">Find Bank Deals</Button>
                   </Link>
                 </div>
