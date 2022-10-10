@@ -12,7 +12,7 @@ import {
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 
-const CoApplicantDisclaimer = (props) => {
+const SubmitApplication = (props) => {
   
   const { action, state } = useStateMachine(updateAction);
 
@@ -24,25 +24,25 @@ const CoApplicantDisclaimer = (props) => {
       <Header />
       
         <SimpleGrid columns={1} spacing={0}>
-          
           <Center>
-            <Heading>Co-Applciant Disclaimer</Heading>
+            <Heading style={{textAlign:"center"}}>Submitting Your Application</Heading>
           </Center>
          
           </SimpleGrid>
           <div className="coapp">
           <Center>
-            <Text fontWeight="bold">
-            For joint applicants who are married or living in the same household, 
-            any joint expenses, eg. rent/mortgage may be shown under either of the applicants – or split between the two applicants
+            <Text fontWeight="bold" textAlign="center">
+                Please click the “Finish/Submit My Application” button below for us to send your information to the banks 
+                you have selected.
             </Text>
           </Center>
+
           <Center>
-            <Link to="/ca-applicant-details">
-              <button className="submit-button" type="submit">
-              Continue
-              </button>
-            </Link>
+                <Link to="/thank-you">
+                    <button className="submit-button" type="submit">
+                    Continue
+                    </button>
+                </Link>
             </Center>
   
           <br />
@@ -55,4 +55,4 @@ const CoApplicantDisclaimer = (props) => {
   );
 };
 
-export default withRouter(CoApplicantDisclaimer);
+export default withRouter(SubmitApplication);

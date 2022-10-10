@@ -114,9 +114,7 @@ const EmploymentDetails = (props) => {
         <div className="header-container">
           </div>
 
-     <div class="sidebar-container">   
-       <Sidebar></Sidebar>
-       </div>
+   
        <div class="form-container"> 
       <Header />
       { isAuthenticated && (

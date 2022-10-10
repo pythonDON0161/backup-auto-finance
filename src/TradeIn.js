@@ -26,6 +26,11 @@ import CurrencyInput from 'react-currency-input-field';
 
 const TradeIn = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
+
+  const Authenticated = useAuth0().isAuthenticated;
+  const Loading = useAuth0.isLoading;
+
+
   const { register, handleSubmit,control, setValue, watch, errors } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const headers = new Headers();
@@ -80,8 +85,6 @@ const TradeIn = (props) => {
     if (watchTradeIn === "N/A") {
       props.history.push("./cash-down");
     }
-    
-
 
   };
  
@@ -157,8 +160,8 @@ const TradeIn = (props) => {
                         prefix="$"
                         maxLength={7}
                         decimalsLimit={2}
-                        defaultValue={state.data.currentCar }
-                        onChange={filterData}
+                        defaultValue={ state.data.currentCar }
+                        onChange={ filterData }
                       
                     />
                   );
@@ -238,8 +241,11 @@ const TradeIn = (props) => {
             <button className="feedback">Give us Feedback</button>
           </FeedbackFish>
         </form>
-      )}
-      {!isAuthenticated && (
+      )
+    }
+
+    { (!Authenticated && !Loading) && 
+       (
         <Container centerContent class="pt-8">
           <SimpleGrid columns={1} spacing="20px">
             {/* <Center>
@@ -271,7 +277,8 @@ const TradeIn = (props) => {
             </Center>
           </SimpleGrid>
         </Container>
-      )}
+      )
+    }
     </>
   );
 };

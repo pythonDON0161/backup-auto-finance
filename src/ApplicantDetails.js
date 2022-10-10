@@ -59,10 +59,7 @@ const ApplicantDetails = (props) => {
         <div className="header-container">
        
           </div>
-      <div class="sidebar-container">   
-       <Sidebar></Sidebar>
-
-       </div>
+  
    
       <div class="form-container"> 
       <Header />
@@ -78,10 +75,13 @@ const ApplicantDetails = (props) => {
             ref={register({ required: true })}
             defaultValue={state.data.firstName}
           />
-          {errors.firstName && (
+
+          { errors.firstName && (
             <p className="error">Please enter your first name</p>
-          )}
+           )}
+
         </label>
+
         <label>
           Middle Initials:
           <Input

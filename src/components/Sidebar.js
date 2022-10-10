@@ -1,21 +1,8 @@
 import React, { useState } from 'react'
-import {
-    Flex,
-    Text,
-    IconButton,
-    Divider,
-    Avatar,
-    Heading,
-    Link
+import {Flex,Text,IconButton,Divider,Avatar,Heading,Link
 } from '@chakra-ui/react'
 import {
-    FiMenu,
-    FiHome,
-    FiCalendar,
-    FiUser,
-    FiDollarSign,
-    FiBriefcase,
-    FiSettings
+    FiMenu,FiHome,FiCalendar,FiUser,FiDollarSign,FiBriefcase,FiSettings
 } from 'react-icons/fi'
 import { useStateMachine } from "little-state-machine";
 import updateAction from "../updateAction";
@@ -71,7 +58,7 @@ export default function Sidebar() {
                    
                     </NavItem>
                      {/*TODO: Link to different pages in the application options include : using anchor tag using react link component*/ }
-
+                     
                 </Link>
 
                 <Link href="/applicant-details" > 

@@ -43,6 +43,8 @@ import CreditReportPrompt from "./CreditReportPrompt";
 import CreditReport from "./CreditReport";
 import DocumentUpload from "./DocumentUpload";
 import UploadSection from "./UploadPage";
+import SubmitApplication from "./SubmitApplication";
+
 import "./styles.css";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Authorization from "./Authorization";
@@ -68,6 +70,8 @@ const providerConfig = {
   domain: "dev-finance.us.auth0.com",
   clientId: "uLylhzwK0tAmPFwq6mOlMsYLnEy5Q7ME",
   redirectUri: window.location.origin,
+  useRefreshTokens:true,
+  cacheLocation:"localstorage",
   onRedirectCallback,
 };
 
@@ -171,6 +175,7 @@ function App() {
             <Route path="/document-upload" component={DocumentUpload} />
             <Route path="/upload-section" component={UploadSection} />
             <Route path="/upload-page" component={DocumentUpload} />
+            <Route path="/submit-application" component={SubmitApplication} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/authorization" component={Authorization} />
             <Route path="/preference" component={Communication} />

@@ -159,7 +159,7 @@ const CashDown = (props) => {
                 onClick={() =>
 
                  loginWithRedirect({
-                  redirectUri: `${window.location.origin}/pre-qualification`,
+                  redirectUri: `${window.location.origin}/cash-down`,
                   })
                 }
               >

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm, Controller} from "react-hook-form";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Input, Progress, Center, Heading,
@@ -15,6 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./components/Header";
 
 const AdditionalInfo = (props) => {
+
   const { handleSubmit, register, errors, control,watch } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
@@ -58,6 +59,14 @@ const AdditionalInfo = (props) => {
   const choiceTwo = watch('optiTwo')
 
   useEffect( () => { console.log (choice) }, [choice] )
+
+  const history = useHistory();
+
+  if (!state.data.ratio){
+
+    history.push("/applicant-details");
+
+  }
 
   return (
     <>

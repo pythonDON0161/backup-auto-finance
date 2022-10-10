@@ -303,9 +303,7 @@ if(!carStatus ){
         <div className="header-container">
       
       </div>
-      <div class="sidebar-container">   
-      <Sidebar></Sidebar>
-      </div>
+      
       <Header />
       {isAuthenticated && (
         <form onSubmit={handleSubmit(onSubmit)}>

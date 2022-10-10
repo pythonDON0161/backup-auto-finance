@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { withRouter } from "react-router-dom";
+import { withRouter,useHistory } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Select, Progress, Center, Heading, Container, SimpleGrid, Text, Button } from "@chakra-ui/react";
@@ -9,6 +9,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./components/Header";
 
 const BankSelection = (props) => {
+
+  const history = useHistory();
+
+
+
   const { register, handleSubmit, errors, setValue, getValues } = useForm();
   const { action, state } = useStateMachine(updateAction);
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
@@ -60,9 +65,9 @@ const BankSelection = (props) => {
 
     register({ name: "TDSR", type: "custom" }); // register TDSR value in React Hook Form
     
-    combinedTDSR = caTDSR + Math.round( (totalCost / totalEarned) * 100) / 100; // sum co-applicant and single applicant TDSR
+   // combinedTDSR = caTDSR + Math.round( (totalCost / totalEarned) * 100) / 100; // sum co-applicant and single applicant TDSR
 
-    console.log( "combinedTDSR", combinedTDSR) // Log value of combined TDSR
+    //console.log( "combinedTDSR", combinedTDSR) // Log value of combined TDSR
 
     if (caTDSR > 0) {
 

@@ -22,8 +22,6 @@ const finArr = new Array() //[];
 const vehArr = new Array() //[];
 
 
-
-
 export const FileUpload = ({name, 
   
   placeholder, 
@@ -57,6 +55,13 @@ export const FileUpload = ({name,
 const { action, state } = useStateMachine(updateAction);
 
 
+const history = useHistory()
+
+if (!state.data.ratio){
+
+  history.push("/applicant-details");
+
+}
  
 
 function getARR(){  const storageRef = storage;  }
@@ -71,7 +76,7 @@ function sendEmail() {
   //urlArr.forEach( url => console.log("in here",url) )
  // vehArr.forEach(url => console.log(url) )
 
- console.log( vehArr )
+ console.log(vehArr)
  
 
   var templateParams = {
@@ -309,7 +314,7 @@ let mtHtml = `
 };
 
 
-  let history = useHistory();
+
 
 
   const onSubmitThree = (data,event) => {
@@ -349,9 +354,11 @@ let mtHtml = `
           //console.log(vehArr) 
           vehArr.push(vehItems);
 
-     } console.log("final", vehArr) ; sendEmail() 
+     } console.log("final", vehArr) ; 
+     
+     //sendEmail() 
   
-      //history.push("./authorization")
+      history.push("./submit-application")
   };
 
   const [tabIndex, setTabIndex] = React.useState(0);
