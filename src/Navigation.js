@@ -17,7 +17,7 @@ import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import {FiMenu,FiHome,FiCalendar,FiUsers,FiDollarSign,FiBriefcase,FiUser,FiSettings
 } from 'react-icons/fi'
-import{AiOutlineBank} from 'react-icons/ai'
+import{AiOutlineBank,AiFillCheckCircle} from 'react-icons/ai'
 import {ImArrowDown} from 'react-icons/im'
 import NavItem from './components/NavItem';
 import {GrDocumentUpload} from 'react-icons/gr'
@@ -39,12 +39,18 @@ const Navigation = (props) => {
   
   const [clicked2, setClicked2] = useState('hidden');
 
+  const [clicked3, setClicked3] = useState('hidden');
+
   const handleClick = () => {
     state.data.ratio ?  history.push('/bank-selection') : setClicked('show');
   };
 
   const handleClick2 = () => {
     state.data.ratio ? history.push('/upload-page'): setClicked2('show');
+  };
+
+  const handleClick3 = () => {
+    state.data.ratio ? history.push('/thank-you'): setClicked3('show');
   };
 
   const [navSize, changeNavSize] = useState("large");
@@ -82,32 +88,32 @@ const Navigation = (props) => {
         <SimpleGrid spacing={1}>          
 
             <Center> 
-            <Link to="/pre-qualification"> 
-                <HStack> 
-                  <button className="nav-button">PERSONAL INFORMATION</button>
-                </HStack>
-            </Link>
+              <Link to="/pre-qualification"> 
+                  <HStack> 
+                    <button className="nav-button">PERSONAL INFORMATION</button> 
+                  </HStack>
+              </Link>
             </Center>
 
           <Center  p={0}> <ImArrowDown  color="#e65323" size={50} /> </Center>
             
             
            <Center> 
-           <Link to="/co-app-disclaimer">
-              <HStack> 
-                  <button className="nav-button">CO-APPLICANT INFORMATION</button>
-              </HStack>
-           </Link>
+            <Link to="/co-app-disclaimer">
+                <HStack> 
+                    <button className="nav-button">CO-APPLICANT INFORMATION</button>
+                </HStack>
+            </Link>
            </Center>
 
            <Center p={0}> <ImArrowDown color="#e65323" size={50} /> </Center>
            
        
            <Center p={0}> 
-           <Link > 
-              <HStack> 
-                  <button  onClick={ handleClick } className="nav-button">BANK SELECTION</button>
-              </HStack>
+            <Link > 
+                <HStack> 
+                    <button  onClick={ handleClick } className="nav-button">BANK SELECTION</button>
+                </HStack>
               </Link>
            </Center>
 
@@ -120,11 +126,11 @@ const Navigation = (props) => {
 
            
            <Center p={0} > 
-            <Link > 
-              <HStack> 
-                <button onClick={ handleClick2 } className="nav-button">DOCUMENT UPLOAD</button>
-              </HStack>
-            </Link>
+              <Link > 
+                <HStack> 
+                  <button onClick={ handleClick2 } className="nav-button">DOCUMENT UPLOAD</button>
+                </HStack>
+              </Link>
            </Center>
 
               <Center> 
@@ -134,9 +140,14 @@ const Navigation = (props) => {
 
            <Center mt={5}> 
               <Link to="/upload-page"> 
-                  <button  style={{backgroundColor:"green"}} className="nav-button">FINISH/SUBMIT MY APPLICATION</button>
+                  <button onClick={ handleClick3 } style={{backgroundColor:"green"}} className="nav-button">FINISH/SUBMIT MY APPLICATION</button>
               </Link>
            </Center>
+           
+           <Center> 
+                  <Text style={{width:"70%",textAlign:"center",color:"red",fontWeight:600, border:"3px red solid"}} 
+                  className={clicked3}> Please complete Personal Information Module !</Text>
+                </Center>
 
            <Spacer>
 
