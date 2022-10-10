@@ -7,7 +7,7 @@ import {
   SimpleGrid,
   Center,
   Progress,
-  Heading,
+  Heading,Text
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
@@ -23,7 +23,7 @@ const CoApplicantDisclaimer = (props) => {
     <>
       <Header />
       
-        <SimpleGrid columns={1} spacing={10}>
+        <SimpleGrid columns={1} spacing={0}>
           <Center>
             <Heading>Co-Applciant Disclaimer</Heading>
           </Center>
@@ -31,10 +31,10 @@ const CoApplicantDisclaimer = (props) => {
           </SimpleGrid>
           <div className="coapp">
           <Center>
-            <p>
+            <Text fontWeight="bold">
             For joint applicants who are married or living in the same household, 
             any joint expenses, eg. rent/mortgage may be shown under either of the applicants – or split between the two applicants
-            </p>
+            </Text>
           </Center>
           <Center>
             <Link to="/ca-applicant-details">
