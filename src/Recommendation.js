@@ -10,6 +10,9 @@ import { render } from "@testing-library/react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Recommendation(props) {
+
+ 
+
   const { handleSubmit, register } = useForm();
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const { action, state } = useStateMachine(updateAction);
@@ -50,6 +53,8 @@ function Recommendation(props) {
   const [approvedBanks] = useState([]);
   const [monthlyPayments] = useState([]);
 
+  //console.log("hello")
+
   async function fetchTDSR(data) {
     setIsLoading(true);
     const response = await fetch(
@@ -60,15 +65,20 @@ function Recommendation(props) {
       }
     );
     const ratio = await response.json();
+   
     const tdsrobj = Object.values(ratio);
+   
+
+    console.log(state.data.ratio)
     //Pre Qualification: Filter for banks qualified for based on TDSR
     //Current: pushes banks where TDSR is less than their maximum to a seperate array name approved banks.
     tdsrobj[0].map((item) => {
-      if (state.data.TDSR <= item.maximum) {
+      if (state.data.ratio <= item.maximum) {
         approvedBanks.push({ item });
       }
     });
-    // console.log(approvedBanks);
+     console.log("banks", approvedBanks);
+     
     async function calculateLowestMonthly() {
       for (let j = 0; j < approvedBanks.length; j++) {
         const thisBank = approvedBanks[j].item.banks.toLowerCase();
@@ -80,6 +90,7 @@ function Recommendation(props) {
           }
         );
         const bankData = await response.json();
+     
         const bankObj = Object.values(bankData);
         //Calculate each approved bank's monthly payment
         let payment = Math.round(
