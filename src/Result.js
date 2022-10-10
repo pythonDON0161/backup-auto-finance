@@ -52,9 +52,12 @@ var singleTDSR = state.data.ratio
   //if user opts to use a co-applicant
 
   let combinedTDSR;
+  let combinedTDSR2
 
   const caTDSR = state.data.caTDSR; // co-applicant TDSR
   combinedTDSR = (singleTDSR + caTDSR) / 2;
+  combinedTDSR2 = (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
+    (state.data.totalMonthly + state.data.caTotalMonthly)
   //setValue("finalTDSR", caTDSR)
 
 if( caTDSR > 0 ){
@@ -373,6 +376,9 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
                   This is co-applicant's TDSR: {state.data.caTDSR} <br/>
                   This is combined TDSR: {combinedTDSR} 
                       </strong> : null} </p>
+
+           <p> <strong> {"Second combinedTDSR:" +  combinedTDSR2 }  </strong> </p>
+
             <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
             <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
              <br/>
