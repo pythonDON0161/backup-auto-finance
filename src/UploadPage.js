@@ -90,7 +90,7 @@ function sendEmail() {
     carPrice: state.data.price,
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
-    tdsr : state.data.TDSR,
+    tdsr : state.data.ratio,
 
     totalBorrow: state.data.totalBorrow,
     bank1Name: state.data.bankPayments[0].thisBank,
@@ -124,7 +124,7 @@ function sendEmail() {
 
   //templateParams.push(urlArr)
   
-  console.log(templateParams)
+// console.log(templateParams)
 /*
   emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
       .then(function(response) {
@@ -356,7 +356,7 @@ let mtHtml = `
 
      } console.log("final", vehArr) ; 
      
-     //sendEmail() 
+     sendEmail() 
   
       history.push("./submit-application")
   };
