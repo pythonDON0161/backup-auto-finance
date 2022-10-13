@@ -157,6 +157,7 @@ const MonthlyExpenses = (props) => {
                       prefix="$"
                       defaultValue={state.data.mortgage}
                       maxLength={7}
+                      min={0}
                       decimalsLimit={2}
                       onChange={({ target }) => changeValues(target)}
                       onValueChange={onChange}
@@ -266,7 +267,7 @@ const MonthlyExpenses = (props) => {
         </label>
                   {console.log(total,expTot )}
         <Text fontWeight="bold">
-         Total Monthly Obligations:$ { !isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 2})
+         Total Monthly Obligations:$ { !isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 0})
          : handleTotal()
          
          }

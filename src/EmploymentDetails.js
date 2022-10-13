@@ -248,7 +248,7 @@ const EmploymentDetails = (props) => {
                 
                 { !isNaN(finale)  ? finale.toLocaleString(undefined, {minimumFractionDigits: 2}): 
                 <>
-                  { isNaN(parseInt(grossMonthlyIncome)) ? 0: parseInt(grossMonthlyIncome).toLocaleString(undefined, {minimumFractionDigits: 2}) }
+                  { isNaN(parseInt(grossMonthlyIncome)) ? 0: parseInt(grossMonthlyIncome).toLocaleString(undefined, {minimumFractionDigits: 0}) }
                 </> } 
 
                 </Text>
