@@ -94,11 +94,9 @@ const BorrowSummary = (props) => {
 
     console.log("this is estimated expenses", estimatedExpenses)
 
-
-
     setValue( "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10) );
 
-    register({ name: "finalTDSR", type: "custom" });
+   
     
     console.log("this is ratio", state.data.ratio)
     
