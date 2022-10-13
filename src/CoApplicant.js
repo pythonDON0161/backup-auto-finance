@@ -57,7 +57,7 @@ const CoApplicant = (props) => {
               considered for a loan.{" "}
               <br />
               <br />
-              Where mortgage, rent or other obligations are joint, you may show the entire monthly payment under either applicant, or split between the two applicants
+             
             </p>
           </Center>
           <Center>
