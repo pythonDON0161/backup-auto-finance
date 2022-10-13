@@ -94,6 +94,8 @@ const BorrowSummary = (props) => {
 
     console.log("this is estimated expenses", estimatedExpenses)
 
+
+
     setValue( "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10) );
 
     register({ name: "finalTDSR", type: "custom" });
@@ -117,7 +119,7 @@ const BorrowSummary = (props) => {
             <Text fontSize="2xl">
               Based on your information, you would wish to borrow
               <strong> ${(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) > 0 && <>
-                {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown).toLocaleString("en")}
+                {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown).toLocaleString(undefined, {minimumFractionDigits: 0})}
               </>}
               {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) < 0 && <>
                 0
@@ -128,7 +130,7 @@ const BorrowSummary = (props) => {
             <Text fontSize="3xl">
               Based on your information, you would wish to borrow{" "} 
               <strong>{(state.data.price) > 0 && <>
-               ${(state.data.price - (state.data.towardsPurchase + state.data.cashDown)).toLocaleString("en")}
+               ${(state.data.price - (state.data.towardsPurchase + state.data.cashDown)).toLocaleString(undefined, {minimumFractionDigits: 0})}
               </>}</strong>
               {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) < 0 && <>
                 0
@@ -143,10 +145,7 @@ const BorrowSummary = (props) => {
               Price of new car:{" "}
 
               <strong style={{textAlign: "right"}}>
-              {(state.data.price - 0).toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}</strong>
+              {(state.data.price - 0).toLocaleString(undefined, {minimumFractionDigits: 0})}</strong>
 
               <br />
               <br />
@@ -154,12 +153,7 @@ const BorrowSummary = (props) => {
                       the positive value is not overwritten  */}
               Less sale/trade-in from current car:{" "}
               <strong>
-              {(state.data.towardsPurchase - 0).toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })}
+              {(state.data.towardsPurchase - 0).toLocaleString(undefined, {minimumFractionDigits: 0})}
               </strong>
 
               <br />
@@ -178,7 +172,7 @@ const BorrowSummary = (props) => {
               Total borrow amount:{" "} 
               <strong>
                ${(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) > 0 && <>
-                {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown).toLocaleString("en")}
+                {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown).toLocaleString(undefined, {minimumFractionDigits: 0})}
                 
               </>}
               
