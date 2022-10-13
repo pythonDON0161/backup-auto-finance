@@ -107,7 +107,6 @@ const EmploymentDetails = (props) => {
 
   const watchStatus = watch("employmentStatus", state.data.employmentStatus);
 
-  
   //const finale = watch("caTotalMonthly")
   //const caGrossIncome = Number(watch("caGrossMonthly") )
   //const caOtherIncome = Number(watch("caOtherMonthly"))
@@ -124,7 +123,6 @@ const EmploymentDetails = (props) => {
   const [caTotal, set_caTotal] = useState(0);
 
   useEffect(() => {
-
     const arrValues = Object.values( input_values );
     const inputTotals = arrValues.reduce( (accum, curr) => (accum += curr), 0 );
     set_caTotal( parseInt(inputTotals).toLocaleString() );
@@ -156,14 +154,10 @@ const EmploymentDetails = (props) => {
   tIncome =  parseInt( sumVals( dVals ) );
   //console.log("tIncome is",tIncome);
   setValue( "caTotalMonthly", tIncome);
- // onOpen()
-
-  //return tIncome;
+  //onOpen()
 
   return tIncome;
   
-
-
 }
 
 
