@@ -93,6 +93,7 @@ createStore({
       caOtherLoans: 0,
       caCreditCard: 0,
       caRent: 0,
+      testVal: 0,
       owed: 0,
       currentCar: 0,
       bankPayments: [],
