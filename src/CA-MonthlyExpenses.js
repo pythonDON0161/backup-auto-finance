@@ -68,6 +68,7 @@ const MonthlyExpenses = (props) => {
   const totalEarned = state.data.caTotalMonthly
   
   { register({name: "caTotalExpenses", type: "custom"})};
+  { register({name: "finalRatio", type: "custom"})};
 
   { register({name: "caTDSR", type: "custom"})}
 
@@ -122,20 +123,25 @@ const MonthlyExpenses = (props) => {
    
     tExpenses =  parseInt(sumVals(dVals) );
 
+    setValue("testVal", tExpenses)
+
     //console.log(tExpenses);
-
+   let combinedTDSR2;
+  
     setValue( "caTotalExpenses", tExpenses);
+    combinedTDSR2 = (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
+    (state.data.totalMonthly + state.data.caTotalMonthly)
 
-    setValue("caTDSR", Math.round( (tExpenses / totalEarned ) * 100) / 100);
+    setValue( 'finalRatio', combinedTDSR2);
+
+    setValue("caTDSR", parseFloat( ((tExpenses / totalEarned ) * 100 / 100))  );
 
     tempTDSR = state.data.caTDSR //getValues("caTDSR")
 
     //console.log("tempTDSR",tempTDSR)
-
-    setValue("finalTDSR", tempTDSR );
-
+    console.log("caTDSR", state.data.caTDSR)
    
-
+   
     //console.log("finaltdsr", state.data.finalTDSR)
 
     return tExpenses;
@@ -149,6 +155,8 @@ const MonthlyExpenses = (props) => {
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Monthly Expenses</Heading>
+        
+        <input type='hidden' name='testVal'></input>
 
         <label>
           Mortgage
@@ -275,8 +283,8 @@ const MonthlyExpenses = (props) => {
                  
 
         <Text fontWeight="bold">
-         Total Monthly Obligations:${!isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 2})
-         : handleTotal().toLocaleString()
+         Total Monthly Obligations:${!isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 0})
+         : handleTotal().toLocaleString(undefined, {minimumFractionDigits: 0})
          
          }
          </Text>
