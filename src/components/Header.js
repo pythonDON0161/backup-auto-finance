@@ -83,7 +83,7 @@ function Header() {
                 onClick={() => logout({ returnTo: window.location.origin })}
                 className="ml-8 lg:ml-10"
               >
-                Logout
+                Home/Logout
               </Button>
             )}
           </div>
