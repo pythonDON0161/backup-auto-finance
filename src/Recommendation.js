@@ -11,8 +11,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function Recommendation(props) {
 
- 
-
   const { handleSubmit, register } = useForm();
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const { action, state } = useStateMachine(updateAction);
@@ -69,15 +67,29 @@ function Recommendation(props) {
     const tdsrobj = Object.values(ratio);
    
 
-    console.log(state.data.ratio)
+    
     //Pre Qualification: Filter for banks qualified for based on TDSR
     //Current: pushes banks where TDSR is less than their maximum to a seperate array name approved banks.
+
     tdsrobj[0].map((item) => {
-      if (state.data.ratio <= item.maximum) {
+      if (state.data.caTotalMonthly > 0){
+
+        console.log("im in here")
+
+        if (state.data.finalRatio <= item.maximum) {
+          approvedBanks.push({ item });
+        }
+        
+      } 
+      
+      else if(state.data.ratio<= item.maximum) { 
+
         approvedBanks.push({ item });
+
       }
+    
     });
-     console.log("banks", approvedBanks);
+     
      
     async function calculateLowestMonthly() {
       for (let j = 0; j < approvedBanks.length; j++) {
@@ -164,6 +176,8 @@ function Recommendation(props) {
           select up to 2 banks to request offers.
           <br />
         </p>
+        <p> <strong> Model Year Of Vehicle: {state.data.modelYear} </strong> </p>
+        <p> <strong> Status Of Vehicle: {state.data.carStatus}</strong> </p>
         {isLoading ? (
           <Center>
             <Spinner className="loading" size="xl" />
