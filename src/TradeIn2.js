@@ -91,7 +91,7 @@ const TradeIn2 = (props) => {
                 when you sell your current car 
                 
                 {" "}
-                {state.data.owed && <> [and pay off your existing loan.]</>}
+                {state.data.owed && <> and pay off your existing loan (if applicable) </>}
                 <br />
                 <br />
                 How much of this would you like to apply towards the purchase of
@@ -154,7 +154,7 @@ const TradeIn2 = (props) => {
           </Center>
           <br />
           <Progress value={66} />
-          <Center>Step 6 of 9</Center>
+          <Center>Step 5 of 7</Center>
           <FeedbackFish projectId="01ebf0d6447158">
             <button className="feedback">Give us Feedback</button>
           </FeedbackFish>
