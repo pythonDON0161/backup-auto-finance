@@ -174,7 +174,7 @@ if( caIncome > 0 ){
             </Grid>
             <br />
             <Center>
-            <Link >
+            <Link to="bank-selection" >
               <button onClick={finalTDSR} className="submit-button">Bank Selection</button>
             </Link>
           </Center>
@@ -246,7 +246,7 @@ if( caIncome > 0 ){
               </p>
               <br />
             <Center>
-            <Link >
+            <Link to="/bank-selection" >
               <button  onClick={finalTDSR} className="submit-button">Bank Selection</button>
             </Link>
           </Center>
