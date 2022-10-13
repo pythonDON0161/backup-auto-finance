@@ -6,7 +6,7 @@ import { Grid, GridItem, Center, Heading } from "@chakra-ui/react";
 import green from "./assets/green.png";
 import amber from "./assets/amber.png";
 import red from "./assets/red.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ConfettiGenerator from "confetti-js";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
@@ -24,6 +24,7 @@ const Result = (props) => {
     getValues,
   } = useForm();
 
+  const history = useHistory()
   
   //register({ name: "finalTDSR", type: "custom" });
   // Handles employment risk
@@ -55,14 +56,19 @@ var singleTDSR = state.data.ratio
   let combinedTDSR2
 
   const caTDSR = state.data.caTDSR; // co-applicant TDSR
+  const caIncome = state.data.caIncome
   combinedTDSR = (singleTDSR + caTDSR) / 2;
   combinedTDSR2 = (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
     (state.data.totalMonthly + state.data.caTotalMonthly)
   //setValue("finalTDSR", caTDSR)
 
-if( caTDSR > 0 ){
+  console.log("this is caIncome" + state.data.caTotalMonthly )
+
+if( caIncome > 0 ){
   tdsr = combinedTDSR;
   console.log("Combined TDSR", combinedTDSR)
+
+
   //console.log("This is FINAL TDSR", state.data.finalTDSR)
 } else{ tdsr = singleTDSR  }
 
@@ -81,7 +87,6 @@ if( caTDSR > 0 ){
     const confetti = new ConfettiGenerator(confettiSettings);
       // Show confetti if the following criteria are met
     // TDSR is calculated by estimatedExpenses divided by total monthly income
-   
 
     if(tdsr < 0.4 && ( currentAge >=  18 && (currentAge - 6) < 65 ) && state.data.employmentStatus !== "Student" && state.data.employmentStatus !== "Unemployed" && 
     state.data.employmentStatus !== "Retired" && employmentRisk !== "yes" && state.data.creditGrade !== "Below Average" 
@@ -106,7 +111,7 @@ if( caTDSR > 0 ){
   let coAppAge
 
 
-  if( caTDSR > 0 ){
+  if( caTDSR ){
     coAppFrom = state.data.caDateOfBirth.split("/");
     cobirthdate = new Date( coAppFrom[2], coAppFrom[1] - 1, coAppFrom[0] );
     coAppCur = new Date();
@@ -121,10 +126,22 @@ if( caTDSR > 0 ){
   //console.log("Estimated expenses:" + "$"+state.data.estimatedExpenses.toString())
   //console.log(state.data.totalMonthly)
 
-
   //const combinedTDSR = (tdsr + state.data.caRatio) / 2
   //TODO use a single traffic light based on switch statement
-  
+
+  function finalTDSR(){
+
+    
+    history.push('/bank-selection')
+    
+    /*
+    if (state.data.caTotalMonthly > 0 ){ setValue('testVal', combinedTDSR2) ;console.log("ca here")
+
+       } else{ setValue('testVal', combinedTDSR2) }
+
+   console.log("final tdsr is:", state.data.testVal)
+  } */
+}
 
   const GreenLight = () =>{ 
     return (
@@ -157,8 +174,8 @@ if( caTDSR > 0 ){
             </Grid>
             <br />
             <Center>
-            <Link to="/bank-selection">
-              <button className="submit-button">Bank Selection</button>
+            <Link >
+              <button onClick={finalTDSR} className="submit-button">Bank Selection</button>
             </Link>
           </Center>
           </div>
@@ -229,8 +246,8 @@ if( caTDSR > 0 ){
               </p>
               <br />
             <Center>
-            <Link to="/bank-selection">
-              <button className="submit-button">Bank Selection</button>
+            <Link >
+              <button  onClick={finalTDSR} className="submit-button">Bank Selection</button>
             </Link>
           </Center>
             </div>
@@ -303,6 +320,9 @@ if( caTDSR > 0 ){
                 <li>including a co-applicant</li> 
                 <li>paying off existing debt obligations</li>
                 <li>borrowing a lower amount / buying a less expensive vehicle </li>
+
+                We suggest you speak to your banker to discuss your options. 
+                 You may also email us at autofinancejamaica@gmail.com if you have any questions
               </GridItem>
             </Grid>
             <br />
@@ -313,13 +333,11 @@ if( caTDSR > 0 ){
             </p>
 
             <p className="finePrint">
-              Note: Nothing herein constitutes an offer of finance. Final bank
-              approval will require additional information – and its lending
-              decision will be based on your credit score and other factors.
+             
             </p>
             <Center>
               <Link to="/">
-                <button className="submit-button">Home</button>
+                <button className="submit-button">Home/Amend Application</button>
               </Link>
             </Center>
           </div>
@@ -337,9 +355,9 @@ if( tdsr> 0.5){
       <div className="TDSR">
 
           <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-          <p> {state.data.caTDSR > 0 ? <strong>
+          <p> {state.data.caTotalMonthly > 0 ? <strong>
                 This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                This is combined TDSR: {combinedTDSR} 
+                This is average combined TDSR: {combinedTDSR.toFixed(2)} 
                     </strong> : null} </p>
           <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
           <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
@@ -372,9 +390,9 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
         <div className="TDSR">
 
             <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-            <p> {state.data.caTDSR > 0 ? <strong>
+            <p> {state.data.caTotalMonthly > 0 ? <strong>
                   This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                  This is combined TDSR: {combinedTDSR} 
+                  This is average combined TDSR: {combinedTDSR.toFixed(2)} 
                       </strong> : null} </p>
 
            <p> <strong> {"Second combinedTDSR:" +  combinedTDSR2 }  </strong> </p>
@@ -410,9 +428,9 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
             <div className="TDSR">
                
                 <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-                <p> {state.data.caTDSR > 0 ? <strong>
+                <p> {state.data.caTotalMonthly ? <strong>
                       This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                      This is combined TDSR: {combinedTDSR} 
+                      This is average combined TDSR: {combinedTDSR.toFixed(2)} 
                           </strong> : null} </p>
                 <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
                 <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
@@ -442,9 +460,9 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
 
                 <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
                 <h2>hyyy</h2>
-                <p> {state.data.caTDSR > 0 ? <strong>
+                <p> {state.data.caTotalMonthly  ? <strong>
                       This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                      This is combined TDSR: {combinedTDSR} 
+                      This is average combined TDSR: {combinedTDSR.toFixed(2)} 
                           </strong> : null} </p>
                 <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
                 <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
@@ -472,9 +490,9 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
             <div className="TDSR">
     
                 <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-                <p> {state.data.caTDSR > 0 ? <strong>
+                <p> {state.data.caTotalMonthly ? <strong>
                       This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                      This is combined TDSR: {combinedTDSR} 
+                      This is average combined TDSR: {combinedTDSR.toFixed(2)} 
                           </strong> : null} </p>
                 <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
                 <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
