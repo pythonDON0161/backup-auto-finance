@@ -15,7 +15,7 @@ const BankSelection = (props) => {
 
 
   const { register, handleSubmit, errors, setValue, getValues } = useForm();
-  const { action, state } = useStateMachine(updateAction);
+  const { action, state } = useStateMachine( {updateAction} );
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const totalCost = state.data.totalExpenses;
   const totalEarned = state.data.totalMonthly;
@@ -27,7 +27,7 @@ const BankSelection = (props) => {
     action(data);
     const body = {
       "application": {
-        "ratio": combinedTDSR ,// Math.round((totalCost / totalEarned) * 100) / 100,
+        "ratio": combinedTDSR2 ,// Math.round((totalCost / totalEarned) * 100) / 100,
         "primaryBank": data.primaryBank,
         "criteria": data.criteria
       }
@@ -57,9 +57,11 @@ const BankSelection = (props) => {
 
   //If co-applicant is used set TDSR to combined TDSR
 
- function handleTDSR() {
+  let combinedTDSR2
+  combinedTDSR2 = (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
+  (state.data.totalMonthly + state.data.caTotalMonthly)
 
-    let combinedTDSR2
+ function handleTDSR() {
 
     const caTDSR = state.data.caTDSR //getValues("caTDSR") // get co-appliant TDSR
 
@@ -67,18 +69,8 @@ const BankSelection = (props) => {
 
     register({ name: "TDSR", type: "custom" }); // register TDSR value in React Hook Form
     
-    combinedTDSR2 = (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
-    (state.data.totalMonthly + state.data.caTotalMonthly)
+   
     //console.log( "combinedTDSR", combinedTDSR) // Log value of combined TDSR
-
-    if (caTDSR > 0) {
-
-       setValue("ratio", (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
-      (state.data.totalMonthly + state.data.caTotalMonthly) )
-
-      console.log(state.data.ratio)
-
-    } 
 
   }
 
