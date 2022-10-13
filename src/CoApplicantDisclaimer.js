@@ -26,7 +26,7 @@ const CoApplicantDisclaimer = (props) => {
         <SimpleGrid columns={1} spacing={0}>
           
           <Center>
-            <Heading>Co-Applciant Disclaimer</Heading>
+            <Heading>Note re Co-Applicant Expenses</Heading>
           </Center>
          
           </SimpleGrid>
