@@ -90,7 +90,7 @@ const Navigation = (props) => {
             <Center> 
               <Link to="/pre-qualification"> 
                   <HStack> 
-                    <button className="nav-button">PERSONAL INFORMATION</button> 
+                    <button className="nav-button">PERSONAL INFORMATION<br/>(Step 1)</button> 
                   </HStack>
               </Link>
             </Center>
@@ -101,7 +101,7 @@ const Navigation = (props) => {
            <Center> 
             <Link to="/co-app-disclaimer">
                 <HStack> 
-                    <button className="nav-button">CO-APPLICANT INFORMATION</button>
+                    <button className="nav-button">CO-APPLICANT INFORMATION<br/>(Step 2)</button>
                 </HStack>
             </Link>
            </Center>
@@ -112,7 +112,7 @@ const Navigation = (props) => {
            <Center p={0}> 
             <Link > 
                 <HStack> 
-                    <button  onClick={ handleClick } className="nav-button">BANK SELECTION</button>
+                    <button  onClick={ handleClick } className="nav-button">BANK SELECTION<br/>(Step 3)</button>
                 </HStack>
               </Link>
            </Center>
@@ -128,7 +128,7 @@ const Navigation = (props) => {
            <Center p={0} > 
               <Link > 
                 <HStack> 
-                  <button onClick={ handleClick2 } className="nav-button">DOCUMENT UPLOAD</button>
+                  <button onClick={ handleClick2 } className="nav-button">DOCUMENT UPLOAD<br/>(Step 4)</button>
                 </HStack>
               </Link>
            </Center>
