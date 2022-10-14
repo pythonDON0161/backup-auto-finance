@@ -162,18 +162,19 @@ const EmploymentDetails = (props) => {
 
             <Heading>Employment Details</Heading>
 
-              <label>
+                <label>
                   Employment Status:
-
-                  <Select name="employmentStatus" ref={register}>
-                    {employementStatus.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
+                  <Select name="employmentStatus" ref={register} defaultValue={state.data.employmentStatus}>
+                    <option value="Full-time">Full Time</option>
+                    <option value="Part-time">Part-Time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Self Employed">Self Employed</option>
+                    <option value="Retired">Retired</option>
+                    <option value="Student">Student</option>
+                    <option value="Unemployed">Unemployed</option>
                   </Select>
 
-                  {errors.employementStatus && (
+                  {errors.employmentStatus && (
                     <p className="error">Please select an option</p>
                   )}
                 </label>
