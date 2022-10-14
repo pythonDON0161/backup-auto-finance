@@ -77,7 +77,6 @@ function sendEmail() {
  // vehArr.forEach(url => console.log(url) )
 
  console.log(vehArr)
- 
 
   var templateParams = {
     email: state.data.email, 
@@ -87,29 +86,29 @@ function sendEmail() {
     income: totalIncome, 
     dob: state.data.dateOfBirth, 
     cell: state.data.cellNumber,
-    carPrice: state.data.price,
+    carPrice: state.data.price.toLocaleString(),
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
     tdsr : state.data.ratio,
 
-    totalBorrow: state.data.totalBorrow,
-    bank1Name: state.data.bankPayments[0].thisBank,
-    bank1Payments: state.data.bankPayments[0].payment,
+    totalBorrow: state.data.totalBorrow.toLocaleString(),
+    bank1Name: state.data.bankPayments[0].thisBank.toUpperCase(),
+    bank1Payments: state.data.bankPayments[0].payment.toLocaleString(),
     bank1Rate: state.data.bankPayments[0].rate,
-    bank1Deposit: state.data.bankPayments[0].deposit,
-    bank1Fees: state.data.bankPayments[0].fees,
+    bank1Deposit: state.data.bankPayments[0].deposit.toLocaleString(),
+    bank1Fees: state.data.bankPayments[0].fees.toLocaleString(),
     bank1Terms: state.data.bankPayments[0].term, //Bank 2 Next --->
-    bank2Name: state.data.bankPayments[1].thisBank,
-    bank2Payments: state.data.bankPayments[1].payment,
+    bank2Name: state.data.bankPayments[1].thisBank.toUpperCase(),
+    bank2Payments: state.data.bankPayments[1].payment.toLocaleString(),
     bank2Rate: state.data.bankPayments[1].rate,
-    bank2Deposit: state.data.bankPayments[1].deposit,
-    bank2Fees: state.data.bankPayments[1].fees,
+    bank2Deposit: state.data.bankPayments[1].deposit.toLocaleString(),
+    bank2Fees: state.data.bankPayments[1].fees.toLocaleString(),
     bank2Terms: state.data.bankPayments[1].term,
-    bank3Name: state.data.bankPayments[2].thisBank,
-    bank3Payments: state.data.bankPayments[2].payment,
+    bank3Name: state.data.bankPayments[2].thisBank.toUpperCase(),
+    bank3Payments: state.data.bankPayments[2].payment.toLocaleString(),
     bank3Rate: state.data.bankPayments[2].rate,
-    bank3Deposit: state.data.bankPayments[2].deposit,
-    bank3Fees: state.data.bankPayments[2].fees,
+    bank3Deposit: state.data.bankPayments[2].deposit.toLocaleString(),
+    bank3Fees: state.data.bankPayments[2].fees.toLocaleString(),
     bank3Terms: state.data.bankPayments[2].term,
 
     personalDocs:(JSON.stringify(urlArr)).replaceAll(",", "\n").replace(/[[\]]/g, "")
@@ -125,21 +124,21 @@ function sendEmail() {
   //templateParams.push(urlArr)
   
 // console.log(templateParams)
-/*
+
+
   emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
       .then(function(response) {
         console.log('SUCCESS!', response.status, response.text);
       }, function(error) { console.log('FAILED...', error); });
-      */
 
-      //CUSTOMER EMAIL BELOW
-    
-  emailjs.send('auto_finance', ' template_wltw9za', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
-      .then(function(response) {
+
+  //CUSTOMER EMAIL BELOW
+  emailjs.send("auto_finance","template_wltw9za", templateParams, "PqN3ytZ-5Y1PJ4wPp"  )
+      .then( function (response) {
 
          console.log('SUCCESS!', response.status, response.text);
 
-      }, function(error) { console.log('FAILED...', error); });
+      }, function(error) { console.log('FAILED...', error); } );
 
       //template_wltw9z
   }
@@ -356,7 +355,7 @@ let mtHtml = `
 
      } console.log("final", vehArr) ; 
      
-     sendEmail() 
+      sendEmail() 
   
       history.push("./submit-application")
   };
