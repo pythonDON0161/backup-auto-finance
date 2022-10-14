@@ -56,7 +56,7 @@ var singleTDSR = state.data.ratio
   let combinedTDSR2
 
   const caTDSR = state.data.caTDSR; // co-applicant TDSR
-  const caIncome = state.data.caIncome
+  const caIncome = state.data.caTotalMonthly
   combinedTDSR = (singleTDSR + caTDSR) / 2;
   combinedTDSR2 = (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
     (state.data.totalMonthly + state.data.caTotalMonthly)
@@ -65,7 +65,7 @@ var singleTDSR = state.data.ratio
   console.log("this is caIncome" + state.data.caTotalMonthly )
 
 if( caIncome > 0 ){
-  tdsr = combinedTDSR;
+  tdsr = combinedTDSR2;
   console.log("Combined TDSR", combinedTDSR)
 
 
