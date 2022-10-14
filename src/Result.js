@@ -67,8 +67,6 @@ var singleTDSR = state.data.ratio
 if( caIncome > 0 ){
   tdsr = combinedTDSR2;
   console.log("Combined TDSR", combinedTDSR)
-
-
   //console.log("This is FINAL TDSR", state.data.finalTDSR)
 } else{ tdsr = singleTDSR  }
 
