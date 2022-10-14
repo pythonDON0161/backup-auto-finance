@@ -91,7 +91,7 @@ const DocumentUpload = (props) => {
               <Text align='left' fontSize='2xl'> Vehicle Documents (For Used Cars) </Text>
               
                 <UnorderedList spacing={3}>
-                    <ListItem> Motor Vehcile Valuation  </ListItem>
+                    <ListItem> Motor Vehcile Valuation </ListItem>
                     <ListItem> Motor Vehicle Fitness </ListItem>
                     <ListItem> Motor Vehicle Registration </ListItem>
                 </UnorderedList>
@@ -106,14 +106,14 @@ const DocumentUpload = (props) => {
                 </button> 
                 </Link> 
             </Center>
-  
+      {/* 
             <Center>
             <Link to="/personal-details" >
                 <button className="wide-button" type="submit">
-                    Save & Continue
+                    Home
                 </button>
                </Link>
-           </Center>
+    </Center> */ }
             </form>
       
             
