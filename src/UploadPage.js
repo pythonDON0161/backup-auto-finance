@@ -627,7 +627,7 @@ let mtHtml = `
 
                   <Textarea
                     isReadOnly
-                    value= {`I, ${state.data.firstName} ${state.data.lastName}, Date Of Birth: ${state.data.dateOfBirth} with TRN [xxx-xxx-xxx] , hereby consent to Credit Bureau in Jamaica, authorizing disclosure to ${state.data.bankSelection1} and ${state.data.bankSelection2} of such credit information which it may have in regard to me`}
+                    value= {`I, ${state.data.firstName} ${state.data.lastName}, Date Of Birth: ${state.data.dateOfBirth}, hereby consent to Credit Bureau in Jamaica, authorizing disclosure to ${state.data.bankSelection1} and ${state.data.bankSelection2} of such credit information which it may have in regard to me`}
                         >
                   </Textarea>
 
@@ -635,7 +635,7 @@ let mtHtml = `
                         </p>
 
                         <Checkbox name="permission">
-                          I confirm that I have read and agree to allow Auto Finance to apply for a credit report on my behalf.
+                        I confirm that I have read the above and authorize the bank(s) listed to access my credit report
                         </Checkbox>
 
                         <Center>
@@ -743,12 +743,7 @@ let mtHtml = `
                 </Center>
 
                 <Center>
-                <Link  >
-                    <button className="wide-button">
-                              Home/Save & Exit
-                      
-                    </button>
-                  </Link>
+           
          </Center>
             </div>
         </Tabs>
