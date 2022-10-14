@@ -68,7 +68,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2023",
       deposit: 0,
-      term: 12,
+      term: 10,
       rate: 7.00,
     },
     
@@ -77,7 +77,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2022",
       deposit: 0,
-      term: 12,
+      term: 10,
       rate: 7.00,
     },
     {
@@ -85,7 +85,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2022",
       deposit: 0,
-      term: 12,
+      term: 10,
       rate: 7.25,
     },
     {
@@ -93,7 +93,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2021",
       deposit: 0,
-      term: 11,
+      term: 9,
       rate: 7.75,
     },
     {
@@ -101,7 +101,7 @@ function Calculator(props) {
       newOrUsed: "New",
       year: "2020",
       deposit: 0,
-      term: 12,
+      term: 8,
       rate: 8.00,
     },
   
@@ -110,7 +110,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2021",
       deposit: 0,
-      term: 12,
+      term: 9,
       rate: 8.95,
     },
     {
@@ -118,7 +118,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2020",
       deposit: 0,
-      term: 9,
+      term: 8,
       rate: 8.00,
     },
     {
@@ -126,7 +126,7 @@ function Calculator(props) {
       newOrUsed: "Used",
       year: "2019",
       deposit: 0,
-      term: 9,
+      term: 7,
       rate: 8.25,
     },
     {
