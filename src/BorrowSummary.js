@@ -110,7 +110,7 @@ const BorrowSummary = (props) => {
       <Header />
       {isAuthenticated && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Heading>Amount You Wish to Borrow</Heading>
+          <Heading>Amount You Wish To Borrow</Heading>
         
           {/* IF user wishes to trade or sell vehicle show this */}
           {state.data.tradeIn === "Yes" ? (
@@ -143,7 +143,7 @@ const BorrowSummary = (props) => {
               Price of new car:{" "}
 
               <strong style={{textAlign: "right"}}>
-              {(state.data.price - 0).toLocaleString(undefined, {minimumFractionDigits: 0})}</strong>
+              ${(state.data.price - 0).toLocaleString(undefined, {minimumFractionDigits: 0})}</strong>
 
               <br />
               <br />
@@ -151,7 +151,7 @@ const BorrowSummary = (props) => {
                       the positive value is not overwritten  */}
               Less sale/trade-in from current car:{" "}
               <strong>
-              {(state.data.towardsPurchase - 0).toLocaleString(undefined, {minimumFractionDigits: 0})}
+              ${(state.data.towardsPurchase - 0).toLocaleString(undefined, {minimumFractionDigits: 0})}
               </strong>
 
               <br />
@@ -180,8 +180,11 @@ const BorrowSummary = (props) => {
               </strong>  
               <br />
               <br/>
-        
+              <Text fontWeight={600} > Note - for used cars, certain banks may require a greater
+            deposit than the amount you wish to put into the deal
+              </Text> 
             </Text>
+          
           ) : 
           
           (
@@ -199,6 +202,12 @@ const BorrowSummary = (props) => {
 
               <br />
               <br />
+              Less sale/trade-in from current car:{" "}
+              <strong>
+              ${(state.data.towardsPurchase - 0).toLocaleString(undefined, {minimumFractionDigits: 0})}
+              </strong>
+              <br/>
+              <br/>
               Less additional cash down payment:{" "}
               <strong>
               {(state.data.cashDown - 0).toLocaleString("en-US", {
@@ -223,11 +232,12 @@ const BorrowSummary = (props) => {
                 }
               )}</strong>{" "}
 
-              
               <br/>
               <br/>
             </Text>
           )}
+      
+      
           <Center>
             <button
               type="submit"
