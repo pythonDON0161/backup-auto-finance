@@ -598,7 +598,7 @@ function Calculator(props) {
                       <SliderTrack>
                         <SliderFilledTrack />
                       </SliderTrack>
-                      <SliderThumb />
+                      <SliderThumb bg='yellow' />
                     </Slider>
                     {state.data.rate >= 0 && <h1>{rate}% Interest Rate</h1>}{" "}
                     {state.data.rate == null && (
@@ -619,7 +619,7 @@ function Calculator(props) {
                       <SliderTrack>
                         <SliderFilledTrack />
                       </SliderTrack>
-                      <SliderThumb />
+                      <SliderThumb bg='yellow' />
                     </Slider>
 
                    
@@ -642,7 +642,7 @@ function Calculator(props) {
                       <SliderTrack>
                         <SliderFilledTrack />
                       </SliderTrack>
-                      <SliderThumb />
+                      <SliderThumb bg='yellow' />
                     </Slider>
                     <Center>
                       <h1>Estimated Monthly Payment:&nbsp;</h1>
