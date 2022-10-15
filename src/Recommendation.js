@@ -74,16 +74,11 @@ function Recommendation(props) {
     tdsrobj[0].map((item) => {
       if (state.data.caTotalMonthly > 0){
 
-        console.log("im in here")
-
-        if (state.data.finalRatio <= item.maximum) {
-          approvedBanks.push({ item });
-        }
-        
+            if (state.data.finalRatio <= item.maximum) {
+              approvedBanks.push({ item });
+            }  
       } 
-      
       else if(state.data.ratio<= item.maximum) { 
-
         approvedBanks.push({ item });
 
       }
@@ -176,6 +171,8 @@ function Recommendation(props) {
           select up to 2 banks to request offers.
           <br />
         </p>
+        <br/>
+        <p> <strong> Price of Car/Budget: ${state.data.price.toLocaleString()} </strong> </p>
         <p> <strong> Model Year Of Vehicle: {state.data.modelYear} </strong> </p>
         <p> <strong> Status Of Vehicle: {state.data.carStatus}</strong> </p>
         {isLoading ? (
@@ -189,14 +186,26 @@ function Recommendation(props) {
               <tbody>
                 <tr>
                   <th>Bank</th>
-                  <th>Monthly Payment</th>
-                  <th>Interest Rate</th>
                   <th>Deposit</th>
-                  <th>Estimated Fees</th>
+                  <th>Loan<br/>Amount</th>
+                  <th>Monthly<br/>Payment</th>
+                  <th>Interest<br/>Rate</th>
                   <th>Term</th>
+                  <th>Estimated<br/>Fees</th>
+               
                 </tr>
+                
                 <tr>
+                  
                   <td>{state.data.bankPayments[0].thisBank.toUpperCase()}</td>
+                  <td>
+                    ${(Math.round(
+                      state.data.bankPayments[0].deposit * state.data.totalBorrow * 100
+                    ) / 100).toLocaleString("en")}
+                  </td>
+                  <td>${ (state.data.totalBorrow - (Math.round(
+                      state.data.bankPayments[0].deposit * state.data.totalBorrow * 100
+                    ) / 100) ).toLocaleString()}</td>
                   <td>
                     ${state.data.bankPayments[0].payment.toLocaleString("en")}
                   </td>
@@ -205,39 +214,49 @@ function Recommendation(props) {
                       100}
                     %
                   </td>
-                  <td>
-                    ${(Math.round(
-                      state.data.bankPayments[0].deposit * state.data.totalBorrow * 100
-                    ) / 100).toLocaleString("en")}
-                  </td>
+                  <td>{state.data.bankPayments[0].term} months</td>
                   <td>
                     ${state.data.bankPayments[0].fees.toLocaleString("en")}
                   </td>
-                  <td>{state.data.bankPayments[0].term} months</td>
+                  
              
                 </tr>
                 <tr>
                   <td>{state.data.bankPayments[1].thisBank.toUpperCase()}</td>
                   <td>
+                    ${(Math.round(
+                      state.data.bankPayments[1].deposit * state.data.totalBorrow * 100
+                    ) / 100).toLocaleString("en")}
+                  </td>
+                  <td>${ (state.data.totalBorrow - (Math.round(
+                      state.data.bankPayments[1].deposit * state.data.totalBorrow * 100
+                    ) / 100) ).toLocaleString()}</td>
+                  <td>
                     ${state.data.bankPayments[1].payment.toLocaleString("en")}
                   </td>
+                  
                   <td>
                     {Math.round(state.data.bankPayments[1].rate * 100 * 100) /
                       100}
                     %
                   </td>
-                  <td>
-                    ${(Math.round(
-                      state.data.bankPayments[1].deposit * state.data.totalBorrow * 100
-                    ) / 100).toLocaleString("en")}
-                  </td>
+                  <td>{state.data.bankPayments[1].term} months</td>
                   <td>
                     ${state.data.bankPayments[1].fees.toLocaleString("en")}
                   </td>
-                  <td>{state.data.bankPayments[1].term} months</td>
+                  
                 </tr>
+
                 <tr>
                   <td>{state.data.bankPayments[2].thisBank.toUpperCase()}</td>
+                  <td>
+                    ${(Math.round(
+                      state.data.bankPayments[2].deposit * state.data.totalBorrow * 100
+                    ) / 100).toLocaleString("en")}
+                  </td>
+                  <td>${ (state.data.totalBorrow - (Math.round(
+                      state.data.bankPayments[2].deposit * state.data.totalBorrow * 100
+                    ) / 100) ).toLocaleString()}</td>
                   <td>
                     ${state.data.bankPayments[2].payment.toLocaleString("en")}
                   </td>
@@ -246,15 +265,11 @@ function Recommendation(props) {
                       100}
                     %
                   </td>
-                  <td>
-                    ${(Math.round(
-                      state.data.bankPayments[2].deposit * state.data.totalBorrow * 100
-                    ) / 100).toLocaleString("en")}
-                  </td>
+                  <td>{state.data.bankPayments[2].term} months</td>
                   <td>
                     ${state.data.bankPayments[2].fees.toLocaleString("en")}
                   </td>
-                  <td>{state.data.bankPayments[2].term} months</td>
+                  
                   {/* <td>
                     <Center>
                       <Controller
