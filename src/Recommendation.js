@@ -87,6 +87,7 @@ function Recommendation(props) {
      
      
     async function calculateLowestMonthly() {
+
       for (let j = 0; j < approvedBanks.length; j++) {
         const thisBank = approvedBanks[j].item.banks.toLowerCase();
         const response = await fetch(
@@ -126,10 +127,12 @@ function Recommendation(props) {
       }
 
       if (state.data.primaryBank !== "npa") {
+        console.log("Primary Bank " + state.data.primaryBank)
         const position = state.data.bankPayments.findIndex(function (payment) {
           return payment.thisBank === state.data.primaryBank;
         });
         // console.log(position);
+
         if (position >= 2) {
           state.data.bankPayments.unshift(
             state.data.bankPayments.find(
@@ -137,11 +140,14 @@ function Recommendation(props) {
             )
           );
         }
+
       }
       action(data);
       // console.log(state.data.bankPayments)
       setIsLoading(false);
     }
+
+
     calculateLowestMonthly();
   }
 
