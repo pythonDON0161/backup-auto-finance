@@ -394,7 +394,7 @@ if(!carStatus ){
           </Center>
           <br />
           <Progress value={11} />
-          <Center>Step 1 of 9</Center>
+          <Center>Step 1 of 7</Center>
           <FeedbackFish projectId="01ebf0d6447158">
             <button className="feedback">Give us Feedback</button>
           </FeedbackFish>

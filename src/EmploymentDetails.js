@@ -165,6 +165,7 @@ const EmploymentDetails = (props) => {
                 <label>
                   Employment Status:
                   <Select name="employmentStatus" ref={register} defaultValue={state.data.employmentStatus}>
+                  <option value="">-</option>
                     <option value="Full-time">Full Time</option>
                     <option value="Part-time">Part-Time</option>
                     <option value="Contract">Contract</option>
@@ -267,7 +268,7 @@ const EmploymentDetails = (props) => {
 
                 <br />
                 <Progress value={33} />
-                <Center>Step 3 of 9</Center>
+                <Center>Personal Information 3 of 7</Center>
                 <FeedbackFish projectId="01ebf0d6447158">
                   <button className="feedback">Give us Feedback</button>
                 </FeedbackFish>

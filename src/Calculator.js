@@ -567,7 +567,7 @@ function Calculator(props) {
                     <br />
                     {state.data.deposit >= 0 && (
                       <h1>
-                        {state.data.deposit}% Down ($
+                        {state.data.deposit}% Downpayment ($
                         {Math.round(
                           state.data.price * (state.data.deposit / 100)
                         ).toLocaleString("en")}
@@ -642,10 +642,10 @@ function Calculator(props) {
                       <SliderTrack>
                         <SliderFilledTrack />
                       </SliderTrack>
-                      <SliderThumb  bg="yellow.300"  />
+                      <SliderThumb fontSize="lg" bg="yellow.300"  />
                     </Slider>
                     <Center>
-                      <h1>Estimated Monthly Payment:&nbsp;</h1>
+                      <h1><strong> Monthly Payment:</strong>&nbsp;</h1>
                       {state.data.deposit == null && state.data.rate == null && !state.data.terms ?  (
                         <h1> 
                           $

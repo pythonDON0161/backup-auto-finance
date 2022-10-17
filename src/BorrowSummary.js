@@ -167,7 +167,7 @@ const BorrowSummary = (props) => {
               </strong>
               <br />
               <br />
-              Total borrow amount:{" "} 
+              Total loan amount:{" "} 
               <strong>
                ${(state.data.price - (state.data.towardsPurchase) - state.data.cashDown) > 0 && <>
                 {(state.data.price - (state.data.towardsPurchase) - state.data.cashDown).toLocaleString(undefined, {minimumFractionDigits: 0})}
@@ -180,8 +180,8 @@ const BorrowSummary = (props) => {
               </strong>  
               <br />
               <br/>
-              <Text fontWeight={600} > Note - for used cars, certain banks may require a greater
-            deposit than the amount you wish to put into the deal
+              <Text fontWeight={400} > { state.data.carStatus =="Used" && <p> (Note - for used cars, certain banks may require a greater
+            deposit than the amount you wish to put into the deal) </p>}
               </Text> 
             </Text>
           
@@ -220,7 +220,7 @@ const BorrowSummary = (props) => {
               <br />
               <br />
               
-              Cash Down Only - Total borrow amount:{" "} 
+              Total borrow amount:{" "} 
               <strong>
               {(state.data.price - state.data.cashDown).toLocaleString(
                 "en-US",

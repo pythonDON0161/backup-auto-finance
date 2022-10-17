@@ -52,7 +52,7 @@ const CAApplicantDetails = (props) => {
       <Header />
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Heading>Co Applicant Details</Heading>
+        <Heading>Co-Applicant Details</Heading>
         <label>
           First Name:
           <Input
@@ -142,8 +142,8 @@ const CAApplicantDetails = (props) => {
           </button>
         </Center>
         <br />
-        <Progress value={22} />
-        <Center>Step 1 of 9</Center>
+        <Progress value={33} />
+        <Center>Step 1 of 3</Center>
         <FeedbackFish projectId="01ebf0d6447158">
           <button className="feedback">Give us Feedback</button>
         </FeedbackFish>

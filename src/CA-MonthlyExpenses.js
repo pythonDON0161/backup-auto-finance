@@ -301,8 +301,8 @@ const MonthlyExpenses = (props) => {
           </button>
         </Center>
         <br />
-        <Progress value={44} />
-        <Center>Step 4 of 9</Center>
+        <Progress value={100} />
+        <Center>Step 3 of 3</Center>
         <FeedbackFish projectId="01ebf0d6447158">
           <button className="feedback">Give us Feedback</button>
         </FeedbackFish>

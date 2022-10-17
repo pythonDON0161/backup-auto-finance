@@ -107,8 +107,8 @@ const CreditGrade = (props) => {
           </button>
         </Center>
         <br />
-        <Progress value={88} />
-        <Center>Step 8 of 9</Center>
+        <Progress value={100} />
+        <Center>Step 7 of 7</Center>
         <FeedbackFish projectId="01ebf0d6447158">
         <button className="feedback">Give us Feedback</button>
       </FeedbackFish>

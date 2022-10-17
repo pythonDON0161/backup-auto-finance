@@ -164,7 +164,7 @@ const ApplicantDetails = (props) => {
         </Center>
         <br />
         <Progress value={22} />
-        <Center>Step 2 of 9</Center>
+        <Center>Personal Information 2 of 7</Center>
         <FeedbackFish projectId="01ebf0d6447158">
           <button className="feedback">Give us Feedback</button>
         </FeedbackFish>

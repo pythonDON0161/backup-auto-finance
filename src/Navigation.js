@@ -73,9 +73,9 @@ const Navigation = (props) => {
             <Text> 
             <p style={{ fontWeight:600,justifyContent: "center",
                         alignItems: "center",textAlign: "center" }}>
-             In Order to Find You the Best Bank Deal.
-           Please complete Step 1 (Personal Information) before moving onto Other Steps.    <br/> 
-            Steps 2 (Co-Applicant) and Step 4 (Document Upload) are Optional.
+             In order to find you the best bank deal.
+           Please complete step 1 (Personal Information) before moving onto other steps.    <br/> 
+            Steps 2 (Co-Applicant) and Step 4 (Document Upload) are optional.
               </p>
             </Text>
            
