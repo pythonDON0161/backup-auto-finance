@@ -177,18 +177,15 @@ if( caIncome > 0 ){
             </Link>
           </Center>
           <div className="TDSR">
-
-<p> <strong> A: </strong> <large>{singleTDSR}</large> </p>
-<p> {state.data.caTotalMonthly > 0 ? <strong>
-       {state.data.caTDSR} <br/>
-       C: {combinedTDSR.toFixed(2)} 
-          </strong> : null} </p>
-
-<p> <strong> {"C" +  combinedTDSR2 }  </strong> </p>
-<p> <strong> R {state.data.calcRate} </strong> </p>
-<p> <strong> T {state.data.calcTerm}</strong></p>
- <br/>
-<br/>
+          
+    <p>For Internal Use Only</p>
+    <p> <strong> A:<large>{singleTDSR}</large> </strong> </p>
+    <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
+    <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
+    <p> <strong> {"R:" + state.data.calcRate} </strong> </p>
+    <p> <strong> {"T:"+ state.data.calcTerm} </strong></p>
+    <br/>
+    <br/>
 
 </div>
           </div>
@@ -265,17 +262,14 @@ if( caIncome > 0 ){
           </Center>
           <div className="TDSR">
 
-<p> <strong> A: </strong> <large>{singleTDSR}</large> </p>
-<p> {state.data.caTotalMonthly > 0 ? <strong>
-       {state.data.caTDSR} <br/>
-       C: {combinedTDSR.toFixed(2)} 
-          </strong> : null} </p>
-          <p>For Internal Use</p>
-<p> <strong> C {"Combined TDSR" +  combinedTDSR2 }  </strong> </p>
-<p> <strong> R {state.data.calcRate} </strong> </p>
-<p> <strong> T {state.data.calcTerm}</strong></p>
- <br/>
-<br/>
+    <p>For Internal Use Only</p>
+    <p> <strong> A:  <large>{singleTDSR}</large> </strong> </p>
+    <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
+    <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
+    <p> <strong>  {"R:" + state.data.calcRate} </strong> </p>
+    <p> <strong>{"T:"+ state.data.calcTerm}</strong></p>
+    <br/>
+    <br/>
 
 </div>
             </div>
@@ -370,18 +364,14 @@ if( caIncome > 0 ){
               </Link>
             </Center>
             <div className="TDSR">
-<p>For Internal Use</p>
-<p> <strong> A: </strong> <large>{singleTDSR}</large> </p>
-<p> {state.data.caTotalMonthly > 0 ? <strong>
-       {state.data.caTDSR} <br/>
-       C: {combinedTDSR.toFixed(2)} 
-          </strong> : null} </p>
-
-<p> <strong> {"Combined TDSR" +  combinedTDSR2 }  </strong> </p>
-<p> <strong> R {state.data.calcRate} </strong> </p>
-<p> <strong> T {state.data.calcTerm}</strong></p>
- <br/>
-<br/>
+<p>For Internal Use Only</p>
+<p> <strong> A:  <large>{singleTDSR}</large> </strong> </p>
+    <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
+    <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
+    <p> <strong>  {"R:" + state.data.calcRate} </strong> </p>
+    <p> <strong>{"T:"+ state.data.calcTerm}</strong></p>
+    <br/>
+    <br/>
 
 </div>
           </div>
