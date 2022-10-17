@@ -12,10 +12,8 @@ const BankSelection = (props) => {
 
   const history = useHistory();
 
-
-
   const { register, handleSubmit, errors, setValue, getValues } = useForm();
-  const { action, state } = useStateMachine( {updateAction} );
+  const { action, state } = useStateMachine( updateAction );
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const totalCost = state.data.totalExpenses;
   const totalEarned = state.data.totalMonthly;
