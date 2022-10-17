@@ -647,7 +647,7 @@ function Calculator(props) {
                     <Center>
                       <h1><strong> Monthly Payment:</strong>&nbsp;</h1>
                       {state.data.deposit == null && state.data.rate == null && !state.data.terms ?  (
-                        <h1> 
+                        <h1> <strong> 
                           $
                           {Math.round(
                             ((state.data.price - state.data.price * (filteredTerm.deposit / 100))  *(filteredTerm.rate / 100 / 12)  *
@@ -657,6 +657,7 @@ function Calculator(props) {
                               (Math.pow( 1 + filteredTerm.rate / 100 / 12, filteredTerm.term * 12) - 1)
 
                           ).toLocaleString("en")}
+                          </strong>
                         </h1> 
                       ) : null}
 
