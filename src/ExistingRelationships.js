@@ -74,7 +74,7 @@ const AdditionalInfo = (props) => {
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <Heading>Exisitng Relationships</Heading>
+        <Heading>Existing Relationships</Heading>
 
         {state.data.primaryBank !== "N/A" &&
 
