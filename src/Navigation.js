@@ -46,7 +46,7 @@ const Navigation = (props) => {
   };
 
   const handleClick2 = () => {
-    state.data.ratio ? history.push('/upload-page'): setClicked2('show');
+    state.data.ratio ? history.push('/prompt-request'): setClicked2('show');
   };
 
   const handleClick3 = () => {
