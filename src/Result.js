@@ -176,6 +176,21 @@ if( caIncome > 0 ){
               <button onClick={finalTDSR} className="submit-button">Bank Selection</button>
             </Link>
           </Center>
+          <div className="TDSR">
+
+<p> <strong> A: </strong> <large>{singleTDSR}</large> </p>
+<p> {state.data.caTotalMonthly > 0 ? <strong>
+       {state.data.caTDSR} <br/>
+       C: {combinedTDSR.toFixed(2)} 
+          </strong> : null} </p>
+
+<p> <strong> {"C" +  combinedTDSR2 }  </strong> </p>
+<p> <strong> R {state.data.calcRate} </strong> </p>
+<p> <strong> T {state.data.calcTerm}</strong></p>
+ <br/>
+<br/>
+
+</div>
           </div>
         
         </>
@@ -248,6 +263,21 @@ if( caIncome > 0 ){
               <button  onClick={finalTDSR} className="submit-button">Bank Selection</button>
             </Link>
           </Center>
+          <div className="TDSR">
+
+<p> <strong> A: </strong> <large>{singleTDSR}</large> </p>
+<p> {state.data.caTotalMonthly > 0 ? <strong>
+       {state.data.caTDSR} <br/>
+       C: {combinedTDSR.toFixed(2)} 
+          </strong> : null} </p>
+          <p>For Internal Use</p>
+<p> <strong> C {"Combined TDSR" +  combinedTDSR2 }  </strong> </p>
+<p> <strong> R {state.data.calcRate} </strong> </p>
+<p> <strong> T {state.data.calcTerm}</strong></p>
+ <br/>
+<br/>
+
+</div>
             </div>
           </>
   
@@ -310,7 +340,7 @@ if( caIncome > 0 ){
                   <br />
                  {/* <p>Based on the information you have provided, we estimate that you could be approved for
                     a loan of up to {<strong> max loan variable</strong>} [assuming your current car loan is paid off].</p> */ }
-                We suggest you speak to your banker to discuss your options.
+               
                 <br/>
                 <br />
                 Your application may be strengthened by one or more of the
@@ -338,6 +368,21 @@ if( caIncome > 0 ){
                 <button className="submit-button">Home/Amend Application</button>
               </Link>
             </Center>
+            <div className="TDSR">
+<p>For Internal Use</p>
+<p> <strong> A: </strong> <large>{singleTDSR}</large> </p>
+<p> {state.data.caTotalMonthly > 0 ? <strong>
+       {state.data.caTDSR} <br/>
+       C: {combinedTDSR.toFixed(2)} 
+          </strong> : null} </p>
+
+<p> <strong> {"Combined TDSR" +  combinedTDSR2 }  </strong> </p>
+<p> <strong> R {state.data.calcRate} </strong> </p>
+<p> <strong> T {state.data.calcTerm}</strong></p>
+ <br/>
+<br/>
+
+</div>
           </div>
             </>
             ) 
@@ -350,19 +395,7 @@ if( tdsr> 0.5){
 <Header />
     <div className="result">
       {/* TDSR OUTPUT IN HTML */}
-      <div className="TDSR">
-
-          <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-          <p> {state.data.caTotalMonthly > 0 ? <strong>
-                This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                This is average combined TDSR: {combinedTDSR.toFixed(2)} 
-                    </strong> : null} </p>
-          <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
-          <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
-           <br/>
-          <br/>
-
-      </div>
+ 
 
     <canvas id="my-canvas">  </canvas>
      <RedLight></RedLight>
@@ -385,22 +418,7 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
       <Header />
       <div className="result">
         {/* TDSR OUTPUT IN HTML */}
-        <div className="TDSR">
-
-            <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-            <p> {state.data.caTotalMonthly > 0 ? <strong>
-                  This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                  This is average combined TDSR: {combinedTDSR.toFixed(2)} 
-                      </strong> : null} </p>
-
-           <p> <strong> {"Second combinedTDSR:" +  combinedTDSR2 }  </strong> </p>
-
-            <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
-            <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
-             <br/>
-            <br/>
-
-        </div>
+ 
 
       <canvas id="my-canvas">  </canvas>
        
@@ -423,19 +441,7 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
           <Header />
           <div className="result">
             {/* TDSR OUTPUT IN HTML */}
-            <div className="TDSR">
-               
-                <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-                <p> {state.data.caTotalMonthly ? <strong>
-                      This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                      This is average combined TDSR: {combinedTDSR.toFixed(2)} 
-                          </strong> : null} </p>
-                <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
-                <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
-                 <br/>
-                <br/>
-    
-            </div>
+      
     
           <canvas id="my-canvas">  </canvas>
            <YellowLight></YellowLight>
@@ -454,20 +460,7 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
           <Header />
           <div className="result">
             {/* TDSR OUTPUT IN HTML */}
-            <div className="TDSR">
-
-                <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-                <h2>hyyy</h2>
-                <p> {state.data.caTotalMonthly  ? <strong>
-                      This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                      This is average combined TDSR: {combinedTDSR.toFixed(2)} 
-                          </strong> : null} </p>
-                <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
-                <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
-                 <br/>
-                <br/>
-    
-            </div>
+      
                   
           <canvas id="my-canvas">  
              <YellowLight></YellowLight>
@@ -485,19 +478,7 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
       <Header />
           <div className="result">
             {/* TDSR OUTPUT IN HTML */}
-            <div className="TDSR">
-    
-                <p> <strong> This is single applicant's TDSR: </strong> <large>{singleTDSR}</large> </p>
-                <p> {state.data.caTotalMonthly ? <strong>
-                      This is co-applicant's TDSR: {state.data.caTDSR} <br/>
-                      This is average combined TDSR: {combinedTDSR.toFixed(2)} 
-                          </strong> : null} </p>
-                <p> <strong> This is calc rate {state.data.calcRate} </strong> </p>
-                <p> <strong> This is calc term {state.data.calcTerm}</strong></p>
-                 <br/>
-                <br/>
-    
-            </div>
+     
     
           <canvas id="my-canvas">  </canvas>
            <RedLight></RedLight>
