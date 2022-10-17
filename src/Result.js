@@ -348,6 +348,7 @@ if( caIncome > 0 ){
                 <li>including a co-applicant</li> 
                 <li>paying off existing debt obligations</li>
                 <li>borrowing a lower amount / buying a less expensive vehicle </li>
+                <br/>
 
                 We suggest you speak to your banker to discuss your options. 
                  You may also email us at autofinancejamaica@gmail.com if you have any questions
