@@ -166,8 +166,7 @@ const BankSelection = (props) => {
           </button>
         </Center>
         <br />
-        <Progress value={77} />
-        <Center>Step 7 of 9</Center>
+       
       </form>
       )}
       {!isAuthenticated && (

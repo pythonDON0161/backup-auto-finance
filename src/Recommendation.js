@@ -330,8 +330,7 @@ function Recommendation(props) {
           </>
         )}
         <br />
-        <Progress value={88} />
-        <Center>Step 8 of 9</Center>
+        
       </form>
       )}
       {!isAuthenticated && (
