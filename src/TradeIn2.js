@@ -152,7 +152,7 @@ const TradeIn2 = (props) => {
           </Center>
           <br />
           <Progress value={66} />
-          <Center>Step 5 of 7</Center>
+          <Center>Personal Information Step 5 of 7</Center>
           <FeedbackFish projectId="01ebf0d6447158">
             <button className="feedback">Give us Feedback</button>
           </FeedbackFish>

@@ -147,7 +147,7 @@ const CashDown = (props) => {
 
           <br />
           <Progress value={77} />
-          <Center>Step 6 of 7</Center>
+          <Center>Personal Information Step 6 of 7</Center>
           <FeedbackFish projectId="01ebf0d6447158">
             <button className="feedback">Give us Feedback</button>
           </FeedbackFish>
