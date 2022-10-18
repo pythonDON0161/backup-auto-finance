@@ -17,9 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
-
-
-
+import CurrencyInput from 'react-currency-input-field';
 
 
 const CashDown = (props) => {
@@ -55,45 +53,38 @@ const CashDown = (props) => {
       console.log(json.application);
     });
     });
+
+    
+
     props.history.push("./borrow-summary");
+
   };
 
- 
-  const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
-    const [cash, setCash] = useState(value);
-    return (
-      <NumberFormat
-        {...rest}
-        name={name}
-        value={cash}
-        thousandSeparator={true}
-        allowNegative={false}
-        decimalScale={0}
-        placeholder="$ 0"
-        onValueChange={(target) => {
-          setCash(target.value);
-          onChange(target.value);
-        }}
-        isNumericString
-        prefix="$ "
-      />
-    );
-  };
 
   if(state.data.tradeIn === "Yes"){
    
   }
+
+  const [cashDown, setcashDown] = useState(state.data.cashDown);
+
+    function filterDataTwo(val) {
+      setcashDown( val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "") ); }
+
+
+    function setCash(){ setValue("cashDown", parseInt(cashDown) ) } 
 
   return (
     <>
       <Header />
       {isAuthenticated && (
         <form onSubmit={handleSubmit(onSubmit)}>
+        
           <Heading>Cash Down</Heading>
           <>
           
           
-          {console.log(state.data.totalExpenses)}
+          { console.log(state.data.totalExpenses) }
+
             <label htmlFor="price">
               Do you intend to make a cash down payment to reduce the amount you
               need to borrow?
@@ -104,29 +95,56 @@ const CashDown = (props) => {
               <br />
               If so, enter the amount below.
               <br />
+
               (Leave as $0 if you are seeking 100% financing)
+
+              
               <Controller
-                name="cashDown"
-                ref={register({ required: true })}
-                as={CurrencyFormat}
+                name="ow"
                 control={control}
-                className="priceInput"
                 defaultValue={state.data.cashDown}
+                rules={{ min: 0 }}
+                render={({ onChange, value }) => {
+                  return (
+                    <CurrencyInput
+                      name="cashDown"
+                      defaultValue={state.data.cashDown}
+                      className="priceInput"
+                      placeholder="Please enter a number"
+                      prefix="$"
+                      maxLength={7}
+                      decimalsLimit={2}
+                      ref={register({
+                        min:0
+                      })}
+                     
+                      onChange={filterDataTwo}
+                      onValueChange={onChange}
+                    />
+                  );
+                }}
               />
-              {errors.cashDown && (
+
+              {errors.ow && (
                 <p className="error">Your input is required</p>
               )}
+
+
             </label>
           </>
+
           <Center>
             <button
               type="submit"
+              onClick={setCash}
               className="submit-button"
               value="Save & Continue"
             >
               Save & Continue
             </button>
           </Center>
+
+
           <br />
           <Progress value={77} />
           <Center>Step 6 of 7</Center>
