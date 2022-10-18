@@ -87,6 +87,9 @@ function Recommendation(props) {
      
      
     async function calculateLowestMonthly() {
+      console.log(state.data.ratio)
+      //console.log(ratio)
+      console.log(approvedBanks)
 
       for (let j = 0; j < approvedBanks.length; j++) {
         const thisBank = approvedBanks[j].item.banks.toLowerCase();
@@ -117,13 +120,17 @@ function Recommendation(props) {
       }
       state.data.bankPayments = monthlyPayments;
       if (state.data.criteria === "Lowest interest rate") {
+
         state.data.bankPayments.sort((a, b) => {
           return a.rate - b.rate;
         });
+
       } else {
+        
         state.data.bankPayments.sort((a, b) => {
-          return a.payment - b.payment;
-        });
+          /*console.log(a.payment, b.payment)*/ 
+          return a.deposit - b.deposit;})
+          
       }
 
       if (state.data.primaryBank !== "npa") {
@@ -133,13 +140,14 @@ function Recommendation(props) {
         });
         // console.log(position);
 
+      
         if (position >= 2) {
           state.data.bankPayments.unshift(
             state.data.bankPayments.find(
               ({ thisBank }) => thisBank === state.data.primaryBank
             )
           );
-        }
+        } 
 
       }
       action(data);
