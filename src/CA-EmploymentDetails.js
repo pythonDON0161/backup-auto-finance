@@ -175,12 +175,14 @@ const EmploymentDetails = (props) => {
 
             <Heading>Co-Applicant Employment Details</Heading>
 
-              <label>
+      
+            <label>
                   Employment Status:
-
-                  <Select name="employmentStatus" ref={register}>
-                  <option value="">-</option>
-                  <option value="Full-time">Full Time</option>
+                  <Select name="caEmploymentStatus" placeholder="Please select an option"
+                   ref={register({required: "Please select your employment status"})} 
+                   defaultValue={state.data.caEmploymentStatus}>
+                  
+                    <option value="Full Time">Full Time</option>
                     <option value="Part-time">Part-Time</option>
                     <option value="Contract">Contract</option>
                     <option value="Self Employed">Self Employed</option>
@@ -189,9 +191,10 @@ const EmploymentDetails = (props) => {
                     <option value="Unemployed">Unemployed</option>
                   </Select>
 
-                  {errors.employmentStatus && (
+                  {errors.caEmploymentStatus && (
                     <p className="error">Please select an option</p>
                   )}
+
                 </label>
 
                 <label>

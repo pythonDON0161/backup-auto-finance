@@ -60,7 +60,7 @@ const CAApplicantDetails = (props) => {
             ref={register({ required: true })}
             defaultValue={state.data.caFirstName}
           />
-          {errors.firstName && (
+          {errors.caFirstName && (
             <p className="error">Please enter your first name</p>
           )}
         </label>
@@ -72,6 +72,7 @@ const CAApplicantDetails = (props) => {
             defaultValue={state.data.caMiddleInit}
           />
         </label>
+
         <label>
           Last Name:
           <Input
@@ -79,10 +80,11 @@ const CAApplicantDetails = (props) => {
             ref={register({ required: true })}
             defaultValue={state.data.caLastName}
           />
-          {errors.lastName && (
+          {errors.caLastName && (
             <p className="error">Please enter your last name</p>
           )}
         </label>
+
           <label>
           Date of Birth (MM/DD/YYYY):
           <Controller
@@ -91,6 +93,7 @@ const CAApplicantDetails = (props) => {
             defaultValue={state.data.caDateOfBirth}
             rules={{ required: true }}
             render={({ onChange, value }) => (
+
               <InputMask mask="99/99/9999" placeholder="MM/DD/YYYY" value={value} onChange={onChange}>
                 {(inputProps) => (
                   <Input
@@ -103,11 +106,16 @@ const CAApplicantDetails = (props) => {
                 )}
               </InputMask>
             )}
+            
           />
-          {errors.dateOfBirth && (
+
+          {errors.caDateOfBirth && (
             <p className="error">Please enter your date of birth</p>
           )}
+
           </label>
+
+
         <label>
             Cell Number:
           <Controller
@@ -128,7 +136,7 @@ const CAApplicantDetails = (props) => {
               </InputMask>
             )}
           />
-          {errors.cellNumber && (
+          {errors.caCellNumber && (
             <p className="error">Please enter your cellphone number</p>
           )}
           </label>

@@ -25,7 +25,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from "./components/Sidebar";
 
 
-const employementStatus = [
+const employmentStatus = [
   "Full-time",
   "Part-time",
   "Contract",
@@ -164,9 +164,9 @@ const EmploymentDetails = (props) => {
 
                 <label>
                   Employment Status:
-                  <Select name="employmentStatus" ref={register} defaultValue={state.data.employmentStatus}>
-                  <option value="">-</option>
-                    <option value="Full-time">Full Time</option>
+                  <Select name="employmentStatus" placeholder="Please select an option" ref={register({required: "Please select your employment status"})} defaultValue={state.data.employmentStatus}>
+                  
+                    <option value="Full Time">Full Time</option>
                     <option value="Part-time">Part-Time</option>
                     <option value="Contract">Contract</option>
                     <option value="Self Employed">Self Employed</option>
@@ -178,6 +178,7 @@ const EmploymentDetails = (props) => {
                   {errors.employmentStatus && (
                     <p className="error">Please select an option</p>
                   )}
+
                 </label>
 
 
