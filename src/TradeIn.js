@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth0 } from "@auth0/auth0-react";
 import NumberFormat from "react-number-format";
@@ -24,6 +24,8 @@ import { PDFDownloadLink,PDFViewer,PDFRenderer } from "@react-pdf/renderer";
 import CurrencyInput from 'react-currency-input-field';
 
 
+
+
 const TradeIn = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
 
@@ -37,7 +39,10 @@ const TradeIn = (props) => {
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
 
+  
+
   const onSubmit = (data) => {
+   
     action(data);
 
     const body = {
@@ -67,22 +72,25 @@ const TradeIn = (props) => {
       console.log(json.application);
       
     });
+   // setcarVals()
     });
    
+
 
     if(watchTradeIn  ==="No"){ 
       state.data.totalExpenses = parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
        console.log("This is test expenses" + " "+state.data.totalExpenses)
+     
+      props.history.push("./cash-down")
     }
    
     if (watchTradeIn === "Yes") {
       props.history.push("./trade-in-2");
     }
      
-    if (watchTradeIn === "No") {
-      props.history.push("./cash-down")
-    }
+   
     if (watchTradeIn === "N/A") {
+      state.data.towardsPurchase = 0
       props.history.push("./cash-down");
     }
 
@@ -104,11 +112,30 @@ const TradeIn = (props) => {
       );}
   
       function setcarVals(){
-        setValue("currentCar", currentCar)
-        setValue("owed", owed)
+        setValue("currentCar", parseInt(currentCar) )
+        setValue("owed", parseInt(owed) )
+        //setValue("towardsPurchase", "0")
+      
       }
 
   const watchTradeIn = watch("tradeIn", state.data.tradeIn);
+
+
+  useEffect(() => { 
+
+    if (watchTradeIn === "No") {
+
+      state.data.towardsPurchase = 0
+
+      console.log(state.data.tradeIn)
+      
+    }
+     
+
+  },[watchTradeIn] )
+
+
+  console.log(watchTradeIn)
   return (
     <>
       <Header />
@@ -224,7 +251,7 @@ const TradeIn = (props) => {
           <Center>
          
             <button
-              onClick={setcarVals}
+             onClick={setcarVals}
               type="submit"
               className="submit-button"
               value="Save & Continue"

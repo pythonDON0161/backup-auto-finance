@@ -116,9 +116,7 @@ const TradeIn2 = (props) => {
                       name="towardsPurchase"
                       className="priceInput"
                       defaultValue={state.data.towardsPurchase}
-                      ref={register({
-                        min: 0
-                      })}
+                     
                       prefix="$"
                       maxLength={7}
                       decimalsLimit={2}
