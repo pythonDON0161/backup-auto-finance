@@ -127,9 +127,19 @@ function Recommendation(props) {
 
       } else {
         
+        if(state.data.carStatus =="Used"){
+
         state.data.bankPayments.sort((a, b) => {
           /*console.log(a.payment, b.payment)*/ 
           return a.deposit - b.deposit;})
+        } else{
+
+          state.data.bankPayments.sort((a, b) => {
+            /*console.log(a.payment, b.payment)*/ 
+            return a.payment - b.payment;})
+
+
+        }
           
       }
 
@@ -189,6 +199,7 @@ function Recommendation(props) {
         <p> <strong> Price of Car/Budget: ${state.data.price.toLocaleString()} </strong> </p>
         <p> <strong> Model Year Of Vehicle: {state.data.modelYear} </strong> </p>
         <p> <strong> Status Of Vehicle: {state.data.carStatus}</strong> </p>
+        <p> <strong> Criteria:</strong> {state.data.criteria} </p>
         {isLoading ? (
           <Center>
             <Spinner className="loading" size="xl" />
@@ -200,11 +211,11 @@ function Recommendation(props) {
               <tbody>
                 <tr>
                   <th>Bank</th>
-                  <th>Deposit</th>
+                  <th>Total Down Payment</th>
                   <th>Loan<br/>Amount</th>
                   <th>Monthly<br/>Payment</th>
                   <th>Interest<br/>Rate</th>
-                  <th>Term</th>
+                  <th>Loan Term</th>
                   <th>Estimated<br/>Fees</th>
                
                 </tr>
