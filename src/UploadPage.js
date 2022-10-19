@@ -90,7 +90,6 @@ function sendEmail() {
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
     tdsr : state.data.ratio,
-
     totalBorrow: state.data.totalBorrow.toLocaleString(),
     bank1Name: state.data.bankPayments[0].thisBank.toUpperCase(),
     bank1Payments: state.data.bankPayments[0].payment.toLocaleString(),
@@ -723,7 +722,7 @@ let mtHtml = `
                      <Center>
                       
                           <button type="submit"  className="uploadBtn" >
-                                 Upload Documents
+                                 Save & Continue
                             </button>
                      
                           </Center>
