@@ -40,7 +40,15 @@ const SubmitApplication = (props) => {
           <Center>
                 <Link to="/thank-you">
                     <button className="submit-button" type="submit">
-                    Continue
+                    Finish/Submit My Application
+                    </button>
+                </Link>
+            </Center>
+
+            <Center>
+                <Link to="/">
+                    <button className="submit-button" >
+                    Home/Finish Application Later
                     </button>
                 </Link>
             </Center>
