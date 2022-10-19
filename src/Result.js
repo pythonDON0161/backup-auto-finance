@@ -183,6 +183,7 @@ if( caIncome > 0 ){
           <div className="TDSR">
           
     <p>For Internal Use Only</p>
+    <p> <strong> Estimated Payment:<large>{state.data.estimatedPayment}</large> </strong> </p>
     <p> <strong> A:<large>{singleTDSR}</large> </strong> </p>
     <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
     <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
@@ -267,6 +268,7 @@ if( caIncome > 0 ){
           <div className="TDSR">
 
     <p>For Internal Use Only</p>
+    <p> <strong> Estimated Payment:<large>{state.data.estimatedPayment}</large> </strong> </p>
     <p> <strong> A:  <large>{singleTDSR}</large> </strong> </p>
     <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
     <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
@@ -369,6 +371,7 @@ if( caIncome > 0 ){
             </Center>
             <div className="TDSR">
               <p>For Internal Use Only</p>
+              <p> <strong> Estimated Payment:<large>{state.data.estimatedPayment}</large> </strong> </p>
               <p> <strong> A:  <large>{singleTDSR}</large> </strong> </p>
                   <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
                   <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
