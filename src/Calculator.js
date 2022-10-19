@@ -558,16 +558,14 @@ function Calculator(props) {
                   <div key={filteredTerm.id}>
                     <h2 className="results">Results</h2>
                     <h2>
-                    The estimated monthly payment below is based on actual available bank terms, subject to bank approval. Adjust the deposit if you are planning to make a
-                      cash down payment or trading in your current car and
-                      putting the proceeds towards your new car. You may also
-                      adjust the interest rate or loan term to see how this
-                      would affect your monthly payment. Hit the Find Bank Deals button to find out what you might qualify for.
+                    The estimated monthly payment below is based on actual available bank terms, subject to bank approval. 
+                    You may drag the yellow circles below to adjust Down Payment, Interest rate and Loan Term to see how this would affect your monthly payment. 
+                    Hit the Find Bank Deals button to see what you might qualify for
                     </h2>
                     <br />
                     {state.data.deposit >= 0 && (
                       <h1>
-                        {state.data.deposit}% Downpayment ($
+                        {state.data.deposit}% Down Payment ($
                         {Math.round(
                           state.data.price * (state.data.deposit / 100)
                         ).toLocaleString("en")}
