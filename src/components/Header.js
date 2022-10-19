@@ -1,13 +1,13 @@
 import React from "react";
 import "tailwindcss/tailwind.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useHistory } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import { Button,Drawer,DrawerBody,Input,
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton, useDisclosure } from "@chakra-ui/react";
+  DrawerCloseButton, useDisclosure} from "@chakra-ui/react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Tooltip } from "@chakra-ui/react";
 
@@ -66,6 +66,14 @@ function Header() {
             </div>
           </div>
           <div className="md:flex items-center pt-8">
+         
+              <Button
+                className="ml-8 lg:ml-10"
+              > <Link to="/"> 
+                Home
+                </Link>
+              </Button>
+             
             {!isAuthenticated && (
               <Button
                 onClick={() =>
@@ -78,14 +86,20 @@ function Header() {
                 Login
               </Button>
             )}
-            {isAuthenticated && (
+
+      {isAuthenticated && (
               <Button
-                onClick={() => logout({ returnTo: window.location.origin })}
+                onClick={() =>
+                  logout({
+                    redirectUri: '/',
+                  })
+                }
                 className="ml-8 lg:ml-10"
               >
-                Home/Logout
+                Logout
               </Button>
             )}
+            
           </div>
         </div>
       </div>
