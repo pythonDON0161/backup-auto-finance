@@ -44,7 +44,7 @@ const CoApplicant = (props) => {
           </Center>
 
           <Center>
-          <Link to="/thank-you" >
+          <Link to="/submit-application" >
               <button className="wide-button" type="submit">
               No, I will provide my documents to the banks directly
               </button>
