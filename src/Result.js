@@ -2,7 +2,11 @@ import React, {useEffect, useState} from "react";
 import { useStateMachine } from "little-state-machine";
 import { useForm } from "react-hook-form";
 import updateAction from "./updateAction";
-import { Grid, GridItem, Center, Heading } from "@chakra-ui/react";
+import { Grid,
+  GridItem, 
+  Center, 
+  Heading,
+  Progress } from "@chakra-ui/react";
 import green from "./assets/green.png";
 import amber from "./assets/amber.png";
 import red from "./assets/red.png";
@@ -364,17 +368,17 @@ if( caIncome > 0 ){
               </Link>
             </Center>
             <div className="TDSR">
-<p>For Internal Use Only</p>
-<p> <strong> A:  <large>{singleTDSR}</large> </strong> </p>
-    <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
-    <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
-    <p> <strong>  {"R:" + state.data.calcRate} </strong> </p>
-    <p> <strong>{"T:"+ state.data.calcTerm}</strong></p>
-    <br/>
-    <br/>
+              <p>For Internal Use Only</p>
+              <p> <strong> A:  <large>{singleTDSR}</large> </strong> </p>
+                  <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
+                  <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
+                  <p> <strong>  {"R:" + state.data.calcRate} </strong> </p>
+                  <p> <strong>{"T:"+ state.data.calcTerm}</strong></p>
+                  <br/>
+                  <br/>
 
-</div>
-          </div>
+            </div>
+            </div>
             </>
             ) 
 
@@ -476,6 +480,8 @@ else if ( tdsr <0.4  && state.data.employmentStatus !== "Student" && employmentR
 
           </div>
           </>
+
+
           
           )
       
