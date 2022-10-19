@@ -151,7 +151,7 @@ const CAApplicantDetails = (props) => {
         </Center>
         <br />
         <Progress value={33} />
-        <Center>Step 1 of 3</Center>
+        <Center>Co-applicant information Step 1 of 3</Center>
         <FeedbackFish projectId="01ebf0d6447158">
           <button className="feedback">Give us Feedback</button>
         </FeedbackFish>

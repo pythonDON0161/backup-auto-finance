@@ -272,7 +272,7 @@ const EmploymentDetails = (props) => {
 
                 <br />
                 <Progress value={66} />
-                <Center>Co-Applicant Information 2 of 3</Center>
+                <Center>Co-Applicant Information Step 2 of 3</Center>
                 <FeedbackFish projectId="01ebf0d6447158">
                   <button className="feedback">Give us Feedback</button>
                 </FeedbackFish>
