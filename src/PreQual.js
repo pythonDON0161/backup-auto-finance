@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth0 } from "@auth0/auth0-react";
 import NumberFormat from "react-number-format";
@@ -34,6 +34,9 @@ const PreQual = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const { register, handleSubmit, control, watch, errors, setValue, getValues } = useForm();
   const { action, state } = useStateMachine(updateAction);
+
+    
+ 
   
   const calcData = [
     {
@@ -158,68 +161,230 @@ const PreQual = (props) => {
       rate: 12,
     },
   ];
-  
+
+
+  async function initialEstimate() {
+
+    console.log("inside initial Estimate")
+
+    if(state.data.estimatedPayment){
+
+      register({ name: "estimatedPayment" });
+      setValue("estimatedPayment", 
+      calcData.filter(
+        (term) =>
+          term.newOrUsed === carStatus &&
+          term.year === modelYear
+      )
+      .map((filteredTerm) => (Math.round(
+      ((price -
+        price * (filteredTerm.deposit / 100)) *
+        (filteredTerm.rate / 100 / 12) *
+        Math.pow(
+          1 + filteredTerm.rate / 100 / 12,
+          filteredTerm.term
+        )) /
+        (Math.pow(
+          1 + filteredTerm.rate / 100 / 12,
+          filteredTerm.term
+        ) -
+          1)
+      ))));
+      
+      register({ name: "calcTerm", type: "custom" });
+      setValue("calcTerm", calcData
+      .filter(
+        (term) =>
+          term.newOrUsed === carStatus &&
+          term.year === modelYear
+      ).map((filteredTerm) => filteredTerm.term - 0));
+      
+      register({ name: "calcRate", type: "custom" });
+      setValue("calcRate", calcData
+      .filter(
+        (term) =>
+          term.newOrUsed === carStatus &&
+          term.year === modelYear
+      ) .map((filteredTerm) => filteredTerm.rate - 0));
+      
+      register({ name: "calcDeposit", type: "custom" });
+      setValue("calcDeposit", calcData
+      .filter(
+        (term) => term.newOrUsed === carStatus && term.year === modelYear )
+        .map((filteredTerm) => filteredTerm.deposit - 0));
+
+
+    }
+
+
+ 
+
+
+  }
+
+
   //let carStatus = watch("carStatus");
 
   let modelYear = watch("modelYear");
   //getValues used instead of watch to avoid triggering re-render while entering price
   let price = getValues("price");
+  let carPrice = watch("price")
   const url = 'https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications';
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
+
+
+  if (!price || isNaN(price)){ price = state.data.carPrice} 
+  
+  useEffect(() => { initialEstimate() }, [carPrice] )
+
   async function handleEstimate() {
 
+    console.log("in handle estimate")
+
+
     if (!state.data.estimatedPayment || isNaN(state.data.estimatedPayment)) {
-    register({ name: "estimatedPayment" });
-    setValue("estimatedPayment", calcData
-    .filter(
-      (term) =>
-        term.newOrUsed === carStatus &&
-        term.year === modelYear
-    )
-    .map((filteredTerm) => (Math.round(
-    ((price -
-      price * (filteredTerm.deposit / 100)) *
-      (filteredTerm.rate / 100 / 12) *
-      Math.pow(
-        1 + filteredTerm.rate / 100 / 12,
-        filteredTerm.term
-      )) /
-      (Math.pow(
-        1 + filteredTerm.rate / 100 / 12,
-        filteredTerm.term
-      ) -
-        1)
-    ))));
-    register({ name: "calcTerm", type: "custom" });
-    setValue("calcTerm", calcData
-    .filter(
-      (term) =>
-        term.newOrUsed === carStatus &&
-        term.year === modelYear
-    )
-    .map((filteredTerm) => filteredTerm.term - 0));
-    register({ name: "calcRate", type: "custom" });
-    setValue("calcRate", calcData
-    .filter(
-      (term) =>
-        term.newOrUsed === carStatus &&
-        term.year === modelYear
-    )
-    .map((filteredTerm) => filteredTerm.rate - 0));
-    register({ name: "calcDeposit", type: "custom" });
-    setValue("calcDeposit", calcData
-    .filter(
-      (term) =>
-        term.newOrUsed === carStatus &&
-        term.year === modelYear
-    )
-    .map((filteredTerm) => filteredTerm.deposit - 0));}
-    await new Promise((resolve, reject) => setTimeout(resolve, 300));
-    props.history.push("./applicant-details");
-  }
+      console.log("estimated payment not defined or Nan")
+        register({ name: "estimatedPayment" });
+        setValue("estimatedPayment", 
+        calcData.filter(
+          (term) =>
+            term.newOrUsed === carStatus &&
+            term.year === modelYear
+        )
+        .map((filteredTerm) => (Math.round(
+        ((price -
+          price * (filteredTerm.deposit / 100)) *
+          (filteredTerm.rate / 100 / 12) *
+          Math.pow(
+            1 + filteredTerm.rate / 100 / 12,
+            filteredTerm.term
+          )) /
+          (Math.pow(
+            1 + filteredTerm.rate / 100 / 12,
+            filteredTerm.term
+          ) -
+            1)
+        ))));
+
+        register({ name: "calcTerm", type: "custom" });
+        
+        setValue("calcTerm", calcData
+        .filter(
+          (term) =>
+            term.newOrUsed === carStatus &&
+            term.year === modelYear
+        )
+        .map((filteredTerm) => filteredTerm.term - 0));
+
+        register({ name: "calcRate", type: "custom" });
+       
+        setValue("calcRate", calcData
+        .filter(
+          (term) =>
+            term.newOrUsed === carStatus &&
+            term.year === modelYear
+        ) .map((filteredTerm) => filteredTerm.rate - 0));
+
+        register({ name: "calcDeposit", type: "custom" });
+        setValue("calcDeposit", calcData
+        .filter(
+          (term) =>
+            term.newOrUsed === carStatus &&
+            term.year === modelYear
+        ).map( (filteredTerm) => filteredTerm.deposit - 0))
+        
+        }
+
+       
+        //If estimated payment is defined
+
+        if( state.data.estimatedPayment ){
+
+            console.log(
+                calcData.filter(
+                  (term) =>
+                    term.newOrUsed === carStatus &&
+                    term.year === modelYear
+                )
+                .map((filteredTerm) => (Math.round(
+                ((price -
+                  price * (filteredTerm.deposit / 100)) *
+                  (filteredTerm.rate / 100 / 12) *
+                  Math.pow(
+                    1 + filteredTerm.rate / 100 / 12,
+                    filteredTerm.term
+                  )) /
+                  (Math.pow(
+                    1 + filteredTerm.rate / 100 / 12,
+                    filteredTerm.term
+                  ) -
+                    1)
+                )))
+            )
+
+        }
+
+        if(state.data.estimatedPayment){
+
+          register({ name: "estimatedPayment" });
+          setValue("estimatedPayment", 
+          calcData.filter(
+            (term) =>
+              term.newOrUsed === carStatus &&
+              term.year === modelYear
+          )
+          .map((filteredTerm) => (Math.round(
+          ((price -
+            price * (filteredTerm.deposit / 100)) *
+            (filteredTerm.rate / 100 / 12) *
+            Math.pow(
+              1 + filteredTerm.rate / 100 / 12,
+              filteredTerm.term
+            )) /
+            (Math.pow(
+              1 + filteredTerm.rate / 100 / 12,
+              filteredTerm.term
+            ) -
+              1)
+          ))));
+          
+          register({ name: "calcTerm", type: "custom" });
+          setValue("calcTerm", calcData
+          .filter(
+            (term) =>
+              term.newOrUsed === carStatus &&
+              term.year === modelYear
+          ).map((filteredTerm) => filteredTerm.term - 0));
+          
+          register({ name: "calcRate", type: "custom" });
+          setValue("calcRate", calcData
+          .filter(
+            (term) =>
+              term.newOrUsed === carStatus &&
+              term.year === modelYear
+          ) .map((filteredTerm) => filteredTerm.rate - 0));
+          
+          register({ name: "calcDeposit", type: "custom" });
+          setValue("calcDeposit", calcData
+          .filter(
+            (term) => term.newOrUsed === carStatus && term.year === modelYear )
+            .map((filteredTerm) => filteredTerm.deposit - 0));
+        }
+
+      
+      await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+      props.history.push("./applicant-details");
+  
+
+      }
+   
   const onSubmit = (data) => {
+   
+   // handleEstimate()
+
+    
     action(data);
     const body = {
       "application": {
@@ -256,6 +421,7 @@ const PreQual = (props) => {
         });
       }
     });
+   
   };
 
 
@@ -279,19 +445,15 @@ const PreQual = (props) => {
       />
     );
   };
-/*
-  if (state.data.carStatus) {
-    carStatus = state.data.carStatus;
-  }
-*/
-let carStatus = watch("carStatus");
+      /*
+        if (state.data.carStatus) {
+          carStatus = state.data.carStatus;
+        }
+     */
 
-if(!carStatus ){
-  
-  carStatus = state.data.carStatus; 
-         
+  let carStatus = watch("carStatus");
 
-  } 
+  if(!carStatus ){  carStatus = state.data.carStatus; } 
 
 
   return (
@@ -393,7 +555,7 @@ if(!carStatus ){
             </button>
           </Center>
           <br />
-          <Progress value={11} />
+          <Progress value={16} />
           <Center>Step 1 of 7</Center>
           <FeedbackFish projectId="01ebf0d6447158">
             <button className="feedback">Give us Feedback</button>
@@ -427,7 +589,7 @@ if(!carStatus ){
       </div>
       
     </>
-  );
-};
+  )}
+
 
 export default withRouter(PreQual);
