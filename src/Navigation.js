@@ -4,15 +4,8 @@ import { useForm } from "react-hook-form";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import {
-  SimpleGrid,
-  Center,
-  Progress,
-  Heading, Text,Spacer,Flex ,List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,HStack,Button
-} from "@chakra-ui/react";
+  SimpleGrid,Center,Progress,Heading,Text,Spacer,Flex ,
+  List,ListItem,ListIcon,OrderedList,UnorderedList,HStack,Button} from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
 import {FiMenu,FiHome,FiCalendar,FiUsers,FiDollarSign,FiBriefcase,FiUser,FiSettings
@@ -36,10 +29,11 @@ const Navigation = (props) => {
 
   const [clicked, setClicked] = useState('hidden');
 
-  
   const [clicked2, setClicked2] = useState('hidden');
 
   const [clicked3, setClicked3] = useState('hidden');
+
+  const [clicked4, setClicked4] = useState('hidden');
 
   const handleClick = () => {
     state.data.ratio ?  history.push('/bank-selection') : setClicked('show');
@@ -51,6 +45,10 @@ const Navigation = (props) => {
 
   const handleClick3 = () => {
     state.data.ratio ? history.push('/thank-you'): setClicked3('show');
+  };
+  
+  const handleClick4 = () => {
+    state.data.ratio ? history.push('/co-applicant'): setClicked4('show');
   };
 
   const [navSize, changeNavSize] = useState("large");
@@ -66,15 +64,14 @@ const Navigation = (props) => {
         <SimpleGrid columns={1} >
 
              <Center> 
-                 <Heading textAlign="center">Road Map to Finding My Deal</Heading>
+                 <Heading textAlign="center">Road Map To Finding My Deal</Heading>
               </Center>
 
           <Center>
             <Text> 
-            <p style={{ fontWeight:600,justifyContent: "center",
-                        alignItems: "center",textAlign: "center" }}>
-             In order to find you the best bank deal.
-           Please complete step 1 (Personal Information) before moving onto other steps.    <br/> 
+            <p style={{ fontWeight:600,justifyContent: "center",alignItems: "center",textAlign: "center" }}>
+             In order to find you the best bank deal,please complete Step 1 (Personal Information) before 
+             moving onto other steps.<br/> 
             Steps 2 (Co-Applicant) and Step 4 (Document Upload) are optional.
               </p>
             </Text>
@@ -99,12 +96,17 @@ const Navigation = (props) => {
             
             
            <Center> 
-            <Link to="/co-app-disclaimer">
+            <Link >
                 <HStack> 
-                    <button className="nav-button">CO-APPLICANT INFORMATION<br/>(Step 2)</button>
+                    <button  onClick={ handleClick4 }  className="nav-button">CO-APPLICANT INFORMATION<br/>(Step 2)</button>
                 </HStack>
             </Link>
            </Center>
+
+           <Center> 
+                  <Text style={{width:"70%",textAlign:"center",color:"red",fontWeight:600, border:"3px red solid"}} 
+                  className={clicked4}> Please complete Personal Information Module !</Text>
+            </Center>
 
            <Center p={0}> <ImArrowDown color="#e65323" size={50} /> </Center>
            
