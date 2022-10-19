@@ -62,10 +62,12 @@ const ApplicantDetails = (props) => {
   
    
       <div class="form-container"> 
+      
       <Header />
       {isAuthenticated && (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Applicant Details</Heading>
+       
         <label>
           First Name:
           <Input
@@ -163,7 +165,7 @@ const ApplicantDetails = (props) => {
           </button>
         </Center>
         <br />
-        <Progress value={22} />
+        <Progress value={19} />
         <Center>Personal Information 2 of 7</Center>
         <FeedbackFish projectId="01ebf0d6447158">
           <button className="feedback">Give us Feedback</button>
