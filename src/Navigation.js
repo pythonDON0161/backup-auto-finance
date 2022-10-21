@@ -70,7 +70,7 @@ const Navigation = (props) => {
           <Center>
             <Text> 
             <p style={{ fontWeight:600,justifyContent: "center",alignItems: "center",textAlign: "center" }}>
-             In order to find you the best bank deal,please complete Step 1 (Personal Information) before 
+             In order to find you the best bank deal, please complete Step 1 (Personal Information) before 
              moving onto other steps.<br/> 
             Steps 2 (Co-Applicant) and Step 4 (Document Upload) are optional.
               </p>
@@ -141,7 +141,7 @@ const Navigation = (props) => {
                 </Center>
 
            <Center mt={5}> 
-              <Link to="/upload-page"> 
+              <Link to="/submit-application"> 
                   <button onClick={ handleClick3 } style={{backgroundColor:"green"}} className="nav-button">FINISH/SUBMIT MY APPLICATION</button>
               </Link>
            </Center>
