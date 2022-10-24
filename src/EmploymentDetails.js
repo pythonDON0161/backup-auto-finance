@@ -201,7 +201,7 @@ const EmploymentDetails = (props) => {
                       maxLength={7}
                       decimalsLimit={2}
                       defaultValue={state.data.grossMonthly}
-                      // onChange={getData}
+                    
                       onChange={ getData} 
                     />
                   );
