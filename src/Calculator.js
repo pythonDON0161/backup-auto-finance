@@ -559,8 +559,8 @@ function Calculator(props) {
                     <h2 className="results">Results</h2>
                     <h2>
                     The estimated monthly payment below is based on actual available bank terms, subject to bank approval. 
-                    You may drag the yellow circles below to adjust Down Payment, Interest rate and Loan Term to see how this would affect your monthly payment. 
-                    Hit the Find Bank Deals button to see what you might qualify for
+                    You may drag the yellow circles below to adjust Down Payment, Interest Rate and Loan Term to see how this would affect your monthly payment. 
+                    Hit the Find Bank Deals button to see what you might qualify for.
                     </h2>
                     <br />
                     {state.data.deposit >= 0 && (
@@ -574,7 +574,7 @@ function Calculator(props) {
                     )}{" "}
                     {state.data.deposit == null && (
                       <h1>
-                        {filteredTerm.deposit}% Down ($
+                        {filteredTerm.deposit}% Down Payment ($
                         {Math.round(
                           state.data.price * (filteredTerm.deposit / 100)
                         ).toLocaleString("en")}
