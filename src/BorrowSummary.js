@@ -181,7 +181,7 @@ const BorrowSummary = (props) => {
               <br />
               <br/>
               <Text fontWeight={400} > { state.data.carStatus =="Used" && <p> (Note - for used cars, certain banks may require a greater
-            deposit than the amount you wish to put into the deal) </p>}
+           down payment than the amount you wish to put into the deal) </p>}
               </Text> 
             </Text>
           
@@ -236,7 +236,7 @@ const BorrowSummary = (props) => {
               <br/>
 
               <Text fontWeight={400} > { state.data.carStatus =="Used" && <p> (Note - for used cars, certain banks may require a greater
-            deposit than the amount you wish to put into the deal) </p>}
+           down payment than the amount you wish to put into the deal) </p>}
               </Text> 
             </Text>
           )}
