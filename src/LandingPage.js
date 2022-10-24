@@ -84,7 +84,7 @@ function LandingPage() {
                 </h3>
                 <div className="mt-3 sm:mt-5 ">
                   <Link to="/navigation">
-                    <Button className="mr-5 mb-5">Find Bank Deals</Button>
+                    <Button className="mr-5 mb-5">Find Bank Deals (Start or Continue Application)</Button>
                   </Link>
                 </div>
                 <p className="text-base text-gray-500">
