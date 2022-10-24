@@ -196,22 +196,25 @@ function Recommendation(props) {
           <br />
         </p>
         <br/>
-        <p> <strong> Price of Car/Budget: ${state.data.price.toLocaleString()} </strong> </p>
-        <p> <strong> Model Year Of Vehicle: {state.data.modelYear} </strong> </p>
-        <p> <strong> Status Of Vehicle: {state.data.carStatus}</strong> </p>
-        <p> <strong> Criteria:</strong> {state.data.criteria} </p>
+        <p> <strong> Price of Car/Budget: </strong>  ${ state.data.price.toLocaleString() }</p>
+        <p> <strong> Model Year Of Vehicle:</strong> {state.data.modelYear}  </p>
+        <p> <strong> Status Of Vehicle: </strong> {state.data.carStatus} </p>
+        <p> <strong> Criteria: </strong> {state.data.criteria}  </p> 
+        
         {isLoading ? (
           <Center>
             <Spinner className="loading" size="xl" />
             We're pulling the latest info from our banking partners to find the best rate for you
           </Center>
-        ) : (
+        ) : 
+        
+        (
           <>
             <table>
               <tbody>
                 <tr>
                   <th>Bank</th>
-                  <th>Total Down Payment</th>
+                  <th>Total Down<br/> Payment</th>
                   <th>Loan<br/>Amount</th>
                   <th>Monthly<br/>Payment</th>
                   <th>Interest<br/>Rate</th>
@@ -221,7 +224,6 @@ function Recommendation(props) {
                 </tr>
                 
                 <tr>
-                  
                   <td>{state.data.bankPayments[0].thisBank.toUpperCase()}</td>
                   <td>
                     ${(Math.round(
@@ -358,6 +360,7 @@ function Recommendation(props) {
         
       </form>
       )}
+
       {!isAuthenticated && (
         <Container centerContent class="pt-8">
           <SimpleGrid columns={1} spacing="20px">
@@ -384,6 +387,7 @@ function Recommendation(props) {
           </SimpleGrid>
         </Container>
       )}
+
       <FeedbackFish projectId="01ebf0d6447158">
         <button className="feedback">Give us Feedback</button>
       </FeedbackFish>

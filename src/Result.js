@@ -183,12 +183,13 @@ if( caIncome > 0 ){
           <div className="TDSR">
           
     <p>For Internal Use Only</p>
-    <p> <strong> Estimated Payment:<large>{state.data.estimatedPayment}</large> </strong> </p>
-    <p> <strong> A:<large>{singleTDSR}</large> </strong> </p>
-    <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
-    <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
-    <p> <strong> {"R:" + state.data.calcRate} </strong> </p>
-    <p> <strong> {"T:"+ state.data.calcTerm} </strong></p>
+
+     <p> <strong> xxx:<large>{state.data.estimatedPayment}</large> </strong> </p>
+     <p> <strong> Axx:  <large>{singleTDSR}</large> </strong> </p>
+     <p>  <strong> Cxx: {caTDSR.toFixed(2)} </strong>  </p>
+     <p>  <strong> Txx: {combinedTDSR2.toFixed(2)} </strong>  </p>
+      <p> <strong>  {"yyy:" + state.data.calcRate} </strong> </p>
+      <p> <strong>  {"zzz:"+ state.data.calcTerm}</strong></p>
     <br/>
     <br/>
 
@@ -371,12 +372,12 @@ if( caIncome > 0 ){
             </Center>
             <div className="TDSR">
               <p>For Internal Use Only</p>
-              <p> <strong> Estimated Payment:<large>{state.data.estimatedPayment}</large> </strong> </p>
-              <p> <strong> A:  <large>{singleTDSR}</large> </strong> </p>
-                  <p> {state.data.caTotalMonthly > 0 ? <strong>CR: {caTDSR.toFixed(2)} </strong> : null} </p>
-                  <p> {state.data.caTotalMonthly > 0 ? <strong>CO: {combinedTDSR2.toFixed(2)} </strong> : null} </p>
-                  <p> <strong>  {"R:" + state.data.calcRate} </strong> </p>
-                  <p> <strong>{"T:"+ state.data.calcTerm}</strong></p>
+              <p> <strong> xxx:<large>{state.data.estimatedPayment}</large> </strong> </p>
+              <p> <strong> Axx:  <large>{singleTDSR}</large> </strong> </p>
+                  <p>  <strong> Cxx: {caTDSR.toFixed(2)} </strong>  </p>
+                  <p>  <strong> Txx: {combinedTDSR2.toFixed(2)} </strong>  </p>
+                  <p> <strong>  {"yyy:" + state.data.calcRate} </strong> </p>
+                  <p> <strong>  {"zzz:"+ state.data.calcTerm}</strong></p>
                   <br/>
                   <br/>
 
