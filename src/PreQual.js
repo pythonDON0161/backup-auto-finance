@@ -159,7 +159,7 @@ const PreQual = (props) => {
   ];
 
 
-  async function initialEstimate() {
+  function initialEstimate() {
 
     //console.log("inside initial Estimate")
     console.log("inside initial estimate")
@@ -223,6 +223,7 @@ const PreQual = (props) => {
   headers.append("Content-Type", "application/json");
 
   const [ price, setPrice ] = useState(state.data.price);
+  const [ estPayment, setestPayment ] = useState(state.data.estimatedPayment);
 
    function getData(val) { 
 
@@ -420,13 +421,17 @@ const PreQual = (props) => {
     });
     
     console.log("in submit function")
+    
+    /*Correct way to do this is call estimate function and wait for return value before go to next page */
 
-    if ( state.data.estimatedPayment.length == "undefined" || 
-         state.data.estimatedPayment.length == 0 || !state.data.estimatedPayment  ) 
+        if(state.data.estimatedPayment > 0) {
+          console.log("final est", state.data.estimatedPayment)
+            
+          props.history.push("./applicant-details"); 
         
-        { console.log( "empty array" ); initialEstimate(); } 
-      
-      else { props.history.push("./applicant-details"); }
+        } else{
+          initialEstimate()
+        }
 
   };
  
