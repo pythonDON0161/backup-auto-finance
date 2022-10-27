@@ -10,8 +10,8 @@ const FileUpload = ({ name, placeholder, acceptedFileTypes, control, children, i
     meta: { invalid, isTouched, isDirty },
   } = useController({
     name,
-    control,
-    rules: { required: isRequired },
+    control,rules:
+     { required: isRequired },
   });
 
   return (
