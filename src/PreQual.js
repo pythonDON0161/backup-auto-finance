@@ -242,7 +242,7 @@ const PreQual = (props) => {
 
   async function handleEstimate() {
 
-    setCarPrice()
+    await setCarPrice()
 
     console.log("in handle estimate");
     //console.log(price);
@@ -370,6 +370,17 @@ const PreQual = (props) => {
 
       await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
+          /*Correct way to do this is call estimate function and wait for return value before go to next page */
+
+        if(state.data.estimatedPayment > 0 ) {
+          console.log("final est", state.data.estimatedPayment)
+            
+          props.history.push("./applicant-details"); 
+        
+        } else{
+          initialEstimate()
+        }
+
         /*
         if ( state.data.estimatedPayment.length == "undefined" || state.data.estimatedPayment.length == 0 ) 
         
@@ -421,17 +432,7 @@ const PreQual = (props) => {
     });
     
     console.log("in submit function")
-    
-    /*Correct way to do this is call estimate function and wait for return value before go to next page */
-
-        if(state.data.estimatedPayment > 0) {
-          console.log("final est", state.data.estimatedPayment)
-            
-          props.history.push("./applicant-details"); 
-        
-        } else{
-          initialEstimate()
-        }
+  
 
   };
  
