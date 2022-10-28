@@ -14,6 +14,9 @@ import updateAction from "./updateAction";
 import storage from "./fireBaseConfig.js"
 import Header from "./components/Header";
 import emailjs from '@emailjs/browser';
+import { usePapaParse } from 'react-papaparse';
+import  { parse } from 'json2csv';
+
 import { getStorage, getDownloadURL } from "firebase/storage"; 
 import "./styles.css";
 
@@ -22,11 +25,7 @@ const finArr = new Array() //[];
 const vehArr = new Array() //[];
 
 
-export const FileUpload = ({name, 
-  
-  placeholder, 
-  acceptedFileTypes,
-  props}) => {
+export const FileUpload = ({name, placeholder, acceptedFileTypes, props}) => {
   
   const { register, handleSubmit, errors, getValues,
     setValue,watch,control,ref, } = useForm();
@@ -57,18 +56,64 @@ const { action, state } = useStateMachine(updateAction);
 
 const history = useHistory()
 
-if (!state.data.ratio){
-
-  history.push("/applicant-details");
-
-}
+if ( !state.data.ratio) { history.push("/applicant-details"); }
  
 
 function getARR(){  const storageRef = storage;  }
 
+const colHeaders=[
+"EmailAddress", "CarPrice","CarStatus","ModelYear","FirstName", "LastName", "DateOfBirth", "CellNumber",
+"EmploymentStatus", "GrossMonthlyIncome","OtherMonthlyIncome","Mortgage","Rent","CreditCard","OtherLoanPayments",
+"TradeIn", "EstimatedTradeValue","TowardsCar", "CashDownPayment","GradeYourCredit", "CoAppFirstName","CoAppLastName",
+"CoAppBirthdate","CoAppCell", "CoAppEmploymentStatus","CoAppGrossMonthly","CoAppOtherMonthly", "CoAppMortgage","CoAppRent",
+"CoAppCreditCard","CoAppOtherLoan","CoAppCredit",	"Ratio", "Criteria", "PrimaryBank"]
+
+var user_data= 
+{
+  EmailAddress: state.data.email, 
+  CarPrice: state.data.price.toLocaleString(),
+  CarStatus: state.data.carStatus,
+  ModelYear: state.data.modelYear,
+  FirstName: state.data.firstName, 
+  LastName: state.data.lastName, 
+  DateOfBirth: state.data.dateOfBirth, 
+  CellNumber: state.data.cellNumber,
+  EmploymentStatus: state.data.employmentStatus,
+  GrossMonthlyIncome: state.data.grossMonthly,
+  OtherMonthlyIncome: state.data.otherMonthly,
+  Mortgage: state.data.mortgage,
+  Rent:state.data.rent,
+  CreditCard: state.data.creditCard,
+  OtherLoanPayments: state.data.otherLoans,
+  TradeIn: state.data.tradeIn,
+  EstimatedTradeValue: state.data.currentCar ,
+  TowardsCar: state.data.towardsPurchase,
+  CashDownPayment: state.data.cashDown,
+  GradeYourCredit: state.data.creditGrade,
+  CoAppFirstName: state.data.caFirstName,
+  CoAppLastName: state.data.caLastName,
+  CoAppBirthdate : state.data.caDateOfBirth,
+  CoAppCell : state.data.caCellNumber,
+  CoAppEmploymentStatus: state.data.caCreditGrade,
+  CoAppGrossMonthly: state.data.caGrossMonthly,
+  CoAppOtherMonthly: state.data.caOtherMonthly,
+  CoAppMortgage:  state.data.caMortgage,
+  CoAppRent: state.data.caRent,
+  CoAppCreditCard: state.data.caCreditCard,
+  CoAppOtherLoan: state.data.caOtherloans,
+  CoAppCredit: state.data.caCoAppCredit,	
+  Ratio: state.data.ratio.toFixed(2),
+  Criteria: state.data.criteria,
+  PrimaryBank: state.data.primaryBank
+}
+
+//convert the data to CSV with the column names
+const csv = parse(user_data, colHeaders );
+
+var finalCsv =  Buffer.from(csv).toString("base64");
 
 function sendEmail() {
-  
+
   //console.log(urlArr, finArr, vehArr)
   let totalIncome = parseInt(state.data.grossIncome + state.data.otherMonthlyIncome);
   //console.log(totalIncome)
@@ -77,13 +122,13 @@ function sendEmail() {
  // vehArr.forEach(url => console.log(url) )
 
  console.log(vehArr)
-
-  var templateParams = {
+ 
+  var templateParams = { 
     email: state.data.email, 
     name: state.data.firstName, 
     lastName: state.data.lastName, 
     employment: state.data.employmentStatus,
-    income: totalIncome, 
+    income: parseInt(state.data.grossIncome + state.data.otherMonthlyIncome), 
     dob: state.data.dateOfBirth, 
     cell: state.data.cellNumber,
     carPrice: state.data.price.toLocaleString(),
@@ -109,7 +154,6 @@ function sendEmail() {
     bank3Deposit: state.data.bankPayments[2].deposit.toLocaleString(),
     bank3Fees: state.data.bankPayments[2].fees.toLocaleString(),
     bank3Terms: state.data.bankPayments[2].term,
-
     personalDocs:(JSON.stringify(urlArr)).replaceAll(",", "\n").replace(/[[\]]/g, "")
     .replace(/[{}]/g, "").replace(/\"/g, ""),
 
@@ -117,22 +161,27 @@ function sendEmail() {
     .replace(/[{}]/g, "").replace(/\"/g, ""),
 
     vehicleDocs: (JSON.stringify(vehArr)).replaceAll(",", "\n").replace(/[[\]]/g, "")
-    .replace(/[{}]/g, "").replace(/\"/g, "") 
-  };
+    .replace(/[{}]/g, "").replace(/\"/g, ""), 
+
+    cusdata: finalCsv
+  }; 
 
   //templateParams.push(urlArr)
   
 // console.log(templateParams)
+console.log(csv)
 
 
-  emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
+  emailjs.send('service_f9v8pdk', 'template_3wiofi8' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
       .then(function(response) {
+
         console.log('SUCCESS!', response.status, response.text);
+
       }, function(error) { console.log('FAILED...', error); });
 
 
   //CUSTOMER EMAIL BELOW
-  emailjs.send("auto_finance","template_wltw9za", templateParams, "PqN3ytZ-5Y1PJ4wPp"  )
+  emailjs.send("service_f9v8pdk","template_wltw9za", templateParams, "PqN3ytZ-5Y1PJ4wPp"  )
       .then( function (response) {
 
          console.log('SUCCESS!', response.status, response.text);
@@ -140,7 +189,7 @@ function sendEmail() {
       }, function(error) { console.log('FAILED...', error); } );
 
       //template_wltw9z
-  }
+  } 
 
    
   let inputRef = HTMLInputElement | null;
@@ -310,9 +359,6 @@ let mtHtml = `
   }  //sendEmail(); 
 
 };
-
-
-
 
 
   const onSubmitThree = (data,event) => {
