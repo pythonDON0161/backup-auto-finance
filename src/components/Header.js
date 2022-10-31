@@ -91,7 +91,7 @@ function Header() {
               <Button
                 onClick={() =>
                   logout({
-                    redirectUri: '/',
+                    redirectUri: `${window.location.origin}/`,
                   })
                 }
                 className="ml-8 lg:ml-10"
