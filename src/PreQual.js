@@ -5,17 +5,19 @@ import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
-import {Progress,Select,Center,
+import {
+  Progress,
+  Select,
+  Center,
   Container,
-  SimpleGrid,Text,
+  SimpleGrid,
+  Text,
   Button,
   Heading,
-  Input,
-  Spinner
+  Input
 } from "@chakra-ui/react";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
-import CurrencyInput from 'react-currency-input-field';
 import Sidebar from "./components/Sidebar"
 
 
@@ -34,6 +36,8 @@ const PreQual = (props) => {
   const { action, state } = useStateMachine(updateAction);
 
     
+ 
+  
   const calcData = [
     {
       id: 1,
@@ -161,10 +165,10 @@ const PreQual = (props) => {
 
   function initialEstimate() {
 
-    //console.log("inside initial Estimate")
-    console.log("inside initial estimate")
+    console.log("inside initial Estimate")
 
-   
+    if(state.data.estimatedPayment){
+
       register({ name: "estimatedPayment" });
       setValue("estimatedPayment", 
       calcData.filter(
@@ -208,58 +212,103 @@ const PreQual = (props) => {
       .filter(
         (term) => term.newOrUsed === carStatus && term.year === modelYear )
         .map((filteredTerm) => filteredTerm.deposit - 0));
-    
 
-    //props.history.push("./applicant-details");
+
+    }
+
+    if(state.data.estimatedPayment > 0 ) {
+      console.log("final est", state.data.estimatedPayment)
+        
+      props.history.push("./applicant-details"); 
+    
+    } else {
+
+
+          
+      props.history.push("./applicant-details"); 
+    }
 
   }
 
-  let carStatus = watch("carStatus");
-  let modelYear = watch("modelYear");
 
+  //let carStatus = watch("carStatus");
+
+  let modelYear = watch("modelYear");
+  let mYear = getValues("modelYear")
+  //getValues used instead of watch to avoid triggering re-render while entering price
+  let price = getValues("price");
+  //let carPrice = watch("price")
   const url = 'https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications';
   const headers = new Headers();
   headers.append("Authorization", "Basic ZHN1bW1lcnM6SmFtZG93bkxvYW5z");
   headers.append("Content-Type", "application/json");
 
-  const [ price, setPrice ] = useState(state.data.price);
-  const [ estPayment, setestPayment ] = useState(state.data.estimatedPayment);
 
-   function getData(val) { 
-
-    setPrice( val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "") );
-
-    setValue( "price", price.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "") );
-   
-  }
-
-  function setCarPrice() {  setValue("price", price.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", ""));  }
-
+  if (!price || isNaN(price)){ price = state.data.carPrice} 
   
-  // if (!price || isNaN(price)) { price = state.data.carPrice} 
+  if (!mYear|| isNaN(mYear)){ mYear = state.data.modelYear} 
   
-  //useEffect(() => { initialEstimate() }, [price] )
+  //useEffect(() => { initialEstimate() }, [carPrice] )
 
-  async function handleEstimate() {
+  function handleEstimate() {
 
-    await setCarPrice()
+    if (!state.data.estimatedPayment || isNaN(state.data.estimatedPayment)) {
+    register({ name: "estimatedPayment" });
+    setValue("estimatedPayment", calcData
+    .filter(
+      (term) =>
+        term.newOrUsed === carStatus &&
+        term.year === modelYear
+    )
+    .map((filteredTerm) => (Math.round(
+    ((price -
+      price * (filteredTerm.deposit / 100)) *
+      (filteredTerm.rate / 100 / 12) *
+      Math.pow(
+        1 + filteredTerm.rate / 100 / 12,
+        filteredTerm.term
+      )) /
+      (Math.pow(
+        1 + filteredTerm.rate / 100 / 12,
+        filteredTerm.term
+      ) -
+        1)
+    ))));
+    register({ name: "calcTerm", type: "custom" });
+    setValue("calcTerm", calcData
+    .filter(
+      (term) =>
+        term.newOrUsed === carStatus &&
+        term.year === modelYear
+    )
+    .map((filteredTerm) => filteredTerm.term - 0));
+    register({ name: "calcRate", type: "custom" });
+    setValue("calcRate", calcData
+    .filter(
+      (term) =>
+        term.newOrUsed === carStatus &&
+        term.year === modelYear
+    )
+    .map((filteredTerm) => filteredTerm.rate - 0));
+    register({ name: "calcDeposit", type: "custom" });
+    setValue("calcDeposit", calcData
+    .filter(
+      (term) =>
+        term.newOrUsed === carStatus &&
+        term.year === modelYear
+    )
+    .map((filteredTerm) => filteredTerm.deposit - 0));}
 
-    console.log("in handle estimate");
-    //console.log(price);
-    //console.log(state.data.price)
-    /*
-    if ( !state.data.estimatedPayment || isNaN(state.data.estimatedPayment) ) {
 
-      console.log()
+    else if(state.data.estimatedPayment ){
 
-      console.log("estimated payment not defined or Nan");
-
+          console.log(state.data.estimatedPayment, state.data.price, carStatus, modelYear, mYear)
         register({ name: "estimatedPayment" });
-        setValue("estimatedPayment", 
-        calcData.filter(
+        setValue("estimatedPayment", calcData
+        .filter(
           (term) =>
             term.newOrUsed === carStatus &&
-            term.year === modelYear
+            term.year === mYear
         )
         .map((filteredTerm) => (Math.round(
         ((price -
@@ -276,125 +325,35 @@ const PreQual = (props) => {
             1)
         ))));
 
-        register({ name: "calcTerm", type: "custom" });
-        
         setValue("calcTerm", calcData
         .filter(
           (term) =>
             term.newOrUsed === carStatus &&
             term.year === modelYear
-        )
-        .map((filteredTerm) => filteredTerm.term - 0));
+        ));
 
-        register({ name: "calcRate", type: "custom" });
-       
         setValue("calcRate", calcData
         .filter(
           (term) =>
             term.newOrUsed === carStatus &&
             term.year === modelYear
-        ) .map((filteredTerm) => filteredTerm.rate - 0));
+        ))
 
-        register({ name: "calcDeposit", type: "custom" });
         setValue("calcDeposit", calcData
         .filter(
           (term) =>
             term.newOrUsed === carStatus &&
             term.year === modelYear
-        ).map( (filteredTerm) => filteredTerm.deposit - 0))
-        
-        } */
+        ));
 
-        //If estimated payment is defined
-          /*
-          if( state.data.estimatedPayment ){
-            
-            console.log("in here", calcData.filter( (term) => term.newOrUsed === carStatus && term.year === modelYear
-                  )
-                  .map((filteredTerm) => (Math.round(
-                  (( price - price * (filteredTerm.deposit / 100)) *
-                    (filteredTerm.rate / 100 / 12) * Math.pow( 1 + filteredTerm.rate / 100 / 12,filteredTerm.term
-                    )) / (Math.pow( 1 + filteredTerm.rate / 100 / 12, filteredTerm.term  ) - 1) ))) )
-          }  */
-
-        if ( state.data.estimatedPayment ) { 
-
-          console.log("payment defined", state.data.estimatedPayment );
-          console.log("price", price);
-          console.log("car status", state.data.carStatus)
-          
-          register({ name: "estimatedPayment" });
-          setValue("estimatedPayment", 
-          calcData.filter(
-            (term) =>
-              term.newOrUsed === carStatus &&
-              term.year === modelYear
-          )
-          .map((filteredTerm) => (Math.round(
-          ((price -
-            price * (filteredTerm.deposit / 100)) *
-            (filteredTerm.rate / 100 / 12) *
-            Math.pow(
-              1 + filteredTerm.rate / 100 / 12,
-              filteredTerm.term
-            )) /
-            (Math.pow(
-              1 + filteredTerm.rate / 100 / 12,
-              filteredTerm.term
-            ) -
-              1)
-          ))));
-          
-          register({ name: "calcTerm", type: "custom" });
-          setValue("calcTerm", calcData
-          .filter(
-            (term) =>
-              term.newOrUsed === carStatus &&
-              term.year === modelYear
-          ).map((filteredTerm) => filteredTerm.term - 0));
-          
-          register({ name: "calcRate", type: "custom" });
-          setValue("calcRate", calcData
-          .filter(
-            (term) =>
-              term.newOrUsed === carStatus &&
-              term.year === modelYear
-          ) .map((filteredTerm) => filteredTerm.rate - 0));
-          
-          register({ name: "calcDeposit", type: "custom" });
-          setValue("calcDeposit", calcData
-          .filter(
-            (term) => term.newOrUsed === carStatus && term.year === modelYear )
-            .map((filteredTerm) => filteredTerm.deposit - 0));
-        }
-
-      await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-
-          /*Correct way to do this is call estimate function and wait for return value before go to next page */
-
-        if(state.data.estimatedPayment > 0 ) {
-          console.log("final est", state.data.estimatedPayment)
-            
-          props.history.push("./applicant-details"); 
-        
-        } else{
-          initialEstimate()
-        }
-
-        /*
-        if ( state.data.estimatedPayment.length == "undefined" || state.data.estimatedPayment.length == 0 ) 
-        
-          { console.log( "empty array" ); initialEstimate(); } 
-          
-          else {
-          //  props.history.push("./applicant-details");
-          } */
-
-      }
-
-
-  const onSubmit = (data) => {   
-    //handleEstimate()
+    }
+    //await new Promise((resolve, reject) => setTimeout(resolve, 100));
+    props.history.push("./applicant-details");
+  }
+   
+  const onSubmit = (data) => {
+   
+   //handleEstimate()
     action(data);
     const body = {
       "application": {
@@ -402,12 +361,13 @@ const PreQual = (props) => {
         "carPrice": data.price,
         "carStatus": data.carStatus,
         "modelYear": data.modelYear
-      }}
-
+      }
+    }
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
       headers: headers,
     })
-    .then((response) => response.json()).then(json => {
+    .then((response) => response.json())
+    .then(json => {
       // Do something with object
       if(json.applications[0]){
         const userID = json.applications[0].id;
@@ -430,19 +390,46 @@ const PreQual = (props) => {
         });
       }
     });
-    
-    console.log("in submit function")
-  
-
+   
   };
- 
-  if ( !carStatus ) {  carStatus = state.data.carStatus; } 
+
+
+  const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
+    const [price, setPrice] = useState(value);
+    return (
+      <NumberFormat
+        {...rest}
+        name={name}
+        value={price}
+        thousandSeparator={true}
+        allowNegative={false}
+        decimalScale={0}
+        placeholder="$ 0"
+        onValueChange={(target) => {
+          setPrice(parseInt(target.value, 10));
+          onChange(parseInt(target.value, 10));
+        }}
+        isNumericString={false}
+        prefix="$ "
+      />
+    );
+  };
+      /*
+        if (state.data.carStatus) {
+          carStatus = state.data.carStatus;
+        }
+     */
+
+  let carStatus = watch("carStatus");
+
+  if(!carStatus ){  carStatus = state.data.carStatus; } 
 
 
   return (
     <>
-    
- <div> 
+   
+      <div> 
+
    <div class="outer-container">
         <div className="header-container">
       
@@ -452,7 +439,6 @@ const PreQual = (props) => {
       {isAuthenticated && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <Heading>Vehicle Details</Heading>
-        
           <Input
             name="email"
             className="hidden-field"
@@ -462,33 +448,19 @@ const PreQual = (props) => {
           {errors.firstName && (
             <p className="error">Please enter your first name</p>
           )}
-
           <label htmlFor="price">
+            Price of Car or Budget:
             <Controller
-               name="pricer"
-                control={control}
-                render={({ onChange, value }) => {
-                  return (
-                    <CurrencyInput
-                      name="price"
-                      ref={register({
-                        required: "Please enter value of Motor Vehicle",
-                        min:0
-                      })}
-                      className="priceInput"
-                      placeholder="$0 "
-                      prefix="$"
-                      maxLength={ 8 }
-                      decimalsLimit={ 2 }
-                      defaultValue={ state.data.price } 
-                      onChange={ getData }
-                    />
-                  );
-                }} />
-                 {errors.price && <p className="error">Please enter a value</p>}
-              </label>
-     
-
+              name="price"
+              rules={{ required: true, pattern: {value: /^[1-9][0-9]*$/}, min: {value: 10000, message: 'error'} }}
+              ref={register}
+              as={CurrencyFormat}
+              control={control}
+              className="priceInput"
+              defaultValue={state.data.price}
+            />
+            {errors.price && <p className="error">Please enter a value</p>}
+          </label>
           <label>
             New or Used:
             <Select
@@ -504,7 +476,6 @@ const PreQual = (props) => {
               <p className="error">Please select an option</p>
             )}
           </label>
-
           {carStatus === "Used" && (
             <label>
               Model Year:
@@ -521,7 +492,6 @@ const PreQual = (props) => {
               </Select>
             </label>
           )}
-
           {carStatus === "New" && (
             <label>
               Model Year:
@@ -532,8 +502,11 @@ const PreQual = (props) => {
                 placeholder="Select option"
                 ref={register({ required: true })}
               >
+
                 <option value={`${latestYear}`}>{`${latestYear}`}</option>
                 <option value={`${currentYear}`}>{`${currentYear}`}</option>
+
+
               </Select>
               {errors.modelYear && (
                 <p className="error">Please select a model year</p>
@@ -551,15 +524,13 @@ const PreQual = (props) => {
             </button>
           </Center>
           <br />
-          <Progress value={14} />
-          <Center>Personal Information Step 1 of 7</Center>
+          <Progress value={16} />
+          <Center>Step 1 of 7</Center>
           <FeedbackFish projectId="01ebf0d6447158">
             <button className="feedback">Give us Feedback</button>
           </FeedbackFish>
         </form>
-
       )}
-
       {!isAuthenticated && (
         <Container centerContent className="pt-8">
           <SimpleGrid columns={1} spacing="20px">
@@ -587,7 +558,7 @@ const PreQual = (props) => {
       </div>
       
     </>
-  ) }
+  )}
 
 
 export default withRouter(PreQual);
