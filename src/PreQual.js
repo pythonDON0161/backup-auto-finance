@@ -449,7 +449,11 @@ const PreQual = (props) => {
             <p className="error">Please enter your first name</p>
           )}
           <label htmlFor="price">
+<<<<<<< HEAD
             Price of Car or Budget:
+=======
+             Price of Car or Budget:
+>>>>>>> 44d6b6137f0a4a634dfdb86fe362e818453e0bf5
             <Controller
               name="price"
               rules={{ required: true, pattern: {value: /^[1-9][0-9]*$/}, min: {value: 10000, message: 'error'} }}
