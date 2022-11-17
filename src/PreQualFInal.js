@@ -439,7 +439,7 @@ const PreQual = (props) => {
           </Center>
           <br />
           <Progress value={16} />
-          <Center>Step 1 of 7</Center>
+          <Center>Pre-Qualification 1 of 7</Center>
           <FeedbackFish projectId="01ebf0d6447158">
             <button className="feedback">Give us Feedback</button>
           </FeedbackFish>
