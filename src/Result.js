@@ -152,7 +152,7 @@ if( caIncome > 0 ){
          <div>
             <Heading>Congratulations!</Heading>
             <p>
-              Based on the information provided, ATL Auto believes that a car
+              Based on the information provided, Loan Selecta believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -205,7 +205,7 @@ if( caIncome > 0 ){
           <>
             <div>
               <p>
-                Based on the information provided, ATL Auto believes that a car
+                Based on the information provided, Loan Selecta believes that a car
                 loan application for{" "}
                 <strong>
                   ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -291,7 +291,7 @@ if( caIncome > 0 ){
 
         <div>
             <p>
-              Based on the information provided, ATL Auto believes that a car
+              Based on the information provided, Loan Selecta believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
