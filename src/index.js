@@ -59,7 +59,6 @@ import 'react-app-protect/dist/index.css'
 import ExistingRelationships from "./ExistingRelationships";
 
 
-
 const onRedirectCallback = (appState) => {
   history.push(
     appState && appState.returnTo ? appState.returnTo : window.location.pathname
