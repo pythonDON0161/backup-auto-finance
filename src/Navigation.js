@@ -87,7 +87,7 @@ const Navigation = (props) => {
             <Center> 
               <Link to="/pre-qualification"> 
                   <HStack> 
-                    <button className="nav-button">PERSONAL INFORMATION<br/>(Step 1)</button> 
+                    <button className="nav-button">Pre-Qualification<br/>(Step 1)</button> 
                   </HStack>
               </Link>
             </Center>
@@ -142,7 +142,7 @@ const Navigation = (props) => {
 
            <Center mt={5}> 
               <Link to="/submit-application"> 
-                  <button onClick={ handleClick3 } style={{backgroundColor:"green"}} className="nav-button">FINISH/SUBMIT MY APPLICATION</button>
+                  <button onClick={ handleClick3 } style={{backgroundColor:"green"}} className="nav-button">FINISH/SUBMIT</button>
               </Link>
            </Center>
            
