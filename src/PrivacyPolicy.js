@@ -67,13 +67,12 @@ function PrivacyPolicy() {
                 </div>
               </nav>
             </div>
-            <main className="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+            <main className="">
               <div className="sm:text-center lg:text-left">
                 <h2 className="text-5xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
                   Privacy Policy
                 </h2>
                 <h3 className="mt-6 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  <p>Last updated: March 23, 2021</p>
                   <p>
                     This Privacy Policy describes Our policies and procedures on
                     the collection, use and disclosure of Your information when
