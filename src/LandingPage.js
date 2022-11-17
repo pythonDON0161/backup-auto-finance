@@ -67,7 +67,7 @@ function LandingPage() {
                   Get on the Road
                 </h2>
                 <h3 className="mt-6 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Shop around
+                Shop around. Save Money.
                 <br/> <br/>
                 Compare auto loan offers in a few simple steps
                   <br />
@@ -84,7 +84,7 @@ function LandingPage() {
                 </h3>
                 <div className="mt-3 sm:mt-5 ">
                   <Link to="/navigation">
-                    <Button className="mr-5 mb-5">Find Bank Deals (Start or Continue Application)</Button>
+                    <Button className="mr-5 mb-5">Find Bank Deals (Start or Continue)</Button>
                   </Link>
                 </div>
                 <p className="text-base text-gray-500">
