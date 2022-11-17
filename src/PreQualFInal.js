@@ -35,6 +35,8 @@ const PreQual = (props) => {
   const { register, handleSubmit, control, watch, errors, setValue, getValues } = useForm();
   const { action, state } = useStateMachine(updateAction);
 
+    
+ 
   
   const calcData = [
     {
@@ -164,19 +166,12 @@ const PreQual = (props) => {
   //getValues used instead of watch to avoid triggering re-render while entering price
   let getPrice = getValues("price");
 
-  function getData(val) { 
-    console.log("in get Data");
-    setInPrice( val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "") ) ;
-    console.log("this is inPrice",inPrice)
-
-  }
-
   const [inPrice, setInPrice] = useState(state.data.price);
+ 
 
   const CurrencyFormat = ({ onChange, value, name, ...rest }) => {
     const [price, setPrice] = useState(value);
     return (
-
       <NumberFormat
         {...rest}
         name={name}
@@ -185,17 +180,17 @@ const PreQual = (props) => {
         allowNegative={false}
         decimalScale={0}
         placeholder="$ 0"
-        onValueChange={ (target) => {
-          onChange( parseInt(target.value, 10) );
-          setPrice( parseInt(target.value, 10) );
+        onValueChange={(target) => {
+          onChange(parseInt(target.value, 10));
+          setPrice(parseInt(target.value, 10));
+          setInPrice(parseInt(target.value, 10));
         }}
-        onBlur={ (target) => { getData(target) } }
+        //onBlur= {getData}
         isNumericString={false}
         prefix="$"
       />
     );
   };
-
   //let carStatus = watch("carStatus");
 
   let modelYear = watch("modelYear");
@@ -212,18 +207,27 @@ const PreQual = (props) => {
   
   if (!mYear|| isNaN(mYear)){ mYear = state.data.modelYear};
  
- 
+  
+    function getData(val) { 
+      console.log("in get Data");
+      setInPrice( val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "") ) ;
+      console.log("this is inPrice",inPrice)
+
+    }
+
   // if model year undefined set it to getValues equivalent
   //if( isNaN (modelYear) ) { modelYear = mYear} 
-
+  
+  //useEffect(() => { initialEstimate() }, [carPrice] )
 
   function handleEstimate() {
 
-    console.log("this is inPrice", inPrice);
+    
+    console.log("this is inPrice", inPrice.toLocaleString());
       
     if( isNaN (modelYear) ) { modelYear = mYear} 
 
-         // console.log (state.data.estimatedPayment, state.data.price, carStatus, modelYear, mYear)
+          console.log (state.data.estimatedPayment, state.data.price.toLocaleString(), carStatus, modelYear, mYear)
           
           state.data.estimatedPayment = calcData
           .filter(
@@ -270,7 +274,7 @@ const PreQual = (props) => {
           )
           .map((filteredTerm) => filteredTerm.deposit - 0)
       
-          console.log(state.data.estimatedPayment, state.data.price, carStatus, modelYear, mYear)
+          console.log(state.data.estimatedPayment, state.data.price.toLocaleString(), carStatus, modelYear, mYear)
           
         //await new Promise((resolve, reject) => setTimeout(resolve, 100));
         //props.history.push("./applicant-details");
@@ -293,7 +297,7 @@ const PreQual = (props) => {
         }
       }
 
-    
+    return
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
       headers: headers,
     })
@@ -316,9 +320,6 @@ const PreQual = (props) => {
         .then((response) => response.json())
         .then(json => { console.log(json.application); }); }
     });
-
-    
-    props.history.push("./applicant-details");
    
   };
 
@@ -474,4 +475,3 @@ const PreQual = (props) => {
   )}
 
 
-export default withRouter(PreQual);

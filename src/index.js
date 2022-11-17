@@ -110,7 +110,11 @@ createStore({
       officerEmail: "",
       totalBorrow: 0,
       totalBorrowAmount: 0,
-      dependents: 0
+      dependents: 0,
+      estimatedPayment: 0,
+      calcRate: 0,
+      calcDeposit: 0,
+      calcTerm: 0
     },
   },
   {
