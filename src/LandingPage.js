@@ -90,6 +90,9 @@ function LandingPage() {
                 <p className="text-base text-gray-500">
                   (For individuals and self-employed only, not companies)
                 </p>
+                <Link to="/privacy-policy">
+                  <p>Privacy Policy</p>
+                </Link>
               </div>
             </main>
           </div>
