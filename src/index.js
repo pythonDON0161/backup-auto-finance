@@ -95,6 +95,7 @@ createStore({
       caRent: 0,
       testVal: 0,
       owed: 0,
+      combinedTDSR: 0 ,
       currentCar: 0,
       bankPayments: [],
       employmentRisk: "",
