@@ -67,13 +67,12 @@ function PrivacyPolicy() {
                 </div>
               </nav>
             </div>
-            <main className="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+            <main className="">
               <div className="sm:text-center lg:text-left">
                 <h2 className="text-5xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
                   Privacy Policy
                 </h2>
                 <h3 className="mt-6 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  <p>Last updated: March 23, 2021</p>
                   <p>
                     This Privacy Policy describes Our policies and procedures on
                     the collection, use and disclosure of Your information when
@@ -640,13 +639,6 @@ function PrivacyPolicy() {
               </div>
             </main>
           </div>
-        </div>
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <img
-            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-            src={highway}
-            alt="North/South Highway"
-          />
         </div>
       </div>
     </div>
