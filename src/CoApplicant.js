@@ -23,7 +23,7 @@ const CoApplicant = (props) => {
     state.data.caLastName=""
     state.data.caDateOfBirth=""
     state.data.caCellNumber=""
-    state.data.caCreditGrade=""
+    state.data.caCreditGrade =""
     state.data.caMortgage = 0
     state.data.caGrossMonthly = 0
     state.data.caTotalMonthly = 0

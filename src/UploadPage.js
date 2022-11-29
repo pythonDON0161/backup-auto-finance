@@ -127,9 +127,8 @@ function sendEmail() {
   //console.log(totalIncome)
 
   //urlArr.forEach( url => console.log("in here",url) )
- // vehArr.forEach(url => console.log(url) )
-
- //console.log(vehArr)
+  // vehArr.forEach(url => console.log(url) )
+  //console.log(vehArr)
  
   var templateParams = { 
     email: state.data.email, 
@@ -182,24 +181,25 @@ function sendEmail() {
 // console.log(templateParams)
 //console.log(csv)
 
-
+/*
   emailjs.send('service_f9v8pdk', 'template_3wiofi8' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
       .then(function(response) {
 
         console.log('SUCCESS!', response.status, response.text);
 
       }, function(error) { console.log('FAILED...', error); });
-
+      */
 
   //CUSTOMER EMAIL BELOW
+/*
   emailjs.send("service_f9v8pdk","template_wltw9za", templateParams, "PqN3ytZ-5Y1PJ4wPp"  )
       .then( function (response) {
-
          console.log('SUCCESS!', response.status, response.text);
-
+         
       }, function(error) { console.log('FAILED...', error); } );
 
-      //template_wltw9z
+      //template_wltw9z4
+      */
   } 
 
    

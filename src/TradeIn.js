@@ -23,9 +23,6 @@ import PDFDOC from "./components/PDFMAKE";
 import { PDFDownloadLink,PDFViewer,PDFRenderer } from "@react-pdf/renderer";
 import CurrencyInput from 'react-currency-input-field';
 
-
-
-
 const TradeIn = (props) => {
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
 

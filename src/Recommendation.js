@@ -70,9 +70,6 @@ function Recommendation(props) {
     const ratio = await response.json();
    
     const tdsrobj = Object.values(ratio);
-
- 
-
     
     //Pre Qualification: Filter for banks qualified for based on TDSR
     //Current: pushes banks where TDSR is less than their maximum to a seperate array name approved banks.
@@ -130,7 +127,7 @@ function Recommendation(props) {
 
         else{
           payment = Math.round(
-            ((state.data.totalBorrow * bankObj[0][0].deposit) *
+            ((state.data.totalBorrow-state.data.totalBorrow * bankObj[0][0].deposit) *
               (bankObj[0][0].rate / 12) *
               Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term)) /
               (Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term) - 1)
