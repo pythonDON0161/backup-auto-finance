@@ -114,11 +114,14 @@ function Recommendation(props) {
         let deposit = bankObj[0][0].deposit;
         let fees = Math.round((bankObj[0][0].otherFees + (bankObj[0][0].procFees * state.data.totalBorrow))/1000)*1000;
         let term = bankObj[0][0].term;
+        let loanAmount =  state.data.totalBorrow - Math.round( (deposit * state.data.totalBorrow * 100 ) / 100);
 
-        monthlyPayments.push({ thisBank, payment, rate, deposit, fees, term });
+        monthlyPayments.push({ thisBank, payment, rate, deposit, fees, term, loanAmount });
         //create a new array to store just 3 'answers'
       }
       state.data.bankPayments = monthlyPayments;
+
+
       if (state.data.criteria === "Lowest interest rate") {
 
         state.data.bankPayments.sort((a, b) => {
@@ -224,78 +227,76 @@ function Recommendation(props) {
                 </tr>
                 
                 <tr>
-                  <td>{state.data.bankPayments[0].thisBank.toUpperCase()}</td>
                   <td>
-                    ${(Math.round(
-                      state.data.bankPayments[0].deposit * state.data.totalBorrow * 100
-                    ) / 100).toLocaleString("en")}
-                  </td>
-                  <td>${ (state.data.totalBorrow - (Math.round(
-                      state.data.bankPayments[0].deposit * state.data.totalBorrow * 100
-                    ) / 100) ).toLocaleString()}</td>
-                  <td>
-                    ${state.data.bankPayments[0].payment.toLocaleString("en")}
-                  </td>
-                  <td>
-                    {Math.round(state.data.bankPayments[0].rate * 100 * 100) /
-                      100}
-                    %
-                  </td>
-                  <td>{state.data.bankPayments[0].term} months</td>
-                  <td>
-                    ${state.data.bankPayments[0].fees.toLocaleString("en")}
-                  </td>
+                    {state.data.bankPayments[0].thisBank.toUpperCase()}</td>
                   
-             
+                  <td>
+                    ${  /* If calculated downpayment greater than cashDown then show cashDown */
+                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+
+                        Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                            Math.round(state.data.cashDown).toLocaleString()
+                    }
+                    </td>
+
+                  <td>${ state.data.bankPayments[0].loanAmount.toLocaleString()}</td>
+                  
+                  <td> ${state.data.bankPayments[0].payment.toLocaleString("en")} </td>
+                  
+                  <td> {Math.round(state.data.bankPayments[0].rate * 100 * 100) / 100} % </td>
+
+                  <td>{state.data.bankPayments[0].term} months</td>
+
+                  <td> ${state.data.bankPayments[0].fees.toLocaleString("en")} </td>
+
                 </tr>
+
                 <tr>
                   <td>{state.data.bankPayments[1].thisBank.toUpperCase()}</td>
-                  <td>
-                    ${(Math.round(
-                      state.data.bankPayments[1].deposit * state.data.totalBorrow * 100
-                    ) / 100).toLocaleString("en")}
-                  </td>
-                  <td>${ (state.data.totalBorrow - (Math.round(
-                      state.data.bankPayments[1].deposit * state.data.totalBorrow * 100
-                    ) / 100) ).toLocaleString()}</td>
-                  <td>
-                    ${state.data.bankPayments[1].payment.toLocaleString("en")}
-                  </td>
                   
                   <td>
-                    {Math.round(state.data.bankPayments[1].rate * 100 * 100) /
-                      100}
-                    %
-                  </td>
+                    ${  /* If calculated downpayment greater than cashDown then show cashDown */
+                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+
+                        Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                            Math.round(state.data.cashDown).toLocaleString()
+                    }
+                    </td>
+                    
+                  <td>${ state.data.bankPayments[1].loanAmount.toLocaleString()}</td>
+
+                  <td> ${state.data.bankPayments[1].payment.toLocaleString("en")} </td>
+                  
+                  <td> { Math.round(state.data.bankPayments[1].rate * 100 * 100) / 100} %</td>
+
                   <td>{state.data.bankPayments[1].term} months</td>
-                  <td>
-                    ${state.data.bankPayments[1].fees.toLocaleString("en")}
-                  </td>
+
+                  <td> ${state.data.bankPayments[1].fees.toLocaleString("en")} </td>
                   
                 </tr>
 
                 <tr>
                   <td>{state.data.bankPayments[2].thisBank.toUpperCase()}</td>
-                  <td>
-                    ${(Math.round(
-                      state.data.bankPayments[2].deposit * state.data.totalBorrow * 100
-                    ) / 100).toLocaleString("en")}
-                  </td>
-                  <td>${ (state.data.totalBorrow - (Math.round(
-                      state.data.bankPayments[2].deposit * state.data.totalBorrow * 100
-                    ) / 100) ).toLocaleString()}</td>
-                  <td>
-                    ${state.data.bankPayments[2].payment.toLocaleString("en")}
-                  </td>
-                  <td>
-                    {Math.round(state.data.bankPayments[2].rate * 100 * 100) /
-                      100}
-                    %
-                  </td>
-                  <td>{state.data.bankPayments[2].term} months</td>
-                  <td>
-                    ${state.data.bankPayments[2].fees.toLocaleString("en")}
-                  </td>
+
+                    <td>
+                    ${  /* If calculated downpayment greater than cashDown then show cashDown */
+                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+
+                        Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                            Math.round(state.data.cashDown).toLocaleString()
+                    }
+                    </td>
+
+
+                  <td>${ state.data.bankPayments[1].loanAmount.toLocaleString()}</td>
+                  
+                  <td> ${state.data.bankPayments[2].payment.toLocaleString("en")} </td>
+                  
+                  <td> {Math.round(state.data.bankPayments[2].rate * 100 * 100) / 100} % </td>
+
+                  <td> {state.data.bankPayments[2].term} months</td>
+                  
+                  <td> ${state.data.bankPayments[2].fees.toLocaleString("en")} </td>
                   
                   {/* <td>
                     <Center>
