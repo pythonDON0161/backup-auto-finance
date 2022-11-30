@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import highway from "./assets/highway.jpg";
 import { Button } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Footer from "./components/Footer";
 
 function LandingPage() {
   const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
@@ -105,6 +106,7 @@ function LandingPage() {
           />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
