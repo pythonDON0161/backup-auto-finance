@@ -66,7 +66,9 @@ const colHeaders=[
 "EmploymentStatus", "GrossMonthlyIncome","OtherMonthlyIncome","Mortgage","Rent","CreditCard","OtherLoanPayments",
 "TradeIn", "EstimatedTradeValue","TowardsCar", "CashDownPayment","GradeYourCredit", "CoAppFirstName","CoAppLastName",
 "CoAppBirthdate","CoAppCell", "CoAppEmploymentStatus","CoAppGrossMonthly","CoAppOtherMonthly", "CoAppMortgage","CoAppRent",
-"CoAppCreditCard","CoAppOtherLoan","CoAppCredit",	"Ratio", "Criteria", "PrimaryBank"]
+"CoAppCreditCard","CoAppOtherLoan","CoAppCredit",	"Ratio",
+"CombinedTDSR","LoanTerm", "InterestRate","EstimatedPayment", "Criteria",
+"PrimaryBank","SecondaryBank", "TertiaryBank"]
 
 var user_data= 
 {
@@ -103,8 +105,14 @@ var user_data=
   CoAppOtherLoan: state.data.caOtherloans,
   CoAppCredit: state.data.caCoAppCredit,	
   Ratio: state.data.ratio.toFixed(2),
+  CombinedTDSR: state.data.combinedTDSR2,
+  LoanTerm: state.data.calcTerm,
+  InterestRate: state.data.calcRate,
+  EstimatedPayment: state.data.estimatedPayment,
   Criteria: state.data.criteria,
-  PrimaryBank: state.data.primaryBank
+  PrimaryBank: state.data.primaryBank,
+  SecondaryBank: state.data.bankSelection2,
+  TertiaryBank: state.data.bankSelection3
 }
 
 //convert the data to CSV with the column names
@@ -119,9 +127,8 @@ function sendEmail() {
   //console.log(totalIncome)
 
   //urlArr.forEach( url => console.log("in here",url) )
- // vehArr.forEach(url => console.log(url) )
-
- console.log(vehArr)
+  // vehArr.forEach(url => console.log(url) )
+  //console.log(vehArr)
  
   var templateParams = { 
     email: state.data.email, 
@@ -131,6 +138,8 @@ function sendEmail() {
     income: parseInt(state.data.grossIncome + state.data.otherMonthlyIncome), 
     dob: state.data.dateOfBirth, 
     cell: state.data.cellNumber,
+    cashDown: state.data.cashDown,
+    tradeIn: state.data.towardsPurchase,
     carPrice: state.data.price.toLocaleString(),
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
@@ -154,6 +163,7 @@ function sendEmail() {
     bank3Deposit: state.data.bankPayments[2].deposit.toLocaleString(),
     bank3Fees: state.data.bankPayments[2].fees.toLocaleString(),
     bank3Terms: state.data.bankPayments[2].term,
+
     personalDocs:(JSON.stringify(urlArr)).replaceAll(",", "\n").replace(/[[\]]/g, "")
     .replace(/[{}]/g, "").replace(/\"/g, ""),
 
@@ -169,26 +179,27 @@ function sendEmail() {
   //templateParams.push(urlArr)
   
 // console.log(templateParams)
-console.log(csv)
+//console.log(csv)
 
-
+/*
   emailjs.send('service_f9v8pdk', 'template_3wiofi8' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
       .then(function(response) {
 
         console.log('SUCCESS!', response.status, response.text);
 
       }, function(error) { console.log('FAILED...', error); });
-
+      */
 
   //CUSTOMER EMAIL BELOW
+/*
   emailjs.send("service_f9v8pdk","template_wltw9za", templateParams, "PqN3ytZ-5Y1PJ4wPp"  )
       .then( function (response) {
-
          console.log('SUCCESS!', response.status, response.text);
-
+         
       }, function(error) { console.log('FAILED...', error); } );
 
-      //template_wltw9z
+      //template_wltw9z4
+      */
   } 
 
    
@@ -782,8 +793,6 @@ let mtHtml = `
 
                 <Center>
             
-                
-                
                 </Center>
 
                 <Center>

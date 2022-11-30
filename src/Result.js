@@ -14,8 +14,10 @@ import { Link, useHistory } from "react-router-dom";
 import ConfettiGenerator from "confetti-js";
 import { FeedbackFish } from "@feedback-fish/react";
 import Header from "./components/Header";
-import PDFDOC from "./components/PDFMAKE";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+
+//email packages
+import emailjs from '@emailjs/browser';
+import  { parse } from 'json2csv';
 
 
 var employmentRisk;
@@ -35,18 +37,102 @@ const Result = (props) => {
 
   register({name: "employmentRisk", type:"custom"});
 
-  if  (state.data.workExperience == "Less than 1 year" || state.data.probationaryPeriod =="Yes"|| state.data.outOfWork == "Yes"  ){
-
+  if  (state.data.workExperience == "Less than 1 year" || state.data.probationaryPeriod =="Yes"|| state.data.outOfWork == "Yes"  )
+  {
         employmentRisk = "yes"
         setValue("employmentRisk","yes");
-}
+   }
 
-//register({ name: "caRatio", type: "custom" });
-//const Expenses = state.data.caTotalExpenses;
-//console.log(state.data.caTotalExpenses)
-//setValue( "caRatio", Expenses / parseInt(state.data.caTotalMonthly, 10) );
+const colHeaders=[
+  "EmailAddress", "CarPrice","CarStatus","ModelYear","FirstName", "LastName", "DateOfBirth", "CellNumber",
+  "EmploymentStatus", "GrossMonthlyIncome","OtherMonthlyIncome","Mortgage","Rent","CreditCard","OtherLoanPayments",
+  "TradeIn", "EstimatedTradeValue","TowardsCar", "CashDownPayment","GradeYourCredit", "CoAppFirstName","CoAppLastName",
+  "CoAppBirthdate","CoAppCell", "CoAppEmploymentStatus","CoAppGrossMonthly",
+  "CoAppOtherMonthly", "CoAppMortgage","CoAppRent","CoAppCreditCard","CoAppOtherLoan","CoAppCredit",	"Ratio", 
+  "CombinedTDSR","LoanTerm", "InterestRate", "EstimatedPayment"
 
-//console.log("This is co-applciant's TDSR"+" " + state.data.caRatio)
+]
+
+
+  var user_data= 
+  {
+    EmailAddress: state.data.email, 
+    CarPrice: state.data.price.toLocaleString(),
+    CarStatus: state.data.carStatus,
+    ModelYear: state.data.modelYear,
+    FirstName: state.data.firstName, 
+    LastName: state.data.lastName, 
+    DateOfBirth: state.data.dateOfBirth, 
+    CellNumber: state.data.cellNumber,
+    EmploymentStatus: state.data.employmentStatus,
+    GrossMonthlyIncome: state.data.grossMonthly,
+    OtherMonthlyIncome: state.data.otherMonthly,
+    Mortgage: state.data.mortgage,
+    Rent:state.data.rent,
+    CreditCard: state.data.creditCard,
+    OtherLoanPayments: state.data.otherLoans,
+    TradeIn: state.data.tradeIn,
+    EstimatedTradeValue: state.data.currentCar ,
+    TowardsCar: state.data.towardsPurchase,
+    CashDownPayment: state.data.cashDown,
+    GradeYourCredit: state.data.creditGrade,
+    CoAppFirstName: state.data.caFirstName,
+    CoAppLastName: state.data.caLastName,
+    CoAppBirthdate : state.data.caDateOfBirth,
+    CoAppCell : state.data.caCellNumber,
+    CoAppEmploymentStatus: state.data.caCreditGrade,
+    CoAppGrossMonthly: state.data.caGrossMonthly,
+    CoAppOtherMonthly: state.data.caOtherMonthly,
+    CoAppMortgage:  state.data.caMortgage,
+    CoAppRent: state.data.caRent,
+    CoAppCreditCard: state.data.caCreditCard,
+    CoAppOtherLoan: state.data.caOtherloans,
+    CoAppCredit: state.data.caCoAppCredit,	
+    Ratio: state.data.ratio.toFixed(2),
+    CombinedTDSR: state.data.combinedTDSR2,
+    LoanTerm: state.data.calcTerm,
+    InterestRate: state.data.calcRate,
+    EstimatedPayment: state.data.estimatedPayment,
+
+  }
+
+//convert the data to CSV with the column names
+const csv = parse(user_data, colHeaders );
+
+var finalCsv =  Buffer.from(csv).toString("base64");
+
+function sendEmail() {  
+  
+  var templateParams = { 
+    email: state.data.email, 
+    name: state.data.firstName, 
+    lastName: state.data.lastName, 
+    employment: state.data.employmentStatus,
+    income: parseInt(state.data.grossIncome + state.data.otherMonthlyIncome), 
+    dob: state.data.dateOfBirth, 
+    cell: state.data.cellNumber,
+    cashDown: state.data.cashDown,
+    tradeIn: state.data.towardsPurchase,
+    carPrice: state.data.price.toLocaleString(),
+    status: state.data.carStatus,
+    modelYear: state.data.modelYear,
+    tdsr : state.data.ratio,
+    totalBorrow: state.data.totalBorrow.toLocaleString(),
+
+    cusdata: finalCsv
+  
+  }
+
+  /*
+    emailjs.send('service_f9v8pdk', 'template_08gvmnj' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
+    .then(function(response) {
+
+      console.log('SUCCESS!', response.status, response.text);
+
+    }, function(error) { console.log('FAILED...', error); });
+    */
+
+  }
 
 
 var singleTDSR = state.data.ratio
@@ -125,25 +211,17 @@ if( caIncome > 0 ){
   
   console.log(currentAge)
  
-  //console.log("Estimated expenses:" + "$"+state.data.estimatedExpenses.toString())
-  //console.log(state.data.totalMonthly)
 
-  //const combinedTDSR = (tdsr + state.data.caRatio) / 2
-  //TODO use a single traffic light based on switch statement
+  sendEmail() // send email to customer
 
   function finalTDSR(){
 
     
     history.push('/bank-selection')
     
-    /*
-    if (state.data.caTotalMonthly > 0 ){ setValue('testVal', combinedTDSR2) ;console.log("ca here")
 
-       } else{ setValue('testVal', combinedTDSR2) }
-
-   console.log("final tdsr is:", state.data.testVal)
-  } */
 }
+
 
   const GreenLight = () =>{ 
     return (

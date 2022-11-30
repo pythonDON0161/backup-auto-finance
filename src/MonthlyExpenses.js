@@ -267,7 +267,7 @@ const MonthlyExpenses = (props) => {
         </label>
                   {console.log(total,expTot )}
         <Text fontWeight="bold">
-         Total Monthly Obligations:${ !isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 0})
+         Total Monthly Obligations: ${ !isNaN(expTot)  ? expTot.toLocaleString(undefined, {minimumFractionDigits: 0})
          : handleTotal()
          
          }
