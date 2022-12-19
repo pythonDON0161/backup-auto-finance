@@ -51,11 +51,10 @@ const BankSelection = (props) => {
     props.history.push("./disclaimer");
   };
 
-  let combinedTDSR; // define a variable for combined TDSR
+  let combinedTDSR; 
 
-  //If co-applicant is used set TDSR to combined TDSR
 
-  let combinedTDSR2
+  let combinedTDSR2 // define a variable for combined TDSR
   combinedTDSR2 = (state.data.estimatedExpenses + state.data.caTotalExpenses) / 
   (state.data.totalMonthly + state.data.caTotalMonthly)
 
@@ -63,7 +62,9 @@ const BankSelection = (props) => {
 
     const caTDSR = state.data.caTDSR //getValues("caTDSR") // get co-appliant TDSR
 
-    console.log(caTDSR) // co-applicant TDSR
+    state.data.combinedTDSR = combinedTDSR2;
+
+   // console.log(caTDSR) // co-applicant TDSR
 
     register({ name: "TDSR", type: "custom" }); // register TDSR value in React Hook Form
     

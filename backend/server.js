@@ -4,10 +4,17 @@ const express = require("express");
 const cors = require("cors");
 const nodemailer = require('nodemailer');
 
+const { parse } = require('json2csv');
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
+const data = [{relation:"father",name:"Anakin Skywalker"},{relation:"son",name:"Luke Skywalker"}]; 
+
+//conver the data to CSV with the column names
+const csv = parse(data, ["relation","name"]);
+
 
 // middleware
 app.use(express.json());
@@ -19,36 +26,35 @@ app.get("/api", (req, res) => {
 });
 
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'autofinancejamaica@gmail.com',
+    pass: 'fuzubaizvurjsvwb' 
+  }
+});
+
 app.get("/sendmail", (req, res) => {
- 
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'autofinancejamaica@gmail.com',
-      pass: 'E2M*u[Epfgv$GsfX'
-    }
-  });
- 
+  
   let mailOptions = {
     from: `${req.body.mailerState.email}`,
-    to: process.env.EMAIL,
+    to : `${req.body.receiverMail}`,
     subject: `Message from: ${req.body.mailerState.email}`,
     text: `${req.body.mailerState.message}`,
-  };
- 
-  transporter.sendMail(mailOptions, function (err, data) {
-    if (err) {
-      res.json({
-        status: "fail",
-      });
-    } else {
-      console.log("== Message Sent ==");
-      console.log("it works!!")
-      res.json({
-        status: "success",
-      });
-    }
-})
+  }; 
+
+  res.json({ status: "Email sent" });
+  console.log(csv)
+  /*
+    transporter.sendMail(mailOptions, function (err, data) {
+      if (err) { res.json({ status: "fail",}); } 
+       else {  console.log("== Message Sent =="); console.log("it works!!")
+        res.json({
+          status: "success",
+        }); } })
+  */
+      console.log("hello")
+
 })
 
 
