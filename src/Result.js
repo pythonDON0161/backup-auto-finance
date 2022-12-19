@@ -48,12 +48,10 @@ const colHeaders=[
   "EmploymentStatus", "GrossMonthlyIncome","OtherMonthlyIncome","Mortgage","Rent","CreditCard","OtherLoanPayments",
   "TradeIn", "EstimatedTradeValue","TowardsCar", "CashDownPayment","GradeYourCredit", "CoAppFirstName","CoAppLastName",
   "CoAppBirthdate","CoAppCell", "CoAppEmploymentStatus","CoAppGrossMonthly",
-  "CoAppOtherMonthly", "CoAppMortgage","CoAppRent",
-  "CoAppCreditCard","CoAppOtherLoan","CoAppCredit",	"Ratio", 
+  "CoAppOtherMonthly", "CoAppMortgage","CoAppRent","CoAppCreditCard","CoAppOtherLoan","CoAppCredit",	"Ratio", 
   "CombinedTDSR","LoanTerm", "InterestRate", "EstimatedPayment"
 
 ]
-
 
 
   var user_data= 
@@ -118,7 +116,12 @@ function sendEmail() {
     carPrice: state.data.price.toLocaleString(),
     status: state.data.carStatus,
     modelYear: state.data.modelYear,
-    tdsr : state.data.ratio}
+    tdsr : state.data.ratio,
+    totalBorrow: state.data.totalBorrow.toLocaleString(),
+
+    cusdata: finalCsv
+  
+  }
 
     emailjs.send('service_f9v8pdk', 'template_08gvmnj' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
     .then(function(response) {

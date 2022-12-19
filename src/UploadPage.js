@@ -127,9 +127,8 @@ function sendEmail() {
   //console.log(totalIncome)
 
   //urlArr.forEach( url => console.log("in here",url) )
- // vehArr.forEach(url => console.log(url) )
-
- //console.log(vehArr)
+  // vehArr.forEach(url => console.log(url) )
+  //console.log(vehArr)
  
   var templateParams = { 
     email: state.data.email, 
