@@ -188,17 +188,18 @@ function sendEmail() {
         console.log('SUCCESS!', response.status, response.text);
 
       }, function(error) { console.log('FAILED...', error); });
-
+      
 
   //CUSTOMER EMAIL BELOW
+
   emailjs.send("service_f9v8pdk","template_wltw9za", templateParams, "PqN3ytZ-5Y1PJ4wPp"  )
       .then( function (response) {
-
          console.log('SUCCESS!', response.status, response.text);
-
+         
       }, function(error) { console.log('FAILED...', error); } );
 
-      //template_wltw9z
+      //template_wltw9z4
+      
   } 
 
    
