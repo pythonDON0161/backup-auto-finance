@@ -245,11 +245,10 @@ function Recommendation(props) {
         
         (
           <>
-
-         
             <table>
               <tbody>
                 <tr>
+
                   <th>Bank</th>
                   <th>Total Down<br/> Payment</th>
                   <th>Loan<br/>Amount</th>
@@ -262,18 +261,19 @@ function Recommendation(props) {
                 
                 <tr>
                   <td> { state.data.bankPayments[0].thisBank.toUpperCase() } </td>
+              
                   
                   <td>
-                    {state.data.bankPayments[0].thisBank.toUpperCase()}</td>
-                  
-                  <td>
+                    
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
                       ( Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
 
                         Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
                             Math.round(state.data.cashDown).toLocaleString()
                     }
+
                     </td>
+
 
                   <td>${ state.data.bankPayments[0].loanAmount.toLocaleString()}</td>
                   
@@ -284,6 +284,7 @@ function Recommendation(props) {
                   <td>{state.data.bankPayments[0].term} months</td>
 
                   <td> ${state.data.bankPayments[0].fees.toLocaleString("en")} </td>
+
 
                 </tr>
 
