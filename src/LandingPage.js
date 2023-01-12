@@ -28,7 +28,7 @@ function LandingPage() {
                     <a href="/">
                       <img
                         className="h-auto w-24"
-                        src="/raceCar.png"
+                        src="/LoanSelecta.png"
                         alt="Logo"
                       />
                     </a>
