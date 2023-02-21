@@ -51,12 +51,14 @@ function Recommendation(props) {
   const [approvedBanks] = useState([]);
   const [monthlyPayments] = useState([]);
 
-  //console.log("hello")
+     //console.log("hello")
 
      // add cash down and towardsPurchase variable
      let finalDeposit = ( Number(state.data.cashDown) + Number(state.data.towardsPurchase) )
-    
-     console.log( state.data.cashDown + " " + finalDeposit )
+       
+     //console.log("Towards Purchase"+state.data.towardsPurchase);
+
+     //console.log("Cash Down" + state.data.cashDown);
 
   async function fetchTDSR(data) {
     setIsLoading(true);
@@ -232,7 +234,6 @@ function Recommendation(props) {
         </p>
         <br/>
         <p> <strong> Price of Car/Budget: </strong>  ${ state.data.price.toLocaleString() }</p>
-        <p> <strong> Cash Down </strong>  ${ state.data.cashDown }</p>
         <p> <strong> Model Year Of Vehicle:</strong> {state.data.modelYear}  </p>
         <p> <strong> Status Of Vehicle: </strong> {state.data.carStatus} </p>
         <p> <strong> Criteria: </strong> {state.data.criteria}  </p> 
