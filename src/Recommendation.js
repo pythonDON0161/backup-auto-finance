@@ -133,13 +133,14 @@ function Recommendation(props) {
               (Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term) - 1)
           );
 
-          loanAmount =  state.data.totalBorrow - Math.round( (deposit * state.data.totalBorrow * 100 ) / 100);
+          loanAmount =  state.data.price - Math.round( (deposit * state.data.price * 100 ) / 100);
+
         }
     
         let rate = bankObj[0][0].rate;
         let fees = Math.round((bankObj[0][0].otherFees + (bankObj[0][0].procFees * state.data.totalBorrow))/1000)*1000;
         let term = bankObj[0][0].term;
-        loanAmount =  state.data.totalBorrow - Math.round( (deposit * state.data.totalBorrow * 100 ) / 100);
+        loanAmount =  state.data.price - Math.round( (deposit * state.data.price * 100 ) / 100);
 
         monthlyPayments.push({ thisBank, payment, rate, deposit, fees, term, loanAmount });
         
@@ -148,7 +149,6 @@ function Recommendation(props) {
       console.log("monthly payments", monthlyPayments)
 
       state.data.bankPayments = monthlyPayments;
-
 
 
       
@@ -232,6 +232,7 @@ function Recommendation(props) {
         </p>
         <br/>
         <p> <strong> Price of Car/Budget: </strong>  ${ state.data.price.toLocaleString() }</p>
+        <p> <strong> Cash Down </strong>  ${ state.data.cashDown }</p>
         <p> <strong> Model Year Of Vehicle:</strong> {state.data.modelYear}  </p>
         <p> <strong> Status Of Vehicle: </strong> {state.data.carStatus} </p>
         <p> <strong> Criteria: </strong> {state.data.criteria}  </p> 
