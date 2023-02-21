@@ -266,9 +266,9 @@ function Recommendation(props) {
                   <td>
                     
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) > state.data.cashDown) ?
 
-                        Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                        Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
                             Math.round(state.data.cashDown).toLocaleString()
                     }
 
@@ -293,9 +293,9 @@ function Recommendation(props) {
                   
                   <td>
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[1].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+                      ( Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) > state.data.cashDown) ?
 
-                        Math.round( (state.data.bankPayments[1].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                        Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
                             Math.round(state.data.cashDown).toLocaleString()
                     }
                     </td>
@@ -317,9 +317,9 @@ function Recommendation(props) {
 
                     <td>
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[2].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+                      ( Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100) > state.data.cashDown) ?
 
-                        Math.round( (state.data.bankPayments[2].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                        Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
                             Math.round(state.data.cashDown).toLocaleString()
                     }
                     </td>
@@ -340,7 +340,7 @@ function Recommendation(props) {
                       <Controller
                         name="chosenBank"
                         control={control}
-                        // defaultValue={state.data.chosenBank[3]}
+                        // defaultValue={state.data.chosenBank[3]}loanam
                         rules={{ required: false }}
                         render={({ field }) => (
                           <Checkbox
