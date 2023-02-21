@@ -258,7 +258,7 @@ function Recommendation(props) {
                   <th>Estimated<br/>Fees</th>
                
                 </tr>
-                
+              
                 <tr>
                   <td> { state.data.bankPayments[0].thisBank.toUpperCase() } </td>
               
@@ -293,9 +293,9 @@ function Recommendation(props) {
                   
                   <td>
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+                      ( Math.round( (state.data.bankPayments[1].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
 
-                        Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                        Math.round( (state.data.bankPayments[1].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
                             Math.round(state.data.cashDown).toLocaleString()
                     }
                     </td>
@@ -317,15 +317,15 @@ function Recommendation(props) {
 
                     <td>
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
+                      ( Math.round( (state.data.bankPayments[2].deposit * state.data.totalBorrow * 100 ) / 100) > state.data.cashDown) ?
 
-                        Math.round( (state.data.bankPayments[0].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
+                        Math.round( (state.data.bankPayments[2].deposit * state.data.totalBorrow * 100 ) / 100).toLocaleString("en") :
                             Math.round(state.data.cashDown).toLocaleString()
                     }
                     </td>
 
 
-                  <td>${ state.data.bankPayments[1].loanAmount.toLocaleString()}</td>
+                  <td>${ state.data.bankPayments[2].loanAmount.toLocaleString()}</td>
                   
                   <td> ${state.data.bankPayments[2].payment.toLocaleString("en")} </td>
                   
