@@ -58,7 +58,10 @@ function Recommendation(props) {
        
      //console.log("Towards Purchase"+state.data.towardsPurchase);
 
-     //console.log("Cash Down" + state.data.cashDown);
+ //console.log("Cash Down" + state.data.cashDown);
+ //parseInt(state.data.towardsPurchase);
+  console.log( parseInt(state.data.cashDown) );
+  console.log( parseInt(state.data.towardsPurchase) );
 
   async function fetchTDSR(data) {
     setIsLoading(true);
@@ -83,7 +86,9 @@ function Recommendation(props) {
               approvedBanks.push({ item });
             }  
       } 
+
       else if(state.data.ratio<= item.maximum) { 
+
         approvedBanks.push({ item });
 
       }
@@ -113,21 +118,23 @@ function Recommendation(props) {
         let deposit = bankObj[0][0].deposit;
         
         //Calculate each approved bank's monthly payment
-        if ( state.data.cashDown >  Math.round( (deposit * state.data.totalBorrow * 100 ) / 100) ) 
+        if ( state.data.cashDown >  Math.round( (deposit * state.data.totalBorrow * 100 ) / 100) ||
+             state.data.towardsPurchase >  Math.round( (deposit * state.data.totalBorrow * 100 ) / 100) 
+        ) 
         {
 
           payment = Math.round(
-            ( state.data.totalBorrow  *
-              (bankObj[0][0].rate / 12) *
-              Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term)) /
-              (Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term) - 1)
-          );
+              ( state.data.totalBorrow  *
+                (bankObj[0][0].rate / 12) *
+                Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term)) /
+                (Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term) - 1)
+            );
 
-          loanAmount =  state.data.totalBorrow 
-
+          loanAmount =  state.data.totalBorrow;
         }
 
         else{
+
           payment = Math.round(
             ((state.data.totalBorrow-state.data.totalBorrow * bankObj[0][0].deposit) *
               (bankObj[0][0].rate / 12) *
@@ -142,20 +149,17 @@ function Recommendation(props) {
         let rate = bankObj[0][0].rate;
         let fees = Math.round((bankObj[0][0].otherFees + (bankObj[0][0].procFees * state.data.totalBorrow))/1000)*1000;
         let term = bankObj[0][0].term;
-        loanAmount =  state.data.price - Math.round( (deposit * state.data.price * 100 ) / 100);
+
+       // loanAmount =  state.data.price - Math.round( (deposit * state.data.price * 100 ) / 100);
 
         monthlyPayments.push({ thisBank, payment, rate, deposit, fees, term, loanAmount });
         
         //create a new array to store just 3 'answers'
       }
+
       console.log("monthly payments", monthlyPayments)
 
       state.data.bankPayments = monthlyPayments;
-
-
-      
-      if ( state.data.cashDown > state.data.loanAmount) {  let mPayment1 = state.data.bankPayments[0].payment }
-      
 
       if (state.data.criteria === "Lowest interest rate") {
 
@@ -198,7 +202,7 @@ function Recommendation(props) {
 
       }
       action(data);
-      // console.log(state.data.bankPayments)
+ 
       setIsLoading(false);
     }
 
@@ -262,20 +266,22 @@ function Recommendation(props) {
                 </tr>
               
                 <tr>
+
                   <td> { state.data.bankPayments[0].thisBank.toUpperCase() } </td>
               
-                  
                   <td>
                     
-                    ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) > state.data.cashDown) ?
+              ${  /* If calculated downpayment greater than cashDown then show cashDown */
+                ( Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) > state.data.cashDown 
+                  || Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) > parseInt(state.data.towardsPurchase) )
+                      ?
+                    // show deposit or cashdown
+                  Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
+                      Math.round(state.data.cashDown) > parseInt(state.data.towardsPurchase) ?  
+                         Math.round(state.data.cashDown).toLocaleString("en") : parseInt(state.data.towardsPurchase).toLocaleString("en")
+                    } 
 
-                        Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
-                            Math.round(state.data.cashDown).toLocaleString()
-                    }
-
-                    </td>
-
+                  </td>
 
                   <td>${ state.data.bankPayments[0].loanAmount.toLocaleString()}</td>
                   
@@ -295,10 +301,13 @@ function Recommendation(props) {
                   
                   <td>
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) > state.data.cashDown) ?
+                      ( Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) > state.data.cashDown 
+                            || Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) > parseInt(state.data.towardsPurchase)
+                            ) ?
 
-                        Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
-                            Math.round(state.data.cashDown).toLocaleString()
+                            Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
+                            Math.round(state.data.cashDown) > parseInt(state.data.towardsPurchase) ?  
+                               Math.round(state.data.cashDown).toLocaleString("en") : parseInt(state.data.towardsPurchase).toLocaleString("en")
                     }
                     </td>
                     
@@ -319,10 +328,11 @@ function Recommendation(props) {
 
                     <td>
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100) > state.data.cashDown) ?
+                      ( Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100) > state.data.cashDown || parseInt(state.data.towardsPurchase) ) ?
 
-                        Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
-                            Math.round(state.data.cashDown).toLocaleString()
+                      Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
+                      Math.round(state.data.cashDown) > parseInt(state.data.towardsPurchase) ?  
+                         Math.round(state.data.cashDown).toLocaleString("en") : parseInt(state.data.towardsPurchase).toLocaleString("en")
                     }
                     </td>
 
