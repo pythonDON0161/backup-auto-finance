@@ -40,7 +40,7 @@ function Recommendation(props) {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+      //console.log(json.application);
     });
     });
     props.history.push("./additional-info");
@@ -60,8 +60,8 @@ function Recommendation(props) {
 
  //console.log("Cash Down" + state.data.cashDown);
  //parseInt(state.data.towardsPurchase);
-  console.log( parseInt(state.data.cashDown) );
-  console.log( parseInt(state.data.towardsPurchase) );
+ // console.log( parseInt(state.data.cashDown) );
+  console.log( "Towards Purchase from trade in"+parseInt(state.data.towardsPurchase) );
 
   async function fetchTDSR(data) {
     setIsLoading(true);
@@ -97,9 +97,9 @@ function Recommendation(props) {
      
      
     async function calculateLowestMonthly() {
-      console.log(state.data.ratio)
+     // console.log(state.data.ratio)
       //console.log(ratio)
-      console.log(approvedBanks)
+      //console.log(approvedBanks)
 
       for (let j = 0; j < approvedBanks.length; j++) {
         const thisBank = approvedBanks[j].item.banks.toLowerCase();
@@ -113,6 +113,7 @@ function Recommendation(props) {
         const bankData = await response.json();
      
         const bankObj = Object.values(bankData);
+       // console.log(bankObj)
         let payment;
         let loanAmount;
         let deposit = bankObj[0][0].deposit;
@@ -121,6 +122,7 @@ function Recommendation(props) {
         if ( state.data.cashDown >  Math.round( (deposit * state.data.totalBorrow * 100 ) / 100) ||
              state.data.towardsPurchase >  Math.round( (deposit * state.data.totalBorrow * 100 ) / 100) 
         ) 
+
         {
 
           payment = Math.round(
@@ -129,21 +131,28 @@ function Recommendation(props) {
                 Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term)) /
                 (Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term) - 1)
             );
-
+          
           loanAmount =  state.data.totalBorrow;
         }
 
         else{
-
+          
+   
+    loanAmount =  state.data.price - Math.round( (deposit * state.data.price * 100 ) / 100);
           payment = Math.round(
-            ((state.data.totalBorrow-state.data.totalBorrow * bankObj[0][0].deposit) *
+            ( loanAmount *
               (bankObj[0][0].rate / 12) *
               Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term)) /
               (Math.pow(1 + bankObj[0][0].rate / 12, bankObj[0][0].term) - 1)
           );
+          
 
-          loanAmount =  state.data.price - Math.round( (deposit * state.data.price * 100 ) / 100);
-
+//console.log("total borrow"+ state.data.totalBorrow)
+//var amount = (state.data.price-state.data.totalBorrow * 0.4) 
+        
+          
+          //console.log(thisBank, payment,state.data.totalBorrow,loanAmount, bankObj[0][0].rate,bankObj[0][0].term,bankObj[0][0].deposit);
+          
         }
     
         let rate = bankObj[0][0].rate;
@@ -157,7 +166,7 @@ function Recommendation(props) {
         //create a new array to store just 3 'answers'
       }
 
-      console.log("monthly payments", monthlyPayments)
+     // console.log("monthly payments", monthlyPayments)
 
       state.data.bankPayments = monthlyPayments;
 
@@ -172,7 +181,7 @@ function Recommendation(props) {
         if(state.data.carStatus =="Used"){
 
         state.data.bankPayments.sort((a, b) => {
-          /*console.log(a.payment, b.payment)*/ 
+          //console.log(a.loanAmount, b.loanAmount)
           return a.deposit - b.deposit;})
         } else{
 
@@ -185,7 +194,7 @@ function Recommendation(props) {
       }
 
       if (state.data.primaryBank !== "npa") {
-        console.log("Primary Bank " + state.data.primaryBank)
+      //  console.log("Primary Bank " + state.data.primaryBank)
         const position = state.data.bankPayments.findIndex(function (payment) {
           return payment.thisBank === state.data.primaryBank;
         });
