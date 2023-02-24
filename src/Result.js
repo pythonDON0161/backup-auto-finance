@@ -428,7 +428,7 @@ if( caIncome > 0 ){
                 <br/>
 
                 We suggest you speak to your banker to discuss your options. 
-                 You may also email us at autofinancejamaica@gmail.com if you have any questions
+                 You may also email us at admin@dealselectaja.com if you have any questions
               </GridItem>
             </Grid>
             <br />
