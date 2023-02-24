@@ -27,7 +27,7 @@ const ThankYou = (props) => {
           <Text fontSize="2xl">  
             The banks you have selected should contact you within 1 business day.
             <br />  
-            <br />If you have any questions, please contact us at autofinancejamaica@gmail.com
+            <br />If you have any questions, please contact us at admin@dealselectaja.com
             </Text>
         <Center>
           <button
