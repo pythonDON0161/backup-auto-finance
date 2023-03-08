@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import highway from "./assets/highway.jpg";
 import { Button } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
+import raceCar from "./assets/raceCar.png";
 
 function LandingPage() {
   const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
@@ -28,7 +29,7 @@ function LandingPage() {
                     <a href="/">
                       <img
                         className="h-auto w-24"
-                        src="/assets/LoanSelecta.png"
+                        src={raceCar}
                         alt="Logo"
                       />
                     </a>
