@@ -119,16 +119,12 @@ var user_data=
 const csv = parse(user_data, colHeaders );
 
 var finalCsv =  Buffer.from(csv).toString("base64");
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 function sendEmail() {
 
-  //console.log(urlArr, finArr, vehArr)
   let totalIncome = parseInt(state.data.grossIncome + state.data.otherMonthlyIncome);
-  //console.log(totalIncome)
 
-  //urlArr.forEach( url => console.log("in here",url) )
-  // vehArr.forEach(url => console.log(url) )
-  //console.log(vehArr)
  
   var templateParams = { 
     email: state.data.email, 
@@ -176,12 +172,9 @@ function sendEmail() {
     cusdata: finalCsv
   }; 
 
-  //templateParams.push(urlArr)
-  
-// console.log(templateParams)
-//console.log(csv)
 
 
+ //admin email below
   emailjs.send('service_f9v8pdk', 'template_3wiofi8' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
       .then(function(response) {
 
@@ -215,68 +208,7 @@ function sendEmail() {
   let inputRefTen = HTMLInputElement | null;
   let inputRefEle =  HTMLInputElement | null ;
   let inputRefTwe = HTMLInputElement | null;
-/*
-  useEffect(() => {
-    //const el2 = document.getElementById("tabs-6--tab-1")
-   // console.log(el2)
-    //inputRefEle = el2   // 👈️ element here
-  }, []);
-*/
 
-/*
-let mtHtml = `
-<html><table><tbody><tr><th>Bank</th><th>Monthly Payment</th><th>Interest Rate</th><th>Deposit</th><th>Estimated Fees</th><th>Term</th></tr><tr><td>{bank1Name.toUpperCase()}</td><td>${bank1Payments.toLocaleString("`en`")}</td><td>${Math.round(bank1Rate * 100 * 100) / 100}%</td>
-<td>${(Math.round(bank1Deposit * totalBorrow * 100 ) / 100).toLocaleString("en")}</td>
-<td>
-                    ${bank1Fees.toLocaleString("en")}
-                  </td>
-                  <td>{bank1Payments} months</td>
-             
-                </tr>
-                <tr>
-                  <td>{bank2Name.toUpperCase()}</td>
-                  <td>
-                    ${bank2Payments.toLocaleString("en")}
-                  </td>
-                  <td>
-                    {Math.round(bank2Rate * 100 * 100) / 100} %
-                  </td>
-                  <td>
-                    ${(Math.round(bank2Deposit * totalBorrow * 100 ) / 100).toLocaleString("en")}
-                  </td>
-                  <td>
-                    ${bank2Fees.toLocaleString("en")}
-                  </td>
-                  <td>{bank2Term} months</td>
-                </tr>
-                <tr>
-                  <td>{bank3Name.toUpperCase()}</td>
-                  <td>
-                    ${bank3Payments.toLocaleString("en")}
-                  </td>
-                  <td>
-                    {Math.round(bank3Rate * 100 * 100) /
-                      100}
-                    %
-                  </td>
-                  <td>
-                    ${(Math.round(bank3Deposit * totalBorrow * 100) / 100).toLocaleString("en")}
-                  </td>
-                  <td>
-                    ${bank3Fees.toLocaleString("en")}
-                  </td>
-                  <td>{bank3Term} months</td>
-                 
-                          />
-                        )}
-                      />
-                    </Center>
-                  </td> 
-                </tr>
-              </tbody>
-            </table></html>`
-
-*/
 
 
   const onSubmit = (data,event) => {
