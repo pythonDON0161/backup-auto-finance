@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
 import CurrencyInput from 'react-currency-input-field';
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from "./components/Sidebar";
@@ -100,7 +100,7 @@ const EmploymentDetails = (props) => {
           .then((addInfo) => addInfo.json())
           .then((json) => {
             // Do something with object
-            console.log(json.application);
+           //console.log(json.application);
           });
       });
        props.history.push("./monthly-expenses");
@@ -141,7 +141,7 @@ const EmploymentDetails = (props) => {
 
       useEffect( () => {
          //console.log("watching for value", grossMonthlyIncome); //this will not log anything
-         console.log( "this is gross" +grossMonthlyIncome );
+        //console.log( "this is gross" +grossMonthlyIncome );
          setValue("total", parseInt(grossMonthlyIncome) + parseInt(otherMonthlyIncome));
          //console.log(state.data.total)
          
@@ -269,10 +269,8 @@ const EmploymentDetails = (props) => {
 
                 <br />
                 <Progress value={33} />
-                <Center>Personal Information 3 of 7</Center>
-                <FeedbackFish projectId="01ebf0d6447158">
-                  <button className="feedback">Give us Feedback</button>
-                </FeedbackFish>
+                <Center>3 of 7</Center>
+                
 
              </form>
 

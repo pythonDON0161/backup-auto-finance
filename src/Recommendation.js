@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { StateMachineContext, useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Center, Progress, Heading, Spinner, Select, Container, SimpleGrid, Text, Button } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { render } from "@testing-library/react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -60,8 +60,8 @@ function Recommendation(props) {
 
  //console.log("Cash Down" + state.data.cashDown);
  //parseInt(state.data.towardsPurchase);
- // console.log( parseInt(state.data.cashDown) );
-  console.log( "Towards Purchase from trade in"+parseInt(state.data.towardsPurchase) );
+ ////console.log( parseInt(state.data.cashDown) );
+ //console.log( "Towards Purchase from trade in"+parseInt(state.data.towardsPurchase) );
 
   async function fetchTDSR(data) {
     setIsLoading(true);
@@ -97,7 +97,7 @@ function Recommendation(props) {
      
      
     async function calculateLowestMonthly() {
-     // console.log(state.data.ratio)
+     ////console.log(state.data.ratio)
       //console.log(ratio)
       //console.log(approvedBanks)
 
@@ -113,7 +113,7 @@ function Recommendation(props) {
         const bankData = await response.json();
      
         const bankObj = Object.values(bankData);
-       // console.log(bankObj)
+       ////console.log(bankObj)
         let payment;
         let loanAmount;
         let deposit = bankObj[0][0].deposit;
@@ -166,7 +166,7 @@ function Recommendation(props) {
         //create a new array to store just 3 'answers'
       }
 
-     // console.log("monthly payments", monthlyPayments)
+     ////console.log("monthly payments", monthlyPayments)
 
       state.data.bankPayments = monthlyPayments;
 
@@ -194,11 +194,11 @@ function Recommendation(props) {
       }
 
       if (state.data.primaryBank !== "npa") {
-      //  console.log("Primary Bank " + state.data.primaryBank)
+      // //console.log("Primary Bank " + state.data.primaryBank)
         const position = state.data.bankPayments.findIndex(function (payment) {
           return payment.thisBank === state.data.primaryBank;
         });
-        // console.log(position);
+        ////console.log(position);
 
       
         if (position >= 2) {
@@ -447,9 +447,7 @@ function Recommendation(props) {
         </Container>
       )}
 
-      <FeedbackFish projectId="01ebf0d6447158">
-        <button className="feedback">Give us Feedback</button>
-      </FeedbackFish>
+      
     </div>
   );
 }

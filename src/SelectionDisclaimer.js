@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Progress, Heading, Center } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 
 const SelectionDisclaimer = (props) => {
@@ -59,9 +59,7 @@ const SelectionDisclaimer = (props) => {
         </Center>
         <br />
       </form>
-      <FeedbackFish projectId="01ebf0d6447158">
-        <button className="feedback">Give us Feedback</button>
-      </FeedbackFish>
+      
     </>
   );
 };

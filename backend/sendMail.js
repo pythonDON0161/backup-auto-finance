@@ -18,25 +18,25 @@ var transporter = nodemailer.createTransport({
 
   transporter.verify((err, success) => {
     err
-      ? console.log(err)
-      : console.log(`=== Server is ready to take messages: ${success} ===`);
+      ?//console.log(err)
+      ://console.log(`=== Server is ready to take messages: ${success} ===`);
    });
    
 
    transporter.sendMail(mailOptions, function (err, data) {
     if (err) {
-      console.log("Error " + err);
+     //console.log("Error " + err);
     } else {
-      console.log("Email sent successfully");
+     //console.log("Email sent successfully");
     }
    });
    
 
   transporter.sendMail(mailOptions, function (err, data) {
     if (err) {
-      console.log("Error " + err);
+     //console.log("Error " + err);
     } else {
-      console.log("Email sent successfully");
+     //console.log("Email sent successfully");
     }
    });
 

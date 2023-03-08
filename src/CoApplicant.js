@@ -9,7 +9,7 @@ import {
   Progress,
   Heading,
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 
 const CoApplicant = (props) => {
@@ -76,9 +76,7 @@ const CoApplicant = (props) => {
           </Center>
           <br />
        
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </div>
     </>
   );

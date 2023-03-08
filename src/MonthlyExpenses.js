@@ -6,7 +6,7 @@ import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Select, Progress, Center, Heading, Container, SimpleGrid, Text, 
   Button,NumberInput, NumberInputField } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import CurrencyInput from 'react-currency-input-field';
@@ -42,7 +42,7 @@ const MonthlyExpenses = (props) => {
         "existingCarLoan":data.existingCarLoan,
         "otherLoanPayments": data.otherLoans,
       } }
-    console.log(body)
+   //console.log(body)
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
       headers: headers,
     })
@@ -58,7 +58,7 @@ const MonthlyExpenses = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });   
     
@@ -286,10 +286,8 @@ const MonthlyExpenses = (props) => {
 
         <br />
         <Progress value={58} />
-        <Center>Personal Information 4 of 7</Center>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+        <Center>4 of 7</Center>
+
       </form>
       )}
       {!isAuthenticated && (

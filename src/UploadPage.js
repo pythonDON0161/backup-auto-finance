@@ -48,7 +48,7 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes, props}) => {
   
 
   const onClicker = () => {
-    console.log('INPUT VALUE: ', inputRef);
+   //console.log('INPUT VALUE: ', inputRef);
 }
 
 const { action, state } = useStateMachine(updateAction);
@@ -126,8 +126,8 @@ function sendEmail() {
   let totalIncome = parseInt(state.data.grossIncome + state.data.otherMonthlyIncome);
   //console.log(totalIncome)
 
-  //urlArr.forEach( url => console.log("in here",url) )
-  // vehArr.forEach(url => console.log(url) )
+  //urlArr.forEach( url =>//console.log("in here",url) )
+  // vehArr.forEach(url =>//console.log(url) )
   //console.log(vehArr)
  
   var templateParams = { 
@@ -178,25 +178,25 @@ function sendEmail() {
 
   //templateParams.push(urlArr)
   
-// console.log(templateParams)
+//console.log(templateParams)
 //console.log(csv)
 
 
   emailjs.send('service_f9v8pdk', 'template_3wiofi8' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
       .then(function(response) {
 
-        console.log('SUCCESS!', response.status, response.text);
+       console.log('SUCCESS!', response.status, response.text);
 
-      }, function(error) { console.log('FAILED...', error); });
+      }, function(error) {console.log('FAILED...', error); });
       
 
   //CUSTOMER EMAIL BELOW
 
   emailjs.send("service_f9v8pdk","template_wltw9za", templateParams, "PqN3ytZ-5Y1PJ4wPp"  )
       .then( function (response) {
-         console.log('SUCCESS!', response.status, response.text);
+        console.log('SUCCESS!', response.status, response.text);
          
-      }, function(error) { console.log('FAILED...', error); } );
+      }, function(error) {console.log('FAILED...', error); } );
 
       //template_wltw9z4
       
@@ -218,7 +218,7 @@ function sendEmail() {
 /*
   useEffect(() => {
     //const el2 = document.getElementById("tabs-6--tab-1")
-   // console.log(el2)
+   ////console.log(el2)
     //inputRefEle = el2   // 👈️ element here
   }, []);
 */
@@ -283,7 +283,7 @@ let mtHtml = `
     event.preventDefault();
  
     const el3 = document.getElementsByClassName("ftab")
-   // console.log(el3[0])
+   ////console.log(el3[0])
     inputRefEle = el3[0] 
     inputRefEle.click();
     let personalDocs = []
@@ -409,7 +409,7 @@ let mtHtml = `
           //console.log(vehArr) 
           vehArr.push(vehItems);
 
-     } console.log("final", vehArr) ; 
+     }//console.log("final", vehArr) ; 
      
       sendEmail() 
   

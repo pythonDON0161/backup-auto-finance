@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Input, Progress, Center, Heading, Select, Container, SimpleGrid, Text, Button } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./components/Header";
 
@@ -38,7 +38,7 @@ const Authorization = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });
     props.history.push("./preference");
@@ -51,8 +51,7 @@ const Authorization = (props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Authorization</Heading>
         <p className="declaration">
-          I hereby authorize ATL
-          Automotive to share my personal information submitted herein with the
+          I hereby authorize Deal Selecta JA to share my personal information submitted herein with the
           banks I have selected, for purposes of applying for an auto loan.
         </p>
         <label>
@@ -93,9 +92,7 @@ const Authorization = (props) => {
         <br />
         <Progress value={100} />
         <Center>Step 9 of 9</Center>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </form>
       )}
       {!isAuthenticated && (

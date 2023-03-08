@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
 import CurrencyInput from 'react-currency-input-field';
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from "./components/Sidebar";
@@ -66,7 +66,7 @@ const EmploymentDetails = (props) => {
   useEffect( () => {
       setValue("total", parseInt(grossIncome) +  parseInt(otherIncome) ) 
       //totalText = (parseInt(grossIncome) + parseInt(otherIncome)) 
-      console.log(finale + "finale")
+     //console.log(finale + "finale")
       //if( (grossIncome != "" && grossIncome != undefined) && (otherIncome !=""|| otherIncome !== undefined) )
       }, [grossIncome, otherIncome]
   );
@@ -116,7 +116,7 @@ const EmploymentDetails = (props) => {
           .then((addInfo) => addInfo.json())
           .then((json) => {
             // Do something with object
-            console.log(json.application);
+           //console.log(json.application);
           });
       });
       
@@ -125,7 +125,7 @@ const EmploymentDetails = (props) => {
       /*
     const watchStatus = watch("employmentStatus", state.data.employmentStatus);
 
-      console.log("im here" + watchStatus)
+     //console.log("im here" + watchStatus)
     if (watchStatus === "Self Employed") {
 
       props.history.push("./self-employed");
@@ -331,9 +331,7 @@ const EmploymentDetails = (props) => {
                 <br />
                 <Progress value={33} />
                 <Center>Step 3 of 9</Center>
-                <FeedbackFish projectId="01ebf0d6447158">
-                  <button className="feedback">Give us Feedback</button>
-                </FeedbackFish>
+                
               </form>
             )}
             {!isAuthenticated && (

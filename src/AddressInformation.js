@@ -6,7 +6,7 @@ import { DevTool } from 'little-state-machine-devtools';
 import updateAction from "./updateAction";
 import { Input, Progress, Center,Flex,Box,Spacer, Select, Heading, Container, SimpleGrid, Text, Button } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -26,7 +26,7 @@ const AddressInformation = (props) => {
   const step_form = step+1;
   const Form = ()=>{
     
-    console.log(step)
+   //console.log(step)
     if(step==0){
     
     return (
@@ -89,7 +89,7 @@ const AddressInformation = (props) => {
         <Heading>Address Information</Heading>
         
 
-        { console.log(step)}
+        {/*console.log(step)*/}
         <label>
          Street Name & Number:
           <Input
@@ -179,9 +179,7 @@ const AddressInformation = (props) => {
         <br />
         <Progress value={22} />
         <Center>Step 2 of 9</Center>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </form>
       )}
       {!isAuthenticated && (

@@ -22,7 +22,7 @@ app.use(cors());
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
-  console.log("it works!!")
+ //console.log("it works!!")
 });
 
 
@@ -44,20 +44,20 @@ app.get("/sendmail", (req, res) => {
   }; 
 
   res.json({ status: "Email sent" });
-  console.log(csv)
+ //console.log(csv)
   /*
     transporter.sendMail(mailOptions, function (err, data) {
       if (err) { res.json({ status: "fail",}); } 
-       else {  console.log("== Message Sent =="); console.log("it works!!")
+       else { //console.log("== Message Sent ==");//console.log("it works!!")
         res.json({
           status: "success",
         }); } })
   */
-      console.log("hello")
+     //console.log("hello")
 
 })
 
 
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+ //console.log(`Server listening on ${PORT}`);
 });

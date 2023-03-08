@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Progress, Text, Center } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 
 const ThankYou = (props) => {
@@ -41,9 +41,7 @@ const ThankYou = (props) => {
         <br />
         <Progress value={100} />
       </form>
-      <FeedbackFish projectId="01ebf0d6447158">
-        <button className="feedback">Give us Feedback</button>
-      </FeedbackFish>
+      
     </>
   );
 };

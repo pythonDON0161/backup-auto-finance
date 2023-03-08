@@ -13,7 +13,7 @@ import {
   Button,
   Heading,
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { parse } from "postcss";
 
@@ -40,7 +40,7 @@ const BorrowSummary = (props) => {
 
   // FUNCTION STARTS HERE
 
-  console.log( "Calc Term:" + state.data.calcTerm)  
+ //console.log( "Calc Term:" + state.data.calcTerm)  
 
   //console.log( "Calc Term:" + state.data.calcTerm)  
 
@@ -76,9 +76,9 @@ const BorrowSummary = (props) => {
 
     const estimatedPayment = getValues("estimatedPayment");
 
-    console.log("this is test variable", test)
+   //console.log("this is test variable", test)
 
-    console.log ( " This is Estimated Payment "+ estimatedPayment )
+   //console.log ( " This is Estimated Payment "+ estimatedPayment )
 
     //Create object estimatedExpenses and set the value
 
@@ -92,13 +92,13 @@ const BorrowSummary = (props) => {
 
     const estimatedExpenses = getValues("estimatedExpenses");
 
-    console.log("this is estimated expenses", estimatedExpenses)
+   //console.log("this is estimated expenses", estimatedExpenses)
 
     setValue( "ratio", estimatedExpenses / parseInt(state.data.totalMonthly, 10) );
 
    
     
-    console.log("this is ratio", state.data.ratio)
+   //console.log("this is ratio", state.data.ratio)
     
 
     //await new Promise((resolve, reject) => setTimeout(resolve, 100));
@@ -254,9 +254,7 @@ const BorrowSummary = (props) => {
 
           </Center>
           <br />
-          <FeedbackFish projectId="01ebf0d6447158">
-            <button className="feedback">Give us Feedback</button>
-          </FeedbackFish>
+          
         </form>
       )}
       {!isAuthenticated && (

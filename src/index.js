@@ -1,5 +1,6 @@
-import React from "react";
+import { useEffect } from 'react';
 import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { StateMachineProvider, createStore } from "little-state-machine";
@@ -44,7 +45,6 @@ import CreditReport from "./CreditReport";
 import DocumentUpload from "./DocumentUpload";
 import UploadSection from "./UploadPage";
 import SubmitApplication from "./SubmitApplication";
-
 import "./styles.css";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Authorization from "./Authorization";
@@ -57,6 +57,7 @@ import theme from './theme'
 import RequestQuotePrompt from "./RequestQuotePrompt";
 import 'react-app-protect/dist/index.css'
 import ExistingRelationships from "./ExistingRelationships";
+import './index.css';
 
 
 const onRedirectCallback = (appState) => {
@@ -122,8 +123,12 @@ createStore({
   });
 
 function App() {
+  useEffect(() => {
+    window.process = {
+      ...window.process,
+    };
+  }, []);
   return (
-    // the Protect tag takes the application password as a sha512 encrypted key, current password: Finance2022
    
     <Auth0Provider {...providerConfig}>
       <StateMachineProvider>
@@ -132,9 +137,7 @@ function App() {
           <Router>
             <Route exact path="/" component={LandingPage} />
             <Route path="/home" component={Home} />
-
             <Route path="/navigation" component={Navigation} />
-
             <Route path="/loan-calculator" component={Calculator} />
             <Route path="/request-quote" component={RequestQuotePrompt} />
             <Route path="/pre-qualification" component={PreQual} />
@@ -194,5 +197,6 @@ function App() {
   );
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<App />);

@@ -454,7 +454,7 @@ const PreQual = (props) => {
           </Center>
           <br />
           <Progress value={16} />
-          <Center>Pre-Qualification 1 of 7</Center>
+          <Center>1 of 7</Center>
           
         </form>
       )}

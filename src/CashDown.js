@@ -15,7 +15,7 @@ import {
   Button,
   Heading,
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import CurrencyInput from 'react-currency-input-field';
 
@@ -50,7 +50,7 @@ const CashDown = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });
 
@@ -83,7 +83,7 @@ const CashDown = (props) => {
           <>
           
           
-          { console.log(state.data.totalExpenses) }
+          {/*console.log(state.data.totalExpenses) */}
 
             <label htmlFor="price">
               Do you intend to make a cash down payment to reduce the amount you
@@ -147,10 +147,8 @@ const CashDown = (props) => {
 
           <br />
           <Progress value={77} />
-          <Center>Personal Information Step 6 of 7</Center>
-          <FeedbackFish projectId="01ebf0d6447158">
-            <button className="feedback">Give us Feedback</button>
-          </FeedbackFish>
+          <Center>6 of 7</Center>
+          
         </form>
       )}
       {!isAuthenticated && (

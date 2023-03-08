@@ -6,7 +6,7 @@ import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Select, Progress, Center, Heading, Container, SimpleGrid, Text, 
   Button,NumberInput, NumberInputField } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import CurrencyInput from 'react-currency-input-field';
@@ -42,7 +42,7 @@ const MonthlyExpenses = (props) => {
         "caExistingCarLoan":data.caExistingCarLoan,
         "caOtherLoanPayments": data.caOtherLoans,
       } }
-    console.log(body)
+   //console.log(body)
     fetch(`https://api.sheety.co/fac58a6ce39549d46ffe9b02f9d54437/bankTerms/applications?filter[emailAddress]=${user.email}`, {
       headers: headers,
     })
@@ -58,7 +58,7 @@ const MonthlyExpenses = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });   
   
@@ -139,7 +139,7 @@ const MonthlyExpenses = (props) => {
     tempTDSR = state.data.caTDSR //getValues("caTDSR")
 
     //console.log("tempTDSR",tempTDSR)
-    console.log("caTDSR", state.data.caTDSR)
+   //console.log("caTDSR", state.data.caTDSR)
    
    
     //console.log("finaltdsr", state.data.finalTDSR)
@@ -303,9 +303,7 @@ const MonthlyExpenses = (props) => {
         <br />
         <Progress value={100} />
         <Center>Co-Applicant Information 3 of 3</Center>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </form>
       )}
       {!isAuthenticated && (

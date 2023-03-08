@@ -10,7 +10,7 @@ import { Input, Progress, Center, Heading,
   Textarea,
   Select} from "@chakra-ui/react";
 import InputMask from "react-input-mask";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./components/Header";
 
@@ -48,7 +48,7 @@ const AdditionalInfo = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });
     props.history.push("./prompt-request");
@@ -58,7 +58,7 @@ const AdditionalInfo = (props) => {
   const choice = watch('opti')
   const choiceTwo = watch('optiTwo')
 
-  useEffect( () => { console.log (choice) }, [choice] )
+  useEffect( () => {/*console.log (choice)*/ }, [choice] )
 
   const history = useHistory();
 
@@ -184,9 +184,7 @@ const AdditionalInfo = (props) => {
         </div>
         <br />
        
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </form>
       )}
       {!isAuthenticated && (

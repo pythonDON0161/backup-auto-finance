@@ -111,8 +111,7 @@ function PrivacyPolicy() {
                       <p>
                         <strong>Company</strong> (referred to as either
                         &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot;
-                        or &quot;Our&quot; in this Agreement) refers to Auto
-                        Finance.
+                        or &quot;Our&quot; in this Agreement) refers to Deal Selecta JA.
                       </p>
                     </li>
                     <li>
@@ -176,7 +175,7 @@ function PrivacyPolicy() {
                     </li>
                     <li>
                       <p>
-                        <strong>Website</strong> refers to Auto Finance,
+                        <strong>Website</strong> refers to Deal Selecta JA,
                         accessible from{" "}
                         <a
                           href="https://auto-finance.vercel.app/"

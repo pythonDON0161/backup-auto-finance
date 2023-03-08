@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import raceCar from "./assets/raceCar.png";
 import { Container, SimpleGrid, Center, Button, Text } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { FeedbackFish } from "@feedback-fish/react";
 
 function Home() {
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
@@ -54,9 +53,7 @@ function Home() {
           </div>
         )}
       </SimpleGrid>
-      <FeedbackFish projectId="01ebf0d6447158">
-        <button className="feedback">Give us Feedback</button>
-      </FeedbackFish>
+      
     </Container>
   );
 }
