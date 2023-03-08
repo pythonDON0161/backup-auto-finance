@@ -24,7 +24,7 @@ import {
   ModalBody,
   ModalCloseButton, useDisclosure, Button
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme'
@@ -69,19 +69,19 @@ function Calculator(props) {
       year: "2023",
       deposit: 0,
       term: 10,
-      rate: 7.00,
+      rate: 7.50,
     },
     
     {
-      id: 1,
-      newOrUsed: "New",
-      year: "2022",
+      id: 2,
+      newOrUsed: "Used",
+      year: "2023",
       deposit: 0,
-      term: 10,
-      rate: 7.00,
+      term: 9.5,
+      rate: 7.25,
     },
     {
-      id: 4,
+      id: 3,
       newOrUsed: "Used",
       year: "2022",
       deposit: 0,
@@ -89,101 +89,69 @@ function Calculator(props) {
       rate: 7.25,
     },
     {
-      id: 3,
-      newOrUsed: "New",
+      id: 4,
+      newOrUsed: "Used",
       year: "2021",
-      deposit: 0,
-      term: 9,
-      rate: 7.75,
-    },
-    {
-      id: 2,
-      newOrUsed: "New",
-      year: "2020",
       deposit: 0,
       term: 8,
       rate: 8.00,
     },
-  
     {
       id: 5,
       newOrUsed: "Used",
-      year: "2021",
-      deposit: 0,
-      term: 9,
-      rate: 8.95,
-    },
-    {
-      id: 6,
-      newOrUsed: "Used",
       year: "2020",
-      deposit: 0,
-      term: 8,
-      rate: 8.00,
-    },
-    {
-      id: 7,
-      newOrUsed: "Used",
-      year: "2019",
       deposit: 0,
       term: 7,
       rate: 8.25,
     },
+  
     {
-      id: 8,
+      id: 6,
+      newOrUsed: "Used",
+      year: "2019",
+      deposit: 0,
+      term: 6,
+      rate: 8.50,
+    },
+    {
+      id: 7,
       newOrUsed: "Used",
       year: "2018",
       deposit: 0,
-      term: 6,
-      rate: 8.25,
+      term: 5,
+      rate: 8.75,
+    },
+    {
+      id: 8,
+      newOrUsed: "Used",
+      year: "2017",
+      deposit: 0,
+      term: 4,
+      rate: 8.75,
     },
     {
       id: 9,
       newOrUsed: "Used",
-      year: "2017",
+      year: "2016",
       deposit: 0,
-      term: 5,
-      rate: 8.25,
+      term: 4,
+      rate: 8.75,
     },
     {
       id: 10,
       newOrUsed: "Used",
-      year: "2016",
-      deposit: 0,
+      year: "2015",
+      deposit: 15,
       term: 4,
-      rate: 8.25,
+      rate: 10.00,
     },
     {
       id: 11,
-      newOrUsed: "Used",
-      year: "2015",
+      newOrUsed: "New",
+      year: "2024",
       deposit: 0,
-      term: 4,
-      rate: 8.25,
-    },
-    {
-      id: 12,
-      newOrUsed: "Used",
-      year: "2014",
-      deposit: 25,
-      term: 3,
-      rate: 9.75,
-    },
-    {
-      id: 14,
-      newOrUsed: "Used",
-      year: "2013",
-      deposit: 15,
-      term: 2.5,
-      rate: 8.5,
-    },
-    {
-      id: 13,
-      newOrUsed: "Used",
-      year: "2012",
-      deposit: 45,
-      term: 2,
-      rate: 12,
+      term: 10,
+      rate: 7.5,
     },
   ];
 
@@ -198,7 +166,7 @@ function Calculator(props) {
   async function handleEstimate() {
 
   register({ name: "estimatedPayment", type: "custom" });
-   console.log("this is first")
+  //console.log("this is first")
     setValue("estimatedPayment", calcData
     .filter( (term) => term.newOrUsed === state.data.carStatus && term.year === state.data.modelYear )
     .map((filteredTerm) => (Math.round(
@@ -453,13 +421,13 @@ function Calculator(props) {
   return (
   
     <div> 
-    <div class="">
+    <div className="">
 
       <div className="header-container">
      
       </div>
      
-      <div class="form-container"> 
+      <div className="form-container"> 
          <Header/>
     
       <form id="myform" onSubmit={handleSubmit(onSubmit)}>
@@ -535,7 +503,7 @@ function Calculator(props) {
           )}
           <Center>
           
-          <button type="submit" onClick={handleEstimate} class="centered-button" > 
+          <button type="submit" onClick={handleEstimate} className="centered-button" > 
               Save & Continue
           </button>
           
@@ -887,7 +855,7 @@ function Calculator(props) {
 
                   <div>
                     <Center>
-                    <button  class="centered-button"  onClick={handleEstimate2} > 
+                    <button  className="centered-button"  onClick={handleEstimate2} > 
                         Find Bank Deals
                     </button>
 
@@ -895,7 +863,7 @@ function Calculator(props) {
                     <Center> 
 
                       <Link to="/"> 
-                        <button  id="exit-btn" class="centered-button">
+                        <button  id="exit-btn" className="centered-button">
                               Home
                         </button>
                       </Link>
@@ -913,9 +881,7 @@ function Calculator(props) {
         )}
       </form>
       </div>
-      <FeedbackFish projectId="01ebf0d6447158">
-        <button className="feedback">Give us Feedback</button>
-      </FeedbackFish>
+      
     </div>
     </div>
    

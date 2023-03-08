@@ -17,10 +17,8 @@ import {
   NumberInput,
   NumberInputField
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
-import PDFDOC from "./components/PDFMAKE";
-import { PDFDownloadLink,PDFViewer,PDFRenderer } from "@react-pdf/renderer";
 import CurrencyInput from 'react-currency-input-field';
 
 const TradeIn = (props) => {
@@ -66,7 +64,7 @@ const TradeIn = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
       
     });
    // setcarVals()
@@ -76,7 +74,7 @@ const TradeIn = (props) => {
 
     if(watchTradeIn  ==="No"){ 
       state.data.totalExpenses = parseInt(state.data.totalExpenses,10) + parseInt( state.data.existingCarLoan,10);
-       console.log("This is test expenses" + " "+state.data.totalExpenses)
+      //console.log("This is test expenses" + " "+state.data.totalExpenses)
      
       props.history.push("./cash-down")
     }
@@ -124,7 +122,7 @@ const TradeIn = (props) => {
 
       state.data.towardsPurchase = 0
 
-      console.log(state.data.tradeIn)
+     //console.log(state.data.tradeIn)
       
     }
      
@@ -132,7 +130,7 @@ const TradeIn = (props) => {
   },[watchTradeIn] )
 
 
-  console.log(watchTradeIn)
+ //console.log(watchTradeIn)
   return (
     <>
       <Header />
@@ -259,10 +257,8 @@ const TradeIn = (props) => {
 
           <br />
           <Progress value={63} />
-          <Center>Personal Information 5 of 7</Center>
-          <FeedbackFish projectId="01ebf0d6447158">
-            <button className="feedback">Give us Feedback</button>
-          </FeedbackFish>
+          <Center>5 of 7</Center>
+          
         </form>
       )
     }

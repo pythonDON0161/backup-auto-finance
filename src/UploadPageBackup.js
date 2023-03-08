@@ -54,7 +54,7 @@ export const FileUpload = ({name, placeholder, acceptedFileTypes,props}) => {
   let inputRefTwe = HTMLInputElement | null;
 
   const onClicker = () => {
-    console.log('INPUT VALUE: ', inputRef);
+   //console.log('INPUT VALUE: ', inputRef);
 }
 
 const { action, state } = useStateMachine(updateAction);
@@ -77,7 +77,7 @@ const onSubmitOne = (data,event) => {
       let i = 1 //start at 1 to avoid firstName key
       personalDocs.forEach( (file,) =>{
       storageRef.child( ` ${data.firstName}/${keyNames[i]}/${file[0].name} `)
-       .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
+       .put(file[0]).then( () => {//console.log( "this is " +i+" "+ "uploaded a file") })
        i++
      } )
   } */
@@ -87,7 +87,7 @@ const onSubmitOne = (data,event) => {
 
 function sendEmail() {
 
-  console.log("im in here")
+ //console.log("im in here")
 
   var templateParams = {
     email: state.data.email, 
@@ -105,9 +105,9 @@ function sendEmail() {
  
   emailjs.send('auto_finance', 'template_3wiofi8', templateParams, 'PqN3ytZ-5Y1PJ4wPp')
       .then(function(response) {
-        console.log('SUCCESS!', response.status, response.text);
+       //console.log('SUCCESS!', response.status, response.text);
       }, function(error) {
-        console.log('FAILED...', error);
+       //console.log('FAILED...', error);
       });
 
     }
@@ -128,10 +128,10 @@ function sendEmail() {
 
 /*
 for(let i=0; i<3;i++){
-         console.log( keyNames[i] )
+        //console.log( keyNames[i] )
          //console.log( personalDocs[i])
         let link = (` ${state.data.firstName}/personal/${keyNames[i]}/${personalDocs[i][0].name} `);
-        console.log(link);
+       //console.log(link);
   }  } */
     
    for(let i=0; i<3;i++){
@@ -163,7 +163,7 @@ for(let i=0; i<3;i++){
        
       } }
 
-       // console.log(urlArr)
+       ////console.log(urlArr)
       
 
   const onSubmitTwo = (data,event) => {
@@ -171,10 +171,10 @@ for(let i=0; i<3;i++){
    // sendEmail()
    
     inputRefTwe.click()
-    console.log(data)
+   //console.log(data)
     let financialDocs = []
     financialDocs.push(data.slipOne,data.slipTwo,data.slipThree, data.jobLetter)
-    console.log(financialDocs)
+   //console.log(financialDocs)
     const storageRef = storage;
     var keyNames =['slipOne,slipTwo,slipThree,jobLetter']
     
@@ -183,7 +183,7 @@ for(let i=0; i<3;i++){
         let i = 0 //start at 1 to avoid firstName key
         financialDocs.forEach( (file,) =>{
         storageRef.child( ` ${state.data.firstName}/financial/${keyNames[i]}/${file[0].name} `)
-         .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
+         .put(file[0]).then( () => {//console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
     }
@@ -210,7 +210,7 @@ for(let i=0; i<3;i++){
         let i = 1 //start at 1 to avoid firstName key
         vehicleDocs.forEach( (file,) =>{
         storageRef.child( ` ${state.data.firstName}/${keyNames[i]}/${file[0].name} `)
-         .put(file[0]).then( () => { console.log( "this is " +i+" "+ "uploaded a file") })
+         .put(file[0]).then( () => {//console.log( "this is " +i+" "+ "uploaded a file") })
          i++
        } )
     } */
@@ -494,7 +494,7 @@ for(let i=0; i<3;i++){
 
                         <Checkbox name="permission">
 
-                          I confirm that I have read and agree to allow Auto Finance to apply for a credit report on my behalf.
+                          I confirm that I have read and agree to allow Deal Selecta JA to apply for a credit report on my behalf.
 
                         </Checkbox>
 

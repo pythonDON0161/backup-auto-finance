@@ -13,7 +13,7 @@ import {Progress,Select,Center,
   Input,
   Spinner
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import CurrencyInput from 'react-currency-input-field';
 import Sidebar from "./components/Sidebar"
@@ -189,7 +189,7 @@ const PreQual = (props) => {
   function initialEstimate() {
 
     //console.log("inside initial Estimate")
-    console.log("inside initial estimate")
+   //console.log("inside initial estimate")
    
       register({ name: "estimatedPayment" });
       setValue("estimatedPayment", 
@@ -270,15 +270,15 @@ const PreQual = (props) => {
 
     await setCarPrice()
 
-    console.log("in handle estimate");
+   //console.log("in handle estimate");
     //console.log(price);
     //console.log(state.data.price)
     /*
     if ( !state.data.estimatedPayment || isNaN(state.data.estimatedPayment) ) {
 
-      console.log()
+     //console.log()
 
-      console.log("estimated payment not defined or Nan");
+     //console.log("estimated payment not defined or Nan");
 
         register({ name: "estimatedPayment" });
         setValue("estimatedPayment", 
@@ -335,7 +335,7 @@ const PreQual = (props) => {
           /*
           if( state.data.estimatedPayment ){
             
-            console.log("in here", calcData.filter( (term) => term.newOrUsed === carStatus && term.year === modelYear
+           //console.log("in here", calcData.filter( (term) => term.newOrUsed === carStatus && term.year === modelYear
                   )
                   .map((filteredTerm) => (Math.round(
                   (( price - price * (filteredTerm.deposit / 100)) *
@@ -345,9 +345,9 @@ const PreQual = (props) => {
 
         if ( state.data.estimatedPayment ) { 
 
-          console.log("payment defined", state.data.estimatedPayment );
-          console.log("price", price);
-          console.log("car status", state.data.carStatus)
+         //console.log("payment defined", state.data.estimatedPayment );
+         //console.log("price", price);
+         //console.log("car status", state.data.carStatus)
           
           register({ name: "estimatedPayment" });
           setValue("estimatedPayment", 
@@ -399,7 +399,7 @@ const PreQual = (props) => {
           /*Correct way to do this is call estimate function and wait for return value before go to next page */
 
         if(state.data.estimatedPayment > 0 ) {
-          console.log("final est", state.data.estimatedPayment)
+         //console.log("final est", state.data.estimatedPayment)
             
           props.history.push("./applicant-details"); 
         
@@ -410,7 +410,7 @@ const PreQual = (props) => {
         /*
         if ( state.data.estimatedPayment.length == "undefined" || state.data.estimatedPayment.length == 0 ) 
         
-          { console.log( "empty array" ); initialEstimate(); } 
+          {//console.log( "empty array" ); initialEstimate(); } 
           
           else {
           //  props.history.push("./applicant-details");
@@ -452,12 +452,12 @@ const PreQual = (props) => {
         .then((response) => response.json())
         .then(json => {
           // Do something with object
-          console.log(json.application);
+         //console.log(json.application);
         });
       }
     });
     
-    console.log("in submit function")
+   //console.log("in submit function")
   
 
   };
@@ -584,10 +584,8 @@ const PreQual = (props) => {
       
           <br />
           <Progress value={14} />
-          <Center>Personal Information Step 1 of 7</Center>
-          <FeedbackFish projectId="01ebf0d6447158">
-            <button className="feedback">Give us Feedback</button>
-          </FeedbackFish>
+          <Center>1 of 7</Center>
+          
         </form>
 
       )}

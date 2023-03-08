@@ -3,10 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   style: {
     postcss: {
-      plugins: {
-        tailwindcss: {},
-        autoprefixer: {},
-      }
+      plugins: [require("tailwindcss")("./tailwind.config.js")],
     },
   },
   webpack: {

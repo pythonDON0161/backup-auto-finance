@@ -8,10 +8,10 @@ import amber from "./assets/amber.png";
 import red from "./assets/red.png";
 import { Link } from "react-router-dom";
 import ConfettiGenerator from "confetti-js";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
-import PDFDOC from "./components/PDFMAKE";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+
+
 
 
 
@@ -27,7 +27,7 @@ const Result2 = (props) => {
   var employmentRisk;
   //Single applicant's Total Debt Service Ratio
   var tdsr = state.data.estimatedExpenses / state.data.totalMonthly ;
- // console.log(state.data.estimatedExpenses.toString())
+ ////console.log(state.data.estimatedExpenses.toString())
 
   // Handles employment risk
 
@@ -70,7 +70,7 @@ var singleTDSR = state.data.ratio
     const confetti = new ConfettiGenerator(confettiSettings);
       // Show confetti if the following criteria are met
     // TDSR is calculated by estimatedExpenses divided by total monthly income
-   // console.log("Employment Risks"+ "" + ""+ state.data.workExperience,state.data.probationaryPeriod,state.data.outOfWork)
+   ////console.log("Employment Risks"+ "" + ""+ state.data.workExperience,state.data.probationaryPeriod,state.data.outOfWork)
 
     if(state.data.estimatedExpenses / state.data.totalMonthly < 0.4 && state.data.employmentStatus !== "Student" && 
     state.data.employmentStatus !== "Retired" && employmentRisk !== "yes" && state.data.creditGrade !== "Below Average" 
@@ -141,7 +141,7 @@ var singleTDSR = state.data.ratio
           <div>
             <Heading>Congratulations!</Heading>
             <p>
-              Based on the information provided, ATL Auto believes that a car
+              Based on the information provided, Deal Selecta JA believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -178,7 +178,7 @@ var singleTDSR = state.data.ratio
           employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
             <div>
               <p>
-                Based on the information provided, ATL Auto believes that a car
+                Based on the information provided, Deal Selecta JA believes that a car
                 loan application for{" "}
                 <strong>
                   ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -256,7 +256,7 @@ var singleTDSR = state.data.ratio
           <div>
               
             <p>
-              Based on the information provided, ATL Auto believes that a car
+              Based on the information provided, Deal Selecta JA believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -326,9 +326,7 @@ var singleTDSR = state.data.ratio
           </Center>
         )} */}
        
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </div>
     </>
   );

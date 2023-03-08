@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Select, Progress, Center, Heading, Container, SimpleGrid, Text, Button, Input} from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from "./components/Sidebar"
@@ -52,7 +52,7 @@ const EmploymentDetails = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });
     if (watchStatus === "Self Employed") {
@@ -75,7 +75,7 @@ const EmploymentDetails = (props) => {
   }
 
   const addSum = () => {
-    console.log("hi")
+   //console.log("hi")
     const sum = parseInt(num1) + parseInt(num2);
     setSum(sum);
   };
@@ -104,7 +104,7 @@ const EmploymentDetails = (props) => {
       />
     );
   };
-  console.log(state.data.firstName)
+ //console.log(state.data.firstName)
   const watchStatus = watch("employmentStatus", state.data.employmentStatus);
 
   return (
@@ -159,7 +159,7 @@ const EmploymentDetails = (props) => {
         <Controller
               name="otherMonthly"
               control={control}
-              onBlur={ console.log("test2") }
+              onBlur={//console.log("test2") }
               
               render={( onBlur, onChange, value ) => (
               <Input
@@ -183,7 +183,7 @@ const EmploymentDetails = (props) => {
             </label> */ }
          
          <Text>
-          { console.log(sum) }
+          {//console.log(sum) }
          </Text>
         
         <Center>
@@ -197,9 +197,7 @@ const EmploymentDetails = (props) => {
         <br />
         <Progress value={33} />
         <Center>Step 3 of 9</Center>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </form>
       )}
       {!isAuthenticated && (

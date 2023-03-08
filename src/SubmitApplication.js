@@ -9,7 +9,7 @@ import {
   Progress,
   Heading,Text
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { FiFile } from "react-icons/fi";
 import emailjs from '@emailjs/browser';
@@ -186,9 +186,7 @@ function sendEmail() {
   
           <br />
        
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </div>
     </>
   );

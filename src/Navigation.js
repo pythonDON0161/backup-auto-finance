@@ -6,7 +6,7 @@ import updateAction from "./updateAction";
 import {
   SimpleGrid,Center,Progress,Heading,Text,Spacer,Flex ,
   List,ListItem,ListIcon,OrderedList,UnorderedList,HStack,Button} from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import {FiMenu,FiHome,FiCalendar,FiUsers,FiDollarSign,FiBriefcase,FiUser,FiSettings
 } from 'react-icons/fi'
@@ -160,9 +160,7 @@ const Navigation = (props) => {
 
           <br />
        
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </div>
     </>
   );

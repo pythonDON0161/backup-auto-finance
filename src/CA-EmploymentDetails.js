@@ -14,7 +14,7 @@ import {Select,Progress,Center,Heading,Container,SimpleGrid,
 } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
 import CurrencyInput from 'react-currency-input-field';
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from "./components/Sidebar";
@@ -95,12 +95,12 @@ const EmploymentDetails = (props) => {
           .then((addInfo) => addInfo.json())
           .then((json) => {
             // Do something with object
-            console.log(json.application);
+           //console.log(json.application);
           });
       });
      // handleTotal()
        props.history.push("./ca-monthly-expenses");
-      console.log( state.data.caOtherMonthly , state.data.caGrossMonthly )
+     //console.log( state.data.caOtherMonthly , state.data.caGrossMonthly )
         
     };
     
@@ -273,9 +273,7 @@ const EmploymentDetails = (props) => {
                 <br />
                 <Progress value={66} />
                 <Center>Co-Applicant Information 2 of 3</Center>
-                <FeedbackFish projectId="01ebf0d6447158">
-                  <button className="feedback">Give us Feedback</button>
-                </FeedbackFish>
+                
 
              </form>
 

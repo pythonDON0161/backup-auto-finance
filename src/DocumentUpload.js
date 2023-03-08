@@ -12,7 +12,7 @@ import {  Grid, ListItem,
   Text, Button, UnorderedList} from "@chakra-ui/react";
 import updateAction from "./updateAction";
 
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
 

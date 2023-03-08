@@ -185,13 +185,6 @@ label {
 
 }
 
-.feedback {
-  position: fixed;
-  bottom: 2vh;
-  right: 2vw;
-  text-decoration: underline;
-}
-
 .homeLogo {
   position: fixed;
   top: 0;

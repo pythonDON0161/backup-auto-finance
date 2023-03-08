@@ -8,10 +8,10 @@ import amber from "./assets/amber.png";
 import red from "./assets/red.png";
 import { Link } from "react-router-dom";
 import ConfettiGenerator from "confetti-js";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
-import PDFDOC from "./components/PDFMAKE";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+
+
 
 
 var employmentRisk;
@@ -63,7 +63,7 @@ if( caTDSR > 0 ){
 
   tdsr = combinedTDSR;
 
-  console.log("Combined TDSR", combinedTDSR)
+ //console.log("Combined TDSR", combinedTDSR)
  
   //console.log("This is FINAL TDSR", state.data.finalTDSR)
 
@@ -120,7 +120,7 @@ if( caTDSR > 0 ){
          <div>
             <Heading>Congratulations!</Heading>
             <p>
-              Based on the information provided, ATL Auto believes that a car
+              Based on the information provided, Deal Selecta JA believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -159,7 +159,7 @@ if( caTDSR > 0 ){
           <>
                      <div>
               <p>
-                Based on the information provided, ATL Auto believes that a car
+                Based on the information provided, Deal Selecta JA believes that a car
                 loan application for{" "}
                 <strong>
                   ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -265,7 +265,7 @@ if( caTDSR > 0 ){
           <div>
             <Heading>Congratulations!</Heading>
             <p>
-              Based on the information provided, ATL Auto believes that a car
+              Based on the information provided, Deal Selecta JA believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -305,7 +305,7 @@ if( caTDSR > 0 ){
           employmentRisk === "yes" || state.data.creditGrade === "Below Average" || state.data.creditGrade === "Overseas" || state.data.creditGrade === "No Credit") ?
             <div>
               <p>
-                Based on the information provided, ATL Auto believes that a car
+                Based on the information provided, Deal Selecta JA believes that a car
                 loan application for{" "}
                 <strong>
                   ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -373,7 +373,7 @@ if( caTDSR > 0 ){
           <div>
               
             <p>
-              Based on the information provided, ATL Auto believes that a car
+              Based on the information provided, Deal Selecta JA believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -455,9 +455,7 @@ if( caTDSR > 0 ){
           </Center>
         )} */}
        
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </div>
     </>
   );

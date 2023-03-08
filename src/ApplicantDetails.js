@@ -5,11 +5,11 @@ import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
 import { Input, Progress, Center, Heading, Container, SimpleGrid, Text, Button } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import { useAuth0 } from "@auth0/auth0-react";
-import PDFDOC from "./components/PDFMAKE";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+
+
 import Sidebar from "./components/Sidebar"
 
 const ApplicantDetails = (props) => {
@@ -46,7 +46,7 @@ const ApplicantDetails = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });
     props.history.push("./employment-details");
@@ -166,10 +166,8 @@ const ApplicantDetails = (props) => {
         </Center>
         <br />
         <Progress value={28} />
-        <Center>Pre-Qualification 2 of 7</Center>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+        <Center>2 of 7</Center>
+
       </form>
       )}
       {!isAuthenticated && (

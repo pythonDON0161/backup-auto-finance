@@ -135,7 +135,7 @@ import {
 } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import updateAction from "./updateAction";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import "./styles.css";
 import { CgAttachment } from "react-icons/cg";

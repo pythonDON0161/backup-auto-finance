@@ -16,7 +16,7 @@ import {
   NumberInput,
   NumberInputField
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import CurrencyInput from 'react-currency-input-field';
 
@@ -49,7 +49,7 @@ const TradeIn2 = (props) => {
     .then((addInfo) => addInfo.json())
     .then(json => {
       // Do something with object
-      console.log(json.application);
+     //console.log(json.application);
     });
     });
     props.history.push("./cash-down");
@@ -152,10 +152,8 @@ const TradeIn2 = (props) => {
           </Center>
           <br />
           <Progress value={66} />
-          <Center>Personal Information Step 5 of 7</Center>
-          <FeedbackFish projectId="01ebf0d6447158">
-            <button className="feedback">Give us Feedback</button>
-          </FeedbackFish>
+          <Center>Step 5 of 7</Center>
+          
         </form>
       )}
       {!isAuthenticated && (

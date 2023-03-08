@@ -16,7 +16,7 @@
     register({name: "totalBorrowAmount", type:"custom"});
     setValue("totalBorrowAmount", finalee)
      const  totalBorrowAmount = await getValues("totalBorrowAmount");
-    console.log("testing" + "$" + totalBorrowAmount);
+   //console.log("testing" + "$" + totalBorrowAmount);
 
 
 
@@ -29,7 +29,7 @@
           state.data.calcTerm
         ))));
     const finalee = monthlyPayment * 120; 
-    console.log("finalee"+ " "+ finalee)
+   //console.log("finalee"+ " "+ finalee)
       {/* Estimated amount customer will pay in interest  */}
       Total Loan Interest :{" "} 
       <strong>

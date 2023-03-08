@@ -9,7 +9,7 @@ import {
   Progress,
   Heading,
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 
 const CreditReport = (props) => {
@@ -28,7 +28,7 @@ const CreditReport = (props) => {
             <p className="prompt-text">
             You can select either of the links below to access your credit report – from CreditInfo Jamaica or CRIF.
              <br/>
-             Each of the links below will take you to an external website. You may sign back into Auto Finance Wizard once you completed your request to either CreditInfo or CRIF]
+             Each of the links below will take you to an external website. You may sign back into the Deal Selecta JA - Auto Loan Wizard once you completed your request to either CreditInfo or CRIF]
 
             </p>
           </Center>
@@ -53,9 +53,7 @@ const CreditReport = (props) => {
 
           <br />
         </SimpleGrid>
-        <FeedbackFish projectId="01ebf0d6447158">
-          <button className="feedback">Give us Feedback</button>
-        </FeedbackFish>
+
       </div>
     </>
   );

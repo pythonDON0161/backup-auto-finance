@@ -12,7 +12,8 @@ import amber from "./assets/amber.png";
 import red from "./assets/red.png";
 import { Link, useHistory } from "react-router-dom";
 import ConfettiGenerator from "confetti-js";
-import { FeedbackFish } from "@feedback-fish/react";
+import { Buffer } from 'buffer';
+
 import Header from "./components/Header";
 
 //email packages
@@ -126,9 +127,9 @@ function sendEmail() {
     emailjs.send('service_f9v8pdk', 'template_08gvmnj' ,templateParams, 'PqN3ytZ-5Y1PJ4wPp',{ cusdata: finalCsv } )
     .then(function(response) {
 
-      console.log('SUCCESS!', response.status, response.text);
+     //console.log('SUCCESS!', response.status, response.text);
 
-    }, function(error) { console.log('FAILED...', error); });
+    }, function(error) {console.log('FAILED...', error); });
 
   }
 
@@ -150,11 +151,11 @@ var singleTDSR = state.data.ratio
     (state.data.totalMonthly + state.data.caTotalMonthly)
   //setValue("finalTDSR", caTDSR)
 
-  console.log("this is caIncome" + state.data.caTotalMonthly )
+ //console.log("this is caIncome" + state.data.caTotalMonthly )
 
 if( caIncome > 0 ){
   tdsr = combinedTDSR2;
-  console.log("Combined TDSR", combinedTDSR)
+ //console.log("Combined TDSR", combinedTDSR)
   //console.log("This is FINAL TDSR", state.data.finalTDSR)
 } else{ tdsr = singleTDSR  }
 
@@ -207,7 +208,7 @@ if( caIncome > 0 ){
 
   }
   
-  console.log(currentAge)
+ //console.log(currentAge)
  
 
   sendEmail() // send email to customer
@@ -228,7 +229,7 @@ if( caIncome > 0 ){
          <div>
             <Heading>Congratulations!</Heading>
             <p>
-              Based on the information provided, Loan Selecta believes that a car
+              Based on the information provided, Deal Selecta JA believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -256,20 +257,20 @@ if( caIncome > 0 ){
               <button onClick={finalTDSR} className="submit-button">Bank Selection</button>
             </Link>
           </Center>
-          <div className="TDSR">
+          {/* <div className="TDSR">
           
-    <p>For Internal Use Only</p>
+              <p>For Internal Use Only</p>
 
-     <p> <strong> xxx:<large>{state.data.estimatedPayment}</large> </strong> </p>
-     <p> <strong> Axx:  <large>{singleTDSR}</large> </strong> </p>
-     <p>  <strong> Cxx: {caTDSR.toFixed(2)} </strong>  </p>
-     <p>  <strong> Txx: {combinedTDSR2.toFixed(2)} </strong>  </p>
-      <p> <strong>  {"yyy:" + state.data.calcRate} </strong> </p>
-      <p> <strong>  {"zzz:"+ state.data.calcTerm}</strong></p>
-    <br/>
-    <br/>
+              <p> <strong> xxx:<large>{state.data.estimatedPayment}</large> </strong> </p>
+              <p> <strong> Axx:  <large>{singleTDSR}</large> </strong> </p>
+              <p>  <strong> Cxx: {caTDSR.toFixed(2)} </strong>  </p>
+              <p>  <strong> Txx: {combinedTDSR2.toFixed(2)} </strong>  </p>
+                <p> <strong>  {"yyy:" + state.data.calcRate} </strong> </p>
+                <p> <strong>  {"zzz:"+ state.data.calcTerm}</strong></p>
+              <br/>
+              <br/>
 
-</div>
+          </div> */}
           </div>
         
         </>
@@ -281,7 +282,7 @@ if( caIncome > 0 ){
           <>
             <div>
               <p>
-                Based on the information provided, Loan Selecta believes that a car
+                Based on the information provided, Deal Selecta JA believes that a car
                 loan application for{" "}
                 <strong>
                   ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -367,7 +368,7 @@ if( caIncome > 0 ){
 
         <div>
             <p>
-              Based on the information provided, Loan Selecta believes that a car
+              Based on the information provided, Deal Selecta JA believes that a car
               loan application for{" "}
               <strong>
                 ${Math.round(state.data.totalBorrow).toLocaleString("en")}
@@ -428,7 +429,7 @@ if( caIncome > 0 ){
                 <br/>
 
                 We suggest you speak to your banker to discuss your options. 
-                 You may also email us at autofinancejamaica@gmail.com if you have any questions
+                 You may also email us at admin@dealselectaja.com if you have any questions
               </GridItem>
             </Grid>
             <br />
@@ -446,7 +447,7 @@ if( caIncome > 0 ){
                 <button className="submit-button">Home/Amend Application</button>
               </Link>
             </Center>
-            <div className="TDSR">
+            {/* <div className="TDSR">
               <p>For Internal Use Only</p>
               <p> <strong> xxx:<large>{state.data.estimatedPayment}</large> </strong> </p>
               <p> <strong> Axx:  <large>{singleTDSR}</large> </strong> </p>
@@ -457,7 +458,7 @@ if( caIncome > 0 ){
                   <br/>
                   <br/>
 
-            </div>
+            </div> */}
             </div>
             </>
             ) 
