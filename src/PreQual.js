@@ -16,7 +16,7 @@ import {
   Heading,
   Input
 } from "@chakra-ui/react";
-import { FeedbackFish } from "@feedback-fish/react";
+
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar"
 
@@ -40,12 +40,27 @@ const PreQual = (props) => {
     {
       id: 1,
       newOrUsed: "New",
+      year: "2024",
+      deposit: 0,
+      term: 120,
+      rate: 7.50,
+    },
+    {
+      id: 1,
+      newOrUsed: "New",
       year: "2023",
       deposit: 0,
       term: 120,
-      rate: 7.00,
+      rate: 7.50,
     },
-    
+    {
+      id: 1,
+      newOrUsed: "Used",
+      year: "2023",
+      deposit: 0,
+      term: 114,
+      rate: 7.25,
+    },
     {
       id: 1,
       newOrUsed: "New",
@@ -165,9 +180,9 @@ const PreQual = (props) => {
   let getPrice = getValues("price");
 
   function getData(val) { 
-    console.log("in get Data");
+   //console.log("in get Data");
     setInPrice( val.target.value.replaceAll(/[^0-9]/gi, "").replace(/^\$/, "").replaceAll(",", "") ) ;
-    console.log("this is inPrice",inPrice)
+   //console.log("this is inPrice",inPrice)
 
   }
 
@@ -219,11 +234,11 @@ const PreQual = (props) => {
 
   function handleEstimate() {
 
-    console.log("this is inPrice", inPrice);
+   //console.log("this is inPrice", inPrice);
       
     if( isNaN (modelYear) ) { modelYear = mYear} 
 
-         // console.log (state.data.estimatedPayment, state.data.price, carStatus, modelYear, mYear)
+         //console.log (state.data.estimatedPayment, state.data.price, carStatus, modelYear, mYear)
           
           state.data.estimatedPayment = calcData
           .filter(
@@ -270,7 +285,7 @@ const PreQual = (props) => {
           )
           .map((filteredTerm) => filteredTerm.deposit - 0)
       
-          console.log(state.data.estimatedPayment, state.data.price, carStatus, modelYear, mYear)
+         //console.log(state.data.estimatedPayment, state.data.price, carStatus, modelYear, mYear)
           
         //await new Promise((resolve, reject) => setTimeout(resolve, 100));
         //props.history.push("./applicant-details");
@@ -314,7 +329,7 @@ const PreQual = (props) => {
             body: JSON.stringify(body)
           })
         .then((response) => response.json())
-        .then(json => { console.log(json.application); }); }
+        .then(json => {console.log(json.application); }); }
     });
 
     
@@ -439,9 +454,7 @@ const PreQual = (props) => {
           <br />
           <Progress value={16} />
           <Center>Step 1 of 7</Center>
-          <FeedbackFish projectId="01ebf0d6447158">
-            <button className="feedback">Give us Feedback</button>
-          </FeedbackFish>
+          
         </form>
       )}
       {!isAuthenticated && (
