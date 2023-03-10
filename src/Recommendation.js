@@ -63,7 +63,7 @@ function Recommendation(props) {
  ////console.log( parseInt(state.data.cashDown) );
  //console.log( "Towards Purchase from trade in"+parseInt(state.data.towardsPurchase) );
 
- let totalDown = parseInt(state.data.cashDown) ||0 + parseInt(state.data.towardsPurchase)|| 0
+ let totalDown = parseInt(state.data.cashDown) + parseInt(state.data.towardsPurchase)|| 0
  console.log(totalDown)
 
   async function fetchTDSR(data) {
