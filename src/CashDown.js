@@ -102,8 +102,9 @@ const CashDown = (props) => {
               <Controller
                 name="ow"
                 control={control}
+                rules={{ required: true,  message: 'error'}}
                 defaultValue={state.data.cashDown}
-                rules={{ min: 0 }}
+                
                 render={({ onChange, value }) => {
                   return (
                     <CurrencyInput

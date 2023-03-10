@@ -63,6 +63,9 @@ function Recommendation(props) {
  ////console.log( parseInt(state.data.cashDown) );
  //console.log( "Towards Purchase from trade in"+parseInt(state.data.towardsPurchase) );
 
+ let totalDown = parseInt(state.data.cashDown) ||0 + parseInt(state.data.towardsPurchase)|| 0
+ console.log(totalDown)
+
   async function fetchTDSR(data) {
     setIsLoading(true);
     const response = await fetch(
@@ -281,13 +284,9 @@ function Recommendation(props) {
                   <td>
                     
               ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                ( Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) > state.data.cashDown 
-                  || Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) > parseInt(state.data.towardsPurchase) )
-                      ?
-                    // show deposit or cashdown
-                  Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
-                      Math.round(state.data.cashDown) > parseInt(state.data.towardsPurchase) ?  
-                         Math.round(state.data.cashDown).toLocaleString("en") : parseInt(state.data.towardsPurchase).toLocaleString("en")
+                ( Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) > totalDown.toLocaleString()
+                   )
+                      ?  Math.round( (state.data.bankPayments[0].deposit * state.data.price * 100 ) / 100) : totalDown.toLocaleString()
                     } 
 
                   </td>
@@ -309,15 +308,11 @@ function Recommendation(props) {
                   <td>{state.data.bankPayments[1].thisBank.toUpperCase()}</td>
                   
                   <td>
-                    ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) > state.data.cashDown 
-                            || Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) > parseInt(state.data.towardsPurchase)
-                            ) ?
-
-                            Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
-                            Math.round(state.data.cashDown) > parseInt(state.data.towardsPurchase) ?  
-                               Math.round(state.data.cashDown).toLocaleString("en") : parseInt(state.data.towardsPurchase).toLocaleString("en")
-                    }
+                      ${  /* If calculated downpayment greater than cashDown then show cashDown */
+                    ( Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) > totalDown.toLocaleString()
+                      )
+                          ?  Math.round( (state.data.bankPayments[1].deposit * state.data.price * 100 ) / 100) : totalDown.toLocaleString()
+                        } 
                     </td>
                     
                   <td>${ state.data.bankPayments[1].loanAmount.toLocaleString()}</td>
@@ -337,12 +332,10 @@ function Recommendation(props) {
 
                     <td>
                     ${  /* If calculated downpayment greater than cashDown then show cashDown */
-                      ( Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100) > state.data.cashDown || parseInt(state.data.towardsPurchase) ) ?
-
-                      Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100).toLocaleString("en") :
-                      Math.round(state.data.cashDown) > parseInt(state.data.towardsPurchase) ?  
-                         Math.round(state.data.cashDown).toLocaleString("en") : parseInt(state.data.towardsPurchase).toLocaleString("en")
-                    }
+                    ( Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100) > totalDown.toLocaleString()
+                        )
+                       ?  Math.round( (state.data.bankPayments[2].deposit * state.data.price * 100 ) / 100) : totalDown.toLocaleString()
+                    } 
                     </td>
 
 
