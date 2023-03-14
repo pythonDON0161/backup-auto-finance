@@ -1,3 +1,4 @@
+import React from "react";
 import "tailwindcss/tailwind.css";
 import { Link } from "react-router-dom";
 import highway from "./assets/highway.jpg";
