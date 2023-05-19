@@ -18,5 +18,12 @@ module.exports = {
             })
         ]
     }
-  }
-};
+  },
+  babel: {
+    plugins: [],
+  },
+}
+
+if (process.env.NODE_ENV === "development") {
+  module.exports.babel.plugins.push("react-refresh/babel");
+}
