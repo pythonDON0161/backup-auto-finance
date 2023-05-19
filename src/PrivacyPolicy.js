@@ -66,22 +66,19 @@ function PrivacyPolicy() {
                   Privacy Policy
                 </h2>
                 <h3 className="mt-6 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                At our automobile financing web application, we are committed to protecting your privacy. We understand that you trust us with your personal information and we take that responsibility seriously.
-                <br />
-                <br />
-                When you use our platform, we may collect certain information about you, such as your name, email address, and other details related to your car financing needs. We use this information solely to provide you with the best financing options available and to improve our platform. We do not share your information with third-party companies or individuals unless required by law.
-                <br />
-                <br />
-                We may also use cookies to collect data about your browsing activity on our platform. This helps us improve our services and tailor our platform to better meet your needs.
-                <br />
-                <br />
-                We implement a variety of security measures to protect your personal information, both online and offline. Our platform is hosted on secure servers and all data is transmitted using SSL encryption.
-                <br />
-                <br />
-                By using our automobile financing web application, you consent to the terms of this privacy policy. We reserve the right to modify this policy at any time. Any changes will be posted on this page and will be effective immediately upon posting.
-                <br />
-                <br />
-                If you have any questions or concerns about our privacy policy, please do not hesitate to contact us at: <br /> <strong>admin@dealselectaja.com</strong>
+                <p>At Deal Selecta JA, our automobile financing web application, we prioritize the protection of your privacy. We understand that you trust us with your personal information and we take this responsibility seriously.</p>
+  
+                <p>When you use Deal Selecta JA, we may collect specific information about you, such as your name, email address, and other details relevant to your car financing needs. Rest assured, we solely utilize this information to provide you with the best financing options and enhance our platform. We never share your information with third-party companies or individuals, unless required by law.</p>
+                
+                <p>To improve our services and tailor the platform to your needs, we may employ cookies to gather data on your browsing activity within Deal Selecta JA.</p>
+                
+                <p>We implement a variety of security measures to safeguard your personal information, both online and offline. Our platform is hosted on secure servers and all data transmission occurs through SSL encryption.</p>
+                
+                <p>By using Deal Selecta JA, you consent to the terms outlined in this privacy policy. Please note that we reserve the right to modify this policy at any time. Any updates will be promptly posted on this page and will take immediate effect.</p>
+                
+                <p>If you have any inquiries or concerns regarding our privacy policy, please don't hesitate to contact us at:</p>
+                
+                <p><a href="mailto:admin@dealselectaja.com">admin@dealselectaja.com</a></p>
                 </h3>
               </div>
             </main>
