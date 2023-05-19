@@ -59,7 +59,7 @@
     "deploy": "gh-pages -d build",
     "dev": "concurrently \"react-scripts start\" \"npm run server\"",
     "server": "cd backend & nodemon server.js",
-    "build": "craco build",
+    "build": "NODE_ENV=production craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
