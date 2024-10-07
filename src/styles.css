@@ -137,7 +137,7 @@ label {
 }
 
 .centered-button {
-  background: #e65323;
+  background: #e65323!important;
   color: white;
   border: none;
   border-radius: 5px;
@@ -154,7 +154,7 @@ label {
 }
 
 .submit-button {
-  background: #e65323;
+  background: #e65323!important;
   color: white;
   border: none;
   border-radius: 5px;
@@ -170,7 +170,7 @@ label {
 
 .nav-button{
 
-  background: #e65323;
+  background: #e65323!important;
   color: white;
   border: none;
   border-radius: 5px;
@@ -193,7 +193,7 @@ label {
 }
 
 .inline-button {
-  background: #e65323;
+  background: #e65323!important;
   color: white;
   border: none;
   border-radius: 5px;
@@ -211,7 +211,7 @@ label {
 
 
 .wide-button{
-  background: #e65323;
+  background: #e65323!important;
   color: white;
   border: none;
   
@@ -229,7 +229,7 @@ label {
 }
 
 .uploadBtn{
-  background: #e65323;
+  background: #e65323!important;
   color: white;
   border: none;
   border-radius: 5px;
@@ -406,7 +406,7 @@ input::placeholder {
 
 input[type=file]::file-selector-button {
   height: 2.5rem;
-  background: #e65323;
+  background: #e65323!important;
   color:white;
   border: none;
   border-radius: 3px;
